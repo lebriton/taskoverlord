@@ -83,15 +83,15 @@ export default function TasksTable({ tasks }) {
   });
 
   return (
-    <table className="w-full table-auto text-left text-neutral-800">
-      <thead className="text-neutral-400">
+    <table className="w-full table-auto text-left text-sm text-neutral-800">
+      <thead className="text-xs text-neutral-400">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
                 scope="col"
-                className="border px-6 py-1 font-semibold"
+                className="border px-2 py-1 font-semibold"
               >
                 {header.isPlaceholder
                   ? null
@@ -108,7 +108,7 @@ export default function TasksTable({ tasks }) {
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id} className="hover:bg-teal-50">
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="border px-6 py-1">
+              <td key={cell.id} className="border px-2 py-1">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
