@@ -22,7 +22,7 @@ export default function HeaderBar() {
 
   return (
     <div className="px-5">
-      <ul className="-mb-px flex flex-wrap justify-center gap-2 text-center text-sm">
+      <ul className="-mb-px flex flex-wrap justify-center gap-3 text-center text-sm">
         {links.map((link) => {
           // TODO:
           let isActive = link.label == "Table View";
@@ -32,7 +32,7 @@ export default function HeaderBar() {
               <Link
                 to={link.url}
                 className={classNames(
-                  "group flex items-center border-b-2 border-transparent p-3",
+                  "group flex items-center border-b-2 border-transparent py-3",
                   isActive && "!border-orange-400 font-semibold",
                 )}
               >
