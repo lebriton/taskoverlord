@@ -5,6 +5,7 @@ import {
   ViewColumnsIcon,
   Bars3BottomRightIcon,
   FunnelIcon,
+  CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 import {
   ArrowPathIcon,
@@ -50,6 +51,7 @@ function RootComponent() {
       Icon: Bars3BottomRightIcon,
       shortcut: "g",
     },
+    { label: "Calendar", url: "/", Icon: CalendarDaysIcon, shortcut: "c" },
   ];
 
   const queryClient = useQueryClient();
