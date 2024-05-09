@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 export default function Card({ className, children }) {
   return (
-    <div className={`overflow-clip rounded-lg border bg-white ${className}`}>
+    <div className={`overflow-clip rounded-md border bg-white ${className}`}>
       {children}
     </div>
   );
