@@ -10,13 +10,13 @@ import Shortcut from "../atoms/Shortcut";
 
 export default function HeaderBar() {
   const links = [
-    { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "1" },
-    { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "2" },
+    { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
+    { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "k" },
     {
       label: "Gantt Diagram",
       url: "/",
       Icon: Bars3BottomRightIcon,
-      shortcut: "3",
+      shortcut: "g",
     },
   ];
 
