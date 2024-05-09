@@ -4,6 +4,34 @@ use std::process::Command;
 
 use crate::shell::check_output;
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Task {
+    // TODO: check types
+    // TODO: NaiveDateTime should be UTC?
+    pub description: String,
+    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
+    pub entry: NaiveDateTime,
+    pub id: u32,
+    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
+    pub modified: NaiveDateTime,
+    pub project: Option<String>,
+    pub status: String,
+    pub tags: Option<Vec<String>>,
+    pub urgency: f32,
+    pub uuid: String,
+    #[serde(
+        default,
+        deserialize_with = "deserialize_optional_taskwarrior_datetime"
+    )]
+    pub wait: Option<NaiveDateTime>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TaskwarriorInfo {
+    pub binary_path: String,
+    pub version: String,
+}
+
 // TODO: refactor to avoid code duplication
 fn deserialize_taskwarrior_datetime<'de, D>(deserializer: D) -> Result<NaiveDateTime, D::Error>
 where
@@ -35,34 +63,15 @@ where
     Ok(None)
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Task {
-    // TODO: check types
-    // TODO: NaiveDateTime should be UTC?
-    pub description: String,
-    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
-    pub entry: NaiveDateTime,
-    pub id: u32,
-    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
-    pub modified: NaiveDateTime,
-    pub project: Option<String>,
-    pub status: String,
-    pub tags: Option<Vec<String>>,
-    pub urgency: f32,
-    pub uuid: String,
-    #[serde(
-        default,
-        deserialize_with = "deserialize_optional_taskwarrior_datetime"
-    )]
-    pub wait: Option<NaiveDateTime>,
-}
-
 pub fn get_all_tasks() -> anyhow::Result<Vec<Task>> {
-    let mut command = Command::new("task");
-    command.arg("export");
-
-    let output = check_output(&mut command)?;
-
+    let output = check_output(Command::new("task").arg("export"))?;
     let tasks = serde_json::from_str(&output)?;
     Ok(tasks)
+}
+
+pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
+    Ok(TaskwarriorInfo {
+        binary_path: check_output(Command::new("which").arg("task"))?,
+        version: check_output(Command::new("task").arg("--version"))?,
+    })
 }

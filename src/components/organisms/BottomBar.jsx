@@ -1,3 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
+import { invoke } from "@tauri-apps/api/tauri";
+
 function Button({ children }) {
   return (
     <button
@@ -10,11 +13,23 @@ function Button({ children }) {
 }
 
 export default function BottomBar() {
+  const taskwarriorVersionQuery = useQuery({
+    queryKey: ["taskwarrior", "info"],
+    // TODO: handle errors
+    queryFn: async () => await invoke("get_taskwarrior_info"),
+    initialData: "unknown",
+  });
+
   return (
     <div className="flex h-6 w-full gap-1.5 border-t bg-neutral-50 px-1.5 text-xs leading-6">
-      <Button>main*</Button>
-      <Button>rust-analyzer</Button>
-      <Button>-- INSERT --</Button>
+      <Button>taskwarrior {taskwarriorVersionQuery.data.version}</Button>
+      <Button>{taskwarriorVersionQuery.data.binary_path}</Button>
+
+      <div className="flex-1" />
+
+      {/* TODO: onClick: show CHANGELOG */}
+      {/* TODO: get the version from somewhere */}
+      <Button>v0.1.0</Button>
     </div>
   );
 }
