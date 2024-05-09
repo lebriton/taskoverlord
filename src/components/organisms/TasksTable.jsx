@@ -51,7 +51,11 @@ const columns = [
   }),
   columnHelper.accessor("urgency", {
     header: () => <IconLabel Icon={FireIcon} label="Urgency" />,
-    cell: (info) => info.getValue(),
+    // display the float with at most 1 decimal place
+    cell: (info) => parseFloat(info.getValue().toFixed(1)),
+    meta: {
+      align: "right",
+    },
   }),
 ];
 
@@ -121,7 +125,11 @@ export default function TasksTable({ tasks }) {
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id} className="hover:bg-teal-50">
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="border px-2 py-1">
+              <td
+                key={cell.id}
+                align={cell.column.columnDef.meta?.align}
+                className="border px-2 py-1"
+              >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
