@@ -22,7 +22,7 @@ export default function HeaderBar() {
 
   return (
     <div className="px-5">
-      <ul className="-mb-px flex flex-wrap justify-center gap-3 text-center text-sm">
+      <ul className="-mb-px flex flex-wrap justify-center gap-3 text-center text-sm text-neutral-800">
         {links.map((link) => {
           // TODO:
           let isActive = link.label == "Table View";
