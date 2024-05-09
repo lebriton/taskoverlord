@@ -79,11 +79,9 @@ function RootComponent() {
           }
         />
 
-        <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-          <CardBody>
-            <Outlet />
-          </CardBody>
-        </Card>
+        <div className="mx-3 mb-3 flex-1 overflow-scroll">
+          <Outlet />
+        </div>
 
         {showTaskDetails && (
           <TaskDetails onClose={() => setShowTaskDetails(false)} />
