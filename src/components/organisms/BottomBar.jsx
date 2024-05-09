@@ -23,13 +23,13 @@ export default function BottomBar() {
   return (
     <div className="flex h-6 w-full gap-1.5 border-t bg-neutral-50 px-1.5 text-xs leading-6">
       <Button>taskwarrior {taskwarriorVersionQuery.data.version}</Button>
-      <Button>{taskwarriorVersionQuery.data.binary_path}</Button>
+      <Button>binary: {taskwarriorVersionQuery.data.binary_path}</Button>
 
       <div className="flex-1" />
 
       {/* TODO: onClick: show CHANGELOG */}
       {/* TODO: get the version from somewhere */}
-      <Button>v0.1.0</Button>
+      <Button>Taskoverlord v0.1.0</Button>
     </div>
   );
 }

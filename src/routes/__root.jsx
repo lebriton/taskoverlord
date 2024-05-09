@@ -4,7 +4,13 @@ import {
   TableCellsIcon,
   ViewColumnsIcon,
   Bars3BottomRightIcon,
+  FunnelIcon,
 } from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  XMarkIcon,
+} from "@heroicons/react/20/solid";
 import NavigationTabs from "../components/organisms/NavigationTabs";
 import { getRealTaskStatus } from "../utils";
 import { useQuery } from "@tanstack/react-query";
@@ -13,8 +19,7 @@ import Badge, { BadgeList } from "../components/atoms/Badge";
 import Heading3 from "../components/molecules/Heading3";
 import FlexLine from "../components/templates/FlexLine";
 import Button from "../components/atoms/Button";
-import { FunnelIcon } from "@heroicons/react/24/outline";
-import Card, { CardBody } from "../components/molecules/Card";
+import Card, { CardHeader, CardBody } from "../components/molecules/Card";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -79,11 +84,8 @@ function RootComponent() {
             <Outlet />
           </CardBody>
         </Card>
-        {showTaskDetails && (
-          <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-            <CardBody>placeholder - task details</CardBody>
-          </Card>
-        )}
+
+        {showTaskDetails && <TaskDetails />}
 
         <BottomBar />
       </div>
@@ -109,5 +111,22 @@ function CountTasksByStatus({ tasks }) {
         <Badge text={count["completed"]} variant="green" />
       )}
     </BadgeList>
+  );
+}
+
+// TODO: move to own file?
+function TaskDetails() {
+  return (
+    <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+      <CardHeader>
+        <div className="flex gap-2">
+          <Button Icon={ChevronLeftIcon} />
+          <Button Icon={ChevronRightIcon} />
+          <div className="flex-1" />
+          <Button Icon={XMarkIcon} variant="no-outline" />
+        </div>
+      </CardHeader>
+      <CardBody>placeholder - task details</CardBody>
+    </Card>
   );
 }
