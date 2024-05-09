@@ -162,9 +162,10 @@ export default function TasksTable({ tasks }) {
           <tr
             key={row.id}
             className={classNames(
-              "odd:bg-white even:bg-neutral-50 hover:bg-teal-50",
+              "hover:bg-teal-50",
               // TODO: refactor into a more generic approach
-              row.original.status == "completed" && "text-neutral-400",
+              row.original.status == "completed" &&
+                "bg-neutral-50 text-neutral-400",
             )}
           >
             {row.getVisibleCells().map((cell) => (
