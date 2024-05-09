@@ -44,11 +44,15 @@ const columns = [
     },
     meta: {
       align: "center",
+      className: "whitespace-nowrap",
     },
   }),
   columnHelper.accessor("project", {
     header: () => <IconLabel Icon={FolderIcon} label="Project" />,
     cell: (info) => info.getValue() || "-",
+    meta: {
+      className: "whitespace-nowrap",
+    },
   }),
   columnHelper.accessor("status", {
     header: () => <IconLabel Icon={CheckCircleIcon} label="Status" />,
@@ -74,6 +78,9 @@ const columns = [
 
       return <Badge text={status} variant={variant} Icon={Icon} />;
     },
+    meta: {
+      className: "whitespace-nowrap",
+    },
   }),
   columnHelper.accessor("description", {
     header: () => <IconLabel Icon={Bars3BottomLeftIcon} label="Description" />,
@@ -84,6 +91,9 @@ const columns = [
     cell: (info) => {
       // XXX: + "Z" as a hack to force UTC (for now)
       return timeAgo.format(new Date(info.getValue() + "Z"));
+    },
+    meta: {
+      className: "whitespace-nowrap",
     },
   }),
   columnHelper.accessor("tags", {
@@ -113,6 +123,7 @@ const columns = [
     cell: (info) => parseFloat(info.getValue().toFixed(1)),
     meta: {
       align: "right",
+      className: "whitespace-nowrap",
     },
   }),
 ];
@@ -160,7 +171,10 @@ export default function TasksTable({ tasks }) {
               <td
                 key={cell.id}
                 align={cell.column.columnDef.meta?.align}
-                className="border px-2 py-1"
+                className={classNames(
+                  "border px-2 py-1",
+                  cell.column.columnDef.meta?.className,
+                )}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
