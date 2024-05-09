@@ -27,7 +27,17 @@ const columnHelper = createColumnHelper();
 const columns = [
   columnHelper.accessor("id", {
     header: () => <IconLabel Icon={IdentificationIcon} label="ID" />,
-    cell: (info) => info.getValue() || "-",
+    cell: (info) => {
+      let id = info.getValue();
+      if (id === 0) {
+        return "-";
+      }
+
+      return <span className="font-semibold">{id}</span>;
+    },
+    meta: {
+      align: "center",
+    },
   }),
   columnHelper.accessor("project", {
     header: () => <IconLabel Icon={FolderIcon} label="Project" />,
@@ -35,7 +45,26 @@ const columns = [
   }),
   columnHelper.accessor("status", {
     header: () => <IconLabel Icon={CheckCircleIcon} label="Status" />,
-    cell: (info) => renderStatus(info),
+    cell: (info) => {
+      let status = info.getValue();
+      let wait = info.row.original.wait;
+
+      let variant, Icon;
+      if (status == "completed") {
+        variant = "green";
+        Icon = CheckIcon;
+      } else if (wait) {
+        variant = "indigo";
+        Icon = HandRaisedIcon;
+        status = "waiting";
+      } else {
+        // status = "pending"
+        variant = "yellow";
+        Icon = ClockIcon;
+      }
+
+      return <Badge text={status} variant={variant} Icon={Icon} />;
+    },
   }),
   columnHelper.accessor("description", {
     header: () => <IconLabel Icon={Bars3BottomLeftIcon} label="Description" />,
@@ -47,7 +76,17 @@ const columns = [
   }),
   columnHelper.accessor("tags", {
     header: () => <IconLabel Icon={TagIcon} label="Tags" />,
-    cell: (info) => renderTags(info.getValue(), "-"),
+    cell: (info) => {
+      let tags = info.getValue();
+      if (!tags) return "-";
+
+      return tags.map((tag) => (
+        <Badge
+          text={tag}
+          color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
+        />
+      ));
+    },
   }),
   columnHelper.accessor("urgency", {
     header: () => <IconLabel Icon={FireIcon} label="Urgency" />,
@@ -59,39 +98,6 @@ const columns = [
   }),
 ];
 
-function renderStatus(info) {
-  let status = info.getValue();
-  let wait = info.row.original.wait;
-
-  let variant, Icon;
-  if (status == "completed") {
-    variant = "green";
-    Icon = CheckIcon;
-  } else if (wait) {
-    variant = "indigo";
-    Icon = HandRaisedIcon;
-    status = "waiting";
-  } else {
-    // status = "pending"
-    variant = "yellow";
-    Icon = ClockIcon;
-  }
-
-  return <Badge text={status} variant={variant} Icon={Icon} />;
-}
-
-function renderTags(tags, fallback) {
-  if (!tags) {
-    return fallback;
-  }
-  return tags.map((tag) => (
-    <Badge
-      text={tag}
-      color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
-    />
-  ));
-}
-
 export default function TasksTable({ tasks }) {
   const table = useReactTable({
     data: tasks,
@@ -100,8 +106,8 @@ export default function TasksTable({ tasks }) {
   });
 
   return (
-    <table className="w-full table-auto text-left text-sm text-neutral-800">
-      <thead className="text-xs text-neutral-400">
+    <table className="w-full table-auto text-left text-sm text-neutral-700">
+      <thead className="bg-neutral-100 text-neutral-500">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
@@ -123,7 +129,10 @@ export default function TasksTable({ tasks }) {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} className="hover:bg-teal-50">
+          <tr
+            key={row.id}
+            className="odd:bg-white even:bg-neutral-50 hover:bg-teal-50"
+          >
             {row.getVisibleCells().map((cell) => (
               <td
                 key={cell.id}
