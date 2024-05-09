@@ -1,7 +1,13 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import TasksTable from "../components/organisms/TasksTable";
+import { getRealTaskStatus } from "../utils";
 import { useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
+import Heading3 from "../components/molecules/Heading3";
+import FlexLine from "../components/templates/FlexLine";
+import Button from "../components/atoms/Button";
+import { FunnelIcon } from "@heroicons/react/24/outline";
+import Badge, { BadgeList } from "../components/atoms/Badge";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -15,5 +21,37 @@ function Index() {
     initialData: [],
   });
 
-  return <TasksTable tasks={tasksQuery.data}></TasksTable>;
+  return (
+    <>
+      <FlexLine
+        className="my-1"
+        left={<Heading3 title="Tasks" badgeText={tasksQuery.data.length} />}
+        right={
+          <>
+            <CountTasksByStatus tasks={tasksQuery.data} />
+            <Button label="Filter" Icon={FunnelIcon} />
+          </>
+        }
+      />
+      <TasksTable tasks={tasksQuery.data}></TasksTable>;
+    </>
+  );
+}
+
+function CountTasksByStatus({ tasks }) {
+  const count = {};
+  tasks.forEach((task) => {
+    let status = getRealTaskStatus(task);
+    count[status] = (count[status] || 0) + 1;
+  });
+
+  return (
+    <BadgeList className={"me-3"}>
+      {count["pending"] && <Badge text={count["pending"]} variant="yellow" />}
+      {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
+      {count["completed"] && (
+        <Badge text={count["completed"]} variant="green" />
+      )}
+    </BadgeList>
+  );
 }

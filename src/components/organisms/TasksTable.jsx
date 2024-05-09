@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import TimeAgo from "javascript-time-ago";
+import { getRealTaskStatus } from "../../utils";
 import {
   createColumnHelper,
   flexRender,
@@ -22,7 +23,7 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline";
 import IconLabel from "../atoms/IconLabel";
-import Badge from "../atoms/Badge";
+import Badge, { BadgeList } from "../atoms/Badge";
 import en from "javascript-time-ago/locale/en";
 TimeAgo.addDefaultLocale(en);
 
@@ -52,21 +53,23 @@ const columns = [
   columnHelper.accessor("status", {
     header: () => <IconLabel Icon={CheckCircleIcon} label="Status" />,
     cell: (info) => {
-      let status = info.getValue();
-      let wait = info.row.original.wait;
+      let task = info.row.original;
+      let status = getRealTaskStatus(task);
 
       let variant, Icon;
-      if (status == "completed") {
-        variant = "green";
-        Icon = CheckIcon;
-      } else if (wait) {
-        variant = "indigo";
-        Icon = HandRaisedIcon;
-        status = "waiting";
-      } else {
-        // status = "pending"
-        variant = "yellow";
-        Icon = ClockIcon;
+      switch (status) {
+        case "completed":
+          variant = "green";
+          Icon = CheckIcon;
+          break;
+        case "pending":
+          variant = "yellow";
+          Icon = ClockIcon;
+          break;
+        case "waiting":
+          variant = "indigo";
+          Icon = HandRaisedIcon;
+          break;
       }
 
       return <Badge text={status} variant={variant} Icon={Icon} />;
@@ -89,12 +92,19 @@ const columns = [
       let tags = info.getValue();
       if (!tags) return "-";
 
-      return tags.map((tag) => (
-        <Badge
-          text={tag}
-          color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
-        />
-      ));
+      return (
+        <BadgeList>
+          {tags.map((tag) => (
+            <Badge
+              key={tag}
+              text={tag}
+              color={
+                uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color
+              }
+            />
+          ))}{" "}
+        </BadgeList>
+      );
     },
   }),
   columnHelper.accessor("urgency", {
@@ -116,7 +126,7 @@ export default function TasksTable({ tasks }) {
 
   return (
     <table className="w-full table-auto text-left text-sm text-neutral-700">
-      <thead className="bg-neutral-100 text-neutral-500">
+      <thead className="bg-neutral-100 text-xs text-neutral-500">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
