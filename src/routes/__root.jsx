@@ -7,6 +7,7 @@ import {
   FunnelIcon,
 } from "@heroicons/react/24/outline";
 import {
+  ArrowPathIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
@@ -58,7 +59,10 @@ function RootComponent() {
           className="z-50 gap-6 px-3"
           left={
             <div className="flex items-center justify-between gap-3">
-              <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
+              <div className="flex items-center justify-end gap-3">
+                <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
+                <Button Icon={ArrowPathIcon} variant="no-outline" />
+              </div>
               <CountTasksByStatus tasks={tasksQuery.data} />
             </div>
           }
