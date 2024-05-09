@@ -43,7 +43,6 @@ const columns = [
       return <span className="font-semibold">{id}</span>;
     },
     meta: {
-      align: "center",
       className: "whitespace-nowrap",
     },
   }),
