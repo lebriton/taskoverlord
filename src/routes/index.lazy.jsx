@@ -8,6 +8,7 @@ import FlexLine from "../components/templates/FlexLine";
 import Button from "../components/atoms/Button";
 import { FunnelIcon } from "@heroicons/react/24/outline";
 import Badge, { BadgeList } from "../components/atoms/Badge";
+import Card, { CardBody } from "../components/molecules/Card";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -22,19 +23,23 @@ function Index() {
   });
 
   return (
-    <>
-      <FlexLine
-        className="my-1"
-        left={<Heading3 title="Tasks" badgeText={tasksQuery.data.length} />}
-        right={
-          <>
-            <CountTasksByStatus tasks={tasksQuery.data} />
-            <Button label="Filter" Icon={FunnelIcon} />
-          </>
-        }
-      />
-      <TasksTable tasks={tasksQuery.data}></TasksTable>;
-    </>
+    <div className="px-5">
+      <Card>
+        <CardBody>
+          <FlexLine
+            className="mb-2"
+            left={<Heading3 title="Tasks" badgeText={tasksQuery.data.length} />}
+            right={
+              <>
+                <CountTasksByStatus tasks={tasksQuery.data} />
+                <Button label="Filter" Icon={FunnelIcon} />
+              </>
+            }
+          />
+          <TasksTable tasks={tasksQuery.data}></TasksTable>;
+        </CardBody>
+      </Card>
+    </div>
   );
 }
 

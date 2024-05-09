@@ -1,2 +1,3 @@
 pnpm-lock.yaml
 src-tauri/*
+src/routeTree.gen.ts
