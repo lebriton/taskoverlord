@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {
   createColumnHelper,
   flexRender,
@@ -131,7 +132,11 @@ export default function TasksTable({ tasks }) {
         {table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            className="odd:bg-white even:bg-neutral-50 hover:bg-teal-50"
+            className={classNames(
+            "odd:bg-white even:bg-neutral-50 hover:bg-teal-50",
+            // TODO: refactor into a more generic approach
+            row.original.status == "completed" && "text-neutral-400",
+            )}
           >
             {row.getVisibleCells().map((cell) => (
               <td
