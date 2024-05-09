@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
-import Badge from "../atoms/Badge";
 import Shortcut from "../atoms/Shortcut";
 
 export default function HeaderBar() {
@@ -21,7 +20,7 @@ export default function HeaderBar() {
   ];
 
   return (
-    <div className="px-5">
+    <div className="z-10 -mb-12 px-5">
       <ul className="-mb-px flex flex-wrap justify-center gap-3 text-center text-sm text-neutral-800">
         {links.map((link) => {
           // TODO:

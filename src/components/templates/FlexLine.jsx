@@ -1,13 +1,13 @@
 import classNames from "classnames";
 
-// TODO: find a better component name
-export default function FlexLine({ className, left, right }) {
+export default function FlexLine({ className, left, middle, right }) {
   return (
     <div
       className={classNames("flex items-baseline justify-between", className)}
     >
-      <div>{left}</div>
-      <div>{right}</div>
+      <div className="ms-auto flex-1 text-start">{left}</div>
+      <div>{middle}</div>
+      <div className="me-auto flex-1 text-end">{right}</div>
     </div>
   );
 }
