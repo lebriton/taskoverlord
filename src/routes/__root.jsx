@@ -31,21 +31,6 @@ function RootComponent() {
     initialData: [],
   });
 
-  return (
-    <>
-      <div className="flex h-screen w-screen flex-col overflow-hidden">
-        <div className="flex-1 p-3">
-          <Main tasksQuery={tasksQuery} />
-        </div>
-        <BottomBar />
-      </div>
-      <TanStackRouterDevtools position="bottom-right" />
-      <ReactQueryDevtools buttonPosition="bottom-right" />
-    </>
-  );
-}
-
-function Main({ tasksQuery }) {
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
     { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "k" },
@@ -58,27 +43,35 @@ function Main({ tasksQuery }) {
   ];
 
   return (
-    <Card className="h-full">
-      <CardBody>
+    <>
+      <div className="flex h-screen w-screen flex-col overflow-hidden">
         <FlexLine
+          className="z-50 gap-6 px-3"
           left={
-            <Heading3
-              className="mb-2"
-              title="Tasks"
-              badgeText={tasksQuery.data.length}
-            />
-          }
-          middle={<NavigationTabs className="-mt-4" links={links} />}
-          right={
-            <div className="mb-2">
+            <div className="flex items-center justify-between gap-3">
+              <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
               <CountTasksByStatus tasks={tasksQuery.data} />
-              <Button label="Filter" Icon={FunnelIcon} />
             </div>
           }
+          middle={<NavigationTabs links={links} />}
+          right={<Button label="Filter" Icon={FunnelIcon} />}
         />
-        <Outlet />
-      </CardBody>
-    </Card>
+
+        <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+          <CardBody>
+            <Outlet />
+          </CardBody>
+        </Card>
+        <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+          <CardBody>placeholder - task details</CardBody>
+        </Card>
+
+        <BottomBar />
+      </div>
+
+      <TanStackRouterDevtools position="bottom-right" />
+      <ReactQueryDevtools buttonPosition="bottom-right" />
+    </>
   );
 }
 
@@ -90,7 +83,7 @@ function CountTasksByStatus({ tasks }) {
   });
 
   return (
-    <BadgeList className={"me-3"}>
+    <BadgeList>
       {count["pending"] && <Badge text={count["pending"]} variant="yellow" />}
       {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
       {count["completed"] && (

@@ -23,7 +23,7 @@ export default function NavigationTabs({ className, links }) {
                 isActive && "!border-orange-400 font-semibold",
               )}
             >
-              <span className="inline-flex items-center justify-center rounded p-1 group-hover:bg-neutral-50">
+              <span className="inline-flex items-center justify-center rounded p-1 group-hover:bg-neutral-100">
                 <link.Icon
                   className={classNames("me-2 h-4 w-4 text-neutral-500")}
                 />

@@ -173,7 +173,7 @@ export default function TasksTable({ tasks }) {
                   key={cell.id}
                   align={cell.column.columnDef.meta?.align}
                   className={classNames(
-                    "px-2 py-1",
+                    "bg-white px-2 py-1",
                     cell.column.columnDef.meta?.className,
                   )}
                 >
