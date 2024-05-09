@@ -1,4 +1,5 @@
-import classNames from 'classnames';
+import classNames from "classnames";
+import TimeAgo from "javascript-time-ago";
 import {
   createColumnHelper,
   flexRender,
@@ -22,6 +23,10 @@ import {
 } from "@heroicons/react/24/outline";
 import IconLabel from "../atoms/IconLabel";
 import Badge from "../atoms/Badge";
+import en from "javascript-time-ago/locale/en";
+TimeAgo.addDefaultLocale(en);
+
+const timeAgo = new TimeAgo("en-US");
 
 const columnHelper = createColumnHelper();
 
@@ -73,7 +78,10 @@ const columns = [
   }),
   columnHelper.accessor("modified", {
     header: () => <IconLabel Icon={CalendarIcon} label="Modified" />,
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      // XXX: + "Z" as a hack to force UTC (for now)
+      return timeAgo.format(new Date(info.getValue() + "Z"));
+    },
   }),
   columnHelper.accessor("tags", {
     header: () => <IconLabel Icon={TagIcon} label="Tags" />,
@@ -133,9 +141,9 @@ export default function TasksTable({ tasks }) {
           <tr
             key={row.id}
             className={classNames(
-            "odd:bg-white even:bg-neutral-50 hover:bg-teal-50",
-            // TODO: refactor into a more generic approach
-            row.original.status == "completed" && "text-neutral-400",
+              "odd:bg-white even:bg-neutral-50 hover:bg-teal-50",
+              // TODO: refactor into a more generic approach
+              row.original.status == "completed" && "text-neutral-400",
             )}
           >
             {row.getVisibleCells().map((cell) => (
