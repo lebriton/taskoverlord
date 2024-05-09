@@ -85,7 +85,9 @@ function RootComponent() {
           </CardBody>
         </Card>
 
-        {showTaskDetails && <TaskDetails />}
+        {showTaskDetails && (
+          <TaskDetails onClose={() => setShowTaskDetails(false)} />
+        )}
 
         <BottomBar />
       </div>
@@ -115,7 +117,7 @@ function CountTasksByStatus({ tasks }) {
 }
 
 // TODO: move to own file?
-function TaskDetails() {
+function TaskDetails({ onClose }) {
   return (
     <Card className="mx-3 mb-3 flex-1 overflow-scroll">
       <CardHeader>
@@ -123,7 +125,7 @@ function TaskDetails() {
           <Button Icon={ChevronLeftIcon} />
           <Button Icon={ChevronRightIcon} />
           <div className="flex-1" />
-          <Button Icon={XMarkIcon} variant="no-outline" />
+          <Button Icon={XMarkIcon} variant="no-outline" onClick={onClose} />
         </div>
       </CardHeader>
       <CardBody>placeholder - task details</CardBody>

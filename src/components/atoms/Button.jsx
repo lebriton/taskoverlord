@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export default function Button({ label, variant = "default", Icon }) {
+export default function Button({ label, variant = "default", Icon, onClick }) {
   return (
     <button
       type="button"
@@ -14,6 +14,7 @@ export default function Button({ label, variant = "default", Icon }) {
 
         label && "px-2.5",
       )}
+      onClick={onClick}
     >
       {label}
       {Icon && <Icon className="size-4 text-neutral-700" />}
