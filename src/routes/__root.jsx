@@ -1,4 +1,5 @@
 import React from "react";
+import Shortcut from "../components/atoms/Shortcut";
 import {
   TableCellsIcon,
   ViewColumnsIcon,
@@ -18,6 +19,7 @@ import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
+import Checkbox from "../components/molecules/Checkbox";
 
 export const Route = createRootRouteWithContext()({
   component: RootComponent,
@@ -54,7 +56,15 @@ function RootComponent() {
             </div>
           }
           middle={<NavigationTabs links={links} />}
-          right={<Button label="Filter" Icon={FunnelIcon} />}
+          right={
+            <div className="flex items-center justify-end gap-3">
+              <div className="inline-flex gap-1">
+                <Checkbox className="text-sm" label="Show task details" />
+                <Shortcut text="p" />
+              </div>
+              <Button label="Filter" Icon={FunnelIcon} />
+            </div>
+          }
         />
 
         <Card className="mx-3 mb-3 flex-1 overflow-scroll">
