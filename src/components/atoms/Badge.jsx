@@ -30,7 +30,7 @@ export default function Badge({
         variant == "pink" &&
           "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300",
 
-        style == "normal" && "rounded px-2.5 py-0.5 font-medium",
+        style == "normal" && "rounded px-2.5 py-0.5",
         style == "tight" && "rounded-lg px-1 font-semibold",
       )}
       style={

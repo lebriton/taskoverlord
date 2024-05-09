@@ -5,12 +5,19 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
+import Badge from "../atoms/Badge";
+import Shortcut from "../atoms/Shortcut";
 
 export default function HeaderBar() {
   const links = [
-    { label: "Table View", url: "/", Icon: TableCellsIcon },
-    { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon },
-    { label: "Gantt Diagram", url: "/", Icon: Bars3BottomRightIcon },
+    { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "1" },
+    { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "2" },
+    {
+      label: "Gantt Diagram",
+      url: "/",
+      Icon: Bars3BottomRightIcon,
+      shortcut: "3",
+    },
   ];
 
   return (
@@ -25,7 +32,7 @@ export default function HeaderBar() {
               <Link
                 to={link.url}
                 className={classNames(
-                  "group flex border-b-2 border-transparent p-3",
+                  "group flex items-center border-b-2 border-transparent p-3",
                   isActive && "!border-orange-400 font-semibold",
                 )}
               >
@@ -34,6 +41,7 @@ export default function HeaderBar() {
                     className={classNames("me-2 h-4 w-4 text-neutral-500")}
                   />
                   {link.label}
+                  <Shortcut className="ms-1" text={link.shortcut} />
                 </span>
               </Link>
             </li>
