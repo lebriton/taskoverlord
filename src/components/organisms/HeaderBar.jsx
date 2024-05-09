@@ -36,7 +36,7 @@ export default function HeaderBar() {
                   isActive && "!border-orange-400 font-semibold",
                 )}
               >
-                <span className="inline-flex items-center justify-center rounded p-1 group-hover:bg-neutral-50">
+                <span className="inline-flex items-center justify-center rounded-md p-1 group-hover:bg-neutral-50">
                   <link.Icon
                     className={classNames("me-2 h-4 w-4 text-neutral-500")}
                   />
