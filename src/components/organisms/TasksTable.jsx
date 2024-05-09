@@ -161,7 +161,7 @@ export default function TasksTable({ tasks }) {
           <tr
             key={row.id}
             className={classNames(
-              "hover:bg-teal-50",
+              "hover:bg-neutral-100",
               // TODO: refactor into a more generic approach
               row.original.status == "completed" &&
                 "bg-neutral-50 text-neutral-400",
