@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Shortcut from "../components/atoms/Shortcut";
 import {
   TableCellsIcon,
@@ -33,6 +33,8 @@ function RootComponent() {
     initialData: [],
   });
 
+  const [showTaskDetails, setShowTaskDetails] = useState(true);
+
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
     { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "k" },
@@ -59,7 +61,12 @@ function RootComponent() {
           right={
             <div className="flex items-center justify-end gap-3">
               <div className="inline-flex gap-1">
-                <Checkbox className="text-sm" label="Show task details" />
+                <Checkbox
+                  className="text-sm"
+                  label="Show task details"
+                  checked={showTaskDetails}
+                  onChange={() => setShowTaskDetails(!showTaskDetails)}
+                />
                 <Shortcut text="p" />
               </div>
               <Button label="Filter" Icon={FunnelIcon} />
@@ -72,9 +79,11 @@ function RootComponent() {
             <Outlet />
           </CardBody>
         </Card>
-        <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-          <CardBody>placeholder - task details</CardBody>
-        </Card>
+        {showTaskDetails && (
+          <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+            <CardBody>placeholder - task details</CardBody>
+          </Card>
+        )}
 
         <BottomBar />
       </div>
