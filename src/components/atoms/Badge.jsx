@@ -40,7 +40,7 @@ export default function Badge({
         }
       }
     >
-      {Icon && <Icon className="me-1.5 h-2.5 w-2.5" />}
+      {Icon && <Icon className="-ms-1 me-1.5 size-3 brightness-150" />}
       {text}
     </span>
   );
