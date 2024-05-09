@@ -1,5 +1,5 @@
 export function getRealTaskStatus(task) {
-  if (task.wait) {
+  if (task.status == "pending" && task.wait) {
     return "waiting";
   }
 
