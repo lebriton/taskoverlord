@@ -1,6 +1,12 @@
 import classNames from "classnames";
+import Color from "color";
 
-export default function Badge({ text, variant = "default", Icon = null }) {
+export default function Badge({
+  text,
+  variant = "default",
+  color = null,
+  Icon = null,
+}) {
   return (
     <span
       className={classNames(
@@ -21,7 +27,12 @@ export default function Badge({ text, variant = "default", Icon = null }) {
           "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
         variant == "pink" &&
           "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300",
+        color && "bg-[color:var(--bg-color)] text-[color:var(--text-color)]",
       )}
+      style={{
+        "--bg-color": Color(color).alpha(0.5).rgb().string(),
+        "--text-color": Color(color).darken(0.85).rgb().string(),
+      }}
     >
       {Icon && <Icon className="me-1.5 h-2.5 w-2.5" />}
       {text}

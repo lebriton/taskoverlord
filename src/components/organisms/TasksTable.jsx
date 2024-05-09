@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import uniqolor from "uniqolor";
 import {
   FireIcon,
   CalendarIcon,
@@ -46,7 +47,7 @@ const columns = [
   }),
   columnHelper.accessor("tags", {
     header: () => <IconLabel Icon={TagIcon} label="Tags" />,
-    cell: (info) => info.getValue() || "-",
+    cell: (info) => renderTags(info.getValue(), "-"),
   }),
   columnHelper.accessor("urgency", {
     header: () => <IconLabel Icon={FireIcon} label="Urgency" />,
@@ -73,6 +74,18 @@ function renderStatus(info) {
   }
 
   return <Badge text={status} variant={variant} Icon={Icon} />;
+}
+
+function renderTags(tags, fallback) {
+  if (!tags) {
+    return fallback;
+  }
+  return tags.map((tag) => (
+    <Badge
+      text={tag}
+      color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
+    />
+  ));
 }
 
 export default function TasksTable({ tasks }) {
