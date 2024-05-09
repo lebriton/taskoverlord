@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/20/solid";
 import NavigationTabs from "../components/organisms/NavigationTabs";
 import { getRealTaskStatus } from "../utils";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import Badge, { BadgeList } from "../components/atoms/Badge";
 import Heading3 from "../components/molecules/Heading3";
@@ -52,6 +52,8 @@ function RootComponent() {
     },
   ];
 
+  const queryClient = useQueryClient();
+
   return (
     <>
       <div className="flex h-screen w-screen flex-col overflow-hidden">
@@ -61,7 +63,13 @@ function RootComponent() {
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center justify-end gap-3">
                 <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
-                <Button Icon={ArrowPathIcon} variant="no-outline" />
+                <Button
+                  Icon={ArrowPathIcon}
+                  variant="no-outline"
+                  onClick={() =>
+                    queryClient.invalidateQueries({ queryKey: ["tasks"] })
+                  }
+                />
               </div>
               <CountTasksByStatus tasks={tasksQuery.data} />
             </div>
