@@ -36,7 +36,7 @@ function Index() {
               </>
             }
           />
-          <TasksTable tasks={tasksQuery.data}></TasksTable>;
+          <TasksTable tasks={tasksQuery.data}></TasksTable>
         </CardBody>
       </Card>
     </div>
