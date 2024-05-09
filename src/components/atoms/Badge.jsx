@@ -31,7 +31,7 @@ export default function Badge({
       )}
       style={{
         "--bg-color": Color(color).alpha(0.5).rgb().string(),
-        "--text-color": Color(color).darken(0.85).rgb().string(),
+        "--text-color": Color(color).darken(0.65).rgb().string(),
       }}
     >
       {Icon && <Icon className="me-1.5 h-2.5 w-2.5" />}
