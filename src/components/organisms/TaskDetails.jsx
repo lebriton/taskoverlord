@@ -84,8 +84,8 @@ export default function TaskDetails({ task, onClose }) {
         <div className="mb-6 text-xl font-semibold">{task?.description}</div>
 
         <div className="grid grid-flow-col grid-rows-4 rounded-md bg-neutral-50 px-6 py-3">
-          {attributes.map((attr) => (
-            <div className="flex items-center">
+          {attributes.map((attr, idx) => (
+            <div key={idx} className="flex items-center">
               <span className="my-1 w-40 max-w-40 truncate text-sm font-semibold text-neutral-500">
                 {attr.name}
               </span>

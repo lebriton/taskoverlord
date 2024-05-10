@@ -57,14 +57,14 @@ function RootComponent() {
 
   // TODO:
   const projectList = [
-    {text: "Work", shortcut: "1"},
-    {text: "Personal", shortcut: "2"},
-    {text: "Project 1", shortcut: "3"},
-  ]
+    { text: "Work", shortcut: "1" },
+    { text: "Personal", shortcut: "2" },
+    { text: "Project 1", shortcut: "3" },
+  ];
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col overflow-hidden bg-neutral-50">
+      <div className="flex h-screen w-screen flex-col overflow-hidden">
         <FlexLine
           className="z-50 gap-6 px-3"
           left={
@@ -73,7 +73,7 @@ function RootComponent() {
                 <SelectMenu
                   className="w-32"
                   items={projectList}
-                  defaultItem={{text: "No project", shortcut: "0"}}
+                  defaultItem={{ text: "No project", shortcut: "0" }}
                 />
 
                 <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
