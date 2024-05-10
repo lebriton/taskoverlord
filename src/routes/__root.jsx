@@ -6,6 +6,7 @@ import {
   Bars3BottomRightIcon,
   FunnelIcon,
   CalendarDaysIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import {
   ArrowPathIcon,
@@ -89,6 +90,8 @@ function RootComponent() {
               </ShortcutWrap>
 
               <Button label="Filter" Icon={FunnelIcon} />
+
+              <Button label="New task" variant="green" Icon={PlusCircleIcon} />
             </div>
           }
         />
