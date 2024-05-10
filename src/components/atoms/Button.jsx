@@ -13,7 +13,7 @@ export default function Button({
       className={classNames(
         "inline-flex items-center gap-1 rounded-md p-1.5 text-center text-xs font-medium",
         variant == "no-outline" && "text-neutral-700 hover:bg-neutral-100",
-        variant != "no-outline" && "border bg-white",
+        variant != "no-outline" && "border",
 
         variant == "default" &&
           "ring-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600",
