@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Shortcut from "../components/atoms/Shortcut";
+import Shortcut, { ShortcutWrap } from "../components/atoms/Shortcut";
 import {
   TableCellsIcon,
   ViewColumnsIcon,
@@ -79,15 +79,15 @@ function RootComponent() {
           middle={<NavigationTabs links={links} />}
           right={
             <div className="flex items-center justify-end gap-3">
-              <div className="inline-flex gap-1">
+              <ShortcutWrap Shortcut={<Shortcut text="p" />}>
                 <Checkbox
                   className="text-sm"
                   label="Show task details"
                   checked={showTaskDetails}
                   onChange={() => setShowTaskDetails(!showTaskDetails)}
                 />
-                <Shortcut text="p" />
-              </div>
+              </ShortcutWrap>
+
               <Button label="Filter" Icon={FunnelIcon} />
             </div>
           }

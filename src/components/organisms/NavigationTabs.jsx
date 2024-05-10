@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
-import Shortcut from "../atoms/Shortcut";
+import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
 
 export default function NavigationTabs({ className, links }) {
   return (
@@ -23,13 +23,15 @@ export default function NavigationTabs({ className, links }) {
                 isActive && "!border-orange-400 font-semibold",
               )}
             >
-              <span className="inline-flex items-center justify-center rounded p-1 group-hover:bg-neutral-100">
-                <link.Icon
-                  className={classNames("me-2 h-4 w-4 text-neutral-500")}
-                />
-                {link.label}
-                <Shortcut className="ms-1" text={link.shortcut} />
-              </span>
+              <ShortcutWrap
+                className="rounded p-1 group-hover:bg-neutral-100"
+                Shortcut={<Shortcut text={link.shortcut} />}
+              >
+                <div className="flex items-center gap-2">
+                  <link.Icon className="h-4 w-4 text-neutral-500" />
+                  {link.label}
+                </div>
+              </ShortcutWrap>
             </Link>
           </li>
         );

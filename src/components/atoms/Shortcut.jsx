@@ -12,3 +12,12 @@ export default function Shortcut({ className, text }) {
     </span>
   );
 }
+
+export function ShortcutWrap({ className, children, Shortcut }) {
+  return (
+    <div className={classNames("inline-flex items-center gap-1", className)}>
+      {children}
+      {Shortcut}
+    </div>
+  );
+}
