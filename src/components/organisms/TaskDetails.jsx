@@ -72,6 +72,7 @@ export default function TaskDetails({ task, onClose }) {
                 Edit
               </Button>
 
+              {/* Vertical divider */}
               <div className="h-4 border-l" />
 
               <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
