@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Shortcut, { ShortcutWrap } from "../components/atoms/Shortcut";
+import TaskDetails from "../components/organisms/TaskDetails";
 import {
   TableCellsIcon,
   ViewColumnsIcon,
@@ -8,21 +9,15 @@ import {
   CalendarDaysIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ArrowPathIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  XMarkIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowPathIcon } from "@heroicons/react/20/solid";
 import NavigationTabs from "../components/organisms/NavigationTabs";
 import { getRealTaskStatus } from "../utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import Badge, { BadgeList } from "../components/atoms/Badge";
 import Heading3 from "../components/molecules/Heading3";
-import FlexLine from "../components/templates/FlexLine";
+import FlexLine from "../components/molecules/FlexLine";
 import Button from "../components/atoms/Button";
-import Card, { CardHeader, CardBody } from "../components/molecules/Card";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -41,6 +36,8 @@ function RootComponent() {
     queryFn: async () => await invoke("get_all_tasks"),
     initialData: [],
   });
+  // TODO:
+  const [selectedTask, setSelectedTask] = useState(tasksQuery.data[0]);
 
   const [showTaskDetails, setShowTaskDetails] = useState(true);
 
@@ -115,7 +112,11 @@ function RootComponent() {
         </div>
 
         {showTaskDetails && (
-          <TaskDetails onClose={() => setShowTaskDetails(false)} />
+          // TODO:
+          <TaskDetails
+            task={tasksQuery.data?.[0]}
+            onClose={() => setShowTaskDetails(false)}
+          />
         )}
 
         <BottomBar />
@@ -142,22 +143,5 @@ function CountTasksByStatus({ tasks }) {
         <Badge text={count["completed"]} variant="green" />
       )}
     </BadgeList>
-  );
-}
-
-// TODO: move to own file?
-function TaskDetails({ onClose }) {
-  return (
-    <Card className="mx-3 mb-3 flex-1 overflow-scroll shadow-lg">
-      <CardHeader>
-        <div className="flex gap-2">
-          <Button Icon={ChevronLeftIcon} />
-          <Button Icon={ChevronRightIcon} />
-          <div className="flex-1" />
-          <Button Icon={XMarkIcon} variant="no-outline" onClick={onClose} />
-        </div>
-      </CardHeader>
-      <CardBody>placeholder - task details</CardBody>
-    </Card>
   );
 }

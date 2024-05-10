@@ -12,8 +12,11 @@ export default function Badge({
     <span
       className={classNames(
         "inline-flex items-center text-xs font-medium",
+
+        variant == "outline" && "border text-neutral-700",
         variant == "default" &&
           "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+
         variant == "gray" &&
           "bg-gray-200 text-gray-900 dark:bg-gray-900 dark:text-gray-300",
         variant == "dark" && "bg-neutral-600 text-white",
