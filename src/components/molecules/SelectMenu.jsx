@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/16/solid";
 import classNames from "classnames";
 import Button from "../atoms/Button";
-import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
+import Shortcut from "../atoms/Shortcut";
 
 export default function SelectMenu({ className, items, defaultItem }) {
   const displayedItems = [defaultItem, ...items];
@@ -62,14 +62,10 @@ function MenuItem({ item, isActive, isSpecial }) {
       )}
       role="option"
     >
-      <ShortcutWrap
-        className="w-full"
-        Shortcut={<Shortcut text={item.shortcut} />}
-      >
-        <span className="block flex-1 truncate">{item.text}</span>
+      <Shortcut className="me-4" text={item.shortcut} />
+      <span className="block flex-1 truncate">{item.text}</span>
 
-        {isActive && <CheckIcon className="h-5 w-5 text-blue-600" />}
-      </ShortcutWrap>
+      {isActive && <CheckIcon className="h-5 w-5 text-blue-600" />}
     </li>
   );
 }

@@ -71,7 +71,7 @@ function RootComponent() {
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center justify-end gap-3">
                 <SelectMenu
-                  className="w-32"
+                  className="w-40"
                   items={projectList}
                   defaultItem={{ text: "No project", shortcut: "0" }}
                 />
