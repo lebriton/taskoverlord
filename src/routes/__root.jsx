@@ -56,11 +56,15 @@ function RootComponent() {
   const queryClient = useQueryClient();
 
   // TODO:
-  const projectList = ["Project 1", "Project 2", "Project 3"];
+  const projectList = [
+    {text: "Work", shortcut: "1"},
+    {text: "Personal", shortcut: "2"},
+    {text: "Project 1", shortcut: "3"},
+  ]
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col overflow-hidden">
+      <div className="flex h-screen w-screen flex-col overflow-hidden bg-neutral-50">
         <FlexLine
           className="z-50 gap-6 px-3"
           left={
@@ -69,7 +73,7 @@ function RootComponent() {
                 <SelectMenu
                   className="w-32"
                   items={projectList}
-                  defaultText="No project"
+                  defaultItem={{text: "No project", shortcut: "0"}}
                 />
 
                 <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />

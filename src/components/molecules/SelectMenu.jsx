@@ -7,9 +7,10 @@ import {
 } from "@heroicons/react/16/solid";
 import classNames from "classnames";
 import Button from "../atoms/Button";
+import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
 
-export default function SelectMenu({ className, items, defaultText }) {
-  const displayedItems = [defaultText, ...items];
+export default function SelectMenu({ className, items, defaultItem }) {
+  const displayedItems = [defaultItem, ...items];
 
   const [selected, setSelected] = useState(displayedItems[0]);
   const [showItems, setShowItems] = useState(false);
@@ -29,11 +30,11 @@ export default function SelectMenu({ className, items, defaultText }) {
 
       {showItems && (
         <ul
-          className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="listbox"
         >
-          {displayedItems.map((item) => (
-            <MenuItem item={item} />
+          {displayedItems.map((item, idx) => (
+            <MenuItem key={idx} item={item} isActive={idx==2} isSpecial={idx==0} />
           ))}
         </ul>
       )}
@@ -41,15 +42,24 @@ export default function SelectMenu({ className, items, defaultText }) {
   );
 }
 
-function MenuItem({ item }) {
+function MenuItem({ item, isActive, isSpecial }) {
   return (
     <li
-      className="relative flex cursor-default select-none px-2.5 py-2 text-neutral-900"
+      className={
+        classNames(
+      "relative flex text-sm cursor-default select-none px-2.5 py-2 text-neutral-900 hover:bg-neutral-100 active:brightness-95",
+      isActive && "font-semibold bg-blue-50",
+      isSpecial && "!text-neutral-500",
+        )
+      }
       role="option"
     >
-      <span className="block flex-1 truncate">{item}</span>
+      <ShortcutWrap className="w-full"Shortcut={<Shortcut text={item.shortcut} />}>
+      <span className="block flex-1 truncate">{item.text}</span>
 
-      <CheckIcon className="h-5 w-5 text-blue-600" />
+      {isActive && <CheckIcon className="h-5 w-5 text-blue-600" />}
+      </ShortcutWrap>
+      
     </li>
   );
 }
