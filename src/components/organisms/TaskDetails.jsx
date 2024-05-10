@@ -1,6 +1,7 @@
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  TrashIcon,
   XMarkIcon,
   PencilSquareIcon,
 } from "@heroicons/react/20/solid";
@@ -60,11 +61,19 @@ export default function TaskDetails({ task, onClose }) {
               <Button Icon={ChevronRightIcon} />
             </div>
           }
-          right={
-            <div className="flex justify-end gap-2">
+          center={
+            <div className="flex items-center justify-end gap-2">
+              <Button
+                variant="no-outline"
+                Icon={TrashIcon}
+                shortcutText="d"
+              ></Button>
               <Button variant="gray" Icon={PencilSquareIcon} shortcutText="e">
-                Edit task
+                Edit
               </Button>
+
+              <div className="h-4 border-l" />
+
               <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
             </div>
           }
