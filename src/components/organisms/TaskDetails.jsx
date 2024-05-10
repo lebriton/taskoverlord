@@ -52,7 +52,7 @@ export default function TaskDetails({ task, onClose }) {
   ];
 
   return (
-    <Card className="mx-3 mb-3 flex-1 overflow-scroll shadow-lg">
+    <Card className="mx-3 mb-3 flex-1 overflow-scroll shadow-lg ring-1 ring-black ring-opacity-15">
       <CardHeader>
         <FlexLine
           left={
