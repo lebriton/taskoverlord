@@ -38,6 +38,7 @@ export default function SelectMenu({ className, items, defaultItem }) {
               <MenuItem
                 key={idx}
                 item={item}
+                // TODO:
                 isActive={item == selected}
                 isSpecial={idx == 0}
               />
