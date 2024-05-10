@@ -28,6 +28,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
+import SelectMenu from "../components/molecules/SelectMenu";
 
 export const Route = createRootRouteWithContext()({
   component: RootComponent,
@@ -57,6 +58,9 @@ function RootComponent() {
 
   const queryClient = useQueryClient();
 
+  // TODO:
+  const projectList = ["Project 1", "Project 2", "Project 3"];
+
   return (
     <>
       <div className="flex h-screen w-screen flex-col overflow-hidden">
@@ -65,7 +69,14 @@ function RootComponent() {
           left={
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center justify-end gap-3">
+                <SelectMenu
+                  className="w-32"
+                  items={projectList}
+                  defaultText="No project"
+                />
+
                 <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
+
                 <Button
                   Icon={ArrowPathIcon}
                   variant="no-outline"
@@ -74,6 +85,7 @@ function RootComponent() {
                   }
                 />
               </div>
+
               <CountTasksByStatus tasks={tasksQuery.data} />
             </div>
           }
@@ -89,9 +101,11 @@ function RootComponent() {
                 />
               </ShortcutWrap>
 
-              <Button label="Filter" Icon={FunnelIcon} />
+              <Button Icon={FunnelIcon}>Filter</Button>
 
-              <Button label="New task" variant="green" Icon={PlusCircleIcon} />
+              <Button variant="green" Icon={PlusCircleIcon}>
+                New task
+              </Button>
             </div>
           }
         />

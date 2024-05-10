@@ -1,0 +1,55 @@
+import { useState } from "react";
+
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/16/solid";
+import classNames from "classnames";
+import Button from "../atoms/Button";
+
+export default function SelectMenu({ className, items, defaultText }) {
+  const displayedItems = [defaultText, ...items];
+
+  const [selected, setSelected] = useState(displayedItems[0]);
+  const [showItems, setShowItems] = useState(false);
+
+  return (
+    <div className={classNames("relative", className)}>
+      <Button
+        className="relative w-full cursor-default pr-10"
+        onClick={() => setShowItems(!showItems)}
+      >
+        <span className="truncate">{selected}</span>
+        <div className="pointer-events-none absolute inset-y-0 right-0 ml-10 flex flex-col justify-center pr-2.5">
+          <ChevronUpIcon className="-mb-1 h-4 w-4 text-neutral-400" />
+          <ChevronDownIcon className="-mt-1 h-4 w-4 text-neutral-400" />
+        </div>
+      </Button>
+
+      {showItems && (
+        <ul
+          className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="listbox"
+        >
+          {displayedItems.map((item) => (
+            <MenuItem item={item} />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function MenuItem({ item }) {
+  return (
+    <li
+      className="relative flex cursor-default select-none px-2.5 py-2 text-neutral-900"
+      role="option"
+    >
+      <span className="block flex-1 truncate">{item}</span>
+
+      <CheckIcon className="h-5 w-5 text-blue-600" />
+    </li>
+  );
+}

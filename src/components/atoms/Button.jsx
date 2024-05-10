@@ -1,6 +1,12 @@
 import classNames from "classnames";
 
-export default function Button({ label, variant = "default", Icon, onClick }) {
+export default function Button({
+  className,
+  variant = "default",
+  Icon,
+  onClick,
+  children,
+}) {
   return (
     <button
       type="button"
@@ -10,15 +16,17 @@ export default function Button({ label, variant = "default", Icon, onClick }) {
         variant != "no-outline" && "border bg-white",
 
         variant == "default" &&
-          "hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600",
+          "ring-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600",
         variant == "green" &&
           "border-green-700 bg-green-600 text-white hover:bg-green-700",
 
-        label && "px-2.5",
+        children && "px-2.5",
+
+        className,
       )}
       onClick={onClick}
     >
-      {label}
+      {children}
       {Icon && (
         <Icon
           className={classNames(
