@@ -7,7 +7,7 @@ export default function Checkbox({ className, label, checked, onChange }) {
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="peer h-4 w-4 appearance-none border-2 border-neutral-800 checked:border-none checked:bg-blue-600"
+        className="peer h-4 w-4 cursor-pointer appearance-none border-2 border-neutral-800 checked:border-none checked:bg-blue-600"
       />
       <CheckIcon className="pointer-events-none absolute hidden h-4 w-4 select-none text-white peer-checked:block" />
 
