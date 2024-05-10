@@ -20,6 +20,8 @@ export default function Button({
         variant == "default" && "bg-white hover:bg-neutral-50",
         variant == "green" &&
           "border-green-700 bg-green-600 text-white hover:bg-green-700",
+        variant == "gray" &&
+          "border-neutral-700 bg-neutral-600 text-white hover:bg-neutral-700",
 
         children && "px-2.5",
 
@@ -33,7 +35,7 @@ export default function Button({
         <Icon
           className={classNames(
             "size-4 text-neutral-700",
-            variant == "green" && "text-white",
+            ["green", "gray"].includes(variant) && "text-white",
           )}
         />
       )}

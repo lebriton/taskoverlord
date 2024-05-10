@@ -2,6 +2,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
+  PencilSquareIcon,
 } from "@heroicons/react/20/solid";
 import Button from "../atoms/Button";
 import Card, { CardHeader, CardBody } from "../molecules/Card";
@@ -60,7 +61,12 @@ export default function TaskDetails({ task, onClose }) {
             </div>
           }
           right={
-            <Button Icon={XMarkIcon} variant="no-outline" onClick={onClose} />
+            <div className="flex justify-end gap-2">
+              <Button variant="gray" Icon={PencilSquareIcon} shortcutText="e">
+                Edit task
+              </Button>
+              <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
+            </div>
           }
         />
       </CardHeader>

@@ -86,7 +86,7 @@ function RootComponent() {
               <CountTasksByStatus tasks={tasksQuery.data} />
             </div>
           }
-          middle={<NavigationTabs links={links} />}
+          center={<NavigationTabs links={links} />}
           right={
             <div className="flex items-center justify-end gap-3">
               <ShortcutWrap Shortcut={<Shortcut text="p" />}>
