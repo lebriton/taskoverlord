@@ -1,9 +1,11 @@
 import classNames from "classnames";
+import Shortcut from "./Shortcut";
 
 export default function Button({
   className,
   variant = "default",
   Icon,
+  shortcutText = "",
   onClick,
   children,
 }) {
@@ -25,6 +27,7 @@ export default function Button({
       )}
       onClick={onClick}
     >
+      {shortcutText && <Shortcut className="me-1" text={shortcutText} />}
       {children}
       {Icon && (
         <Icon

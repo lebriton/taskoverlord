@@ -98,9 +98,11 @@ function RootComponent() {
                 />
               </ShortcutWrap>
 
-              <Button Icon={FunnelIcon}>Filter</Button>
+              <Button Icon={FunnelIcon} shortcutText="f">
+                Filter
+              </Button>
 
-              <Button variant="green" Icon={PlusCircleIcon}>
+              <Button variant="green" Icon={PlusCircleIcon} shortcutText="a">
                 New task
               </Button>
             </div>
