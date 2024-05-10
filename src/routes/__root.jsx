@@ -148,7 +148,7 @@ function CountTasksByStatus({ tasks }) {
 // TODO: move to own file?
 function TaskDetails({ onClose }) {
   return (
-    <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+    <Card className="mx-3 mb-3 flex-1 overflow-scroll shadow-lg">
       <CardHeader>
         <div className="flex gap-2">
           <Button Icon={ChevronLeftIcon} />
