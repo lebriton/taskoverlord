@@ -12,7 +12,7 @@ import Shortcut from "../atoms/Shortcut";
 export default function SelectMenu({ className, items, defaultItem }) {
   const displayedItems = [defaultItem, ...items];
 
-  const [selected, setSelected] = useState(displayedItems[0]);
+  const [selected, setSelected] = useState(displayedItems[2]);
   const [showItems, setShowItems] = useState(false);
 
   return (
@@ -38,7 +38,7 @@ export default function SelectMenu({ className, items, defaultItem }) {
               <MenuItem
                 key={idx}
                 item={item}
-                isActive={idx == 2}
+                isActive={item == selected}
                 isSpecial={idx == 0}
               />
 
