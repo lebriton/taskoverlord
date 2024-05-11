@@ -53,7 +53,7 @@ export default function RootRoute() {
   const queryClient = useQueryClient();
 
   // TODO:
-  const projectList = [
+  const projects = [
     { text: "Work", shortcut: "1" },
     { text: "Personal", shortcut: "2" },
     { text: "Project 1", shortcut: "3" },
@@ -69,7 +69,7 @@ export default function RootRoute() {
               <div className="flex items-center justify-end gap-3">
                 <SelectMenu
                   className="w-40"
-                  items={projectList}
+                  items={projects}
                   defaultItem={{ text: "No project", shortcut: "0" }}
                 />
 
