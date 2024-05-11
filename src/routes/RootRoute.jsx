@@ -111,7 +111,7 @@ export default function RootRoute() {
         />
 
         <div className="mx-3 mb-3 flex-1 overflow-scroll">
-          <Outlet context={[tasksQuery, displayTask]} />
+          <Outlet context={[tasksQuery, selectedTask, displayTask]} />
         </div>
 
         {showTaskDetails && (

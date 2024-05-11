@@ -7,6 +7,7 @@ import {
 
 export default function DataTable({
   data,
+  selectedItem,
   columns,
   isRowDisabled,
   onSelected,
@@ -46,6 +47,7 @@ export default function DataTable({
               key={row.id}
               className={classNames(
                 "cursor-pointer divide-x hover:bg-neutral-100",
+                selectedItem == row.original && "!bg-blue-100",
                 isRowDisabled(row) && "bg-neutral-50 text-neutral-400",
               )}
               onClick={() => onSelected(row.original)}
