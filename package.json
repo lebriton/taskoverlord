@@ -12,8 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.1.3",
     "@tanstack/react-query": "^5.35.1",
-    "@tanstack/react-query-devtools": "^5.35.1",
-    "@tanstack/react-router": "^1.31.23",
+    "@tanstack/react-query-devtools": "^5.35.5",
     "@tanstack/react-table": "^8.16.0",
     "@tauri-apps/api": "^1.5.2",
     "classnames": "^2.5.1",
@@ -21,11 +20,10 @@
     "javascript-time-ago": "^2.5.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1",
     "uniqolor": "^1.1.1"
   },
   "devDependencies": {
-    "@tanstack/router-devtools": "^1.31.23",
-    "@tanstack/router-vite-plugin": "^1.31.18",
     "@tauri-apps/cli": "^1.5.8",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",

@@ -1,7 +1,7 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Suspense } from "react";
-import { routeTree } from "./routeTree.gen";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootRoute from "./routes/RootRoute";
+import TableViewRoute from "./routes/TableViewRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,24 +11,23 @@ const queryClient = new QueryClient({
   },
 });
 
-const router = createRouter({
-  routeTree,
-  context: {
-    queryClient,
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <RootRoute />,
+    children: [
+      {
+        path: "/",
+        element: <TableViewRoute />,
+      },
+    ],
   },
-  defaultPreload: "intent",
-  // Since we're using React Query, we don't want loader calls to ever be stale
-  // This will ensure that the loader is always called when the route is preloaded or visited
-  defaultPreloadStaleTime: 0,
-});
+]);
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* https://github.com/TanStack/router/issues/857 */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <RouterProvider router={router} />
-      </Suspense>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

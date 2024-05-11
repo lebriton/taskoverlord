@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
 import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
+import { Link } from "react-router-dom";
 
 export default function NavigationTabs({ className, links }) {
   return (

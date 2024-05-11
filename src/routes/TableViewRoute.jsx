@@ -16,13 +16,8 @@ import {
 } from "@heroicons/react/20/solid";
 import IconLabel from "../components/atoms/IconLabel";
 import en from "javascript-time-ago/locale/en";
-import { createLazyFileRoute } from "@tanstack/react-router";
 import DataTable from "../components/organisms/DataTable";
 import { useSuspenseQuery } from "@tanstack/react-query";
-
-export const Route = createLazyFileRoute("/")({
-  component: Index,
-});
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -92,7 +87,7 @@ const columns = [
   }),
 ];
 
-function Index() {
+export default function TableViewRoute() {
   const tasksQuery = useSuspenseQuery({ queryKey: ["tasks"] });
 
   return (

@@ -15,21 +15,16 @@ import { getRealTaskStatus } from "../utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import Badge, { BadgeList } from "../components/atoms/Badge";
+import { Outlet } from "react-router-dom";
 import Heading3 from "../components/molecules/Heading3";
 import FlexLine from "../components/molecules/FlexLine";
 import Button from "../components/atoms/Button";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import SelectMenu from "../components/molecules/SelectMenu";
 
-export const Route = createRootRouteWithContext()({
-  component: RootComponent,
-});
-
-function RootComponent() {
+export default function RootRoute() {
   const tasksQuery = useQuery({
     queryKey: ["tasks"],
     // TODO: handle errors
@@ -128,7 +123,6 @@ function RootComponent() {
         <BottomBar />
       </div>
 
-      <TanStackRouterDevtools position="bottom-right" />
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </>
   );
