@@ -53,7 +53,7 @@ export default function TaskDetails({ task, onClose }) {
 
   return (
     <Card className="mx-3 mb-3 flex-1 overflow-scroll shadow-lg ring-1 ring-black ring-opacity-15">
-      <CardHeader>
+      <CardHeader className="bg-neutral-50">
         <FlexLine
           left={
             <div className="flex gap-2">
@@ -81,28 +81,32 @@ export default function TaskDetails({ task, onClose }) {
           }
         />
       </CardHeader>
-      <CardBody>
-        <div className="mb-6 text-xl font-semibold">{task?.description}</div>
-
-        <div className="grid grid-flow-col grid-rows-4 rounded-md bg-neutral-50 px-6 py-3">
-          {attributes.map((attr, idx) => (
-            <div key={idx} className="flex items-center">
-              <span className="my-1 w-40 max-w-40 truncate text-sm font-semibold text-neutral-500">
-                {attr.name}
-              </span>
-              {attr.value}
+      <CardBody className="p-0">
+        <div className="flex divide-x">
+          <div className="w-3/5 p-3">
+            <div className="mb-6 text-xl font-semibold">
+              {task?.description}
             </div>
-          ))}
-        </div>
 
-        <div className="flex">
-          <div className="flex-1">
-            <Heading3 className="mb-3 mt-6" title="Annotations" badgeText="x" />
-            wip
+            {attributes.map((attr, idx) => (
+              <div key={idx} className="flex items-center font-medium">
+                <span className="my-1.5 w-40 max-w-40 truncate text-sm text-neutral-500">
+                  {attr.name}
+                </span>
+                {attr.value}
+              </div>
+            ))}
           </div>
-          <div className="flex-1">
+
+          <div className="flex-1 p-3">
             <Heading3
-              className="mb-3 mt-6"
+              className="mb-3 mt-1.5"
+              title="Annotations"
+              badgeText="x"
+            />
+            wip
+            <Heading3
+              className="mb-3 mt-12"
               title="Used-defined attributes (UDA)"
               badgeText="y"
             />
