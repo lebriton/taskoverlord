@@ -1,5 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import TimeAgo from "javascript-time-ago";
+import { useOutletContext } from "react-router-dom";
 import {
   atMostXDecimalPoints,
   displayStatusBadgeForTask,
@@ -88,14 +89,14 @@ const columns = [
 ];
 
 export default function TableViewRoute() {
-  const tasksQuery = useSuspenseQuery({ queryKey: ["tasks"] });
+  const [tasksQuery, setSelectedTask] = useOutletContext();
 
   return (
     <DataTable
       data={tasksQuery.data}
       columns={columns}
       isRowDisabled={(row) => row.original.status == "completed"}
-      onSelected={(task) => console.log(task)}
+      onSelected={(task) => setSelectedTask(task)}
     />
   );
 }

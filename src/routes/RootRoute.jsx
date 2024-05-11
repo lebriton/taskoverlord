@@ -109,13 +109,13 @@ export default function RootRoute() {
         />
 
         <div className="mx-3 mb-3 flex-1 overflow-scroll">
-          <Outlet />
+          <Outlet context={[tasksQuery, setSelectedTask]} />
         </div>
 
         {showTaskDetails && (
           // TODO:
           <TaskDetails
-            task={tasksQuery.data?.[0]}
+            task={selectedTask}
             onClose={() => setShowTaskDetails(false)}
           />
         )}
