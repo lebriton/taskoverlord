@@ -5,7 +5,12 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-export default function DataTable({ data, columns, isRowDisabled }) {
+export default function DataTable({
+  data,
+  columns,
+  isRowDisabled,
+  onSelected,
+}) {
   const table = useReactTable({
     data,
     columns,
@@ -40,9 +45,10 @@ export default function DataTable({ data, columns, isRowDisabled }) {
             <tr
               key={row.id}
               className={classNames(
-                "divide-x hover:bg-neutral-100",
+                "cursor-pointer divide-x hover:bg-neutral-100",
                 isRowDisabled(row) && "bg-neutral-50 text-neutral-400",
               )}
+              onClick={() => onSelected(row.original)}
             >
               {row.getVisibleCells().map((cell) => (
                 <td

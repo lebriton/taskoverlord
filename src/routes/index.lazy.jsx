@@ -94,11 +94,13 @@ const columns = [
 
 function Index() {
   const tasksQuery = useSuspenseQuery({ queryKey: ["tasks"] });
+
   return (
     <DataTable
       data={tasksQuery.data}
       columns={columns}
       isRowDisabled={(row) => row.original.status == "completed"}
+      onSelected={(task) => console.log(task)}
     />
   );
 }
