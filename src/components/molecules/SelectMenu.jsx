@@ -64,7 +64,7 @@ function MenuItem({ item, isActive, isSpecial, onClick }) {
     <li
       className={classNames(
         "relative flex cursor-pointer select-none px-2.5 py-2 text-sm text-neutral-800 hover:bg-neutral-100 active:brightness-95",
-        isActive && "bg-blue-50",
+        isActive && "!bg-blue-50",
         isSpecial && "italic !text-neutral-500",
         isActive && !isSpecial && "font-semibold",
       )}
