@@ -14,6 +14,7 @@ import {
   displayStatusBadgeForTask,
   displayTags,
 } from "../../utils";
+import classNames from "classnames";
 
 export default function TaskDetails({ task, onClose }) {
   const attributes = [
@@ -81,34 +82,36 @@ export default function TaskDetails({ task, onClose }) {
           }
         />
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="!p-0">
         <div className="flex divide-x">
           <div className="w-3/5 p-3">
-            <div className="mb-6 text-xl font-semibold">
-              {task?.description}
-            </div>
+            <Heading3 className="mb-3" title="Description" />
+            <div className="mb-6 text-neutral-700">{task?.description}</div>
 
-            {attributes.map((attr, idx) => (
-              <div key={idx} className="flex items-center font-medium">
-                <span className="my-1.5 w-40 max-w-40 truncate text-sm text-neutral-500">
-                  {attr.name}
-                </span>
-                {attr.value}
-              </div>
-            ))}
+            <div className="rounded-md bg-yellow-50 px-6 py-3">
+              {attributes.map((attr, idx) => (
+                <div
+                  wey={idx}
+                  className="py-1.5 sm:grid sm:grid-cols-3 sm:gap-4"
+                >
+                  <dt className="text-sm font-medium leading-6 text-neutral-900">
+                    {attr.name}
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
+                    {attr.value}
+                  </dd>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex-1 p-3">
-            <Heading3
-              className="mb-3 mt-1.5"
-              title="Annotations"
-              badgeText="x"
-            />
+            <Heading3 className="mb-3" title="Annotations" badgeText="0" />
             wip
             <Heading3
               className="mb-3 mt-12"
-              title="Used-defined attributes (UDA)"
-              badgeText="y"
+              title="User-defined attributes"
+              badgeText="0"
             />
             wip
           </div>
