@@ -12,7 +12,7 @@ import Shortcut from "../atoms/Shortcut";
 export default function SelectMenu({ className, items, defaultItem }) {
   const displayedItems = [defaultItem, ...items];
 
-  const [selected, setSelected] = useState(displayedItems[2]);
+  const [selected, setSelected] = useState(displayedItems[0]);
   const [showItems, setShowItems] = useState(false);
 
   return (
@@ -21,7 +21,15 @@ export default function SelectMenu({ className, items, defaultItem }) {
         className="relative w-full cursor-default pr-10"
         onClick={() => setShowItems(!showItems)}
       >
-        <span className="truncate">{selected.text}</span>
+        <span
+          className={classNames(
+            "truncate",
+            selected.text == displayedItems[0].text &&
+              "font-normal italic text-neutral-500",
+          )}
+        >
+          {selected.text}
+        </span>
         <div className="pointer-events-none absolute inset-y-0 right-0 ml-10 flex flex-col justify-center pr-2.5">
           <ChevronUpIcon className="-mb-1 h-4 w-4 text-neutral-400" />
           <ChevronDownIcon className="-mt-1 h-4 w-4 text-neutral-400" />
@@ -34,18 +42,16 @@ export default function SelectMenu({ className, items, defaultItem }) {
           role="listbox"
         >
           {displayedItems.map((item, idx) => (
-            <>
-              <MenuItem
-                key={idx}
-                item={item}
-                // TODO:
-                isActive={item == selected}
-                isSpecial={idx == 0}
-              />
-
-              {/* Separator */}
-              {idx == 0 && <hr className="my-1" />}
-            </>
+            <MenuItem
+              key={idx}
+              item={item}
+              isActive={item.text == selected.text}
+              isSpecial={idx == 0}
+              onClick={() => {
+                setSelected(item);
+                setShowItems(false);
+              }}
+            />
           ))}
         </ul>
       )}
@@ -53,15 +59,17 @@ export default function SelectMenu({ className, items, defaultItem }) {
   );
 }
 
-function MenuItem({ item, isActive, isSpecial }) {
+function MenuItem({ item, isActive, isSpecial, onClick }) {
   return (
     <li
       className={classNames(
-        "relative flex cursor-default select-none px-2.5 py-2 text-sm text-neutral-800 hover:bg-neutral-100 active:brightness-95",
-        isActive && "bg-blue-50 font-semibold",
-        isSpecial && "italic",
+        "relative flex cursor-pointer select-none px-2.5 py-2 text-sm text-neutral-800 hover:bg-neutral-100 active:brightness-95",
+        isActive && "bg-blue-50",
+        isSpecial && "italic !text-neutral-500",
+        isActive && !isSpecial && "font-semibold",
       )}
       role="option"
+      onClick={onClick}
     >
       <Shortcut className="me-4" text={item.shortcut} />
       <span className="block flex-1 truncate">{item.text}</span>

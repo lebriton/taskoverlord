@@ -9,6 +9,7 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             commands::get_all_tasks,
+            commands::get_project_names,
             commands::get_taskwarrior_info,
         ])
         .run(tauri::generate_context!())

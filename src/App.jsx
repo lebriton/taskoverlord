@@ -2,11 +2,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootRoute from "./routes/RootRoute";
 import TableViewRoute from "./routes/TableViewRoute";
+import { Suspense } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 0,
+      suspense: true,
     },
   },
 });
@@ -27,7 +29,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Suspense fallback={"Loading..."}>
+        <RouterProvider router={router} />
+      </Suspense>
     </QueryClientProvider>
   );
 }

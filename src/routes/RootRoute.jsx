@@ -12,7 +12,7 @@ import {
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
 import NavigationTabs from "../components/organisms/NavigationTabs";
 import { getRealTaskStatus } from "../utils";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import Badge, { BadgeList } from "../components/atoms/Badge";
 import { Outlet } from "react-router-dom";
@@ -25,12 +25,21 @@ import Checkbox from "../components/molecules/Checkbox";
 import SelectMenu from "../components/molecules/SelectMenu";
 
 export default function RootRoute() {
-  const tasksQuery = useQuery({
+  const queryClient = useQueryClient();
+  const tasksQuery = useSuspenseQuery({
     queryKey: ["tasks"],
     // TODO: handle errors
     queryFn: async () => await invoke("get_all_tasks"),
-    initialData: [],
   });
+  const projectsQuery = useSuspenseQuery({
+    queryKey: ["projects"],
+    // TODO: handle errors
+    queryFn: async () => await invoke("get_project_names"),
+  });
+  const projects = projectsQuery.data.map((project, idx) => ({
+    text: project,
+    shortcut: (idx + 1).toString(),
+  }));
   const [selectedTask, setSelectedTask] = useState(null);
   const displayTask = (task) => {
     setSelectedTask(task);
@@ -50,15 +59,6 @@ export default function RootRoute() {
     { label: "Calendar", url: "/", Icon: CalendarDaysIcon, shortcut: "c" },
   ];
 
-  const queryClient = useQueryClient();
-
-  // TODO:
-  const projects = [
-    { text: "Work", shortcut: "1" },
-    { text: "Personal", shortcut: "2" },
-    { text: "Project 1", shortcut: "3" },
-  ];
-
   return (
     <>
       <div className="flex h-screen w-screen flex-col overflow-hidden">
@@ -70,7 +70,7 @@ export default function RootRoute() {
                 <SelectMenu
                   className="w-40"
                   items={projects}
-                  defaultItem={{ text: "No project", shortcut: "0" }}
+                  defaultItem={{ text: "Select a project", shortcut: "0" }}
                 />
 
                 <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />

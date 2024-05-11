@@ -75,3 +75,8 @@ pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
         version: check_output(Command::new("task").arg("--version"))?,
     })
 }
+
+pub fn get_project_names() -> anyhow::Result<Vec<String>> {
+    let output = check_output(Command::new("task").arg("_projects"))?;
+    Ok(output.lines().map(String::from).collect())
+}

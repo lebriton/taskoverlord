@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 
 function Button({ children }) {
@@ -13,11 +13,10 @@ function Button({ children }) {
 }
 
 export default function BottomBar() {
-  const taskwarriorVersionQuery = useQuery({
+  const taskwarriorVersionQuery = useSuspenseQuery({
     queryKey: ["taskwarrior", "info"],
     // TODO: handle errors
     queryFn: async () => await invoke("get_taskwarrior_info"),
-    initialData: "unknown",
   });
 
   return (
