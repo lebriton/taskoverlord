@@ -45,7 +45,7 @@ export default function RootRoute() {
     setSelectedTask(task);
     setShowTaskDetails(true);
   };
-  const [showTaskDetails, setShowTaskDetails] = useState(true);
+  const [showTaskDetails, setShowTaskDetails] = useState(false);
 
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
