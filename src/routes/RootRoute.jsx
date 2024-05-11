@@ -31,9 +31,11 @@ export default function RootRoute() {
     queryFn: async () => await invoke("get_all_tasks"),
     initialData: [],
   });
-  // TODO:
-  const [selectedTask, setSelectedTask] = useState(tasksQuery.data[0]);
-
+  const [selectedTask, setSelectedTask] = useState(null);
+  const displayTask = (task) => {
+    setSelectedTask(task);
+    setShowTaskDetails(true);
+  };
   const [showTaskDetails, setShowTaskDetails] = useState(true);
 
   const links = [
@@ -109,7 +111,7 @@ export default function RootRoute() {
         />
 
         <div className="mx-3 mb-3 flex-1 overflow-scroll">
-          <Outlet context={[tasksQuery, setSelectedTask]} />
+          <Outlet context={[tasksQuery, displayTask]} />
         </div>
 
         {showTaskDetails && (

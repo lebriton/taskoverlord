@@ -89,14 +89,14 @@ const columns = [
 ];
 
 export default function TableViewRoute() {
-  const [tasksQuery, setSelectedTask] = useOutletContext();
+  const [tasksQuery, displayTask] = useOutletContext();
 
   return (
     <DataTable
       data={tasksQuery.data}
       columns={columns}
       isRowDisabled={(row) => row.original.status == "completed"}
-      onSelected={(task) => setSelectedTask(task)}
+      onSelected={displayTask}
     />
   );
 }
