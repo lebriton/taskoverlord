@@ -5,8 +5,15 @@ import {
   XMarkIcon,
   PencilSquareIcon,
 } from "@heroicons/react/20/solid";
+import {
+  FireIcon,
+  TagIcon,
+  FolderIcon,
+  CalendarDaysIcon,
+  HandRaisedIcon,
+} from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
-import Card, { CardHeader, CardBody } from "../molecules/Card";
+import Card, { CardBody } from "../molecules/Card";
 import FlexLine from "../molecules/FlexLine";
 import Heading3 from "../molecules/Heading3";
 import {
@@ -14,62 +21,68 @@ import {
   displayStatusBadgeForTask,
   displayTags,
 } from "../../utils";
-import classNames from "classnames";
+import Heading2 from "../molecules/Heading2";
 
 export default function TaskDetails({ task, onClose }) {
   const attributes = [
     {
-      name: "Status",
-      value: task && displayStatusBadgeForTask(task),
-    },
-    {
+      Icon: FireIcon,
       name: "Urgency",
       value: task && atMostXDecimalPoints(task.urgency, 1),
     },
     {
+      Icon: TagIcon,
       name: "Tags",
       value: (task && task.tags && displayTags(task.tags)) || "-",
     },
     {
+      Icon: FolderIcon,
       name: "Project",
       value: task?.project || "-",
     },
     {
-      name: "ID",
-      value: task?.id,
-    },
-    {
-      name: "UUID",
-      value: task?.uuid,
-    },
-    {
+      Icon: CalendarDaysIcon,
       name: "Due date",
-      value: task?.due_date || "-",
+      value: task?.due || "-",
     },
     {
+      Icon: HandRaisedIcon,
       name: "Wait date",
-      value: task?.wait_date || "-",
+      value: task?.wait || "-",
     },
   ];
 
   return (
     <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-      <CardHeader className="bg-neutral-50">
+      <CardBody className="">
         <FlexLine
+          className="mb-3"
           left={
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <Button Icon={ChevronLeftIcon} />
               <Button Icon={ChevronRightIcon} />
+
+              {/* Vertical divider */}
+              <div className="h-4 border-l" />
+
+              <span className="text-neutral-400">Task details</span>
             </div>
           }
-          center={<Heading3 title="Task" />}
+          center={
+            <div className="text-sm font-medium text-neutral-500">
+              {task?.uuid}
+            </div>
+          }
           right={
             <div className="flex items-center justify-end gap-2">
               <Button
+                className="hover:text-red-600"
                 variant="no-outline"
                 Icon={TrashIcon}
                 shortcutText="d"
-              ></Button>
+              >
+                Delete
+              </Button>
               <Button variant="gray" Icon={PencilSquareIcon} shortcutText="e">
                 Edit
               </Button>
@@ -81,31 +94,13 @@ export default function TaskDetails({ task, onClose }) {
             </div>
           }
         />
-      </CardHeader>
-      <CardBody className="!p-0">
         <div className="flex divide-x">
-          <div className="w-3/5 p-3">
-            <Heading3 className="mb-3" title="Description" />
-            <div className="mb-6 text-neutral-700">{task?.description}</div>
-
-            <div className="rounded-md bg-yellow-50 px-6 py-3">
-              {attributes.map((attr, idx) => (
-                <div
-                  wey={idx}
-                  className="py-1.5 sm:grid sm:grid-cols-3 sm:gap-4"
-                >
-                  <dt className="text-sm font-medium leading-6 text-neutral-900">
-                    {attr.name}
-                  </dt>
-                  <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                    {attr.value}
-                  </dd>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex-1 p-3">
+          <div className="w-3/4 pe-3">
+            <Heading2 title={task?.description} subtitle={`#${task?.id}`} />
+            {task && (
+              <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
+            )}
+            <hr className="my-6" />
             <Heading3 className="mb-3" title="Annotations" badgeText="0" />
             wip
             <Heading3
@@ -114,6 +109,23 @@ export default function TaskDetails({ task, onClose }) {
               badgeText="0"
             />
             wip
+          </div>
+
+          <div className="flex-1 ps-3">
+            {attributes.map((attr, idx) => (
+              <div
+                key={idx}
+                className="py-1.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
+              >
+                <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-500">
+                  <attr.Icon className="size-5" />
+                  {attr.name}
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
+                  {attr.value}
+                </dd>
+              </div>
+            ))}
           </div>
         </div>
       </CardBody>

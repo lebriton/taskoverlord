@@ -10,7 +10,7 @@ export default function Card({ className, children }) {
 
 export function CardHeader({ className, children }) {
   return (
-    <div className={classNames("border-b px-3 py-1.5", className)}>
+    <div className={classNames("border-b px-3 py-1", className)}>
       {children}
     </div>
   );
@@ -22,7 +22,7 @@ export function CardBody({ className, children }) {
 
 export function CardFooter({ className, children }) {
   return (
-    <div className={classNames("border-t px-3 py-1.5", className)}>
+    <div className={classNames("border-t px-3 py-1", className)}>
       {children}
     </div>
   );
