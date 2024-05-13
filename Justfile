@@ -8,6 +8,9 @@ pre-commit:
     cd src-tauri && cargo fmt
     pnpm exec prettier . --write
 
+install-pre-commit-hook:
+    echo "just pre-commit" > .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
 develop:
     pnpm tauri dev
 

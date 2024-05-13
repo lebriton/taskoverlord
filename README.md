@@ -47,8 +47,10 @@ With [rust](https://www.rust-lang.org/tools/install), [pnpm](https://pnpm.io/ins
 <details>
 <summary>Develop</summary>
 
-To launch the app in development mode, run `just develop`.  
-Before committing any changes to git, run `just pre-commit`.
+To launch the app in development mode, run `just develop`.
+
+Before committing any changes to git, run `just pre-commit`.  
+Alternatively, you can opt to automate the prior command's execution by installing a git hook with `just install-pre-commit-hook`.
 
 </details>
 
