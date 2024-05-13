@@ -96,7 +96,12 @@ export default function RootRoute() {
                   className="text-sm"
                   label="Show task details"
                   checked={showTaskDetails}
-                  onChange={() => setShowTaskDetails(!showTaskDetails)}
+                  onChange={() => {
+                    if (showTaskDetails) {
+                      setSelectedTask(null);
+                    }
+                    setShowTaskDetails(!showTaskDetails);
+                  }}
                 />
               </ShortcutWrap>
 
@@ -119,7 +124,10 @@ export default function RootRoute() {
           // TODO:
           <TaskDetails
             task={selectedTask}
-            onClose={() => setShowTaskDetails(false)}
+            onClose={() => {
+              setShowTaskDetails(false);
+              setSelectedTask(null);
+            }}
           />
         )}
 

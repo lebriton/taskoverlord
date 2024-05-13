@@ -1,3 +1,4 @@
+import illustration from "../../assets/illustration_two.png";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -24,37 +25,9 @@ import {
 import Heading2 from "../molecules/Heading2";
 
 export default function TaskDetails({ task, onClose }) {
-  const attributes = [
-    {
-      Icon: FireIcon,
-      name: "Urgency",
-      value: task && atMostXDecimalPoints(task.urgency, 1),
-    },
-    {
-      Icon: TagIcon,
-      name: "Tags",
-      value: (task && task.tags && displayTags(task.tags)) || "-",
-    },
-    {
-      Icon: FolderIcon,
-      name: "Project",
-      value: task?.project || "-",
-    },
-    {
-      Icon: CalendarDaysIcon,
-      name: "Due date",
-      value: task?.due || "-",
-    },
-    {
-      Icon: HandRaisedIcon,
-      name: "Wait date",
-      value: task?.wait || "-",
-    },
-  ];
-
   return (
     <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-      <CardBody className="">
+      <CardBody className="flex flex-col">
         <FlexLine
           className="mb-3"
           left={
@@ -94,41 +67,83 @@ export default function TaskDetails({ task, onClose }) {
             </div>
           }
         />
-        <div className="flex divide-x">
-          <div className="w-3/4 pe-3">
-            <Heading2 title={task?.description} subtitle={`#${task?.id}`} />
-            {task && (
-              <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
-            )}
-            <hr className="my-6" />
-            <Heading3 className="mb-3" title="Annotations" badgeText="0" />
-            wip
-            <Heading3
-              className="mb-3 mt-12"
-              title="User-defined attributes"
-              badgeText="0"
-            />
-            wip
-          </div>
 
-          <div className="flex-1 ps-3">
-            {attributes.map((attr, idx) => (
-              <div
-                key={idx}
-                className="py-1.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
-              >
-                <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-500">
-                  <attr.Icon className="size-5" />
-                  {attr.name}
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
-                  {attr.value}
-                </dd>
-              </div>
-            ))}
+        {task ? (
+          <Body task={task} />
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-6">
+            <img className="size-40 opacity-35 grayscale" src={illustration} />
+            <span className="text-lg font-medium text-neutral-300">
+              Select a task to display its data
+            </span>
           </div>
-        </div>
+        )}
       </CardBody>
     </Card>
+  );
+}
+
+function Body({ task }) {
+  const attributes = [
+    {
+      Icon: FireIcon,
+      name: "Urgency",
+      value: task && atMostXDecimalPoints(task.urgency, 1),
+    },
+    {
+      Icon: TagIcon,
+      name: "Tags",
+      value: (task && task.tags && displayTags(task.tags)) || "-",
+    },
+    {
+      Icon: FolderIcon,
+      name: "Project",
+      value: task?.project || "-",
+    },
+    {
+      Icon: CalendarDaysIcon,
+      name: "Due date",
+      value: task?.due || "-",
+    },
+    {
+      Icon: HandRaisedIcon,
+      name: "Wait date",
+      value: task?.wait || "-",
+    },
+  ];
+
+  return (
+    <div className="flex divide-x">
+      <div className="w-3/4 pe-3">
+        <Heading2 title={task?.description} subtitle={`#${task?.id}`} />
+        {task && <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>}
+        <hr className="my-6" />
+        <Heading3 className="mb-3" title="Annotations" badgeText="0" />
+        wip
+        <Heading3
+          className="mb-3 mt-12"
+          title="User-defined attributes"
+          badgeText="0"
+        />
+        wip
+      </div>
+
+      <div className="flex-1 ps-3">
+        {attributes.map((attr, idx) => (
+          <div
+            key={idx}
+            className="py-1.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
+          >
+            <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-500">
+              <attr.Icon className="size-5" />
+              {attr.name}
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
+              {attr.value}
+            </dd>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
