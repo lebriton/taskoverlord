@@ -23,6 +23,7 @@ import {
   displayTags,
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
+import EmptyState from "../molecules/EmptyState";
 
 export default function TaskDetails({ task, onClose }) {
   return (
@@ -71,12 +72,16 @@ export default function TaskDetails({ task, onClose }) {
         {task ? (
           <Body task={task} />
         ) : (
-          <div className="flex flex-col items-center justify-center gap-6">
-            <img className="size-40 opacity-35 grayscale" src={illustration} />
-            <span className="text-lg font-medium text-neutral-300">
-              Select a task to display its data
-            </span>
-          </div>
+          <EmptyState
+            icon={
+              <img
+                className="size-32 opacity-25 grayscale"
+                src={illustration}
+              />
+            }
+            title="No task selected"
+            subtitle="Pick one to display its data."
+          />
         )}
       </CardBody>
     </Card>
