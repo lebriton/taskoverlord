@@ -104,7 +104,7 @@ function Body({ task }) {
     {
       Icon: TagIcon,
       name: "Tags",
-      value: task.tags && displayTags(task.tags) || "-",
+      value: (task.tags && displayTags(task.tags)) || "-",
     },
     {
       Icon: FolderIcon,

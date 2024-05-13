@@ -95,7 +95,9 @@ export default function TableViewRoute() {
       data={tasksQuery.data}
       selectedItem={selectedTask}
       columns={columns}
-      isRowDisabled={(row) => row.original.status == "completed"}
+      isRowDisabled={(row) =>
+        ["completed", "deleted"].includes(row.original.status)
+      }
       onSelected={displayTask}
     />
   );

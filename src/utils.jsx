@@ -4,6 +4,7 @@ import {
   HandRaisedIcon,
   CheckIcon,
   ClockIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/outline";
 
 export function atMostXDecimalPoints(floatValue, fractionDigits) {
@@ -40,6 +41,10 @@ export function displayStatusBadgeForTask(task) {
     case "waiting":
       variant = "indigo";
       Icon = HandRaisedIcon;
+      break;
+    case "deleted":
+      variant = "red";
+      Icon = XCircleIcon;
       break;
   }
 
