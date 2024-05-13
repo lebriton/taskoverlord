@@ -78,6 +78,7 @@ export default function RootRoute() {
                 <Button
                   Icon={ArrowPathIcon}
                   variant="no-outline"
+                  shortcutText="r"
                   onClick={() =>
                     queryClient.invalidateQueries({ queryKey: ["tasks"] })
                   }
