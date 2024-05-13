@@ -19,7 +19,7 @@ _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds
 
 ## ✨ Features
 
-- 100% **free** and open **source** under the [GPLv3 license](/LICENSE).
+- 100% **free** and **open source** under the [GPLv3 license](/LICENSE).
 - Run the desktop client seamlessly on any Linux distribution thanks to the **AppImage** technology, and a dedicated **Debian package** for Debian-based systems.
 - Enjoy a seamless user experience with a focus on **keyboard-driven interactions**, although mouse usage is also supported for familiarity.
   - Utilize **intuitive shortcuts** to swiftly maneuver through the application and perform various actions.
