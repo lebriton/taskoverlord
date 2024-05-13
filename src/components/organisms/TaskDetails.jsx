@@ -99,35 +99,35 @@ function Body({ task }) {
     {
       Icon: FireIcon,
       name: "Urgency",
-      value: task && atMostXDecimalPoints(task.urgency, 1),
+      value: atMostXDecimalPoints(task.urgency, 1),
     },
     {
       Icon: TagIcon,
       name: "Tags",
-      value: (task && task.tags && displayTags(task.tags)) || "-",
+      value: task.tags && displayTags(task.tags) || "-",
     },
     {
       Icon: FolderIcon,
       name: "Project",
-      value: task?.project || "-",
+      value: task.project || "-",
     },
     {
       Icon: CalendarDaysIcon,
       name: "Due date",
-      value: task?.due || "-",
+      value: task.due || "-",
     },
     {
       Icon: HandRaisedIcon,
       name: "Wait date",
-      value: task?.wait || "-",
+      value: task.wait || "-",
     },
   ];
 
   return (
     <div className="flex divide-x">
       <div className="w-3/4 pe-3">
-        <Heading2 title={task?.description} subtitle={`#${task?.id}`} />
-        {task && <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>}
+        <Heading2 title={task.description} subtitle={`#${task.id}`} />
+        <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
         <hr className="my-6" />
         <Heading3 className="mb-3" title="Annotations" badgeText="0" />
         wip
