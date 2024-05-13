@@ -36,18 +36,27 @@ _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds
 
 ## 👩‍💻 Contributing
 
-### Setup
+<details>
+<summary>Setup</summary>
 
 With [rust](https://www.rust-lang.org/tools/install), [pnpm](https://pnpm.io/installation) and [just](https://just.systems/man/en/chapter_2.html) installed, run `just setup`.
 
-### Develop
+</details>
+
+<details>
+<summary>Develop</summary>
 
 To launch the app in development mode, run `just develop`.  
 Before committing any changes to git, run `just pre-commit`.
 
-### Build
+</details>
+
+<details>
+<summary>Build</summary>
 
 [wip (github action)](https://tauri.app/v1/guides/building/linux/)
+
+</details>
 
 ## 📜 License
 
