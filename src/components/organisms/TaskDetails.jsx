@@ -50,14 +50,20 @@ export default function TaskDetails({ task, onClose }) {
           right={
             <div className="flex items-center justify-end gap-2">
               <Button
-                className="hover:text-red-600"
+                className="hover:enabled:text-red-600"
                 variant="no-outline"
                 Icon={TrashIcon}
                 shortcutText="d"
+                disabled={!task}
               >
                 Delete
               </Button>
-              <Button variant="gray" Icon={PencilSquareIcon} shortcutText="e">
+              <Button
+                variant="gray"
+                Icon={PencilSquareIcon}
+                shortcutText="e"
+                disabled={!task}
+              >
                 Edit
               </Button>
 

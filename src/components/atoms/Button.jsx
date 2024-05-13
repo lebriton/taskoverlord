@@ -6,22 +6,27 @@ export default function Button({
   variant = "default",
   Icon,
   shortcutText = "",
+  disabled = false,
   onClick,
   children,
 }) {
   return (
     <button
       type="button"
+      disabled={disabled}
       className={classNames(
-        "inline-flex items-center gap-1 rounded-md p-1.5 text-center text-xs font-medium active:brightness-95",
-        variant == "no-outline" && "text-neutral-700 hover:bg-neutral-100",
+        "inline-flex items-center gap-1 rounded-md p-1.5 text-center text-xs font-medium enabled:active:brightness-95",
+        variant == "no-outline" &&
+          "text-neutral-700 enabled:hover:bg-neutral-100",
         variant != "no-outline" && "border",
 
-        variant == "default" && "bg-white hover:bg-neutral-50",
+        variant == "default" && "bg-white enabled:hover:bg-neutral-50",
         variant == "green" &&
-          "border-green-700 bg-green-600 text-white hover:bg-green-700",
+          "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
-          "border-neutral-700 bg-neutral-600 text-white hover:bg-neutral-700",
+          "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
+
+        disabled && "cursor-not-allowed opacity-50",
 
         children && "px-2.5",
 
