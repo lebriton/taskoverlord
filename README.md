@@ -11,6 +11,7 @@
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/lebriton/taskoverlord?label=open%20pull%20requests)
 
 _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds may come in the future._
+
 </div>
 
 > [!WARNING]  
