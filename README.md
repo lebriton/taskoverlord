@@ -17,13 +17,13 @@ _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds
 > This project is currently in alpha stage, meaning it's under active development and may contain bugs.  
 > Please use with caution and report any issues you encounter.
 
-## Install
+## 📦 Install
 
-## Documentation
+## 📖 Documentation
 
-## Contributing
+## 👩‍💻 Contributing
 
-## License
+## 📜 License
 
 Taskoverlord is released under the GPLv3 license.
 For details check the [LICENSE](LICENSE) file.
