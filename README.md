@@ -25,6 +25,9 @@ _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds
 - Enjoy a seamless user experience with a focus on **keyboard-driven interactions**, although mouse usage is also supported for familiarity.
   - Utilize **intuitive shortcuts** to swiftly maneuver through the application and perform various actions.
   - Navigate effortlessly with familiar **Vim-like keybindings**.
+
+## 🗺️ Roadmap
+
 - Customize your experience to your preferences with an easy-to-modify **configuration file**.
 
 ## 📦 Install
