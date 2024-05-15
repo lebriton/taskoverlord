@@ -1,4 +1,3 @@
-import illustration from "../../assets/illustration_two.png";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -14,6 +13,7 @@ import {
   HandRaisedIcon,
   PencilIcon,
   InformationCircleIcon,
+  CursorArrowRippleIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
 import Card, { CardBody } from "../molecules/Card";
@@ -81,12 +81,7 @@ export default function TaskDetails({ task, onClose }) {
           <Body task={task} />
         ) : (
           <EmptyState
-            icon={
-              <img
-                className="size-32 opacity-25 grayscale"
-                src={illustration}
-              />
-            }
+            Icon={CursorArrowRippleIcon}
             title="No task selected"
             subtitle="Pick one to display its data."
           />
