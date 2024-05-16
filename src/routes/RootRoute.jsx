@@ -137,15 +137,9 @@ export default function RootRoute() {
           />
         )}
 
-        <BottomBar
-          isCommandsActive={showFloatingTerminal}
-          onCommandsClick={() => setShowFloatingTerminal(!showFloatingTerminal)}
-        />
+        <BottomBar isCommandsActive={showFloatingTerminal} onCommandsClick={() => setShowFloatingTerminal(!showFloatingTerminal)}/>
 
-        <FloatingTerminal
-          show={showFloatingTerminal}
-          onClose={() => setShowFloatingTerminal(false)}
-        />
+        <FloatingTerminal show={showFloatingTerminal} onClose={() => setShowFloatingTerminal(false)}/>
       </div>
 
       <ReactQueryDevtools buttonPosition="bottom-right" />

@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import { CommandLineIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
+import Shortcut from "../atoms/Shortcut";
 
 function Button({ isActive, children, onClick }) {
   return (
@@ -37,6 +38,7 @@ export default function BottomBar({ isCommandsActive, onCommandsClick }) {
       <Button isActive={isCommandsActive} onClick={onCommandsClick}>
         <CommandLineIcon className="size-4" />
         Commands
+        <Shortcut text="c"/>
       </Button>
       <Button>Taskoverlord v0.1.0</Button>
     </div>
