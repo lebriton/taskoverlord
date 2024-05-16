@@ -38,7 +38,7 @@ export default function BottomBar({ isCommandsActive, onCommandsClick }) {
       <Button isActive={isCommandsActive} onClick={onCommandsClick}>
         <CommandLineIcon className="size-4" />
         Commands
-        <Shortcut text="c"/>
+        <Shortcut text="c" />
       </Button>
       <Button>Taskoverlord v0.1.0</Button>
     </div>
