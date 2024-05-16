@@ -23,6 +23,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import SelectMenu from "../components/molecules/SelectMenu";
+import FloatingTerminal from "../components/organisms/FloatingTerminal";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -46,6 +47,7 @@ export default function RootRoute() {
     setShowTaskDetails(true);
   };
   const [showTaskDetails, setShowTaskDetails] = useState(false);
+  const [showFloatingTerminal, setShowFloatingTerminal] = useState(false);
 
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
@@ -63,7 +65,7 @@ export default function RootRoute() {
     <>
       <div className="flex h-screen w-screen flex-col overflow-hidden">
         <FlexLine
-          className="z-50 gap-6 px-3"
+          className="gap-6 px-3"
           left={
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center justify-end gap-3">
@@ -73,7 +75,11 @@ export default function RootRoute() {
                   defaultItem={{ text: "Select a project", shortcut: "0" }}
                 />
 
-                <Heading3 title="Tasks" badgeText={tasksQuery.data.length} />
+                <Heading3
+                  className="!mb-0"
+                  title="Tasks"
+                  badgeText={tasksQuery.data.length}
+                />
 
                 <Button
                   Icon={ArrowPathIcon}
@@ -131,7 +137,15 @@ export default function RootRoute() {
           />
         )}
 
-        <BottomBar />
+        <BottomBar
+          isCommandsActive={showFloatingTerminal}
+          onCommandsClick={() => setShowFloatingTerminal(!showFloatingTerminal)}
+        />
+
+        <FloatingTerminal
+          show={showFloatingTerminal}
+          onClose={() => setShowFloatingTerminal(false)}
+        />
       </div>
 
       <ReactQueryDevtools buttonPosition="bottom-right" />

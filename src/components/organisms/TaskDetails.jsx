@@ -125,8 +125,8 @@ function Body({ task }) {
       <div className="w-3/4 pe-3">
         <Heading2 title={task.description} subtitle={`#${task.id}`} />
         <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
-        <hr className="my-6" />
-        <Heading3 className="mb-3" title="Annotations" badgeText="0" />
+        <hr className="my-5" />
+        <Heading3 title="Annotations" badgeText="0" />
         <EmptyState
           className="rounded-md bg-neutral-50"
           Icon={PencilIcon}
@@ -135,7 +135,7 @@ function Body({ task }) {
         />
 
         <Heading3
-          className="mb-3 mt-12"
+          className="mt-12"
           title="User-defined attributes"
           badgeText="0"
         />

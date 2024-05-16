@@ -4,6 +4,7 @@ import Shortcut from "./Shortcut";
 export default function Button({
   className,
   variant = "default",
+  size = "xs",
   Icon,
   shortcutText = "",
   disabled = false,
@@ -15,7 +16,7 @@ export default function Button({
       type="button"
       disabled={disabled}
       className={classNames(
-        "inline-flex items-center gap-1 rounded-md p-1.5 text-center text-xs font-medium enabled:active:brightness-95",
+        "inline-flex items-center gap-1 rounded-md p-1.5 text-center font-medium enabled:active:brightness-95",
         variant == "no-outline" &&
           "text-neutral-700 enabled:hover:bg-neutral-100",
         variant != "no-outline" && "border",
@@ -25,6 +26,9 @@ export default function Button({
           "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
           "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
+
+        size == "xs" && "text-xs",
+        size == "sm" && "text-sm",
 
         disabled && "cursor-not-allowed opacity-50",
 

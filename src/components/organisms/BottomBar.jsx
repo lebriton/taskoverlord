@@ -1,18 +1,24 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
+import { CommandLineIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 
-function Button({ children }) {
+function Button({ isActive, children, onClick }) {
   return (
     <button
-      className="px-1.5 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-600"
+      className={classNames(
+        "flex items-center gap-1 px-1.5 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-600",
+        isActive && "!bg-neutral-200 !text-neutral-600",
+      )}
       type="button"
+      onClick={onClick}
     >
       {children}
     </button>
   );
 }
 
-export default function BottomBar() {
+export default function BottomBar({ isCommandsActive, onCommandsClick }) {
   const taskwarriorVersionQuery = useSuspenseQuery({
     queryKey: ["taskwarrior", "info"],
     // TODO: handle errors
@@ -28,6 +34,10 @@ export default function BottomBar() {
 
       {/* TODO: onClick: show CHANGELOG */}
       {/* TODO: get the version from somewhere */}
+      <Button isActive={isCommandsActive} onClick={onCommandsClick}>
+        <CommandLineIcon className="size-4" />
+        Commands
+      </Button>
       <Button>Taskoverlord v0.1.0</Button>
     </div>
   );
