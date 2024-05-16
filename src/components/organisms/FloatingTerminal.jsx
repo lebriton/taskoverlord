@@ -1,6 +1,5 @@
 import Modal from "../molecules/Modal";
 import Input from "../atoms/Input";
-import { CommandLineIcon } from "@heroicons/react/20/solid";
 import Card, { CardHeader, CardBody } from "../molecules/Card";
 import Heading3 from "../molecules/Heading3";
 import classNames from "classnames";
@@ -8,25 +7,24 @@ import classNames from "classnames";
 export default function FloatingTerminal({ show, onClose }) {
   return (
     <Modal show={show} onClose={onClose}>
-      <Card>
-        <CardHeader>
+      <Card className="mb-6 shadow-lg">
+        <CardBody>
           <Input
+            className="!text-lg"
             placeholder="Type a taskwarrior command…"
-            Icon={CommandLineIcon}
             buttonText="Run"
             helpText="Only a subset of taskwarrior commands is supported."
           />
-        </CardHeader>
-        <CardBody>
-          <Heading3 title="Command output" badgeText="2" />
+        </CardBody>
+      </Card>
 
-          <div className="flex flex-col divide-y divide-neutral-700 rounded-md bg-neutral-950 text-sm text-neutral-200">
-            <TerminalBlock status={1} command="test" output="" />
+      <div className="flex flex-col divide-y divide-neutral-700 rounded-xl bg-neutral-950 text-sm text-neutral-50 shadow-lg">
+        <TerminalBlock status={1} command="test" output="" />
 
-            <TerminalBlock
-              status={0}
-              command="task help"
-              output={`
+        <TerminalBlock
+          status={0}
+          command="task help"
+          output={`
 Usage: task                                                   Runs rc.default.command, if specified.
        task <filter> active                                   Active tasks
        task          add <mods>                               Adds a new task
@@ -35,10 +33,8 @@ Usage: task                                                   Runs rc.default.co
        task <filter> append <mods>                            Appends text to an existing task description
        task <filter> blocked                                  Blocked tasks
        task <filter> blocking                                 Blocking tasks`}
-            />
-          </div>
-        </CardBody>
-      </Card>
+        />
+      </div>
     </Modal>
   );
 }

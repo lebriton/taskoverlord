@@ -5,12 +5,12 @@ export default function Modal({ show, children, onClose }) {
     <div
       className={classNames(
         !show && "hidden",
-        "h-full] fixed left-0 right-0 top-0 z-40 flex max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black/50 md:inset-0",
+        "fixed left-0 right-0 top-0 z-40 flex h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black/50 md:inset-0",
       )}
       onClick={onClose}
     >
       <div
-        className="relative max-h-full w-full max-w-7xl p-4"
+        className="relative max-h-full w-full max-w-7xl"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
