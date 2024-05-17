@@ -16,7 +16,7 @@ import {
   CursorArrowRippleIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
-import Card, { CardBody } from "../molecules/Card";
+import Card, { CardBody, CardHeader } from "../molecules/Card";
 import FlexLine from "../molecules/FlexLine";
 import Heading3 from "../molecules/Heading3";
 import {
@@ -30,9 +30,8 @@ import EmptyState from "../molecules/EmptyState";
 export default function TaskDetails({ task, onClose }) {
   return (
     <Card className="mx-3 mb-3 flex-1 overflow-scroll">
-      <CardBody className="flex flex-col">
+      <CardHeader className="bg-neutral-50">
         <FlexLine
-          className="mb-3"
           left={
             <div className="flex items-center gap-2">
               <Button Icon={ChevronLeftIcon} />
@@ -76,7 +75,9 @@ export default function TaskDetails({ task, onClose }) {
             </div>
           }
         />
+      </CardHeader>
 
+      <CardBody className="flex flex-col">
         {task ? (
           <Body task={task} />
         ) : (

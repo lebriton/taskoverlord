@@ -1,6 +1,6 @@
 import Modal from "../molecules/Modal";
 import Input from "../atoms/Input";
-import Card, { CardBody } from "../molecules/Card";
+import Card, { CardBody, CardHeader } from "../molecules/Card";
 import classNames from "classnames";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Button from "../atoms/Button";
@@ -20,24 +20,16 @@ export default function FloatingTerminal({ show, onClose }) {
   return (
     <Modal show={show} onClose={onClose}>
       <Card className="mb-6 shadow-lg">
-        <CardBody>
+        <CardHeader className="bg-neutral-50">
           <FlexLine
-            className="mb-3"
             left={<span className="text-neutral-400">Commands</span>}
             right={
-              <div className="flex items-center justify-end gap-2">
-                {/* Vertical divider */}
-                <div className="h-4 border-l" />
-
-                <Button
-                  variant="no-outline"
-                  Icon={XMarkIcon}
-                  onClick={onClose}
-                />
-              </div>
+              <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
             }
           />
+        </CardHeader>
 
+        <CardBody>
           <Input
             ref={inputReference}
             className="!text-lg"
@@ -48,7 +40,7 @@ export default function FloatingTerminal({ show, onClose }) {
         </CardBody>
       </Card>
 
-      <div className="flex flex-col divide-y divide-neutral-700 rounded-xl bg-neutral-950 text-sm text-neutral-50 shadow-lg">
+      <div className="flex flex-col divide-y divide-neutral-700 rounded-xl border border-neutral-700 bg-neutral-950 text-sm text-neutral-50 shadow-lg">
         <TerminalBlock status={1} command="test" stdout="" />
 
         <TerminalBlock
