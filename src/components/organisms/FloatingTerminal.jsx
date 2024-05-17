@@ -53,11 +53,11 @@ function TerminalBlock({ status, command, output }) {
             status != 0 && "bg-red-500/85 ring-red-500/50",
           )}
         />
-        <div className="bg-neutral-900 border border-neutral-800 rounded-md px-3 py-1.5 w-full">
-        <pre className="flex-1 font-medium">
-          <span className="font-bold">$</span> {command}
-        </pre>
-      <pre>{output}</pre>
+        <div className="w-full rounded-md border border-neutral-800 bg-neutral-900 px-3 py-1.5">
+          <pre className="flex-1 font-medium">
+            <span className="font-bold">$</span> {command}
+          </pre>
+          <pre>{output}</pre>
         </div>
       </div>
     </div>
