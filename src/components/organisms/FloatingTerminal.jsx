@@ -41,23 +41,25 @@ Usage: task                                                   Runs rc.default.co
 
 function TerminalBlock({ status, command, output }) {
   return (
-    <div className="px-8 py-6">
-      <div className="flex items-center gap-8">
+    <div className="p-6">
+      <div className="flex items-baseline gap-6">
+        <span className="font-medium tracking-wide text-neutral-300">
+          23:57:39
+        </span>
         <div
           className={classNames(
-            "size-2.5 rounded-full",
-            status == 0 && "bg-green-500/85 ring-4 ring-green-500/50",
-            status != 0 && "bg-red-500/85 ring-4 ring-red-500/50",
+            "size-2 rounded-full ring-4",
+            status == 0 && "bg-green-500/85 ring-green-500/50",
+            status != 0 && "bg-red-500/85 ring-red-500/50",
           )}
         />
+        <div className="bg-neutral-900 border border-neutral-800 rounded-md px-3 py-1.5 w-full">
         <pre className="flex-1 font-medium">
           <span className="font-bold">$</span> {command}
         </pre>
-        <span className="text-xs font-medium tracking-wide opacity-50">
-          23:57:39
-        </span>
+      <pre>{output}</pre>
+        </div>
       </div>
-      <pre className="ml-10 ps-0.5">{output}</pre>
     </div>
   );
 }
