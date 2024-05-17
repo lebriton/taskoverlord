@@ -1,16 +1,20 @@
 import classNames from "classnames";
 import Button from "../atoms/Button";
+import { forwardRef } from "react";
 
-export default function Input({
-  className,
-  value,
-  placeholder,
-  Icon,
-  buttonText,
-  helpText,
-  isRequired,
-  onSubmit,
-}) {
+const Input = forwardRef(function Input(
+  {
+    className,
+    value,
+    placeholder,
+    Icon,
+    buttonText,
+    helpText,
+    isRequired,
+    onSubmit,
+  },
+  ref,
+) {
   return (
     <>
       <div className="relative">
@@ -32,6 +36,7 @@ export default function Input({
           placeholder={placeholder}
           required={isRequired}
           onSubmit={onSubmit}
+          ref={ref}
         />
 
         {buttonText && (
@@ -46,4 +51,6 @@ export default function Input({
       {helpText && <p className="mt-2 text-sm text-gray-500">{helpText}</p>}
     </>
   );
-}
+});
+
+export default Input;

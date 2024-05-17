@@ -5,8 +5,18 @@ import classNames from "classnames";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import Button from "../atoms/Button";
 import FlexLine from "../molecules/FlexLine";
+import { useEffect, useRef } from "react";
 
 export default function FloatingTerminal({ show, onClose }) {
+  const inputReference = useRef(null);
+
+  useEffect(() => {
+    if (show) {
+      inputReference.current.focus();
+      inputReference.current.value = "";
+    }
+  }, [show]);
+
   return (
     <Modal show={show} onClose={onClose}>
       <Card className="mb-6 shadow-lg">
@@ -29,6 +39,7 @@ export default function FloatingTerminal({ show, onClose }) {
           />
 
           <Input
+            ref={inputReference}
             className="!text-lg"
             placeholder="Type a taskwarrior command…"
             buttonText="Run"
