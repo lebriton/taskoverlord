@@ -19,7 +19,7 @@ export default function RightFloatingColumn({
       )}
     >
       <div className="flex items-center justify-between gap-3 p-3">
-        <Heading2 className="mb-0" title={headingTitle} />
+        <Heading2 className="!mb-0" title={headingTitle} />
         <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
       </div>
 
