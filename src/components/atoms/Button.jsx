@@ -16,7 +16,7 @@ export default function Button({
       type="button"
       disabled={disabled}
       className={classNames(
-        "inline-flex items-center gap-1 rounded-md p-1.5 text-center font-medium enabled:active:brightness-95",
+        "inline-flex items-center justify-center gap-1 rounded-md p-1.5 text-center font-medium enabled:active:brightness-95",
         variant == "no-outline" &&
           "text-neutral-700 enabled:hover:bg-neutral-100",
         variant != "no-outline" && "border",
@@ -26,6 +26,8 @@ export default function Button({
           "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
           "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
+        variant == "blue" &&
+          "border-blue-700 bg-blue-600 text-white enabled:hover:bg-blue-700",
 
         size == "xs" && "text-xs",
         size == "sm" && "text-sm",
@@ -50,4 +52,8 @@ export default function Button({
       )}
     </button>
   );
+}
+
+export function ButtonList({ className, children }) {
+  return <div className="flex gap-1.5">{children}</div>;
 }

@@ -18,12 +18,16 @@ import Badge, { BadgeList } from "../components/atoms/Badge";
 import { Outlet } from "react-router-dom";
 import Heading3 from "../components/molecules/Heading3";
 import FlexLine from "../components/molecules/FlexLine";
-import Button from "../components/atoms/Button";
+import Button, { ButtonList } from "../components/atoms/Button";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import SelectMenu from "../components/molecules/SelectMenu";
 import FloatingTerminal from "../components/organisms/FloatingTerminal";
+import RightFloatingColumn from "../components/molecules/RightFloatingColumn";
+import Label from "../components/atoms/Label";
+import Input from "../components/atoms/Input";
+import FormGroup from "../components/atoms/FormGroup";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -48,6 +52,7 @@ export default function RootRoute() {
   };
   const [showTaskDetails, setShowTaskDetails] = useState(false);
   const [showFloatingTerminal, setShowFloatingTerminal] = useState(false);
+  const [showRightFloatingColumn, setShowRightFloatingColumn] = useState(false);
 
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
@@ -115,7 +120,12 @@ export default function RootRoute() {
                 Filter
               </Button>
 
-              <Button variant="green" Icon={PlusCircleIcon} shortcutText="a">
+              <Button
+                variant="green"
+                Icon={PlusCircleIcon}
+                shortcutText="a"
+                onClick={() => setShowRightFloatingColumn(true)}
+              >
                 New task
               </Button>
             </div>
@@ -146,6 +156,42 @@ export default function RootRoute() {
           show={showFloatingTerminal}
           onClose={() => setShowFloatingTerminal(false)}
         />
+
+        <RightFloatingColumn
+          headingTitle="Add a task"
+          show={showRightFloatingColumn}
+          bottom={
+            <div className="flex justify-end">
+              <ButtonList>
+                <Button
+                  size="sm"
+                  onClick={() => setShowRightFloatingColumn(false)}
+                >
+                  Cancel
+                </Button>
+                <Button variant="blue" size="sm">
+                  Add task
+                </Button>
+              </ButtonList>
+            </div>
+          }
+          onClose={() => setShowRightFloatingColumn(false)}
+        >
+          <FormGroup>
+            <Label text="Description" />
+            <Input />
+          </FormGroup>
+
+          <FormGroup>
+            <Label text="Project" isOptional />
+            <Input />
+          </FormGroup>
+
+          <FormGroup>
+            <Label text="Tags" isOptional />
+            <Input />
+          </FormGroup>
+        </RightFloatingColumn>
       </div>
 
       <ReactQueryDevtools buttonPosition="bottom-right" />
