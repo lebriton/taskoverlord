@@ -22,7 +22,6 @@ import Button, { ButtonList } from "../components/atoms/Button";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
-import SelectMenu from "../components/molecules/SelectMenu";
 import FloatingTerminal from "../components/organisms/FloatingTerminal";
 import RightFloatingColumn from "../components/molecules/RightFloatingColumn";
 import Label from "../components/atoms/Label";
@@ -74,12 +73,6 @@ export default function RootRoute() {
           left={
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center justify-end gap-3">
-                <SelectMenu
-                  className="w-40"
-                  items={projects}
-                  defaultItem={{ text: "Select a project", shortcut: "0" }}
-                />
-
                 <Heading3
                   className="!mb-0"
                   title="Tasks"
@@ -96,7 +89,13 @@ export default function RootRoute() {
                 />
               </div>
 
-              <CountTasksByStatus tasks={tasksQuery.data} />
+              <div className="flex items-center justify-end gap-3">
+                <CountTasksByStatus tasks={tasksQuery.data} />
+
+                <Button Icon={FunnelIcon} shortcutText="f">
+                  Filter
+                </Button>
+              </div>
             </div>
           }
           center={<NavigationTabs links={links} />}
@@ -115,10 +114,6 @@ export default function RootRoute() {
                   }}
                 />
               </ShortcutWrap>
-
-              <Button Icon={FunnelIcon} shortcutText="f">
-                Filter
-              </Button>
 
               <Button
                 variant="green"
