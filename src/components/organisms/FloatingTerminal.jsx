@@ -19,12 +19,12 @@ export default function FloatingTerminal({ show, onClose }) {
       </Card>
 
       <div className="flex flex-col divide-y divide-neutral-700 rounded-xl bg-neutral-950 text-sm text-neutral-50 shadow-lg">
-        <TerminalBlock status={1} command="test" output="" />
+        <TerminalBlock status={1} command="test" stdout="" />
 
         <TerminalBlock
           status={0}
           command="task help"
-          output={`
+          stdout={`
 Usage: task                                                   Runs rc.default.command, if specified.
        task <filter> active                                   Active tasks
        task          add <mods>                               Adds a new task
@@ -39,7 +39,7 @@ Usage: task                                                   Runs rc.default.co
   );
 }
 
-function TerminalBlock({ status, command, output }) {
+function TerminalBlock({ status, command, stdout }) {
   return (
     <div className="p-6">
       <div className="flex items-baseline gap-6">
@@ -57,7 +57,7 @@ function TerminalBlock({ status, command, output }) {
           <pre className="flex-1 font-medium">
             <span className="font-bold">$</span> {command}
           </pre>
-          <pre>{output}</pre>
+          <pre>{stdout}</pre>
         </div>
       </div>
     </div>
