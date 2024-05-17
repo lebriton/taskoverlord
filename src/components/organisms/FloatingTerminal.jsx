@@ -1,14 +1,33 @@
 import Modal from "../molecules/Modal";
 import Input from "../atoms/Input";
-import Card, { CardHeader, CardBody } from "../molecules/Card";
-import Heading3 from "../molecules/Heading3";
+import Card, { CardBody } from "../molecules/Card";
 import classNames from "classnames";
+import { XMarkIcon } from "@heroicons/react/20/solid";
+import Button from "../atoms/Button";
+import FlexLine from "../molecules/FlexLine";
 
 export default function FloatingTerminal({ show, onClose }) {
   return (
     <Modal show={show} onClose={onClose}>
       <Card className="mb-6 shadow-lg">
         <CardBody>
+          <FlexLine
+            className="mb-3"
+            left={<span className="text-neutral-400">Commands</span>}
+            right={
+              <div className="flex items-center justify-end gap-2">
+                {/* Vertical divider */}
+                <div className="h-4 border-l" />
+
+                <Button
+                  variant="no-outline"
+                  Icon={XMarkIcon}
+                  onClick={onClose}
+                />
+              </div>
+            }
+          />
+
           <Input
             className="!text-lg"
             placeholder="Type a taskwarrior command…"
