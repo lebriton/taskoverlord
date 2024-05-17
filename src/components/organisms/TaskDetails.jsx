@@ -154,11 +154,11 @@ function Body({ task }) {
             key={idx}
             className="py-1.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
           >
-            <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-500">
+            <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-700">
               <attr.Icon className="size-5" />
               {attr.name}
             </dt>
-            <dd className="mt-1 text-sm leading-6 text-neutral-700 sm:col-span-2 sm:mt-0">
+            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
               {attr.value}
             </dd>
           </div>
