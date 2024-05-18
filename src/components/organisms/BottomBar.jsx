@@ -1,6 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
-import { CommandLineIcon } from "@heroicons/react/24/outline";
+import {
+  CommandLineIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Shortcut from "../atoms/Shortcut";
 
@@ -8,8 +11,8 @@ function Button({ isActive, children, onClick }) {
   return (
     <button
       className={classNames(
-        "flex items-center gap-1 px-1.5 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-600",
-        isActive && "!bg-neutral-200 !text-neutral-600",
+        "flex items-center gap-1 px-1.5 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-600",
+        isActive && "!bg-neutral-200 !text-neutral-700",
       )}
       type="button"
       onClick={onClick}
@@ -27,20 +30,23 @@ export default function BottomBar({ isCommandsActive, onCommandsClick }) {
   });
 
   return (
-    <div className="flex h-6 w-full gap-1.5 border-t bg-neutral-50 px-1.5 text-xs leading-6">
-      <Button>taskwarrior {taskwarriorVersionQuery.data.version}</Button>
-      <Button>binary: {taskwarriorVersionQuery.data.binary_path}</Button>
+    <div className="flex h-6 w-full gap-1.5 border-t px-1.5 text-xs leading-6">
+      <Button isActive={isCommandsActive} onClick={onCommandsClick}>
+        <CommandLineIcon className="size-4" />
+        Console
+        <Shortcut text="c" />
+      </Button>
 
       <div className="flex-1" />
 
-      {/* TODO: onClick: show CHANGELOG */}
-      {/* TODO: get the version from somewhere */}
-      <Button isActive={isCommandsActive} onClick={onCommandsClick}>
-        <CommandLineIcon className="size-4" />
-        Commands
-        <Shortcut text="c" />
+      <Button>
+        taskwarrior {taskwarriorVersionQuery.data.version} (
+        {taskwarriorVersionQuery.data.binary_path})
       </Button>
-      <Button>Taskoverlord v0.1.0</Button>
+
+      <Button>
+        <QuestionMarkCircleIcon className="size-4" />
+      </Button>
     </div>
   );
 }

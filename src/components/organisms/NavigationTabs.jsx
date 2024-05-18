@@ -6,7 +6,7 @@ export default function NavigationTabs({ className, links }) {
   return (
     <ul
       className={classNames(
-        "-mb-px flex flex-wrap justify-center gap-3 text-center text-sm text-neutral-800",
+        "-mb-px flex flex-wrap gap-3 text-center text-sm text-neutral-800",
         className,
       )}
     >

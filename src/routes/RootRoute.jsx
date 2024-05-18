@@ -67,35 +67,33 @@ export default function RootRoute() {
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col overflow-hidden">
+      <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
         <FlexLine
           className="gap-6 px-3"
           left={
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center justify-end gap-3">
-                <Heading3
-                  className="!mb-0"
-                  title="Tasks"
-                  badgeText={tasksQuery.data.length}
-                />
+            <div className="flex items-center gap-3">
+              <Heading3
+                className="!mb-0"
+                title="Tasks"
+                badgeText={tasksQuery.data.length}
+              />
 
-                <Button
-                  Icon={ArrowPathIcon}
-                  variant="no-outline"
-                  shortcutText="r"
-                  onClick={() =>
-                    queryClient.invalidateQueries({ queryKey: ["tasks"] })
-                  }
-                />
-              </div>
+              <Button
+                Icon={ArrowPathIcon}
+                variant="no-outline"
+                shortcutText="r"
+                onClick={() =>
+                  queryClient.invalidateQueries({ queryKey: ["tasks"] })
+                }
+              />
 
-              <div className="flex items-center justify-end gap-3">
-                <CountTasksByStatus tasks={tasksQuery.data} />
+              <div className="flex-1" />
 
-                <Button Icon={FunnelIcon} shortcutText="f">
-                  Filter
-                </Button>
-              </div>
+              <CountTasksByStatus tasks={tasksQuery.data} />
+
+              <Button Icon={FunnelIcon} shortcutText="f">
+                Filter
+              </Button>
             </div>
           }
           center={<NavigationTabs links={links} />}
@@ -127,13 +125,13 @@ export default function RootRoute() {
           }
         />
 
-        <div className="mx-3 mb-3 flex-1 overflow-scroll">
+        <div className="flex-1 overflow-scroll">
           <Outlet context={[tasksQuery, selectedTask, displayTask]} />
         </div>
 
         {showTaskDetails && (
-          // TODO:
           <TaskDetails
+            className="flex-1 overflow-scroll"
             task={selectedTask}
             onClose={() => {
               setShowTaskDetails(false);

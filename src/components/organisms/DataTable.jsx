@@ -10,6 +10,7 @@ export default function DataTable({
   selectedItem,
   columns,
   isRowDisabled,
+  hasExternalBorder = true,
   onSelected,
 }) {
   const table = useReactTable({
@@ -19,16 +20,21 @@ export default function DataTable({
   });
 
   return (
-    <div className="overflow-clip rounded-md border">
-      <table className="w-full table-auto divide-y text-left text-sm text-neutral-700">
-        <thead className="bg-neutral-100 text-xs text-neutral-500">
+    <div
+      className={classNames(
+        "overflow-clip",
+        hasExternalBorder && "rounded-md border",
+      )}
+    >
+      <table className="w-full table-auto divide-y text-left text-sm text-neutral-900">
+        <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="divide-x">
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
                   scope="col"
-                  className="px-2 py-1 font-semibold"
+                  className="px-2 py-1 font-semibold uppercase text-neutral-600"
                 >
                   {header.isPlaceholder
                     ? null

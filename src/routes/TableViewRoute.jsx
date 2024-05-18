@@ -98,6 +98,7 @@ export default function TableViewRoute() {
       isRowDisabled={(row) =>
         ["completed", "deleted"].includes(row.original.status)
       }
+      hasExternalBorder={false}
       onSelected={displayTask}
     />
   );

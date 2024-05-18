@@ -1,8 +1,18 @@
 import classNames from "classnames";
 
-export default function Card({ className, children }) {
+export default function Card({
+  className,
+  hasExternalBorder = true,
+  children,
+}) {
   return (
-    <div className={`overflow-clip rounded-md border bg-white ${className}`}>
+    <div
+      className={classNames(
+        "bg-white",
+        hasExternalBorder && "overflow-clip rounded-md border",
+        className,
+      )}
+    >
       {children}
     </div>
   );

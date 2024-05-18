@@ -27,9 +27,9 @@ import {
 import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
 
-export default function TaskDetails({ task, onClose }) {
+export default function TaskDetails({ className, task, onClose }) {
   return (
-    <Card className="mx-3 mb-3 flex-1 overflow-scroll">
+    <Card className={className} hasExternalBorder={false}>
       <CardHeader className="bg-neutral-50">
         <FlexLine
           left={

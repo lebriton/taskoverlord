@@ -71,8 +71,12 @@ pub fn get_all_tasks() -> anyhow::Result<Vec<Task>> {
 
 pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
     Ok(TaskwarriorInfo {
-        binary_path: check_output(Command::new("which").arg("task"))?,
-        version: check_output(Command::new("task").arg("--version"))?,
+        binary_path: check_output(Command::new("which").arg("task"))?
+            .trim()
+            .to_string(),
+        version: check_output(Command::new("task").arg("--version"))?
+            .trim()
+            .to_string(),
     })
 }
 
