@@ -29,7 +29,7 @@ export default function DataTable({
         className,
       )}
     >
-      <table className="w-full table-auto divide-y text-left text-sm text-neutral-900">
+      <table className="w-full table-auto divide-y text-left text-sm text-neutral-800">
         <thead
           className={classNames(stickyHeader && "sticky top-0 z-10 bg-white")}
         >
