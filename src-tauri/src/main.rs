@@ -11,6 +11,7 @@ fn main() {
             commands::get_all_tasks,
             commands::get_project_names,
             commands::get_taskwarrior_info,
+            commands::run_shell_command,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

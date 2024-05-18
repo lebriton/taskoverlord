@@ -1,6 +1,5 @@
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Deserializer, Serialize};
-use std::process::Command;
 
 use crate::shell::check_output;
 
@@ -64,23 +63,19 @@ where
 }
 
 pub fn get_all_tasks() -> anyhow::Result<Vec<Task>> {
-    let output = check_output(Command::new("task").arg("export"))?;
-    let tasks = serde_json::from_str(&output)?;
+    let output = check_output("task export")?;
+    let tasks = serde_json::from_str(&output.lines)?;
     Ok(tasks)
 }
 
 pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
     Ok(TaskwarriorInfo {
-        binary_path: check_output(Command::new("which").arg("task"))?
-            .trim()
-            .to_string(),
-        version: check_output(Command::new("task").arg("--version"))?
-            .trim()
-            .to_string(),
+        binary_path: check_output("which task")?.lines.trim().to_string(),
+        version: check_output("task --version")?.lines.trim().to_string(),
     })
 }
 
 pub fn get_project_names() -> anyhow::Result<Vec<String>> {
-    let output = check_output(Command::new("task").arg("_projects"))?;
-    Ok(output.lines().map(String::from).collect())
+    let output = check_output("task projects")?;
+    Ok(output.lines.lines().map(String::from).collect())
 }

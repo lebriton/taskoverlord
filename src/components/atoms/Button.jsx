@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Shortcut from "./Shortcut";
+import Spinner from "./Spinner";
 
 export default function Button({
   className,
@@ -7,16 +8,19 @@ export default function Button({
   size = "xs",
   Icon,
   shortcutText = "",
-  disabled = false,
+  isDisabled,
+  isLoading,
   onClick,
   children,
 }) {
   return (
     <button
       type="button"
-      disabled={disabled}
+      disabled={isDisabled}
       className={classNames(
-        "inline-flex items-center gap-1 rounded-md p-1.5 font-medium enabled:active:brightness-95",
+        "inline-flex items-center gap-1 rounded-md p-1.5 font-medium",
+        "disabled:cursor-not-allowed disabled:opacity-50",
+
         variant == "no-outline" &&
           "text-neutral-700 enabled:hover:bg-neutral-100",
         variant != "no-outline" && "border",
@@ -32,21 +36,30 @@ export default function Button({
         size == "xs" && "text-xs",
         size == "sm" && "text-sm",
 
-        disabled && "cursor-not-allowed opacity-50",
-
         children && "px-2.5",
+
+        isLoading && "cursor-default",
+        !isLoading && "enabled:active:brightness-95",
 
         className,
       )}
-      onClick={onClick}
+      onClick={(e) => !isDisabled && !isLoading && onClick(e)}
     >
+      {isLoading && (
+        <Spinner
+          className={classNames(
+            "me-3",
+            ["green", "gray", "blue"].includes(variant) && "text-white",
+          )}
+        />
+      )}
       {shortcutText && <Shortcut className="me-1" text={shortcutText} />}
       {children}
       {Icon && (
         <Icon
           className={classNames(
             "size-4 text-neutral-700",
-            ["green", "gray"].includes(variant) && "text-white",
+            ["green", "gray", "blue"].includes(variant) && "text-white",
           )}
         />
       )}

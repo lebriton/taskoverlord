@@ -55,7 +55,7 @@ export default function TaskDetails({ task, onClose }) {
                 variant="no-outline"
                 Icon={TrashIcon}
                 shortcutText="d"
-                disabled={!task}
+                isDisabled={!task}
               >
                 Delete
               </Button>
@@ -63,7 +63,7 @@ export default function TaskDetails({ task, onClose }) {
                 variant="gray"
                 Icon={PencilSquareIcon}
                 shortcutText="e"
-                disabled={!task}
+                isDisabled={!task}
               >
                 Edit
               </Button>
@@ -124,14 +124,14 @@ function Body({ task }) {
   return (
     <div className="flex divide-x">
       <div className="w-3/4">
-        <div class="px-3 pt-3">
+        <div className="px-3 pt-3">
           <Heading2 title={task.description} subtitle={`#${task.id}`} />
           <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
         </div>
 
         <hr className="my-6" />
 
-        <div class="px-3 pb-3">
+        <div className="px-3 pb-3">
           <Heading3 title="Annotations" badgeText="0" />
           <EmptyState
             className="rounded-md bg-neutral-50"
