@@ -8,7 +8,7 @@ export default function Card({
   return (
     <div
       className={classNames(
-        "bg-white",
+        "flex flex-col bg-white",
         hasExternalBorder && "overflow-clip rounded-md border",
         className,
       )}

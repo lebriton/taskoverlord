@@ -130,14 +130,15 @@ export default function RootRoute() {
         </div>
 
         {showTaskDetails && (
-          <TaskDetails
-            className="flex-1 overflow-auto"
-            task={selectedTask}
-            onClose={() => {
-              setShowTaskDetails(false);
-              setSelectedTask(null);
-            }}
-          />
+          <div className="flex-1 overflow-clip">
+            <TaskDetails
+              task={selectedTask}
+              onClose={() => {
+                setShowTaskDetails(false);
+                setSelectedTask(null);
+              }}
+            />
+          </div>
         )}
 
         <BottomBar
