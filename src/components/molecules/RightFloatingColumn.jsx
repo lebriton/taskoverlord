@@ -14,7 +14,7 @@ export default function RightFloatingColumn({
   return (
     <div
       className={classNames(
-        "fixed bottom-0 end-0 top-0 flex w-full max-w-md flex-col divide-y border-s bg-white shadow-lg",
+        "fixed bottom-0 end-0 top-0 z-40 flex w-full max-w-md flex-col divide-y border-s bg-white shadow-lg",
         !show && "translate-x-full",
       )}
     >
