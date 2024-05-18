@@ -32,7 +32,7 @@ export default function FloatingTerminal({ show, onClose }) {
         <CardBody>
           <Input
             ref={inputReference}
-            className="!text-lg"
+            size="lg"
             placeholder="Type a taskwarrior command…"
             buttonText="Run"
             helpText="Only a subset of taskwarrior commands is supported."

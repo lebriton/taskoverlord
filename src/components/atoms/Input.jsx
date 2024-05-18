@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 const Input = forwardRef(function Input(
   {
     className,
+    size = "sm",
     value,
     placeholder,
     Icon,
@@ -26,7 +27,9 @@ const Input = forwardRef(function Input(
 
         <input
           className={classNames(
-            "w-full rounded-md border px-3 py-1.5 text-sm text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
+            "w-full rounded-md border px-3 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
+            size == "sm" && "text-sm",
+            size == "lg" && "text-lg",
             Icon && "!ps-10",
             buttonText && "!p-3",
             className,
@@ -40,7 +43,13 @@ const Input = forwardRef(function Input(
         />
 
         {buttonText && (
-          <div className="absolute inset-y-0 end-1.5 flex items-center">
+          <div
+            className={classNames(
+              "absolute inset-y-0 flex items-center",
+              size == "sm" && "end-1.5",
+              size == "lg" && "end-2.5",
+            )}
+          >
             <Button variant="gray" size="sm" onClick={onSubmit}>
               {buttonText}
             </Button>
