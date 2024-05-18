@@ -27,7 +27,7 @@ export function CardHeader({ className, children }) {
 }
 
 export function CardBody({ className, children }) {
-  return <div className={classNames("p-3", className)}>{children}</div>;
+  return <div className={classNames("grow p-3", className)}>{children}</div>;
 }
 
 export function CardFooter({ className, children }) {

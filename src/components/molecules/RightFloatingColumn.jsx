@@ -3,6 +3,7 @@ import Button from "../atoms/Button";
 import Heading2 from "./Heading2";
 
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import Card, { CardBody, CardFooter, CardHeader } from "./Card";
 
 export default function RightFloatingColumn({
   headingTitle,
@@ -18,14 +19,16 @@ export default function RightFloatingColumn({
         !show && "translate-x-full",
       )}
     >
-      <div className="flex items-center justify-between gap-3 p-3">
-        <Heading2 className="!mb-0" title={headingTitle} />
-        <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
-      </div>
-
-      <div className="grow p-3">{children}</div>
-
-      <div className="p-3">{bottom}</div>
+      <Card className="h-full" hasExternalBorder={false}>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-2">
+            <Heading2 className="!mb-0" title={headingTitle} />
+            <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
+          </div>
+        </CardHeader>
+        <CardBody>{children}</CardBody>
+        <CardFooter>{bottom}</CardFooter>
+      </Card>
     </div>
   );
 }
