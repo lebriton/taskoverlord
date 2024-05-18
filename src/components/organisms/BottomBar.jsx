@@ -37,7 +37,7 @@ export default function BottomBar({ isCommandsActive, onCommandsClick }) {
         <Shortcut text="c" />
       </Button>
 
-      <div className="flex-1" />
+      <div className="grow" />
 
       <Button>
         taskwarrior {taskwarriorVersionQuery.data.version} (

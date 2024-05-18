@@ -99,6 +99,7 @@ export default function TableViewRoute() {
         ["completed", "deleted"].includes(row.original.status)
       }
       hasExternalBorder={false}
+      stickyHeader={true}
       onSelected={displayTask}
     />
   );

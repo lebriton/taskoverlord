@@ -17,3 +17,21 @@
   font-display: swap;
   src: url("/fonts/Inter-4.0/InterVariable-Italic.woff2") format("woff2");
 }
+
+.sticky-header-fix {
+  position: relative;
+}
+.sticky-header-fix::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  border-bottom-width: 1px;
+  margin-bottom: -1px;
+}
+.sticky-header-fix + .sticky-header-fix::after {
+  border-left-width: 1px;
+  margin-left: -1px;
+}

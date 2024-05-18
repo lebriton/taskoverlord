@@ -6,11 +6,13 @@ import {
 } from "@tanstack/react-table";
 
 export default function DataTable({
+  className,
   data,
   selectedItem,
   columns,
   isRowDisabled,
   hasExternalBorder = true,
+  stickyHeader = false,
   onSelected,
 }) {
   const table = useReactTable({
@@ -22,19 +24,32 @@ export default function DataTable({
   return (
     <div
       className={classNames(
-        "overflow-clip",
-        hasExternalBorder && "rounded-md border",
+        hasExternalBorder && "overflow-clip rounded-md border",
+        stickyHeader && "group max-h-full overflow-auto",
+        className,
       )}
+      onScroll={(e) => {
+        let attr = e.currentTarget.scrollTop == 0 ? "no" : "yes";
+        e.currentTarget.setAttribute("data-scrolled", attr);
+      }}
     >
       <table className="w-full table-auto divide-y text-left text-sm text-neutral-900">
-        <thead>
+        <thead
+          className={classNames(
+            stickyHeader &&
+              "sticky top-0 z-10 bg-white group-data-[scrolled=yes]:drop-shadow",
+          )}
+        >
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="divide-x">
               {headerGroup.headers.map((header) => (
                 <th
+                  className={classNames(
+                    "px-2 py-1 font-semibold uppercase text-neutral-600",
+                    stickyHeader && "sticky-header-fix",
+                  )}
                   key={header.id}
                   scope="col"
-                  className="px-2 py-1 font-semibold uppercase text-neutral-600"
                 >
                   {header.isPlaceholder
                     ? null

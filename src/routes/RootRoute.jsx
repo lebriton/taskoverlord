@@ -87,7 +87,7 @@ export default function RootRoute() {
                 }
               />
 
-              <div className="flex-1" />
+              <div className="grow" />
 
               <CountTasksByStatus tasks={tasksQuery.data} />
 
@@ -125,13 +125,13 @@ export default function RootRoute() {
           }
         />
 
-        <div className="flex-1 overflow-scroll">
+        <div className="flex-1 overflow-clip">
           <Outlet context={[tasksQuery, selectedTask, displayTask]} />
         </div>
 
         {showTaskDetails && (
           <TaskDetails
-            className="flex-1 overflow-scroll"
+            className="flex-1 overflow-auto"
             task={selectedTask}
             onClose={() => {
               setShowTaskDetails(false);

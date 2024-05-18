@@ -23,7 +23,7 @@ export default function RightFloatingColumn({
         <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
       </div>
 
-      <div className="flex-1 p-3">{children}</div>
+      <div className="grow p-3">{children}</div>
 
       <div className="p-3">{bottom}</div>
     </div>

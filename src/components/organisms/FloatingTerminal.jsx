@@ -76,7 +76,7 @@ function TerminalBlock({ status, command, stdout }) {
           )}
         />
         <div className="w-full rounded-md border border-neutral-800 bg-neutral-900 px-3 py-1.5">
-          <pre className="flex-1 font-medium">
+          <pre>
             <span className="font-bold">$</span> {command}
           </pre>
           <pre>{stdout}</pre>
