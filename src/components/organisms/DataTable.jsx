@@ -25,19 +25,15 @@ export default function DataTable({
     <div
       className={classNames(
         hasExternalBorder && "overflow-clip rounded-md border",
-        stickyHeader && "group max-h-full overflow-auto",
+        stickyHeader && "max-h-full overflow-auto",
         className,
       )}
-      onScroll={(e) => {
-        let attr = e.currentTarget.scrollTop == 0 ? "no" : "yes";
-        e.currentTarget.setAttribute("data-scrolled", attr);
-      }}
     >
       <table className="w-full table-auto divide-y text-left text-sm text-neutral-900">
         <thead
           className={classNames(
             stickyHeader &&
-              "sticky top-0 z-10 bg-white group-data-[scrolled=yes]:drop-shadow",
+              "sticky top-0 z-10 bg-white",
           )}
         >
           {table.getHeaderGroups().map((headerGroup) => (
