@@ -31,10 +31,7 @@ export default function DataTable({
     >
       <table className="w-full table-auto divide-y text-left text-sm text-neutral-900">
         <thead
-          className={classNames(
-            stickyHeader &&
-              "sticky top-0 z-10 bg-white",
-          )}
+          className={classNames(stickyHeader && "sticky top-0 z-10 bg-white")}
         >
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="divide-x">

@@ -77,7 +77,7 @@ export default function TaskDetails({ task, onClose }) {
         />
       </CardHeader>
 
-      <CardBody className="flex flex-col overflow-scroll">
+      <CardBody className="flex flex-col overflow-scroll p-0">
         {task ? (
           <Body task={task} />
         ) : (
@@ -123,32 +123,38 @@ function Body({ task }) {
 
   return (
     <div className="flex divide-x">
-      <div className="w-3/4 pe-3">
-        <Heading2 title={task.description} subtitle={`#${task.id}`} />
-        <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
-        <hr className="my-6" />
-        <Heading3 title="Annotations" badgeText="0" />
-        <EmptyState
-          className="rounded-md bg-neutral-50"
-          Icon={PencilIcon}
-          title="No annotation available"
-          subtitle="Tasks can contain annotations and they will appear here."
-        />
+      <div className="w-3/4">
+        <div class="px-3 pt-3">
+          <Heading2 title={task.description} subtitle={`#${task.id}`} />
+          <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
+        </div>
 
-        <Heading3
-          className="mt-12"
-          title="User-defined attributes"
-          badgeText="0"
-        />
-        <EmptyState
-          className="rounded-md bg-neutral-50"
-          Icon={InformationCircleIcon}
-          title="No attribute available"
-          subtitle="Tasks can contain user-defined attributes and they will appear here."
-        />
+        <hr className="my-6" />
+
+        <div class="px-3 pb-3">
+          <Heading3 title="Annotations" badgeText="0" />
+          <EmptyState
+            className="rounded-md bg-neutral-50"
+            Icon={PencilIcon}
+            title="No annotation available"
+            subtitle="Tasks can contain annotations and they will appear here."
+          />
+
+          <Heading3
+            className="mt-6"
+            title="User-defined attributes"
+            badgeText="0"
+          />
+          <EmptyState
+            className="rounded-md bg-neutral-50"
+            Icon={InformationCircleIcon}
+            title="No attribute available"
+            subtitle="Tasks can contain user-defined attributes and they will appear here."
+          />
+        </div>
       </div>
 
-      <div className="flex-1 ps-3">
+      <div className="flex-1 p-3">
         {attributes.map((attr, idx) => (
           <div
             key={idx}
