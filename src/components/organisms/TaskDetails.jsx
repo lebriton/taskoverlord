@@ -29,7 +29,7 @@ import EmptyState from "../molecules/EmptyState";
 
 export default function TaskDetails({ task, onClose }) {
   return (
-    <Card className="max-h-full" hasExternalBorder={false}>
+    <Card className="h-full" hasExternalBorder={false}>
       <CardHeader className="bg-neutral-50">
         <FlexLine
           left={
@@ -77,11 +77,12 @@ export default function TaskDetails({ task, onClose }) {
         />
       </CardHeader>
 
-      <CardBody className="flex flex-col overflow-scroll p-0">
+      <CardBody className="flex h-full flex-col overflow-scroll !p-0">
         {task ? (
           <Body task={task} />
         ) : (
           <EmptyState
+            className="!h-full"
             Icon={CursorArrowRippleIcon}
             title="No task selected"
             subtitle="Pick one to display its data."

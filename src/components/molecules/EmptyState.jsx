@@ -3,7 +3,10 @@ import classNames from "classnames";
 export default function EmptyState({ className, title, subtitle, Icon }) {
   return (
     <div
-      className={classNames("flex flex-col items-center px-4 py-12", className)}
+      className={classNames(
+        "flex flex-col items-center justify-center px-4 py-12",
+        className,
+      )}
     >
       {Icon && <Icon className="size-10 text-neutral-400" />}
       <h3 className="mt-2 text-sm font-semibold">{title}</h3>

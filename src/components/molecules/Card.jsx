@@ -20,7 +20,7 @@ export default function Card({
 
 export function CardHeader({ className, children }) {
   return (
-    <div className={classNames("border-b p-1.5 px-3", className)}>
+    <div className={classNames("border-b px-3 py-1.5", className)}>
       {children}
     </div>
   );

@@ -52,16 +52,18 @@ export default function FloatingTerminal({ show, onClose }) {
   }, [show]);
 
   const bottomRef = useRef(null);
-    useEffect(() => {
-      // NB: 200 = .15s (the grow-y animation time) + a small amount (.05s)
-    const timer = setTimeout(() => bottomRef.current?.scrollIntoView({behavior: 'smooth'}), 200);
-  return () => clearTimeout(timer);
-
+  useEffect(() => {
+    // NB: 200 = .15s (the grow-y animation time) + a small amount (.05s)
+    const timer = setTimeout(
+      () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
+      200,
+    );
+    return () => clearTimeout(timer);
   }, [history]);
 
   return (
     <Modal show={show} onClose={onClose}>
-      <Card className="shadow-lg shrink-0">
+      <Card className="shrink-0 shadow-lg">
         <CardHeader className="bg-neutral-50">
           <FlexLine
             left={<span className="text-neutral-400">Commands</span>}
@@ -72,21 +74,20 @@ export default function FloatingTerminal({ show, onClose }) {
         </CardHeader>
 
         <CardBody className="!p-0">
-      {history.length > 0 && (
-        <div className="overflow-auto flex flex-col divide-y divide-neutral-700 bg-neutral-950 text-sm text-neutral-50">
-          {history
-            .map((entry, idx) => (
-              <TerminalBlock
-                key={idx}
-                time={entry.time}
-                status={entry.status}
-                command={entry.command}
-                output={entry.output}
-              />
-            ))}
-            <div ref={bottomRef} />
-        </div>
-      )}
+          {history.length > 0 && (
+            <div className="flex flex-col divide-y divide-neutral-700 overflow-auto bg-neutral-950 text-sm text-neutral-50">
+              {history.map((entry, idx) => (
+                <TerminalBlock
+                  key={idx}
+                  time={entry.time}
+                  status={entry.status}
+                  command={entry.command}
+                  output={entry.output}
+                />
+              ))}
+              <div ref={bottomRef} />
+            </div>
+          )}
         </CardBody>
 
         <CardFooter>
@@ -111,23 +112,21 @@ function TerminalBlock({ time, status, command, output }) {
   return (
     <div className="grid animate-grow-y">
       <div className="overflow-hidden">
-      <div className="flex items-baseline gap-3 p-3">
-        <div
-          className={classNames(
-            "size-1.5 shrink-0 rounded-full ring-2",
-            status == 0 && "bg-green-600/75 ring-green-700/50",
-            status != 0 && "bg-red-600/75 ring-red-700/50",
-          )}
-        />
-          <pre className="overflow-auto grow">
+        <div className="flex items-baseline gap-3 p-3">
+          <div
+            className={classNames(
+              "size-1.5 shrink-0 rounded-full ring-2",
+              status == 0 && "bg-green-600/75 ring-green-700/50",
+              status != 0 && "bg-red-600/75 ring-red-700/50",
+            )}
+          />
+          <pre className="grow overflow-auto">
             $ {command}
             {"\n"}
             {output}
           </pre>
-        <span className="shrink-0 text-neutral-400 text-xs">
-          {time}
-        </span>
-      </div>
+          <span className="shrink-0 text-xs text-neutral-400">{time}</span>
+        </div>
       </div>
     </div>
   );
