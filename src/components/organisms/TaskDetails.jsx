@@ -4,6 +4,7 @@ import {
   TrashIcon,
   XMarkIcon,
   PencilSquareIcon,
+  PlusIcon,
 } from "@heroicons/react/20/solid";
 import {
   FireIcon,
@@ -135,7 +136,12 @@ function Body({ task }) {
         </div>
       ))}
 
-      <Heading3 className="mt-6" title="Annotations" badgeText="0" />
+      <div className="flex items-end justify-between">
+        <Heading3 className="mt-6" title="Annotations" badgeText="0" />
+        <Button className="mb-1.5" Icon={PlusIcon}>
+          Add
+        </Button>
+      </div>
       <EmptyState
         className="rounded-md bg-neutral-100"
         Icon={DocumentIcon}
@@ -143,11 +149,16 @@ function Body({ task }) {
         subtitle="Tasks can contain annotations and they will appear here."
       />
 
-      <Heading3
-        className="mt-6"
-        title="User-defined attributes (uda)"
-        badgeText="0"
-      />
+      <div className="flex items-end justify-between">
+        <Heading3
+          className="mt-6"
+          title="User-defined attributes (uda)"
+          badgeText="0"
+        />
+        <Button className="mb-1.5" Icon={PlusIcon}>
+          Add
+        </Button>
+      </div>
       <EmptyState
         className="rounded-md bg-neutral-100"
         Icon={ListBulletIcon}
