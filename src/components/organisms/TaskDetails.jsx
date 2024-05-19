@@ -121,9 +121,9 @@ function Body({ task }) {
       <Heading2 title={task.description} subtitle={`#${task.id}`} />
       <div className="-mt-4 flex items-center justify-between">
         <div>{displayStatusBadgeForTask(task)}</div>
-        {/* XXX: + "Z" as a hack to force UTC (for now) */}
         <span className="text-sm text-neutral-600">
-          Modified: {timeAgo.format(new Date(task.modified))}
+          {/* XXX: + "Z" as a hack to force UTC (for now) */}
+          Modified: {timeAgo.format(new Date(task.modified + "Z"))}
         </span>
       </div>
 
