@@ -11,7 +11,7 @@ export default function Modal({ className, show, children, onClose }) {
     >
       <div
         className={classNames(
-          "relative max-h-full w-full max-w-7xl transition-all duration-300 py-12",
+          "relative max-h-full w-full max-w-7xl py-12 transition-all duration-300",
           !show && "translate-y-10",
           className,
         )}
