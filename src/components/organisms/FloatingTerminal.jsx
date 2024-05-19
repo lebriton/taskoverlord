@@ -9,6 +9,14 @@ import { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 
+function getCurrentTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
 export default function FloatingTerminal({ show, onClose }) {
   const inputReference = useRef(null);
 
@@ -16,22 +24,20 @@ export default function FloatingTerminal({ show, onClose }) {
   const [history, setHistory] = useState([]);
 
   const tauriMutation = useMutation({
-    mutationFn: () => {
-      return invoke("run_shell_command", { commandString: commandLineValue });
-    },
-    onSuccess: (command_output) => {
-      console.log(command_output);
+    mutationFn: () =>
+      invoke("run_shell_command", { commandString: commandLineValue }),
+    onSettled: (data, error) => {
       setHistory([
         ...history,
         {
+          time: getCurrentTime(),
           command: commandLineValue,
-          output: command_output.lines,
-          status: command_output.returncode,
+          output: data?.lines || error,
+          status: data?.returncode || -1,
         },
       ]);
       setCommandLineValue("");
     },
-    onError: (e) => console.log(e),
   });
 
   const handleSubmit = () => {
@@ -62,9 +68,9 @@ export default function FloatingTerminal({ show, onClose }) {
             size="lg"
             value={commandLineValue}
             placeholder="Type a taskwarrior command…"
-            buttonChildren={tauriMutation.isFetching ? "Running…" : "Run"}
+            buttonChildren={tauriMutation.isPending ? "Running…" : "Run"}
             helpText="Only a subset of taskwarrior commands is supported."
-            isLoading={tauriMutation.isFetching}
+            isLoading={tauriMutation.isPending}
             onChange={(e) => setCommandLineValue(e.target.value)}
             onSubmit={handleSubmit}
             ref={inputReference}
@@ -73,38 +79,45 @@ export default function FloatingTerminal({ show, onClose }) {
       </Card>
 
       {history.length > 0 && (
-        <div className="flex flex-col-reverse divide-y divide-neutral-700 rounded-xl border border-neutral-700 bg-neutral-950 text-sm text-neutral-50 shadow-lg">
-          {history.map((entry, idx) => (
-            <TerminalBlock
-              key={idx}
-              status={entry.status}
-              command={entry.command}
-              output={entry.output}
-            />
-          ))}
+        <div className="flex flex-col divide-y divide-neutral-700 overflow-clip rounded-xl border border-neutral-700  text-sm text-neutral-50 shadow-lg">
+          {history
+            .slice(0)
+            .reverse()
+            .map((entry, idx) => (
+              <TerminalBlock
+                key={history.length - 1 - idx}
+                time={entry.time}
+                status={entry.status}
+                command={entry.command}
+                output={entry.output}
+              />
+            ))}
         </div>
       )}
     </Modal>
   );
 }
 
-function TerminalBlock({ status, command, output }) {
+function TerminalBlock({ time, status, command, output }) {
   return (
-    <div className="p-6">
+    <div className="animate-fade-in bg-neutral-950 p-6">
       <div className="flex items-baseline gap-6">
-        <span className="font-medium tracking-wide text-neutral-300">
-          23:57:39
+        <span className="shrink-0 font-medium tracking-wide text-neutral-300">
+          {time}
         </span>
         <div
           className={classNames(
-            "size-2 rounded-full ring-4",
+            "size-2 shrink-0 rounded-full ring-4",
             status == 0 && "bg-green-500/85 ring-green-500/50",
             status != 0 && "bg-red-500/85 ring-red-500/50",
           )}
         />
-        <div className="w-full rounded-md border border-neutral-800 bg-neutral-900 px-3 py-1.5">
-          <pre>$ {command}</pre>
-          <pre>{output}</pre>
+        <div className="grow overflow-auto rounded-md border border-neutral-800 bg-neutral-900 px-3 py-1.5">
+          <pre className="overflow-auto">
+            $ {command}
+            {"\n"}
+            {output}
+          </pre>
         </div>
       </div>
     </div>
