@@ -32,8 +32,8 @@ export default function FloatingTerminal({ show, onClose }) {
         {
           time: getCurrentTime(),
           command: commandLineValue,
-          output: data?.lines || error,
-          status: data?.returncode || -1,
+          output: data ? data.lines : error,
+          status: data ? data.returncode : -1,
         },
       ]);
       setCommandLineValue("");
