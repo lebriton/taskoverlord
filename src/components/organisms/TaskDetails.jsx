@@ -11,9 +11,9 @@ import {
   FolderIcon,
   CalendarDaysIcon,
   HandRaisedIcon,
-  PencilIcon,
-  InformationCircleIcon,
   CursorArrowRaysIcon,
+  DocumentIcon,
+  ListBulletIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
 import Card, { CardBody, CardHeader } from "../molecules/Card";
@@ -138,19 +138,19 @@ function Body({ task }) {
       <Heading3 className="mt-6" title="Annotations" badgeText="0" />
       <EmptyState
         className="rounded-md bg-neutral-100"
-        Icon={PencilIcon}
+        Icon={DocumentIcon}
         title="No annotation available"
         subtitle="Tasks can contain annotations and they will appear here."
       />
 
       <Heading3
         className="mt-6"
-        title="User-defined attributes"
+        title="User-defined attributes (uda)"
         badgeText="0"
       />
       <EmptyState
         className="rounded-md bg-neutral-100"
-        Icon={InformationCircleIcon}
+        Icon={ListBulletIcon}
         title="No attribute available"
         subtitle="Tasks can contain user-defined attributes and they will appear here."
       />
