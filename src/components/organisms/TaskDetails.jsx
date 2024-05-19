@@ -117,7 +117,7 @@ function Body({ task }) {
       <Heading2 title={task.description} subtitle={`#${task.id}`} />
       <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
 
-      <hr className="-mx-1.5 mt-6" />
+      <hr className="mt-6" />
 
       <Heading3 className="mt-6" title="Attributes" />
       {attributes.map((attr, idx) => (
