@@ -29,25 +29,20 @@ import EmptyState from "../molecules/EmptyState";
 
 export default function TaskDetails({ task, onClose }) {
   return (
-    <Card className="h-full" hasExternalBorder={false}>
-      <CardHeader className="bg-neutral-50">
+    <Card className="h-full !bg-neutral-50" hasExternalBorder={false}>
+      <CardHeader>
         <FlexLine
           left={
             <div className="flex items-center gap-2">
               <Button Icon={ChevronLeftIcon} />
               <Button Icon={ChevronRightIcon} />
-
-              {/* Vertical divider */}
-              <div className="h-4 border-l" />
-
-              <span className="text-sm text-neutral-400">Task details</span>
             </div>
           }
           right={
             <div className="flex items-center justify-end gap-2">
               <Button
-                className="hover:enabled:text-red-600"
-                variant="no-outline"
+                className="hover:border-red-700 hover:enabled:bg-red-700"
+                variant="gray"
                 Icon={TrashIcon}
                 shortcutText="d"
                 isDisabled={!task}
@@ -72,7 +67,7 @@ export default function TaskDetails({ task, onClose }) {
         />
       </CardHeader>
 
-      <CardBody className="flex h-full flex-col overflow-scroll !p-0">
+      <CardBody className="flex h-full flex-col overflow-scroll">
         {task ? (
           <Body task={task} />
         ) : (
@@ -118,54 +113,47 @@ function Body({ task }) {
   ];
 
   return (
-    <div className="flex divide-x">
-      <div className="w-3/4">
-        <div className="px-1.5 pt-1.5">
-          <Heading2 title={task.description} subtitle={`#${task.id}`} />
-          <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
+    <>
+      <Heading2 title={task.description} subtitle={`#${task.id}`} />
+      <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
+
+      <hr className="-mx-1.5 mt-6" />
+
+      <Heading3 className="mt-6" title="Attributes" />
+      {attributes.map((attr, idx) => (
+        <div
+          key={idx}
+          className="py-0.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
+        >
+          <dt className="flex items-center gap-1 text-xs text-neutral-700">
+            <attr.Icon className="size-4" />
+            {attr.name}
+          </dt>
+          <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+            {attr.value}
+          </dd>
         </div>
+      ))}
 
-        <hr className="my-6" />
+      <Heading3 className="mt-6" title="Annotations" badgeText="0" />
+      <EmptyState
+        className="rounded-md bg-neutral-100"
+        Icon={PencilIcon}
+        title="No annotation available"
+        subtitle="Tasks can contain annotations and they will appear here."
+      />
 
-        <div className="px-1.5 pb-1.5">
-          <Heading3 title="Annotations" badgeText="0" />
-          <EmptyState
-            className="rounded-md bg-neutral-50"
-            Icon={PencilIcon}
-            title="No annotation available"
-            subtitle="Tasks can contain annotations and they will appear here."
-          />
-
-          <Heading3
-            className="mt-6"
-            title="User-defined attributes"
-            badgeText="0"
-          />
-          <EmptyState
-            className="rounded-md bg-neutral-50"
-            Icon={InformationCircleIcon}
-            title="No attribute available"
-            subtitle="Tasks can contain user-defined attributes and they will appear here."
-          />
-        </div>
-      </div>
-
-      <div className="flex-1 bg-neutral-50 p-1.5">
-        {attributes.map((attr, idx) => (
-          <div
-            key={idx}
-            className="py-0.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
-          >
-            <dt className="flex items-center gap-1 text-xs leading-6 text-neutral-700">
-              <attr.Icon className="size-4" />
-              {attr.name}
-            </dt>
-            <dd className="mt-1 text-xs leading-6 sm:col-span-2 sm:mt-0">
-              {attr.value}
-            </dd>
-          </div>
-        ))}
-      </div>
-    </div>
+      <Heading3
+        className="mt-6"
+        title="User-defined attributes"
+        badgeText="0"
+      />
+      <EmptyState
+        className="rounded-md bg-neutral-100"
+        Icon={InformationCircleIcon}
+        title="No attribute available"
+        subtitle="Tasks can contain user-defined attributes and they will appear here."
+      />
+    </>
   );
 }

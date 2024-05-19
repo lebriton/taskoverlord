@@ -69,7 +69,7 @@ export default function RootRoute() {
     <>
       <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
         <FlexLine
-          className="gap-4 px-2"
+          className="z-20 gap-4 px-2"
           left={
             <div className="flex items-center gap-2">
               <Heading3
@@ -125,21 +125,23 @@ export default function RootRoute() {
           }
         />
 
-        <div className="flex-1 overflow-clip">
-          <Outlet context={[tasksQuery, selectedTask, displayTask]} />
-        </div>
-
-        {showTaskDetails && (
-          <div className="flex-1 overflow-clip">
-            <TaskDetails
-              task={selectedTask}
-              onClose={() => {
-                setShowTaskDetails(false);
-                setSelectedTask(null);
-              }}
-            />
+        <div className="flex divide-x overflow-clip">
+          <div className="grow overflow-clip">
+            <Outlet context={[tasksQuery, selectedTask, displayTask]} />
           </div>
-        )}
+
+          {showTaskDetails && (
+            <div className="min-w-96 max-w-96 overflow-clip">
+              <TaskDetails
+                task={selectedTask}
+                onClose={() => {
+                  setShowTaskDetails(false);
+                  setSelectedTask(null);
+                }}
+              />
+            </div>
+          )}
+        </div>
 
         <BottomBar
           isCommandsActive={showFloatingTerminal}
