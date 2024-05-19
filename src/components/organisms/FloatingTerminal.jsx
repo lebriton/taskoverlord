@@ -90,7 +90,7 @@ export default function FloatingTerminal({ show, onClose }) {
           )}
         </CardBody>
 
-        <CardFooter>
+        <CardFooter className="!px-1.5">
           <Input
             size="md"
             value={commandLineValue}
