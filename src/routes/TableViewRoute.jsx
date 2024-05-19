@@ -18,6 +18,8 @@ import {
 import IconLabel from "../components/atoms/IconLabel";
 import en from "javascript-time-ago/locale/en";
 import DataTable from "../components/organisms/DataTable";
+import EmptyState from "../components/molecules/EmptyState";
+import { CubeIcon } from "@heroicons/react/24/outline";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -90,7 +92,7 @@ const columns = [
 export default function TableViewRoute() {
   const [tasksQuery, selectedTask, displayTask] = useOutletContext();
 
-  return (
+  return tasksQuery.data.length ? (
     <DataTable
       data={tasksQuery.data}
       selectedItem={selectedTask}
@@ -101,6 +103,13 @@ export default function TableViewRoute() {
       hasExternalBorder={false}
       stickyHeader={true}
       onSelected={displayTask}
+    />
+  ) : (
+    <EmptyState
+      className="!h-full"
+      Icon={CubeIcon}
+      title="No task"
+      subtitle="Looks like you haven't created any tasks yet."
     />
   );
 }

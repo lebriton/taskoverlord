@@ -13,7 +13,7 @@ import {
   HandRaisedIcon,
   PencilIcon,
   InformationCircleIcon,
-  CursorArrowRippleIcon,
+  CursorArrowRaysIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
 import Card, { CardBody, CardHeader } from "../molecules/Card";
@@ -73,7 +73,7 @@ export default function TaskDetails({ task, onClose }) {
         ) : (
           <EmptyState
             className="!h-full"
-            Icon={CursorArrowRippleIcon}
+            Icon={CursorArrowRaysIcon}
             title="No task selected"
             subtitle="Pick one to display its data."
           />
