@@ -16,6 +16,8 @@ import {
   CursorArrowRaysIcon,
   DocumentIcon,
   ListBulletIcon,
+  IdentificationIcon,
+  FingerPrintIcon,
 } from "@heroicons/react/24/outline";
 import Button from "../atoms/Button";
 import Card, { CardBody, CardHeader } from "../molecules/Card";
@@ -113,6 +115,16 @@ function Body({ task }) {
       Icon: HandRaisedIcon,
       name: "Wait date",
       value: task.wait || "-",
+    },
+    {
+      Icon: IdentificationIcon,
+      name: "Id",
+      value: task.id,
+    },
+    {
+      Icon: FingerPrintIcon,
+      name: "Uuid",
+      value: task.uuid,
     },
   ];
 
