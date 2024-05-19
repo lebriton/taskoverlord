@@ -1,3 +1,4 @@
+import TimeAgo from "javascript-time-ago";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -27,6 +28,8 @@ import {
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
+
+const timeAgo = new TimeAgo("en-US");
 
 export default function TaskDetails({ task, onClose }) {
   return (
@@ -116,7 +119,13 @@ function Body({ task }) {
   return (
     <>
       <Heading2 title={task.description} subtitle={`#${task.id}`} />
-      <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
+      <div className="-mt-4 flex items-center justify-between">
+        <div>{displayStatusBadgeForTask(task)}</div>
+        {/* XXX: + "Z" as a hack to force UTC (for now) */}
+        <span className="text-sm text-neutral-600">
+          Modified: {timeAgo.format(new Date(task.modified))}
+        </span>
+      </div>
 
       <hr className="mt-6" />
 
