@@ -108,7 +108,7 @@ export default function TableViewRoute() {
     <EmptyState
       className="!h-full"
       Icon={CubeIcon}
-      title="No task"
+      title="No tasks"
       subtitle="Looks like you haven't created any tasks yet."
     />
   );
