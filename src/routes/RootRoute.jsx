@@ -125,8 +125,8 @@ export default function RootRoute() {
           }
         />
 
-        <div className="flex divide-x overflow-clip grow">
-          <div className="grow overflow-clip">
+        <div className="flex grow divide-x overflow-clip">
+          <div className="grow overflow-clip bg-neutral-50">
             <Outlet context={[tasksQuery, selectedTask, displayTask]} />
           </div>
 
