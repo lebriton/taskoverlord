@@ -19,7 +19,7 @@ export default function NavigationTabs({ className, links }) {
             <Link
               to={link.url}
               className={classNames(
-                "group flex items-center border-b-2 border-transparent py-3",
+                "group flex items-center border-b-2 border-transparent py-2",
                 isActive && "!border-orange-400 font-semibold",
               )}
             >

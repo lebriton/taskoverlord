@@ -66,7 +66,7 @@ export default function FloatingTerminal({ show, onClose }) {
       <Card className="shrink-0 shadow-lg">
         <CardHeader className="bg-neutral-50">
           <FlexLine
-            left={<span className="text-neutral-400">Commands</span>}
+            left={<span className="text-sm text-neutral-400">Commands</span>}
             right={
               <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
             }
@@ -90,7 +90,7 @@ export default function FloatingTerminal({ show, onClose }) {
           )}
         </CardBody>
 
-        <CardFooter className="!px-1.5">
+        <CardFooter>
           <Input
             size="md"
             value={commandLineValue}

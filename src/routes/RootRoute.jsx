@@ -69,9 +69,9 @@ export default function RootRoute() {
     <>
       <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
         <FlexLine
-          className="gap-6 px-3"
+          className="gap-4 px-2"
           left={
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Heading3
                 className="!mb-0"
                 title="Tasks"
@@ -98,7 +98,7 @@ export default function RootRoute() {
           }
           center={<NavigationTabs links={links} />}
           right={
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-end gap-2">
               <ShortcutWrap Shortcut={<Shortcut text="p" />}>
                 <Checkbox
                   className="text-sm"

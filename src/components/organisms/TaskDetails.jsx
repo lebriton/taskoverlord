@@ -40,12 +40,7 @@ export default function TaskDetails({ task, onClose }) {
               {/* Vertical divider */}
               <div className="h-4 border-l" />
 
-              <span className="text-neutral-400">Task details</span>
-            </div>
-          }
-          center={
-            <div className="text-sm font-medium text-neutral-500">
-              {task?.uuid}
+              <span className="text-sm text-neutral-400">Task details</span>
             </div>
           }
           right={
@@ -125,14 +120,14 @@ function Body({ task }) {
   return (
     <div className="flex divide-x">
       <div className="w-3/4">
-        <div className="px-3 pt-3">
+        <div className="px-1.5 pt-1.5">
           <Heading2 title={task.description} subtitle={`#${task.id}`} />
           <div className="-mt-4">{displayStatusBadgeForTask(task)}</div>
         </div>
 
         <hr className="my-6" />
 
-        <div className="px-3 pb-3">
+        <div className="px-1.5 pb-1.5">
           <Heading3 title="Annotations" badgeText="0" />
           <EmptyState
             className="rounded-md bg-neutral-50"
@@ -155,17 +150,17 @@ function Body({ task }) {
         </div>
       </div>
 
-      <div className="flex-1 p-3">
+      <div className="flex-1 bg-neutral-50 p-1.5">
         {attributes.map((attr, idx) => (
           <div
             key={idx}
-            className="py-1.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
+            className="py-0.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
           >
-            <dt className="flex items-center gap-1.5 text-sm leading-6 text-neutral-700">
-              <attr.Icon className="size-5" />
+            <dt className="flex items-center gap-1 text-xs leading-6 text-neutral-700">
+              <attr.Icon className="size-4" />
               {attr.name}
             </dt>
-            <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
+            <dd className="mt-1 text-xs leading-6 sm:col-span-2 sm:mt-0">
               {attr.value}
             </dd>
           </div>
