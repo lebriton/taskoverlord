@@ -10,7 +10,7 @@ export default function Heading3({ className, title, badgeText = "" }) {
       )}
     >
       {title}
-      {badgeText && <Badge text={badgeText} variant="dark" style="tight" />}
+      {badgeText != null && <Badge text={badgeText} variant="dark" style="tight" />}
     </h3>
   );
 }

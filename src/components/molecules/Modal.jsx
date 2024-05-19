@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-export default function Modal({ show, children, onClose }) {
+export default function Modal({ className, show, children, onClose }) {
   return (
     <div
       className={classNames(
@@ -11,8 +11,9 @@ export default function Modal({ show, children, onClose }) {
     >
       <div
         className={classNames(
-          "relative max-h-full w-full max-w-7xl transition-all duration-300",
+          "relative max-h-full w-full max-w-7xl transition-all duration-300 py-12",
           !show && "translate-y-10",
+          className,
         )}
         onClick={(e) => e.stopPropagation()}
       >

@@ -33,7 +33,7 @@ const Input = forwardRef(function Input(
             "w-full rounded-md border px-3 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
             "disabled:cursor-not-allowed disabled:bg-gray-100",
             size == "sm" && "text-sm",
-            size == "lg" && "text-lg",
+            size == "md" && "text-md",
             Icon && "!ps-10",
             buttonChildren && "!p-3",
             className,
@@ -53,7 +53,7 @@ const Input = forwardRef(function Input(
             className={classNames(
               "absolute inset-y-0 flex items-center",
               size == "sm" && "end-1.5",
-              size == "lg" && "end-2.5",
+              size == "md" && "end-2",
             )}
           >
             <Button
