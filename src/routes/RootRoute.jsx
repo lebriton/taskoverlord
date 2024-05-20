@@ -22,6 +22,7 @@ import Button from "../components/atoms/Button";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import Terminal from "../components/organisms/Terminal";
+import NewTask from "../components/organisms/NewTask";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -36,6 +37,7 @@ export default function RootRoute() {
   const [nextTask, setNextTask] = useState(null);
 
   const [showTaskDetails, setShowTaskDetails] = useState(false);
+  const [showNewTask, setShowNewTask] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
 
   const hideTaskDetails = () => {
@@ -150,7 +152,13 @@ export default function RootRoute() {
               />
             </ShortcutWrap>
 
-            <Button variant="green" Icon={PlusCircleIcon} shortcutText="a">
+            <Button
+              variant="green"
+              Icon={PlusCircleIcon}
+              shortcutText="a"
+              isDisabled={showNewTask}
+              onClick={() => setShowNewTask(true)}
+            >
               New task
             </Button>
           </div>
@@ -176,6 +184,12 @@ export default function RootRoute() {
             />
           </div>
         )}
+
+        {showNewTask && (
+          <div className="min-w-96 max-w-96 overflow-clip">
+            <NewTask onClose={() => setShowNewTask(false)} />
+          </div>
+        )}
       </div>
 
       <BottomBar
@@ -185,10 +199,7 @@ export default function RootRoute() {
 
       {showTerminal && (
         <div className="flex-1 overflow-clip">
-          <Terminal
-            show={showTerminal}
-            onClose={() => setShowTerminal(false)}
-          />
+          <Terminal onClose={() => setShowTerminal(false)} />
         </div>
       )}
     </div>

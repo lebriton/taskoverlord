@@ -11,6 +11,7 @@ const Input = forwardRef(function Input(
     Icon,
     buttonChildren,
     helpText,
+    autoFocus,
     isRequired,
     isDisabled,
     isLoading,
@@ -30,7 +31,7 @@ const Input = forwardRef(function Input(
 
         <input
           className={classNames(
-            "w-full rounded-md border px-3 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
+            "w-full rounded-md border px-2.5 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
             "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-neutral-400",
             size == "sm" && "text-sm",
             size == "md" && "text-md",
@@ -41,6 +42,7 @@ const Input = forwardRef(function Input(
           type="text"
           value={value}
           placeholder={placeholder}
+          autoFocus={autoFocus}
           disabled={isDisabled || isLoading}
           required={isRequired}
           onChange={onChange}
