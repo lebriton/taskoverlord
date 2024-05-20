@@ -129,7 +129,10 @@ function Body({ task }) {
 
   return (
     <>
-      <Heading2 title={task.description} subtitle={`#${task.id}`} />
+      <Heading2
+        title={task.description}
+        subtitle={task.id != 0 && `#${task.id}`}
+      />
       <div className="-mt-4 mb-3 flex items-center justify-between">
         <div>{displayStatusBadgeForTask(task)}</div>
         <span className="text-sm text-neutral-600">
