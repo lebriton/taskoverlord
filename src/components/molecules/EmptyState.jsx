@@ -4,7 +4,7 @@ export default function EmptyState({ className, title, subtitle, Icon }) {
   return (
     <div
       className={classNames(
-        "flex flex-col items-center justify-center px-4 py-12",
+        "flex flex-col items-center justify-center px-4 py-12 text-center",
         className,
       )}
     >
