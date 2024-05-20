@@ -22,7 +22,7 @@ export default function Button({
         "disabled:cursor-not-allowed disabled:opacity-50",
 
         variant == "no-outline" &&
-          "text-neutral-700 enabled:hover:bg-neutral-100",
+          "text-neutral-700 enabled:hover:bg-neutral-200",
         variant != "no-outline" && "border",
 
         variant == "default" && "bg-white enabled:hover:bg-neutral-50",
