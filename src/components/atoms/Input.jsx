@@ -31,7 +31,7 @@ const Input = forwardRef(function Input(
         <input
           className={classNames(
             "w-full rounded-md border px-3 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
-            "disabled:cursor-not-allowed disabled:bg-gray-100",
+            "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-neutral-400",
             size == "sm" && "text-sm",
             size == "md" && "text-md",
             Icon && "!ps-10",

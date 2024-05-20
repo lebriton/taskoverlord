@@ -30,6 +30,7 @@ import {
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
+import Tabs, { Tab } from "./Tabs";
 
 export default function TaskDetails({ task, onClose }) {
   return (
@@ -71,7 +72,7 @@ export default function TaskDetails({ task, onClose }) {
         />
       </CardHeader>
 
-      <CardBody className="flex h-full flex-col overflow-scroll">
+      <CardBody className="h-full overflow-scroll">
         {task ? (
           <Body task={task} />
         ) : (
@@ -129,7 +130,7 @@ function Body({ task }) {
   return (
     <>
       <Heading2 title={task.description} subtitle={`#${task.id}`} />
-      <div className="-mt-4 flex items-center justify-between">
+      <div className="-mt-4 mb-3 flex items-center justify-between">
         <div>{displayStatusBadgeForTask(task)}</div>
         <span className="text-sm text-neutral-600">
           {/* XXX: + "Z" as a hack to force UTC (for now) */}
@@ -137,30 +138,39 @@ function Body({ task }) {
         </span>
       </div>
 
-      <hr className="mt-6" />
-
-      <Heading3 className="mt-6" title="Attributes" />
       {attributes.map((attr, idx) => (
-        <div
-          key={idx}
-          className="py-0.5 font-medium sm:grid sm:grid-cols-3 sm:gap-4"
-        >
-          <dt className="flex items-center gap-1 text-xs text-neutral-700">
-            <attr.Icon className="size-4" />
-            {attr.name}
+        <div key={idx} className="grid grid-cols-3 gap-4 py-1 text-sm">
+          <dt className="text-neutral-600">
+            <div className="flex items-center gap-1">
+              <attr.Icon className="size-4" />
+              {attr.name}
+            </div>
           </dt>
-          <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-            {attr.value}
-          </dd>
+          <dd className="col-span-2">{attr.value}</dd>
         </div>
       ))}
 
-      <div className="flex items-end justify-between">
-        <Heading3 className="mt-6" title="Annotations" badgeText="0" />
+      <div className="flex items-baseline justify-between">
+        <Tabs className="!my-1.5">
+          <Tab
+            label="Annotations"
+            badgeText={0}
+            shortcutText="a"
+            isActive={true}
+          />
+          <Tab
+            label="Uda"
+            url=""
+            badgeText={0}
+            shortcutText="u"
+            isActive={false}
+          />
+        </Tabs>
         <Button className="mb-1.5" Icon={PlusIcon}>
           Add
         </Button>
       </div>
+
       <EmptyState
         className="rounded-md bg-neutral-100"
         Icon={DocumentIcon}
@@ -168,22 +178,14 @@ function Body({ task }) {
         subtitle="Tasks can contain annotations and they will appear here."
       />
 
-      <div className="flex items-end justify-between">
-        <Heading3
-          className="mt-6"
-          title="User-defined attributes (uda)"
-          badgeText="0"
+      {false && (
+        <EmptyState
+          className="rounded-md bg-neutral-100"
+          Icon={ListBulletIcon}
+          title="No attribute available"
+          subtitle="Tasks can contain user-defined attributes and they will appear here."
         />
-        <Button className="mb-1.5" Icon={PlusIcon}>
-          Add
-        </Button>
-      </div>
-      <EmptyState
-        className="rounded-md bg-neutral-100"
-        Icon={ListBulletIcon}
-        title="No attribute available"
-        subtitle="Tasks can contain user-defined attributes and they will appear here."
-      />
+      )}
     </>
   );
 }

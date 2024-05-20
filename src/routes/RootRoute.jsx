@@ -10,7 +10,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import NavigationTabs from "../components/organisms/NavigationTabs";
+import Tabs, { Tab } from "../components/organisms/Tabs";
 import { getRealTaskStatus } from "../utils";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -96,7 +96,21 @@ export default function RootRoute() {
               </Button>
             </div>
           }
-          center={<NavigationTabs links={links} />}
+          center={
+            <Tabs>
+              {links.map((link, idx) => (
+                <Tab
+                  key={idx}
+                  className="!py-2"
+                  label={link.label}
+                  onClick={() => link.url}
+                  Icon={link.Icon}
+                  shortcutText={link.shortcut}
+                  isActive={link.label == "Table View"}
+                />
+              ))}
+            </Tabs>
+          }
           right={
             <div className="flex items-center justify-end gap-2">
               <ShortcutWrap Shortcut={<Shortcut text="p" />}>
