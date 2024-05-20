@@ -5,6 +5,9 @@ import {
   CheckIcon,
   ClockIcon,
   XCircleIcon,
+  ChevronDoubleUpIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -16,6 +19,28 @@ export function atMostXDecimalPoints(floatValue, fractionDigits) {
   return parseFloat(floatValue.toFixed(fractionDigits));
 }
 
+export function displayPriority(priority) {
+  let text, variant, Icon;
+  switch (priority) {
+    case "L":
+      text = "Low";
+      variant = "default";
+      Icon = ChevronDownIcon;
+      break;
+    case "M":
+      text = "Medium";
+      variant = "gray";
+      Icon = ChevronUpIcon;
+      break;
+    case "H":
+      text = "High";
+      variant = "red";
+      Icon = ChevronDoubleUpIcon;
+      break;
+  }
+  return <Badge text={text} variant={variant} Icon={Icon} />;
+}
+
 export function displayTags(tags) {
   return (
     <BadgeList>
@@ -25,7 +50,7 @@ export function displayTags(tags) {
           text={tag}
           color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
         />
-      ))}{" "}
+      ))}
     </BadgeList>
   );
 }

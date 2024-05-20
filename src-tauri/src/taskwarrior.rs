@@ -13,6 +13,7 @@ pub struct Task {
     pub id: u32,
     #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
     pub modified: NaiveDateTime,
+    pub priority: Option<String>,
     pub project: Option<String>,
     pub status: String,
     pub tags: Option<Vec<String>>,

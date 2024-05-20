@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { timeAgo } from "../utils";
+import { displayPriority, timeAgo } from "../utils";
 import { useOutletContext } from "react-router-dom";
 import {
   atMostXDecimalPoints,
@@ -13,6 +13,7 @@ import {
   Bars3BottomLeftIcon,
   CheckCircleIcon,
   FolderIcon,
+  ChevronDoubleUpIcon,
   IdentificationIcon,
 } from "@heroicons/react/20/solid";
 import IconLabel from "../components/atoms/IconLabel";
@@ -73,6 +74,13 @@ const columns = [
     cell: (info) => {
       let tags = info.getValue();
       return tags ? displayTags(tags) : "-";
+    },
+  }),
+  columnHelper.accessor("priority", {
+    header: () => <IconLabel Icon={ChevronDoubleUpIcon} label="Priority" />,
+    cell: (info) => {
+      let priority = info.getValue();
+      return priority ? displayPriority(priority) : "-";
     },
   }),
   columnHelper.accessor("urgency", {

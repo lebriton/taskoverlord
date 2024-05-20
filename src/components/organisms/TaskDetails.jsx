@@ -1,4 +1,4 @@
-import { timeAgo } from "../../utils";
+import { displayPriority, timeAgo } from "../../utils";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -16,6 +16,7 @@ import {
   CursorArrowRaysIcon,
   DocumentIcon,
   ListBulletIcon,
+  ChevronDoubleUpIcon,
   IdentificationIcon,
   FingerPrintIcon,
 } from "@heroicons/react/24/outline";
@@ -102,6 +103,11 @@ export default function TaskDetails({
 
 function Body({ task }) {
   const attributes = [
+    {
+      Icon: ChevronDoubleUpIcon,
+      name: "Priority",
+      value: (task.priority && displayPriority(task.priority)) || "-",
+    },
     {
       Icon: FireIcon,
       name: "Urgency",
