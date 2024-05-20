@@ -1,4 +1,4 @@
-import TimeAgo from "javascript-time-ago";
+import { timeAgo } from "../../utils";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -30,8 +30,6 @@ import {
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
-
-const timeAgo = new TimeAgo("en-US");
 
 export default function TaskDetails({ task, onClose }) {
   return (
@@ -135,7 +133,7 @@ function Body({ task }) {
         <div>{displayStatusBadgeForTask(task)}</div>
         <span className="text-sm text-neutral-600">
           {/* XXX: + "Z" as a hack to force UTC (for now) */}
-          Modified: {timeAgo.format(new Date(task.modified + "Z"))}
+          Modified: {timeAgo(new Date(task.modified + "Z"))}
         </span>
       </div>
 

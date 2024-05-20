@@ -6,6 +6,11 @@ import {
   ClockIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addDefaultLocale(en);
+const _timeAgo = new TimeAgo("en-US");
 
 export function atMostXDecimalPoints(floatValue, fractionDigits) {
   return parseFloat(floatValue.toFixed(fractionDigits));
@@ -57,4 +62,8 @@ export function getRealTaskStatus(task) {
   }
 
   return task.status;
+}
+
+export function timeAgo(date) {
+  return _timeAgo.format(date, "en-US");
 }

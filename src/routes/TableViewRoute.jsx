@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import TimeAgo from "javascript-time-ago";
+import { timeAgo } from "../utils";
 import { useOutletContext } from "react-router-dom";
 import {
   atMostXDecimalPoints,
@@ -19,8 +19,6 @@ import IconLabel from "../components/atoms/IconLabel";
 import DataTable from "../components/organisms/DataTable";
 import EmptyState from "../components/molecules/EmptyState";
 import { CubeIcon } from "@heroicons/react/24/outline";
-
-const timeAgo = new TimeAgo("en-US");
 
 const columnHelper = createColumnHelper();
 
@@ -64,7 +62,7 @@ const columns = [
     header: () => <IconLabel Icon={CalendarIcon} label="Modified" />,
     cell: (info) => {
       // XXX: + "Z" as a hack to force UTC (for now)
-      return timeAgo.format(new Date(info.getValue() + "Z"));
+      return timeAgo(new Date(info.getValue() + "Z"));
     },
     meta: {
       className: "whitespace-nowrap",
