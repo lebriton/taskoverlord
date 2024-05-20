@@ -2,14 +2,14 @@ import classNames from "classnames";
 
 export default function Shortcut({ className, text }) {
   return (
-    <span
+    <kbd
       className={classNames(
         "border-100 pointer-events-none w-4 select-none rounded-lg border bg-gray-50 text-center text-xs font-medium text-gray-600",
         className,
       )}
     >
       {text}
-    </span>
+    </kbd>
   );
 }
 
