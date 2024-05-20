@@ -58,7 +58,7 @@ const Input = forwardRef(function Input(
           >
             <Button
               variant="gray"
-              size="sm"
+              size={size == "sm" ? "xs" : "sm"}
               isDisabled={value.length === 0}
               isLoading={isLoading}
               onClick={onSubmit}

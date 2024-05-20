@@ -22,7 +22,7 @@ import Button, { ButtonList } from "../components/atoms/Button";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
-import FloatingTerminal from "../components/organisms/FloatingTerminal";
+import Terminal from "../components/organisms/Terminal";
 import RightFloatingColumn from "../components/molecules/RightFloatingColumn";
 import Label from "../components/atoms/Label";
 import Input from "../components/atoms/Input";
@@ -50,7 +50,7 @@ export default function RootRoute() {
     setShowTaskDetails(true);
   };
   const [showTaskDetails, setShowTaskDetails] = useState(false);
-  const [showFloatingTerminal, setShowFloatingTerminal] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(false);
   const [showRightFloatingColumn, setShowRightFloatingColumn] = useState(false);
 
   const links = [
@@ -139,7 +139,7 @@ export default function RootRoute() {
           }
         />
 
-        <div className="flex grow divide-x overflow-clip">
+        <div className="flex flex-1 grow divide-x overflow-clip">
           <div className="grow overflow-clip bg-neutral-50">
             <Outlet context={[tasksQuery, selectedTask, displayTask]} />
           </div>
@@ -158,14 +158,18 @@ export default function RootRoute() {
         </div>
 
         <BottomBar
-          isCommandsActive={showFloatingTerminal}
-          onCommandsClick={() => setShowFloatingTerminal(!showFloatingTerminal)}
+          isCommandsActive={showTerminal}
+          onCommandsClick={() => setShowTerminal(!showTerminal)}
         />
 
-        <FloatingTerminal
-          show={showFloatingTerminal}
-          onClose={() => setShowFloatingTerminal(false)}
-        />
+        {showTerminal && (
+          <div className="flex-1 overflow-clip">
+            <Terminal
+              show={showTerminal}
+              onClose={() => setShowTerminal(false)}
+            />
+          </div>
+        )}
 
         <RightFloatingColumn
           headingTitle="Add a task"
