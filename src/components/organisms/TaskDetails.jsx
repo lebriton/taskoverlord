@@ -187,7 +187,7 @@ function Body({ task }) {
       </div>
 
       <EmptyState
-        className="rounded-md bg-neutral-100"
+        className="rounded-md border-2 border-dashed"
         Icon={DocumentIcon}
         title="No annotation available"
         subtitle="Tasks can contain annotations and they will appear here."
@@ -195,7 +195,7 @@ function Body({ task }) {
 
       {false && (
         <EmptyState
-          className="rounded-md bg-neutral-100"
+          className="rounded-md border-2 border-dashed"
           Icon={ListBulletIcon}
           title="No attribute available"
           subtitle="Tasks can contain user-defined attributes and they will appear here."
