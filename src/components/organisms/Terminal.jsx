@@ -53,7 +53,7 @@ export default function Terminal({ show, onClose }) {
 
   const bottomRef = useRef(null);
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "instant" });
   }, [history]);
 
   return (

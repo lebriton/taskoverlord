@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import classNames from "classnames";
 import {
   flexRender,
@@ -20,6 +21,14 @@ export default function DataTable({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const selectedItemRef = useRef(null);
+  useEffect(() => {
+    selectedItemRef.current?.scrollIntoView({
+      behavior: "instant",
+      block: "nearest",
+    });
+  }, [data, selectedItem]);
 
   return (
     <div
@@ -58,9 +67,10 @@ export default function DataTable({
         <tbody className="divide-y">
           {table.getRowModel().rows.map((row) => (
             <tr
+              ref={selectedItem == row.original ? selectedItemRef : null}
               key={row.id}
               className={classNames(
-                "cursor-pointer divide-x hover:bg-neutral-100",
+                "cursor-pointer scroll-mt-7 divide-x hover:bg-neutral-100",
                 selectedItem == row.original && "!bg-blue-100",
                 isRowDisabled(row) && "bg-neutral-50 text-neutral-400",
               )}

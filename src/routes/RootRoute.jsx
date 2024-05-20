@@ -38,14 +38,13 @@ export default function RootRoute() {
   const [showTaskDetails, setShowTaskDetails] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
 
-
   const hideTaskDetails = () => {
-    setShowTaskDetails(false)
+    setShowTaskDetails(false);
 
-    setPreviousTask(null)
-    setSelectedTask(null)
-    setNextTask(null)
-  }
+    setPreviousTask(null);
+    setSelectedTask(null);
+    setNextTask(null);
+  };
 
   const displayTaskDetails = (task) => {
     const tasks = tasksQuery.data;
@@ -67,11 +66,11 @@ export default function RootRoute() {
 
   const toggleTaskDetailsVisibility = () => {
     if (showTaskDetails) {
-      hideTaskDetails()
+      hideTaskDetails();
     } else {
-      displayTaskDetails(null)
+      displayTaskDetails(null);
     }
-  }
+  };
 
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
@@ -171,7 +170,9 @@ export default function RootRoute() {
               onPreviousTaskClick={
                 previousTask ? () => displayTaskDetails(previousTask) : null
               }
-              onNextTaskClick={nextTask ? () => displayTaskDetails(nextTask) : null}
+              onNextTaskClick={
+                nextTask ? () => displayTaskDetails(nextTask) : null
+              }
             />
           </div>
         )}
