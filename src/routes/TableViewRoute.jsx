@@ -86,7 +86,7 @@ const columns = [
 ];
 
 export default function TableViewRoute() {
-  const [tasksQuery, selectedTask, displayTask] = useOutletContext();
+  const [tasksQuery, selectedTask, displayTaskDetails] = useOutletContext();
 
   return tasksQuery.data.length ? (
     <DataTable
@@ -98,7 +98,7 @@ export default function TableViewRoute() {
       }
       hasExternalBorder={false}
       stickyHeader={true}
-      onSelected={displayTask}
+      onSelected={displayTaskDetails}
     />
   ) : (
     <EmptyState

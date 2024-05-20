@@ -22,7 +22,6 @@ import {
 import Button from "../atoms/Button";
 import Card, { CardBody, CardHeader } from "../molecules/Card";
 import FlexLine from "../molecules/FlexLine";
-import Heading3 from "../molecules/Heading3";
 import {
   atMostXDecimalPoints,
   displayStatusBadgeForTask,
@@ -32,15 +31,28 @@ import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
 import Tabs, { Tab } from "./Tabs";
 
-export default function TaskDetails({ task, onClose }) {
+export default function TaskDetails({
+  task,
+  onClose,
+  onPreviousTaskClick,
+  onNextTaskClick,
+}) {
   return (
     <Card className="h-full !bg-neutral-50" hasExternalBorder={false}>
       <CardHeader>
         <FlexLine
           left={
             <div className="flex items-center gap-2">
-              <Button Icon={ChevronLeftIcon} />
-              <Button Icon={ChevronRightIcon} />
+              <Button
+                Icon={ChevronLeftIcon}
+                isDisabled={onPreviousTaskClick == null}
+                onClick={onPreviousTaskClick}
+              />
+              <Button
+                Icon={ChevronRightIcon}
+                isDisabled={onNextTaskClick == null}
+                onClick={onNextTaskClick}
+              />
             </div>
           }
           right={

@@ -18,15 +18,10 @@ import Badge, { BadgeList } from "../components/atoms/Badge";
 import { Outlet } from "react-router-dom";
 import Heading3 from "../components/molecules/Heading3";
 import FlexLine from "../components/molecules/FlexLine";
-import Button, { ButtonList } from "../components/atoms/Button";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Button from "../components/atoms/Button";
 import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import Terminal from "../components/organisms/Terminal";
-import RightFloatingColumn from "../components/molecules/RightFloatingColumn";
-import Label from "../components/atoms/Label";
-import Input from "../components/atoms/Input";
-import FormGroup from "../components/atoms/FormGroup";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -35,23 +30,48 @@ export default function RootRoute() {
     // TODO: handle errors
     queryFn: async () => await invoke("get_all_tasks"),
   });
-  const projectsQuery = useSuspenseQuery({
-    queryKey: ["projects"],
-    // TODO: handle errors
-    queryFn: async () => await invoke("get_project_names"),
-  });
-  const projects = projectsQuery.data.map((project, idx) => ({
-    text: project,
-    shortcut: (idx + 1).toString(),
-  }));
+
+  const [previousTask, setPreviousTask] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-  const displayTask = (task) => {
+  const [nextTask, setNextTask] = useState(null);
+
+  const [showTaskDetails, setShowTaskDetails] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(false);
+
+
+  const hideTaskDetails = () => {
+    setShowTaskDetails(false)
+
+    setPreviousTask(null)
+    setSelectedTask(null)
+    setNextTask(null)
+  }
+
+  const displayTaskDetails = (task) => {
+    const tasks = tasksQuery.data;
+    const currentIndex = tasks.indexOf(task);
+
+    if (currentIndex === -1) {
+      setPreviousTask(null);
+      setNextTask(null);
+    } else {
+      setPreviousTask(currentIndex > 0 ? tasks[currentIndex - 1] : null);
+      setNextTask(
+        currentIndex < tasks.length - 1 ? tasks[currentIndex + 1] : null,
+      );
+    }
+
     setSelectedTask(task);
     setShowTaskDetails(true);
   };
-  const [showTaskDetails, setShowTaskDetails] = useState(false);
-  const [showTerminal, setShowTerminal] = useState(false);
-  const [showRightFloatingColumn, setShowRightFloatingColumn] = useState(false);
+
+  const toggleTaskDetailsVisibility = () => {
+    if (showTaskDetails) {
+      hideTaskDetails()
+    } else {
+      displayTaskDetails(null)
+    }
+  }
 
   const links = [
     { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
@@ -65,151 +85,112 @@ export default function RootRoute() {
     { label: "Calendar", url: "/", Icon: CalendarDaysIcon, shortcut: "c" },
   ];
 
+  // const projectsQuery = useSuspenseQuery({
+  //   queryKey: ["projects"],
+  //   // TODO: handle errors
+  //   queryFn: async () => await invoke("get_project_names"),
+  // });
+  // const projects = projectsQuery.data.map((project, idx) => ({
+  //   text: project,
+  //   shortcut: (idx + 1).toString(),
+  // }));
+
   return (
-    <>
-      <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
-        <FlexLine
-          className="z-20 gap-4 px-2"
-          left={
-            <div className="flex items-center gap-2">
-              <Heading3
-                className="!mb-0"
-                title="Tasks"
-                badgeText={tasksQuery.data.length}
-              />
+    <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
+      <FlexLine
+        className="z-20 gap-4 px-2"
+        left={
+          <div className="flex items-center gap-2">
+            <Heading3
+              className="!mb-0"
+              title="Tasks"
+              badgeText={tasksQuery.data.length}
+            />
 
-              <Button
-                Icon={ArrowPathIcon}
-                variant="no-outline"
-                shortcutText="r"
-                onClick={() =>
-                  queryClient.invalidateQueries({ queryKey: ["tasks"] })
-                }
-              />
+            <Button
+              Icon={ArrowPathIcon}
+              variant="no-outline"
+              shortcutText="r"
+              onClick={() =>
+                queryClient.invalidateQueries({ queryKey: ["tasks"] })
+              }
+            />
 
-              <div className="grow" />
+            <div className="grow" />
 
-              <CountTasksByStatus tasks={tasksQuery.data} />
+            <CountTasksByStatus tasks={tasksQuery.data} />
 
-              <Button Icon={FunnelIcon} shortcutText="f">
-                Filter
-              </Button>
-            </div>
-          }
-          center={
-            <Tabs>
-              {links.map((link, idx) => (
-                <Tab
-                  key={idx}
-                  className="!py-2"
-                  label={link.label}
-                  onClick={() => link.url}
-                  Icon={link.Icon}
-                  shortcutText={link.shortcut}
-                  isActive={link.label == "Table View"}
-                />
-              ))}
-            </Tabs>
-          }
-          right={
-            <div className="flex items-center justify-end gap-2">
-              <ShortcutWrap Shortcut={<Shortcut text="p" />}>
-                <Checkbox
-                  className="text-sm"
-                  label="Show task details"
-                  checked={showTaskDetails}
-                  onChange={() => {
-                    if (showTaskDetails) {
-                      setSelectedTask(null);
-                    }
-                    setShowTaskDetails(!showTaskDetails);
-                  }}
-                />
-              </ShortcutWrap>
-
-              <Button
-                variant="green"
-                Icon={PlusCircleIcon}
-                shortcutText="a"
-                onClick={() => setShowRightFloatingColumn(true)}
-              >
-                New task
-              </Button>
-            </div>
-          }
-        />
-
-        <div className="flex flex-1 grow divide-x overflow-clip">
-          <div className="grow overflow-clip bg-neutral-50">
-            <Outlet context={[tasksQuery, selectedTask, displayTask]} />
+            <Button Icon={FunnelIcon} shortcutText="f">
+              Filter
+            </Button>
           </div>
-
-          {showTaskDetails && (
-            <div className="min-w-96 max-w-96 overflow-clip">
-              <TaskDetails
-                task={selectedTask}
-                onClose={() => {
-                  setShowTaskDetails(false);
-                  setSelectedTask(null);
-                }}
+        }
+        center={
+          <Tabs>
+            {links.map((link, idx) => (
+              <Tab
+                key={idx}
+                className="!py-2"
+                label={link.label}
+                onClick={() => link.url}
+                Icon={link.Icon}
+                shortcutText={link.shortcut}
+                isActive={link.label == "Table View"}
               />
-            </div>
-          )}
+            ))}
+          </Tabs>
+        }
+        right={
+          <div className="flex items-center justify-end gap-2">
+            <ShortcutWrap Shortcut={<Shortcut text="p" />}>
+              <Checkbox
+                className="text-sm"
+                label="Show task details"
+                checked={showTaskDetails}
+                onChange={toggleTaskDetailsVisibility}
+              />
+            </ShortcutWrap>
+
+            <Button variant="green" Icon={PlusCircleIcon} shortcutText="a">
+              New task
+            </Button>
+          </div>
+        }
+      />
+
+      <div className="flex flex-1 grow divide-x overflow-clip">
+        <div className="grow overflow-clip bg-neutral-50">
+          <Outlet context={[tasksQuery, selectedTask, displayTaskDetails]} />
         </div>
 
-        <BottomBar
-          isCommandsActive={showTerminal}
-          onCommandsClick={() => setShowTerminal(!showTerminal)}
-        />
-
-        {showTerminal && (
-          <div className="flex-1 overflow-clip">
-            <Terminal
-              show={showTerminal}
-              onClose={() => setShowTerminal(false)}
+        {showTaskDetails && (
+          <div className="min-w-96 max-w-96 overflow-clip">
+            <TaskDetails
+              task={selectedTask}
+              onClose={hideTaskDetails}
+              onPreviousTaskClick={
+                previousTask ? () => displayTaskDetails(previousTask) : null
+              }
+              onNextTaskClick={nextTask ? () => displayTaskDetails(nextTask) : null}
             />
           </div>
         )}
-
-        <RightFloatingColumn
-          headingTitle="Add a task"
-          show={showRightFloatingColumn}
-          bottom={
-            <div className="flex justify-end">
-              <ButtonList>
-                <Button
-                  size="sm"
-                  onClick={() => setShowRightFloatingColumn(false)}
-                >
-                  Cancel
-                </Button>
-                <Button variant="blue" size="sm">
-                  Add task
-                </Button>
-              </ButtonList>
-            </div>
-          }
-          onClose={() => setShowRightFloatingColumn(false)}
-        >
-          <FormGroup>
-            <Label text="Description" />
-            <Input />
-          </FormGroup>
-
-          <FormGroup>
-            <Label text="Project" isOptional />
-            <Input />
-          </FormGroup>
-
-          <FormGroup>
-            <Label text="Tags" isOptional />
-            <Input />
-          </FormGroup>
-        </RightFloatingColumn>
       </div>
 
-      <ReactQueryDevtools buttonPosition="bottom-right" />
-    </>
+      <BottomBar
+        isCommandsActive={showTerminal}
+        onCommandsClick={() => setShowTerminal(!showTerminal)}
+      />
+
+      {showTerminal && (
+        <div className="flex-1 overflow-clip">
+          <Terminal
+            show={showTerminal}
+            onClose={() => setShowTerminal(false)}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 

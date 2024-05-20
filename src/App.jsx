@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootRoute from "./routes/RootRoute";
 import TableViewRoute from "./routes/TableViewRoute";
@@ -30,6 +31,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Suspense fallback={"Loading..."}>
         <RouterProvider router={router} />
+
+        <ReactQueryDevtools buttonPosition="bottom-right" />
       </Suspense>
     </QueryClientProvider>
   );
