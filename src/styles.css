@@ -18,6 +18,15 @@
   src: url("/fonts/Inter-4.0/InterVariable-Italic.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: RedditMonoVariable;
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("/fonts/Reddit_Mono/RedditMono-VariableFont_wght.woff2")
+    format("woff2");
+}
+
 .sticky-header-fix {
   position: relative;
 }

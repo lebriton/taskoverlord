@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["InterVariable", "sans-serif"],
+        mono: ["RedditMonoVariable", "monospace"],
       },
 
       keyframes: {

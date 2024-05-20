@@ -73,6 +73,7 @@ export default function Terminal({ show, onClose }) {
 
       <CardFooter>
         <Input
+          className="font-mono"
           value={commandLineValue}
           placeholder="Type a taskwarrior command…"
           buttonChildren={tauriMutation.isPending ? "Running…" : "Run"}
