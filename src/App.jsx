@@ -32,7 +32,7 @@ function App() {
       <Suspense fallback={"Loading..."}>
         <RouterProvider router={router} />
 
-        <ReactQueryDevtools buttonPosition="bottom-right" />
+        <ReactQueryDevtools buttonPosition="top-left" />
       </Suspense>
     </QueryClientProvider>
   );
