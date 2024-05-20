@@ -197,11 +197,7 @@ export default function RootRoute() {
         onCommandsClick={() => setShowTerminal(!showTerminal)}
       />
 
-      {showTerminal && (
-        <div className="flex-1 overflow-clip">
-          <Terminal onClose={() => setShowTerminal(false)} />
-        </div>
-      )}
+      <Terminal className="flex-1 overflow-clip" show={showTerminal} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ function getCurrentTime() {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-export default function Terminal({ show, onClose }) {
+export default function Terminal({ className, show }) {
   const inputReference = useRef(null);
 
   const [commandLineValue, setCommandLineValue] = useState("");
@@ -57,7 +57,14 @@ export default function Terminal({ show, onClose }) {
   }, [history]);
 
   return (
-    <Card className="h-full max-h-full overflow-clip" hasExternalBorder={false}>
+    <Card
+      className={classNames(
+        "h-full max-h-full overflow-clip",
+        !show && "hidden",
+        className,
+      )}
+      hasExternalBorder={false}
+    >
       <CardBody className="flex flex-col divide-y divide-neutral-700 overflow-auto bg-neutral-950 !p-0 text-sm text-neutral-50">
         {history.map((entry, idx) => (
           <TerminalBlock
