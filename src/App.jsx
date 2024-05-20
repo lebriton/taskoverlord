@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootRoute from "./routes/RootRoute";
 import TableViewRoute from "./routes/TableViewRoute";
 import { Suspense } from "react";
+import SplashScreen from "./components/organisms/SpashScreen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={"Loading..."}>
+      <Suspense fallback={<SplashScreen />}>
         <RouterProvider router={router} />
 
         <ReactQueryDevtools buttonPosition="top-left" />
