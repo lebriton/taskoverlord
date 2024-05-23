@@ -24,12 +24,12 @@ export function displayPriority(priority) {
   switch (priority) {
     case "L":
       text = "Low";
-      variant = "default";
+      variant = "green";
       Icon = ChevronDownIcon;
       break;
     case "M":
       text = "Medium";
-      variant = "gray";
+      variant = "yellow";
       Icon = ChevronUpIcon;
       break;
     case "H":
@@ -37,6 +37,10 @@ export function displayPriority(priority) {
       variant = "red";
       Icon = ChevronDoubleUpIcon;
       break;
+    default:
+      text = "No priority";
+      variant = "gray";
+      Icon = null;
   }
   return <Badge text={text} variant={variant} Icon={Icon} />;
 }

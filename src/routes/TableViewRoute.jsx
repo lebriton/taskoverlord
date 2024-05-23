@@ -79,8 +79,7 @@ const columns = [
   columnHelper.accessor("priority", {
     header: () => <IconLabel Icon={ChevronDoubleUpIcon} label="Priority" />,
     cell: (info) => {
-      let priority = info.getValue();
-      return priority ? displayPriority(priority) : "-";
+      return displayPriority(info.getValue());
     },
   }),
   columnHelper.accessor("urgency", {

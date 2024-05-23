@@ -106,7 +106,7 @@ function Body({ task }) {
     {
       Icon: ChevronDoubleUpIcon,
       name: "Priority",
-      value: (task.priority && displayPriority(task.priority)) || "-",
+      value: displayPriority(task.priority),
     },
     {
       Icon: FireIcon,
