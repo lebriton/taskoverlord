@@ -23,6 +23,7 @@ import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import Terminal from "../components/organisms/Terminal";
 import NewTask from "../components/organisms/NewTask";
+import Toast from "../components/molecules/Toast";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -97,108 +98,112 @@ export default function RootRoute() {
   // }));
 
   return (
-    <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
-      <FlexLine
-        className="z-20 gap-4 px-2"
-        left={
-          <div className="flex items-center gap-2">
-            <Heading3
-              className="!mb-0"
-              title="Tasks"
-              badgeText={tasksQuery.data.length}
-            />
+    <>
+      <Toast variant="warning">This is a test message.</Toast>
 
-            <Button
-              Icon={ArrowPathIcon}
-              variant="no-outline"
-              shortcutText="r"
-              onClick={() =>
-                queryClient.invalidateQueries({ queryKey: ["tasks"] })
-              }
-            />
-
-            <div className="grow" />
-
-            <CountTasksByStatus tasks={tasksQuery.data} />
-
-            <Button Icon={FunnelIcon} shortcutText="f">
-              Filter
-            </Button>
-          </div>
-        }
-        center={
-          <Tabs>
-            {links.map((link, idx) => (
-              <Tab
-                key={idx}
-                className="!py-2"
-                label={link.label}
-                onClick={() => link.url}
-                Icon={link.Icon}
-                shortcutText={link.shortcut}
-                isActive={link.label == "Table View"}
+      <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
+        <FlexLine
+          className="z-20 gap-4 px-2"
+          left={
+            <div className="flex items-center gap-2">
+              <Heading3
+                className="!mb-0"
+                title="Tasks"
+                badgeText={tasksQuery.data.length}
               />
-            ))}
-          </Tabs>
-        }
-        right={
-          <div className="flex items-center justify-end gap-2">
-            <ShortcutWrap Shortcut={<Shortcut text="p" />}>
-              <Checkbox
-                className="text-sm"
-                label="Show task details"
-                checked={showTaskDetails}
-                onChange={toggleTaskDetailsVisibility}
+
+              <Button
+                Icon={ArrowPathIcon}
+                variant="no-outline"
+                shortcutText="r"
+                onClick={() =>
+                  queryClient.invalidateQueries({ queryKey: ["tasks"] })
+                }
               />
-            </ShortcutWrap>
 
-            <Button
-              variant="green"
-              Icon={PlusCircleIcon}
-              shortcutText="a"
-              isDisabled={showNewTask}
-              onClick={() => setShowNewTask(true)}
-            >
-              New task
-            </Button>
+              <div className="grow" />
+
+              <CountTasksByStatus tasks={tasksQuery.data} />
+
+              <Button Icon={FunnelIcon} shortcutText="f">
+                Filter
+              </Button>
+            </div>
+          }
+          center={
+            <Tabs>
+              {links.map((link, idx) => (
+                <Tab
+                  key={idx}
+                  className="!py-2"
+                  label={link.label}
+                  onClick={() => link.url}
+                  Icon={link.Icon}
+                  shortcutText={link.shortcut}
+                  isActive={link.label == "Table View"}
+                />
+              ))}
+            </Tabs>
+          }
+          right={
+            <div className="flex items-center justify-end gap-2">
+              <ShortcutWrap Shortcut={<Shortcut text="p" />}>
+                <Checkbox
+                  className="text-sm"
+                  label="Show task details"
+                  checked={showTaskDetails}
+                  onChange={toggleTaskDetailsVisibility}
+                />
+              </ShortcutWrap>
+
+              <Button
+                variant="green"
+                Icon={PlusCircleIcon}
+                shortcutText="a"
+                isDisabled={showNewTask}
+                onClick={() => setShowNewTask(true)}
+              >
+                New task
+              </Button>
+            </div>
+          }
+        />
+
+        <div className="flex flex-1 grow divide-x overflow-clip">
+          <div className="grow overflow-clip bg-neutral-50">
+            <Outlet context={[tasksQuery, selectedTask, displayTaskDetails]} />
           </div>
-        }
-      />
 
-      <div className="flex flex-1 grow divide-x overflow-clip">
-        <div className="grow overflow-clip bg-neutral-50">
-          <Outlet context={[tasksQuery, selectedTask, displayTaskDetails]} />
+          {showTaskDetails && (
+            <div className="min-w-96 max-w-96 overflow-clip">
+              <TaskDetails
+                task={selectedTask}
+                onClose={hideTaskDetails}
+                onPreviousTaskClick={
+                  previousTask ? () => displayTaskDetails(previousTask) : null
+                }
+                onNextTaskClick={
+                  nextTask ? () => displayTaskDetails(nextTask) : null
+                }
+              />
+            </div>
+          )}
+
+          {showNewTask && (
+            <div className="min-w-96 max-w-96 overflow-clip">
+              <NewTask onClose={() => setShowNewTask(false)} />
+            </div>
+          )}
         </div>
 
-        {showTaskDetails && (
-          <div className="min-w-96 max-w-96 overflow-clip">
-            <TaskDetails
-              task={selectedTask}
-              onClose={hideTaskDetails}
-              onPreviousTaskClick={
-                previousTask ? () => displayTaskDetails(previousTask) : null
-              }
-              onNextTaskClick={
-                nextTask ? () => displayTaskDetails(nextTask) : null
-              }
-            />
-          </div>
-        )}
+        <BottomBar
+          isCommandsActive={showTerminal}
+          onCommandsClick={() => setShowTerminal(!showTerminal)}
+        />
 
-        {showNewTask && (
-          <div className="min-w-96 max-w-96 overflow-clip">
-            <NewTask onClose={() => setShowNewTask(false)} />
-          </div>
-        )}
+        <Terminal className="flex-1 overflow-clip" show={showTerminal} />
       </div>
-
-      <BottomBar
-        isCommandsActive={showTerminal}
-        onCommandsClick={() => setShowTerminal(!showTerminal)}
-      />
-
-      <Terminal className="flex-1 overflow-clip" show={showTerminal} />
-    </div>
+    </>
   );
 }
 
