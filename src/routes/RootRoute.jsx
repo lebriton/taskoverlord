@@ -23,7 +23,6 @@ import BottomBar from "../components/organisms/BottomBar";
 import Checkbox from "../components/molecules/Checkbox";
 import Terminal from "../components/organisms/Terminal";
 import NewTask from "../components/organisms/NewTask";
-import Toast from "../components/molecules/Toast";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -99,8 +98,6 @@ export default function RootRoute() {
 
   return (
     <>
-      <Toast variant="warning">This is a test message.</Toast>
-
       <div className="flex h-screen w-screen flex-col divide-y overflow-hidden">
         <FlexLine
           className="z-20 gap-4 px-2"

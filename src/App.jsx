@@ -5,6 +5,7 @@ import RootRoute from "./routes/RootRoute";
 import TableViewRoute from "./routes/TableViewRoute";
 import { Suspense } from "react";
 import SplashScreen from "./components/organisms/SpashScreen";
+import ToastProvider from "./contexts/ToastProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,7 +32,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Suspense fallback={<SplashScreen />}>
-        <RouterProvider router={router} />
+        <ToastProvider>
+          <RouterProvider router={router} />
+        </ToastProvider>
 
         <ReactQueryDevtools buttonPosition="top-left" />
       </Suspense>
