@@ -22,7 +22,7 @@ const Input = forwardRef(function Input(
 ) {
   return (
     <>
-      <div className="relative">
+      <div className="relative w-full">
         {Icon && (
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
             <Icon className="h-4 w-4 text-neutral-500" />
@@ -31,8 +31,9 @@ const Input = forwardRef(function Input(
 
         <input
           className={classNames(
-            "w-full rounded-md border px-2.5 py-1.5 text-neutral-900 placeholder-neutral-500 focus:outline focus:outline-2 focus:outline-blue-600",
-            "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-neutral-400",
+            "w-full rounded-md border bg-neutral-50 px-2.5 py-1.5 text-neutral-900 placeholder-neutral-400",
+            "focus:bg-white focus:outline focus:outline-2 focus:outline-blue-600",
+            "disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-400",
             size == "sm" && "text-sm",
             size == "md" && "text-md",
             Icon && "!ps-10",
@@ -71,7 +72,7 @@ const Input = forwardRef(function Input(
         )}
       </div>
 
-      {helpText && <p className="mt-2 text-sm text-gray-500">{helpText}</p>}
+      {helpText && <p className="mt-2 text-sm text-neutral-500">{helpText}</p>}
     </>
   );
 });

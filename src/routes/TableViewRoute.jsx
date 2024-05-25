@@ -8,7 +8,7 @@ import {
 } from "../utils";
 import {
   FireIcon,
-  CalendarIcon,
+  ClockIcon,
   TagIcon,
   Bars3BottomLeftIcon,
   CheckCircleIcon,
@@ -60,7 +60,7 @@ const columns = [
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor("modified", {
-    header: () => <IconLabel Icon={CalendarIcon} label="Modified" />,
+    header: () => <IconLabel Icon={ClockIcon} label="Modified" />,
     cell: (info) => {
       // XXX: + "Z" as a hack to force UTC (for now)
       return timeAgo(new Date(info.getValue() + "Z"));
@@ -79,7 +79,8 @@ const columns = [
   columnHelper.accessor("priority", {
     header: () => <IconLabel Icon={ChevronDoubleUpIcon} label="Priority" />,
     cell: (info) => {
-      return displayPriority(info.getValue());
+      const priority = info.getValue();
+      return (priority && displayPriority(priority)) || "-";
     },
   }),
   columnHelper.accessor("urgency", {
@@ -100,9 +101,6 @@ export default function TableViewRoute() {
       data={tasksQuery.data}
       selectedItem={selectedTask}
       columns={columns}
-      isRowDisabled={(row) =>
-        ["completed", "deleted"].includes(row.original.status)
-      }
       hasExternalBorder={false}
       stickyHeader={true}
       onSelected={displayTaskDetails}

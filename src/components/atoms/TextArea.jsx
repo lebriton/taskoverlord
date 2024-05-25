@@ -15,8 +15,9 @@ export default function TextArea({
     <>
       <textarea
         className={classNames(
-          "block w-full rounded-md border p-2.5 text-sm text-neutral-900 focus:outline focus:outline-2 focus:outline-blue-600",
-          "disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-neutral-400",
+          "block w-full rounded-md border bg-neutral-50 p-2.5 text-sm text-neutral-900",
+          "focus:bg-white focus:outline focus:outline-2 focus:outline-blue-600",
+          "disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-400",
           className,
         )}
         value={value}
@@ -28,7 +29,7 @@ export default function TextArea({
         onChange={onChange}
       />
 
-      {helpText && <p className="mt-2 text-sm text-gray-500">{helpText}</p>}
+      {helpText && <p className="mt-2 text-sm text-neutral-500">{helpText}</p>}
     </>
   );
 }

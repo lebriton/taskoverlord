@@ -11,7 +11,6 @@ export default function DataTable({
   data,
   selectedItem,
   columns,
-  isRowDisabled,
   hasExternalBorder = true,
   stickyHeader = false,
   onSelected,
@@ -47,7 +46,7 @@ export default function DataTable({
               {headerGroup.headers.map((header) => (
                 <th
                   className={classNames(
-                    "px-2 py-1 font-semibold uppercase text-neutral-600",
+                    "px-2 py-1 font-semibold uppercase",
                     stickyHeader && "sticky-header-fix",
                   )}
                   key={header.id}
@@ -71,8 +70,8 @@ export default function DataTable({
               key={row.id}
               className={classNames(
                 "cursor-pointer scroll-mt-7 divide-x hover:bg-neutral-100",
-                selectedItem == row.original && "!bg-blue-100",
-                isRowDisabled(row) && "bg-neutral-50 text-neutral-400",
+                selectedItem == row.original &&
+                  "!bg-blue-600 font-medium text-white",
               )}
               onClick={() => onSelected(row.original)}
             >

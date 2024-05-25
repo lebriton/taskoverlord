@@ -7,41 +7,39 @@ import Label from "../atoms/Label";
 import Input from "../atoms/Input";
 import FormGroup from "../atoms/FormGroup";
 import TextArea from "../atoms/TextArea";
+import TaskForm from "../../forms/TaskForm";
 
-export default function NewTask({ onClose }) {
+export default function NewTask({ onSubmit, onClose }) {
   return (
     <Card className="h-full" hasExternalBorder={false}>
       <CardHeader>
         <FlexLine
-          left={<Heading2 className="!-mb-px" title={"New task"} />}
-          right={
-            <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
+          left={
+            /* NB: !mb-px to align borders */
+            <Heading2 className="!mb-px" title={"New task"} />
           }
+          right={<Button variant="plain" Icon={XMarkIcon} onClick={onClose} />}
         />
       </CardHeader>
 
       <CardBody className="h-full overflow-scroll">
         <FormGroup>
-          <Label text="Description" />
-          <TextArea rows={4} autoFocus isRequired={true} />
+          <Label text="Add a description" />
+          <TextArea rows={2} autoFocus isRequired />
         </FormGroup>
 
-        <FormGroup>
-          <Label text="Project" isOptional />
-          <Input isRequired={false} />
-        </FormGroup>
+        <hr className="my-3" />
 
-        <FormGroup>
-          <Label text="Tags" isOptional />
-          <Input isRequired={false} />
-        </FormGroup>
+        <TaskForm />
       </CardBody>
 
       <CardFooter>
         <div className="flex justify-end">
           <ButtonList>
             <Button onClick={onClose}>Cancel</Button>
-            <Button variant="blue">Add task</Button>
+            <Button variant="blue" onClick={onSubmit}>
+              Add task
+            </Button>
           </ButtonList>
         </div>
       </CardFooter>

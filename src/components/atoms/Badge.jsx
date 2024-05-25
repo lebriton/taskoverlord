@@ -35,11 +35,12 @@ export default function Badge({
 
         style == "normal" && "rounded px-2.5 py-0.5",
         style == "tight" && "rounded-lg px-1 font-semibold",
+        style == "pill" && "rounded-full px-2.5 py-0.5",
       )}
       style={
         color && {
-          backgroundColor: Color(color).alpha(0.5).rgb().string(),
-          color: Color(color).darken(0.65).rgb().string(),
+          backgroundColor: Color(color).lighten(0.1).rgb().string(),
+          color: Color(color).darken(0.75).rgb().string(),
         }
       }
     >
@@ -51,7 +52,7 @@ export default function Badge({
 
 export function BadgeList({ className, children }) {
   return (
-    <div className={classNames("inline-flex items-center gap-1.5", className)}>
+    <div className={classNames("inline-flex items-center gap-1", className)}>
       {children}
     </div>
   );

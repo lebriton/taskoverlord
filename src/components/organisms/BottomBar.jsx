@@ -12,7 +12,7 @@ function Button({ isActive, children, onClick }) {
     <button
       className={classNames(
         "flex items-center gap-1 px-1.5 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-600",
-        isActive && "!bg-neutral-200 !text-neutral-700",
+        isActive && "!bg-blue-600 font-medium !text-white",
       )}
       type="button"
       onClick={onClick}

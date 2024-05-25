@@ -37,10 +37,6 @@ export function displayPriority(priority) {
       variant = "red";
       Icon = ChevronDoubleUpIcon;
       break;
-    default:
-      text = "No priority";
-      variant = "gray";
-      Icon = null;
   }
   return <Badge text={text} variant={variant} Icon={Icon} />;
 }
@@ -52,6 +48,7 @@ export function displayTags(tags) {
         <Badge
           key={tag}
           text={tag}
+          style="pill"
           color={uniqolor(tag, { saturation: 80, lightness: [70, 80] }).color}
         />
       ))}

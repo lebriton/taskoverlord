@@ -22,7 +22,7 @@ export default function Button({
         "disabled:cursor-not-allowed disabled:opacity-50",
 
         variant == "no-outline" &&
-          "text-neutral-700 enabled:hover:bg-neutral-200",
+          "text-neutral-700 enabled:hover:bg-neutral-100",
         variant != "no-outline" && "border",
 
         variant == "default" && "bg-white enabled:hover:bg-neutral-50",
@@ -68,5 +68,5 @@ export default function Button({
 }
 
 export function ButtonList({ className, children }) {
-  return <div className="flex gap-1.5">{children}</div>;
+  return <div className="flex gap-1">{children}</div>;
 }

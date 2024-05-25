@@ -20,16 +20,22 @@ export default function Card({
 
 export function CardHeader({ className, children }) {
   return (
-    <div className={classNames("border-b p-1.5", className)}>{children}</div>
+    <div className={classNames("border-b px-3 py-1.5", className)}>
+      {children}
+    </div>
   );
 }
 
 export function CardBody({ className, children }) {
-  return <div className={classNames("grow p-1.5", className)}>{children}</div>;
+  return (
+    <div className={classNames("grow px-3 py-1.5", className)}>{children}</div>
+  );
 }
 
 export function CardFooter({ className, children }) {
   return (
-    <div className={classNames("border-t p-1.5", className)}>{children}</div>
+    <div className={classNames("border-t px-3 py-1.5", className)}>
+      {children}
+    </div>
   );
 }
