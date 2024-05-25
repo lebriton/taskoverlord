@@ -163,7 +163,7 @@ function Body({ task }) {
         <div key={idx} className="grid grid-cols-3 gap-4 py-1 text-sm">
           <dt className="text-neutral-600">
             <div className="flex items-center gap-1">
-              <attr.Icon className="size-4" />
+              <attr.Icon className="size-4 text-neutral-400" />
               {attr.name}
             </div>
           </dt>
