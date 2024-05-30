@@ -39,7 +39,7 @@ export default function Toast({
           {variant == "error" && <XCircleIcon className="size-5" />}
         </div>
         <div className="mt-1 grow">{children}</div>
-        <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
+        <Button variant="plain" Icon={XMarkIcon} onClick={onClose} />
       </CardBody>
     </Card>
   );

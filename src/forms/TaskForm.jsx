@@ -52,7 +52,7 @@ function EditButtonWrapper({ children, onEdit }) {
   return (
     <div className="flex items-center justify-between">
       {children}
-      <Button variant="no-outline" onClick={onEdit}>
+      <Button variant="plain" onClick={onEdit}>
         Edit
       </Button>
     </div>

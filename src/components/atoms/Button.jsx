@@ -21,9 +21,8 @@ export default function Button({
         "inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",
         "disabled:cursor-not-allowed disabled:opacity-50",
 
-        variant == "no-outline" &&
-          "text-neutral-700 enabled:hover:bg-neutral-100",
-        variant != "no-outline" && "border",
+        variant == "plain" && "text-neutral-700 enabled:hover:bg-neutral-100",
+        variant != "plain" && "border",
 
         variant == "default" && "bg-white enabled:hover:bg-neutral-50",
         variant == "green" &&

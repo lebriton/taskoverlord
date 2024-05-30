@@ -56,9 +56,7 @@ export default function TaskDetails({
               />
             </ButtonList>
           }
-          right={
-            <Button variant="no-outline" Icon={XMarkIcon} onClick={onClose} />
-          }
+          right={<Button variant="plain" Icon={XMarkIcon} onClick={onClose} />}
         />
       </CardHeader>
 
@@ -141,7 +139,7 @@ function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
       {isEditing ? (
         <ButtonList>
           <Button onClick={onSubmit}>Save</Button>
-          <Button variant="no-outline" onClick={onClose}>
+          <Button variant="plain" onClick={onClose}>
             Cancel
           </Button>
         </ButtonList>
