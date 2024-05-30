@@ -7,7 +7,7 @@ export default function Tabs({ className, children, hasSoftStyle }) {
   return (
     <ul
       className={classNames(
-        "z-20 -mb-px flex flex-wrap gap-3 text-center text-sm text-neutral-800",
+        "z-20 -mb-px flex flex-wrap flex-nowrap gap-3 text-center text-sm text-neutral-800",
         className,
       )}
     >

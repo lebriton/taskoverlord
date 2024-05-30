@@ -77,15 +77,30 @@ export default function RootRoute() {
   };
 
   const links = [
-    { label: "Table View", url: "/", Icon: TableCellsIcon, shortcut: "t" },
-    { label: "Kanban Board", url: "/", Icon: ViewColumnsIcon, shortcut: "k" },
     {
-      label: "Gantt Diagram",
+      label: <span className="hidden 2xl:inline">Table View</span>,
+      url: "/",
+      Icon: TableCellsIcon,
+      shortcut: "t",
+    },
+    {
+      label: <span className="hidden 2xl:inline">Kanban Board</span>,
+      url: "/",
+      Icon: ViewColumnsIcon,
+      shortcut: "k",
+    },
+    {
+      label: <span className="hidden 2xl:inline">Gantt Diagram</span>,
       url: "/",
       Icon: Bars3BottomRightIcon,
       shortcut: "g",
     },
-    { label: "Calendar", url: "/", Icon: CalendarDaysIcon, shortcut: "c" },
+    {
+      label: <span className="hidden 2xl:inline">Calendar</span>,
+      url: "/",
+      Icon: CalendarDaysIcon,
+      shortcut: "c",
+    },
   ];
 
   // const projectsQuery = useSuspenseQuery({

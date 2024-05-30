@@ -18,7 +18,7 @@ export default function Button({
       type="button"
       disabled={isDisabled}
       className={classNames(
-        "inline-flex items-center gap-1 rounded-md p-1.5 font-medium",
+        "inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",
         "disabled:cursor-not-allowed disabled:opacity-50",
 
         variant == "no-outline" &&
