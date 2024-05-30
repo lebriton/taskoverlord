@@ -11,7 +11,7 @@ function Button({ isActive, children, onClick }) {
   return (
     <button
       className={classNames(
-        "flex items-center gap-1 px-1.5 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-600",
+        "flex flex-nowrap items-center gap-1 text-nowrap px-1.5 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-600",
         isActive && "!bg-blue-600 font-medium !text-white",
       )}
       type="button"
