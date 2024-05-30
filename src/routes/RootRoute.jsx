@@ -78,19 +78,31 @@ export default function RootRoute() {
 
   const links = [
     {
-      label: <span className="hidden 2xl:inline">Table View</span>,
+      label: (
+        <span className="hidden 2xl:inline">
+          Table <span className="hidden 4xl:inline">View</span>
+        </span>
+      ),
       url: "/",
       Icon: TableCellsIcon,
       shortcut: "t",
     },
     {
-      label: <span className="hidden 2xl:inline">Kanban Board</span>,
+      label: (
+        <span className="hidden 2xl:inline">
+          Kanban <span className="hidden 4xl:inline">Board</span>
+        </span>
+      ),
       url: "/",
       Icon: ViewColumnsIcon,
       shortcut: "k",
     },
     {
-      label: <span className="hidden 2xl:inline">Gantt Diagram</span>,
+      label: (
+        <span className="hidden 2xl:inline">
+          Gantt <span className="hidden 4xl:inline">Diagram</span>
+        </span>
+      ),
       url: "/",
       Icon: Bars3BottomRightIcon,
       shortcut: "g",
@@ -143,7 +155,7 @@ export default function RootRoute() {
             <div className="flex items-center justify-end gap-2">
               <Heading3
                 className="!mb-0"
-                title="Tasks"
+                title={<span className="hidden 2xl:inline">Tasks</span>}
                 badgeText={tasksQuery.data.length}
               />
 
@@ -160,7 +172,7 @@ export default function RootRoute() {
 
               <ButtonList>
                 <Button Icon={FunnelIcon} shortcutText="f">
-                  Filter
+                  <span className="hidden 2xl:inline">Filter</span>
                 </Button>
                 <Button
                   variant="green"
@@ -169,7 +181,7 @@ export default function RootRoute() {
                   isDisabled={showNewTask}
                   onClick={() => setShowNewTask(true)}
                 >
-                  New task
+                  <span className="hidden 2xl:inline">New task</span>
                 </Button>
               </ButtonList>
             </div>

@@ -29,7 +29,7 @@ export function Tab({
   return (
     <li
       className={classNames(
-        "group flex cursor-pointer items-center border-b-2 border-transparent py-1",
+        "group flex cursor-pointer flex-nowrap items-center text-nowrap border-b-2 border-transparent py-1",
         variant == "soft" && !isActive && "text-neutral-500",
         isActive && "!border-orange-400 font-semibold",
         className,

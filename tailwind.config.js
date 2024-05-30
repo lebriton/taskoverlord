@@ -7,6 +7,10 @@ export default {
         sans: ["InterVariable", "sans-serif"],
         mono: ["RedditMonoVariable", "monospace"],
       },
+      screens: {
+        "3xl": "1600px",
+        "4xl": "1920px",
+      },
     },
   },
   plugins: [],
