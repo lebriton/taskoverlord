@@ -128,7 +128,7 @@ export default function RootRoute() {
                   onClick={() => link.url}
                   Icon={link.Icon}
                   shortcutText={link.shortcut}
-                  isActive={link.label == "Table View"}
+                  isActive={idx == 0}
                 />
               ))}
             </Tabs>
