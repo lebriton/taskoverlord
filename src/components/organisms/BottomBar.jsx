@@ -30,7 +30,7 @@ export default function BottomBar({ isCommandsActive, onCommandsClick }) {
   });
 
   return (
-    <div className="flex h-6 w-full gap-1.5 border-t px-1.5 text-xs leading-6">
+    <div className="flex w-full gap-1.5 border-t px-1.5 text-xs leading-6">
       <Button isActive={isCommandsActive} onClick={onCommandsClick}>
         <CommandLineIcon className="size-4" />
         Console
