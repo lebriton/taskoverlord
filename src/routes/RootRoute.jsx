@@ -209,6 +209,11 @@ export default function RootRoute() {
           )}
         </div>
 
+        <Terminal
+          className="flex-1 overflow-clip border-t"
+          show={showTerminal}
+        />
+
         <BottomBar
           isCommandsActive={showTerminal}
           onCommandsClick={() => setShowTerminal(!showTerminal)}
@@ -219,8 +224,6 @@ export default function RootRoute() {
             <NewTask onClose={() => setShowNewTask(false)} />
           </div>
         )}
-
-        <Terminal className="flex-1 overflow-clip" show={showTerminal} />
       </div>
     </>
   );
