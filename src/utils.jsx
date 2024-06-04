@@ -56,7 +56,7 @@ export function displayTags(tags) {
   );
 }
 
-export function displayStatusBadgeForTask(task) {
+export function displayStatusBadgeForTask(task, big = false) {
   let status = getRealTaskStatus(task);
 
   let variant, Icon;
@@ -79,7 +79,18 @@ export function displayStatusBadgeForTask(task) {
       break;
   }
 
-  return <Badge text={status} variant={variant} Icon={Icon} />;
+  if (big) {
+    Icon = null;
+  }
+
+  return (
+    <Badge
+      className={big && "!text-sm capitalize"}
+      text={status}
+      variant={variant}
+      Icon={Icon}
+    />
+  );
 }
 
 export function getRealTaskStatus(task) {

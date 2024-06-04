@@ -46,6 +46,7 @@ export function Tab({
 
           {badgeText != null && (
             <Badge
+              className={isActive && "!font-semibold"}
               text={badgeText}
               variant={variant == "soft" && !isActive ? "gray" : "dark"}
               style="tight"

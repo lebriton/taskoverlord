@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Color from "color";
 
 export default function Badge({
+  className,
   text,
   variant = "default",
   style = "normal",
@@ -36,6 +37,8 @@ export default function Badge({
         style == "normal" && "rounded px-2.5 py-0.5",
         style == "tight" && "rounded-lg px-1 font-semibold",
         style == "pill" && "rounded-full px-2.5 py-0.5",
+
+        className,
       )}
       style={
         color && {

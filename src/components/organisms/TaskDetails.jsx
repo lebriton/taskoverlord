@@ -8,6 +8,7 @@ import {
   CursorArrowRaysIcon,
   DocumentIcon,
   ListBulletIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import Button, { ButtonList } from "../atoms/Button";
 import Card, { CardBody, CardHeader } from "../molecules/Card";
@@ -63,6 +64,14 @@ export default function TaskDetails({
       <CardBody className="h-full overflow-scroll">
         {task ? (
           <>
+            <div className="mb-3 flex items-center gap-1.5">
+              {displayStatusBadgeForTask(task, true)}
+              <span className="text-sm font-medium text-neutral-800">
+                {/* XXX: + "Z" as a hack to force UTC (for now) */}
+                Modified {timeAgo(new Date(task.modified + "Z"))}
+              </span>
+            </div>
+
             <TaskDescriptionForm
               task={task}
               isEditing={isEditingDescription}
@@ -71,16 +80,9 @@ export default function TaskDetails({
               onClose={() => setEditingDescription(false)}
             />
 
-            <div className="mb-6 flex justify-between">
-              {displayStatusBadgeForTask(task)}
-              <span className="text-sm text-neutral-800">
-                {/* XXX: + "Z" as a hack to force UTC (for now) */}
-                <span className="font-semibold">Modified:</span>{" "}
-                {timeAgo(new Date(task.modified + "Z"))}
-              </span>
-            </div>
+            <TaskForm task={task} softStyle />
 
-            <TaskForm task={task} />
+            <hr className="my-3" />
 
             <Tabs className="!my-3">
               <Tab
@@ -109,6 +111,27 @@ export default function TaskDetails({
               />
             )}
 
+            <hr className="my-3" />
+
+            <div className="inline-flex flex-col gap-1">
+              <Button
+                className="!font-bold"
+                variant="plain"
+                size="sm"
+                Icon={TrashIcon}
+              >
+                An action
+              </Button>
+              <Button
+                className="!font-bold hover:enabled:text-red-600"
+                variant="plain"
+                size="sm"
+                Icon={TrashIcon}
+              >
+                Delete task
+              </Button>
+            </div>
+
             <div className="h-12" />
           </>
         ) : (
@@ -126,7 +149,7 @@ export default function TaskDetails({
 
 function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
   return (
-    <div className="mb-3 flex items-start justify-between gap-3">
+    <div className="mb-6 flex items-start justify-between gap-3">
       {isEditing ? (
         <TextArea rows={1} value={task.description} autoFocus isRequired />
       ) : (
