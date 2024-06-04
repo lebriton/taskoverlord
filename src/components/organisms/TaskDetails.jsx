@@ -90,6 +90,7 @@ export default function TaskDetails({
                 isActive={true}
               />
               <Tab variant="soft" label="Uda" badgeText={0} isActive={false} />
+              <Tab variant="soft" label="History" isActive={false} />
             </Tabs>
 
             <EmptyState
