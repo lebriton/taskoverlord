@@ -1,10 +1,14 @@
-import { displayPriority, timeAgo } from "../../utils";
+import { displayPriority, getRealTaskStatus, timeAgo } from "../../utils";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
+  PauseIcon,
+  PlayIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/20/solid";
 import {
+  ArrowUturnLeftIcon,
   CursorArrowRaysIcon,
   DocumentIcon,
   ListBulletIcon,
@@ -19,6 +23,7 @@ import {
   displayTags,
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
+import Heading3 from "../molecules/Heading3";
 import EmptyState from "../molecules/EmptyState";
 import Tabs, { Tab } from "./Tabs";
 import FormGroup from "../atoms/FormGroup";
@@ -99,6 +104,8 @@ export default function TaskDetails({
 
             <hr className="mb-3" />
 
+            <ActionsCard task={task} />
+
             <TaskForm task={task} softStyle />
 
             {false && (
@@ -121,9 +128,15 @@ export default function TaskDetails({
             <hr className="my-3" />
 
             <div className="inline-flex flex-col gap-1">
-              <Button variant="link" size="sm" Icon={TrashIcon}>
-                Delete task
-              </Button>
+              {["completed", "deleted"].includes(getRealTaskStatus(task)) ? (
+                <Button variant="link" size="sm" Icon={ArrowUturnLeftIcon}>
+                  Restore task
+                </Button>
+              ) : (
+                <Button variant="link" size="sm" Icon={TrashIcon}>
+                  Delete task
+                </Button>
+              )}
             </div>
 
             <div className="h-12" />
@@ -165,5 +178,52 @@ function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
         <Button onClick={onEdit}>Edit</Button>
       )}
     </div>
+  );
+}
+
+function renderTaskActions(task) {
+  const status = getRealTaskStatus(task);
+  let actions = [];
+
+  if (!["deleted", "completed"].includes(status)) {
+    if (status == "pending") {
+      actions.push(
+        <Button variant="gray" Icon={PlayIcon}>
+          Start task
+        </Button>,
+      );
+    }
+    actions.push(
+      <Button
+        variant={status == "in progress" ? "gray" : "gray-outline"}
+        Icon={CheckCircleIcon}
+      >
+        Complete task
+      </Button>,
+    );
+    if (status == "in progress") {
+      actions.push(
+        <Button variant="gray-outline" Icon={PauseIcon}>
+          Pause task
+        </Button>,
+      );
+    }
+  }
+
+  return actions;
+}
+
+function ActionsCard({ task }) {
+  const actions = renderTaskActions(task);
+
+  if (actions.length === 0) {
+    return;
+  }
+
+  return (
+    <>
+      <ButtonList>{actions}</ButtonList>
+      <hr className="my-3" />
+    </>
   );
 }

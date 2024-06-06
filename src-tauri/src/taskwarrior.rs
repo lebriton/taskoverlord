@@ -15,14 +15,15 @@ pub struct Task {
     pub modified: NaiveDateTime,
     pub priority: Option<String>,
     pub project: Option<String>,
+    #[serde(default)]
+    #[serde(deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub start: Option<NaiveDateTime>,
     pub status: String,
     pub tags: Option<Vec<String>>,
     pub urgency: f32,
     pub uuid: String,
-    #[serde(
-        default,
-        deserialize_with = "deserialize_optional_taskwarrior_datetime"
-    )]
+    #[serde(default)]
+    #[serde(deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub wait: Option<NaiveDateTime>,
 }
 

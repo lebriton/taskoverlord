@@ -29,6 +29,8 @@ export default function Button({
           "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
           "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
+        variant == "gray-outline" &&
+          "border-neutral-600 enabled:hover:bg-neutral-700 enabled:hover:text-white",
         variant == "blue" &&
           "border-blue-700 bg-blue-600 text-white enabled:hover:bg-blue-700",
 
@@ -65,6 +67,7 @@ export default function Button({
           className={classNames(
             "size-4 text-neutral-700",
             ["green", "gray", "blue"].includes(variant) && "text-white",
+            ["gray-outline"].includes(variant) && "group-hover:!text-white",
           )}
         />
       )}
@@ -73,5 +76,5 @@ export default function Button({
 }
 
 export function ButtonList({ className, children }) {
-  return <div className="flex gap-1">{children}</div>;
+  return <div className={classNames("flex gap-1", className)}>{children}</div>;
 }

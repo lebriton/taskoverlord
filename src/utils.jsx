@@ -1,13 +1,14 @@
 import Badge, { BadgeList } from "./components/atoms/Badge";
 import uniqolor from "uniqolor";
 import {
-  HandRaisedIcon,
+  ArrowPathRoundedSquareIcon,
   CheckIcon,
   ClockIcon,
   XCircleIcon,
   ChevronDoubleUpIcon,
   ChevronUpIcon,
   ChevronDownIcon,
+  LightBulbIcon,
 } from "@heroicons/react/24/outline";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -65,17 +66,21 @@ export function displayStatusBadgeForTask(task, big = false) {
       variant = "green";
       Icon = CheckIcon;
       break;
-    case "pending":
-      variant = "yellow";
-      Icon = ClockIcon;
-      break;
-    case "waiting":
-      variant = "indigo";
-      Icon = HandRaisedIcon;
-      break;
     case "deleted":
       variant = "red";
       Icon = XCircleIcon;
+      break;
+    case "in progress":
+      variant = "yellow";
+      Icon = ClockIcon;
+      break;
+    case "pending":
+      variant = "gray";
+      Icon = LightBulbIcon;
+      break;
+    case "waiting":
+      variant = "indigo";
+      Icon = ArrowPathRoundedSquareIcon;
       break;
   }
 
@@ -85,7 +90,7 @@ export function displayStatusBadgeForTask(task, big = false) {
 
   return (
     <Badge
-      className={big && "!text-sm capitalize"}
+      className={big && "!text-sm"}
       text={status}
       variant={variant}
       Icon={Icon}
@@ -96,6 +101,9 @@ export function displayStatusBadgeForTask(task, big = false) {
 export function getRealTaskStatus(task) {
   if (task.status == "pending" && task.wait) {
     return "waiting";
+  }
+  if (task.status == "pending" && task.start) {
+    return "in progress";
   }
 
   return task.status;

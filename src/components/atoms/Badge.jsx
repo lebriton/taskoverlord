@@ -12,7 +12,7 @@ export default function Badge({
   return (
     <span
       className={classNames(
-        "inline-flex items-center text-xs font-medium",
+        "inline-flex items-center text-xs font-medium capitalize",
 
         variant == "outline" && "border text-neutral-700",
         variant == "default" &&
@@ -47,7 +47,7 @@ export default function Badge({
         }
       }
     >
-      {Icon && <Icon className="-ms-1 me-1.5 size-3 brightness-150" />}
+      {Icon && <Icon className="-ms-1.5 me-1 size-3 brightness-150" />}
       {text}
     </span>
   );
