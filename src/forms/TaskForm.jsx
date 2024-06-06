@@ -15,7 +15,7 @@ export default function TaskForm({ task, softStyle = false }) {
         )}
       </FormGroup>
 
-      <hr className="my-1.5" />
+      <hr className="my-3" />
 
       <FormGroup>
         <EditButtonWrapper>
@@ -26,7 +26,7 @@ export default function TaskForm({ task, softStyle = false }) {
         )}
       </FormGroup>
 
-      <hr className="my-1.5" />
+      <hr className="my-3" />
 
       <FormGroup>
         <EditButtonWrapper>
@@ -35,7 +35,7 @@ export default function TaskForm({ task, softStyle = false }) {
         <TextValue>{task?.project || "No project yet"}</TextValue>
       </FormGroup>
 
-      <hr className="my-1.5" />
+      <hr className="my-3" />
 
       <FormGroup>
         <EditButtonWrapper>
@@ -44,7 +44,7 @@ export default function TaskForm({ task, softStyle = false }) {
         <TextValue>{task?.due || "No due date yet"}</TextValue>
       </FormGroup>
 
-      <hr className="my-1.5" />
+      <hr className="my-3" />
 
       <FormGroup>
         <EditButtonWrapper>

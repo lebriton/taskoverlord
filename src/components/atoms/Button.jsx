@@ -18,7 +18,7 @@ export default function Button({
       type="button"
       disabled={isDisabled}
       className={classNames(
-        "inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",
+        "group inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",
         "disabled:cursor-not-allowed disabled:opacity-50",
 
         variant == "plain" && "text-neutral-700 enabled:hover:bg-neutral-100",
@@ -40,6 +40,9 @@ export default function Button({
         isLoading && "cursor-default",
         !isLoading && "enabled:active:brightness-95",
 
+        variant == "link" &&
+          "!border-none !p-0 !font-bold !text-neutral-700 hover:!text-blue-600",
+
         className,
       )}
       onClick={(e) => !isDisabled && !isLoading && onClick(e)}
@@ -53,8 +56,11 @@ export default function Button({
         />
       )}
       {shortcutText && <Shortcut className="me-1" text={shortcutText} />}
+      {Icon && variant == "link" && (
+        <Icon className="size-4 text-neutral-900 group-hover:text-blue-600" />
+      )}
       {children}
-      {Icon && (
+      {Icon && variant != "link" && (
         <Icon
           className={classNames(
             "size-4 text-neutral-700",

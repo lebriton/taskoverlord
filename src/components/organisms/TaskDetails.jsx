@@ -80,54 +80,48 @@ export default function TaskDetails({
               onClose={() => setEditingDescription(false)}
             />
 
-            <TaskForm task={task} softStyle />
-
-            <hr className="my-3" />
-
-            <Tabs className="!my-3">
+            <Tabs>
+              <Tab variant="soft" label="Overview" isActive={true} />
               <Tab
                 variant="soft"
                 label="Annotations"
                 badgeText={0}
-                isActive={true}
+                isActive={false}
               />
               <Tab variant="soft" label="Uda" badgeText={0} isActive={false} />
-              <Tab variant="soft" label="History" isActive={false} />
+              <Tab
+                variant="soft"
+                label="History"
+                badgeText={0}
+                isActive={false}
+              />
             </Tabs>
 
-            <EmptyState
-              className="rounded-md border"
-              Icon={DocumentIcon}
-              title="No annotations"
-              subtitle="Tasks can contain annotations and they will appear here."
-            />
+            <hr className="mb-3" />
+
+            <TaskForm task={task} softStyle />
 
             {false && (
-              <EmptyState
-                className="rounded-md border"
-                Icon={ListBulletIcon}
-                title="No attributes"
-                subtitle="Tasks can contain user-defined attributes and they will appear here."
-              />
+              <>
+                <EmptyState
+                  className="rounded-md border"
+                  Icon={DocumentIcon}
+                  title="No annotations"
+                  subtitle="Tasks can contain annotations and they will appear here."
+                />
+                <EmptyState
+                  className="rounded-md border"
+                  Icon={ListBulletIcon}
+                  title="No attributes"
+                  subtitle="Tasks can contain user-defined attributes and they will appear here."
+                />
+              </>
             )}
 
             <hr className="my-3" />
 
             <div className="inline-flex flex-col gap-1">
-              <Button
-                className="!font-bold"
-                variant="plain"
-                size="sm"
-                Icon={TrashIcon}
-              >
-                An action
-              </Button>
-              <Button
-                className="!font-bold hover:enabled:text-red-600"
-                variant="plain"
-                size="sm"
-                Icon={TrashIcon}
-              >
+              <Button variant="link" size="sm" Icon={TrashIcon}>
                 Delete task
               </Button>
             </div>
