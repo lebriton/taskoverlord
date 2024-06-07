@@ -16,23 +16,23 @@ export default function Badge({
 
         variant == "outline" && "border text-neutral-700",
         variant == "default" &&
-          "bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+          "bg-blue-200 text-blue-900 dark:bg-blue-900 dark:text-blue-300",
 
         variant == "gray" &&
           "bg-gray-200 text-gray-900 dark:bg-gray-900 dark:text-gray-300",
         variant == "dark" && "bg-neutral-600 text-white",
         variant == "red" &&
-          "bg-red-200 text-red-800 dark:bg-red-900 dark:text-red-300",
+          "bg-red-200 text-red-900 dark:bg-red-900 dark:text-red-300",
         variant == "green" &&
-          "bg-green-200 text-green-800 dark:bg-green-900 dark:text-green-300",
+          "bg-green-200 text-green-900 dark:bg-green-900 dark:text-green-300",
         variant == "yellow" &&
-          "bg-yellow-200 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
+          "bg-yellow-200 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300",
         variant == "indigo" &&
-          "bg-indigo-200 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300",
+          "bg-indigo-200 text-indigo-900 dark:bg-indigo-900 dark:text-indigo-300",
         variant == "purple" &&
-          "bg-purple-200 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+          "bg-purple-200 text-purple-900 dark:bg-purple-900 dark:text-purple-300",
         variant == "pink" &&
-          "bg-pink-200 text-pink-800 dark:bg-pink-900 dark:text-pink-300",
+          "bg-pink-200 text-pink-900 dark:bg-pink-900 dark:text-pink-300",
 
         style == "normal" && "rounded px-2.5 py-0.5",
         style == "tight" && "rounded-lg px-1 font-semibold",
