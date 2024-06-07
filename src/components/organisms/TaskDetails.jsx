@@ -5,6 +5,7 @@ import {
   XMarkIcon,
   PauseIcon,
   PlayIcon,
+  CheckIcon,
   CheckCircleIcon,
 } from "@heroicons/react/20/solid";
 import {
@@ -202,7 +203,7 @@ function renderTaskActions(task) {
 
       <Button
         variant={status == "in progress" ? "gray" : "gray-outline"}
-        Icon={CheckCircleIcon}
+        Icon={status == "in progress" ? CheckCircleIcon : CheckIcon}
       >
         Complete task
       </Button>
