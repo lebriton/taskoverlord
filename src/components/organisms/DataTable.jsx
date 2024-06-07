@@ -80,7 +80,7 @@ export default function DataTable({
                   key={cell.id}
                   align={cell.column.columnDef.meta?.align}
                   className={classNames(
-                    "px-2 py-1",
+                    "px-2 py-1 align-top",
                     cell.column.columnDef.meta?.className,
                   )}
                 >
