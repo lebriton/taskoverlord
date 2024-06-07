@@ -183,46 +183,43 @@ function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
 
 function renderTaskActions(task) {
   const status = getRealTaskStatus(task);
-  let actions = [];
 
-  if (!["deleted", "completed"].includes(status)) {
-    if (status == "pending") {
-      actions.push(
-        <Button variant="gray" Icon={PlayIcon}>
-          Start task
-        </Button>,
-      );
-    }
-    actions.push(
-      <Button
-        variant={status == "in progress" ? "gray" : "gray-outline"}
-        Icon={CheckCircleIcon}
-      >
-        Complete task
-      </Button>,
-    );
-    if (status == "in progress") {
-      actions.push(
-        <Button variant="gray-outline" Icon={PauseIcon}>
-          Pause task
-        </Button>,
-      );
-    }
-  }
-
-  return actions;
-}
-
-function ActionsCard({ task }) {
-  const actions = renderTaskActions(task);
-
-  if (actions.length === 0) {
+  if (["deleted", "completed"].includes(status)) {
     return;
   }
 
   return (
     <>
-      <ButtonList>{actions}</ButtonList>
+      {status == "pending" ? (
+        <Button variant="gray" Icon={PlayIcon}>
+          Start task
+        </Button>
+      ) : (
+        <Button variant="gray-outline" Icon={PauseIcon}>
+          Pause task
+        </Button>
+      )}
+
+      <Button
+        variant={status == "in progress" ? "gray" : "gray-outline"}
+        Icon={CheckCircleIcon}
+      >
+        Complete task
+      </Button>
+    </>
+  );
+}
+
+function ActionsCard({ task }) {
+  const actions = renderTaskActions(task);
+
+  if (!actions) {
+    return;
+  }
+
+  return (
+    <>
+      <ButtonList className="justify-between">{actions}</ButtonList>
       <hr className="my-3" />
     </>
   );
