@@ -219,7 +219,11 @@ function ActionsCard({ task }) {
 
   return (
     <>
-      <ButtonList className="justify-between">{actions}</ButtonList>
+      <Card className="my-3 border-neutral-300 !bg-neutral-50">
+        <CardBody className="!px-1.5">
+          <ButtonList className="justify-between">{actions}</ButtonList>
+        </CardBody>
+      </Card>
       <hr className="my-3" />
     </>
   );

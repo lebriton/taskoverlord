@@ -28,9 +28,9 @@ export default function Button({
         variant == "green" &&
           "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
-          "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
+          "border-neutral-800 bg-neutral-700 text-white enabled:hover:bg-neutral-800",
         variant == "gray-outline" &&
-          "border-neutral-500 enabled:hover:bg-neutral-700 enabled:hover:text-white",
+          "border-neutral-600 enabled:hover:bg-neutral-800 enabled:hover:text-white",
         variant == "blue" &&
           "border-blue-700 bg-blue-600 text-white enabled:hover:bg-blue-700",
 
