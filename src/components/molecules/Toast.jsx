@@ -6,6 +6,7 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
   XCircleIcon,
+  CheckBadgeIcon,
 } from "@heroicons/react/24/solid";
 
 export default function Toast({
@@ -28,11 +29,13 @@ export default function Toast({
             "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
 
             variant == "info" && "bg-indigo-100 text-indigo-500",
+            variant == "success" && "bg-green-100 text-green-500",
             variant == "warning" && "bg-amber-100 text-amber-500",
             variant == "error" && "bg-red-100 text-red-500",
           )}
         >
           {variant == "info" && <InformationCircleIcon className="size-5" />}
+          {variant == "success" && <CheckBadgeIcon className="size-5" />}
           {variant == "warning" && (
             <ExclamationTriangleIcon className="size-5" />
           )}

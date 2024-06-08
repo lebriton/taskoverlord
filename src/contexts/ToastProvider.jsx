@@ -5,7 +5,7 @@ import { ToastContext } from "./ToastContext";
 export default function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = (content, type = "info", autocloseDelay = 5000) => {
+  const addToast = (content, type = "info", autocloseDelay = 2000) => {
     const id = Date.now();
     setToasts([...toasts, { id, content, type }]);
     setTimeout(() => removeToast(id), autocloseDelay);

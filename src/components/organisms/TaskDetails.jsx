@@ -36,6 +36,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import TaskForm from "../../forms/TaskForm";
 import Timer from "../atoms/Timer";
+import { useToast } from "../../contexts/ToastContext";
 
 export default function TaskDetails({
   task,
@@ -44,11 +45,29 @@ export default function TaskDetails({
   onNextTaskClick,
 }) {
   const [isEditingDescription, setEditingDescription] = useState(false);
+  const addToast = useToast();
 
   const queryClient = useQueryClient();
   const updateStatus = async (action) => {
     await invoke("update_task_status", { taskUuid: task.uuid, action: action });
     queryClient.invalidateQueries({ queryKey: ["tasks"] });
+
+    let message = "Task updated successfully!";
+    switch (action) {
+      case "complete":
+        message = "Task marked as completed!";
+        break;
+      case "delete":
+        message = "Task has been deleted.";
+        break;
+      case "reset":
+        message = "Task has been restored to pending state.";
+        break;
+      case "restore":
+        message = "Task status restored to pending.";
+        break;
+    }
+    addToast(message, "success");
   };
 
   return (
