@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Shortcut, { ShortcutWrap } from "../components/atoms/Shortcut";
 import TaskDetails from "../components/organisms/TaskDetails";
 import {
@@ -36,10 +36,33 @@ export default function RootRoute() {
 
   const [previousTask, setPreviousTask] = useState(null);
   const [selectedUuid, setSelectedUuid] = useState(null);
-  const selectedTask = selectedUuid
-    ? tasksQuery?.data.find((t) => t.uuid == selectedUuid)
-    : null;
+  const [selectedTask, setSelectedTask] = useState(null);
   const [nextTask, setNextTask] = useState(null);
+
+  useEffect(() => {
+    let task = null;
+    const tasks = tasksQuery.data;
+
+    if (selectedUuid) {
+      task = tasks?.find((task) => task.uuid === selectedUuid);
+      setSelectedTask(task || null);
+    } else {
+      setSelectedTask(null);
+    }
+
+    if (task) {
+      const currentIndex = tasksQuery.data.indexOf(task);
+      if (currentIndex === -1) {
+        setPreviousTask(null);
+        setNextTask(null);
+      } else {
+        setPreviousTask(currentIndex > 0 ? tasks[currentIndex - 1] : null);
+        setNextTask(
+          currentIndex < tasks.length - 1 ? tasks[currentIndex + 1] : null,
+        );
+      }
+    }
+  }, [selectedUuid, tasksQuery.data]);
 
   const [showTaskDetails, setShowTaskDetails] = useState(false);
   const [showNewTask, setShowNewTask] = useState(false);
@@ -54,19 +77,6 @@ export default function RootRoute() {
   };
 
   const displayTaskDetails = (task) => {
-    const tasks = tasksQuery.data;
-    const currentIndex = tasks.indexOf(task);
-
-    if (currentIndex === -1) {
-      setPreviousTask(null);
-      setNextTask(null);
-    } else {
-      setPreviousTask(currentIndex > 0 ? tasks[currentIndex - 1] : null);
-      setNextTask(
-        currentIndex < tasks.length - 1 ? tasks[currentIndex + 1] : null,
-      );
-    }
-
     setSelectedUuid(task.uuid);
     setShowTaskDetails(true);
   };
