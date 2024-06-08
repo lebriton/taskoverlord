@@ -3,7 +3,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
-  PauseIcon,
+  StopIcon,
   PlayIcon,
   CheckIcon,
   CheckCircleIcon,
@@ -33,6 +33,7 @@ import TextArea from "../atoms/TextArea";
 import { useState } from "react";
 import classNames from "classnames";
 import TaskForm from "../../forms/TaskForm";
+import Timer from "../atoms/Timer";
 
 export default function TaskDetails({
   task,
@@ -129,7 +130,7 @@ export default function TaskDetails({
             <hr className="my-3" />
 
             <div className="inline-flex flex-col gap-1">
-              {["completed", "deleted"].includes(getRealTaskStatus(task)) ? (
+              {getRealTaskStatus(task) == "deleted" ? (
                 <Button variant="link" size="sm" Icon={ArrowUturnLeftIcon}>
                   Restore task
                 </Button>
@@ -182,39 +183,10 @@ function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
   );
 }
 
-function renderTaskActions(task) {
+function ActionsCard({ task }) {
   const status = getRealTaskStatus(task);
 
-  if (["deleted", "completed"].includes(status)) {
-    return;
-  }
-
-  return (
-    <>
-      {status == "pending" ? (
-        <Button variant="gray" Icon={PlayIcon}>
-          Start task
-        </Button>
-      ) : (
-        <Button variant="gray-outline" Icon={PauseIcon}>
-          Pause task
-        </Button>
-      )}
-
-      <Button
-        variant={status == "in progress" ? "gray" : "gray-outline"}
-        Icon={status == "in progress" ? CheckCircleIcon : CheckIcon}
-      >
-        Complete task
-      </Button>
-    </>
-  );
-}
-
-function ActionsCard({ task }) {
-  const actions = renderTaskActions(task);
-
-  if (!actions) {
+  if (status == "deleted") {
     return;
   }
 
@@ -222,7 +194,34 @@ function ActionsCard({ task }) {
     <>
       <Card className="my-3 border-neutral-300 !bg-neutral-50">
         <CardBody className="!px-1.5">
-          <ButtonList className="justify-between">{actions}</ButtonList>
+          <FlexLine
+            left={
+              status == "pending" ? (
+                <Button variant="gray" Icon={PlayIcon}>
+                  Start task
+                </Button>
+              ) : (
+                <Button variant="gray-outline" Icon={StopIcon}>
+                  Reset task
+                </Button>
+              )
+            }
+            center={
+              status == "in progress" && (
+                <Timer startDateTime={new Date(task.start + "Z")} />
+              )
+            }
+            right={
+              status != "completed" && (
+                <Button
+                  variant={status == "in progress" ? "blue" : "gray-outline"}
+                  Icon={status == "in progress" ? CheckCircleIcon : CheckIcon}
+                >
+                  Complete task
+                </Button>
+              )
+            }
+          />
         </CardBody>
       </Card>
       <hr className="my-3" />

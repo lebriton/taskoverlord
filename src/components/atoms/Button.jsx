@@ -28,9 +28,9 @@ export default function Button({
         variant == "green" &&
           "border-green-700 bg-green-600 text-white enabled:hover:bg-green-700",
         variant == "gray" &&
-          "border-neutral-800 bg-neutral-700 text-white enabled:hover:bg-neutral-800",
+          "border-neutral-700 bg-neutral-600 text-white enabled:hover:bg-neutral-700",
         variant == "gray-outline" &&
-          "border-neutral-600 enabled:hover:bg-neutral-800 enabled:hover:text-white",
+          "border-neutral-500 text-neutral-600 ring-inset ring-neutral-500 enabled:hover:bg-neutral-600 enabled:hover:text-white [&:not(:hover)]:ring-1",
         variant == "blue" &&
           "border-blue-700 bg-blue-600 text-white enabled:hover:bg-blue-700",
 
@@ -66,8 +66,10 @@ export default function Button({
         <Icon
           className={classNames(
             "size-4 text-neutral-700",
+            children && "-me-0.5",
             ["green", "gray", "blue"].includes(variant) && "text-white",
-            ["gray-outline"].includes(variant) && "group-hover:!text-white",
+            ["gray-outline"].includes(variant) &&
+              "!text-neutral-600 group-hover:!text-white",
           )}
         />
       )}
