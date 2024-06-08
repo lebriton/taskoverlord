@@ -61,8 +61,6 @@ export default function TaskDetails({
         message = "Task has been deleted.";
         break;
       case "reset":
-        message = "Task has been restored to pending state.";
-        break;
       case "restore":
         message = "Task status restored to pending.";
         break;
