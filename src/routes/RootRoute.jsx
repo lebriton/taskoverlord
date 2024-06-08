@@ -35,7 +35,10 @@ export default function RootRoute() {
   });
 
   const [previousTask, setPreviousTask] = useState(null);
-  const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedUuid, setSelectedUuid] = useState(null);
+  const selectedTask = selectedUuid
+    ? tasksQuery?.data.find((t) => t.uuid == selectedUuid)
+    : null;
   const [nextTask, setNextTask] = useState(null);
 
   const [showTaskDetails, setShowTaskDetails] = useState(false);
@@ -46,7 +49,7 @@ export default function RootRoute() {
     setShowTaskDetails(false);
 
     setPreviousTask(null);
-    setSelectedTask(null);
+    setSelectedUuid(null);
     setNextTask(null);
   };
 
@@ -64,7 +67,7 @@ export default function RootRoute() {
       );
     }
 
-    setSelectedTask(task);
+    setSelectedUuid(task.uuid);
     setShowTaskDetails(true);
   };
 
