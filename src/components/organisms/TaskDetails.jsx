@@ -1,4 +1,6 @@
 import { displayPriority, getRealTaskStatus, timeAgo } from "../../utils";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { invoke } from "@tauri-apps/api/tauri";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -6,10 +8,10 @@ import {
   StopIcon,
   PlayIcon,
   CheckIcon,
+  ArrowUturnLeftIcon,
   CheckCircleIcon,
 } from "@heroicons/react/20/solid";
 import {
-  ArrowUturnLeftIcon,
   CursorArrowRaysIcon,
   DocumentIcon,
   ListBulletIcon,
@@ -42,6 +44,12 @@ export default function TaskDetails({
   onNextTaskClick,
 }) {
   const [isEditingDescription, setEditingDescription] = useState(false);
+
+  const queryClient = useQueryClient();
+  const updateStatus = async (action) => {
+    await invoke("update_task_status", { taskUuid: task.uuid, action: action });
+    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+  };
 
   return (
     <Card
@@ -106,7 +114,13 @@ export default function TaskDetails({
 
             <hr className="mb-3" />
 
-            <ActionsCard task={task} />
+            <ActionsCard
+              task={task}
+              onStart={() => updateStatus("start")}
+              onStop={() => updateStatus("stop")}
+              onComplete={() => updateStatus("complete")}
+              onReset={() => updateStatus("reset")}
+            />
 
             <TaskForm task={task} softStyle />
 
@@ -131,11 +145,21 @@ export default function TaskDetails({
 
             <div className="inline-flex flex-col gap-1">
               {getRealTaskStatus(task) == "deleted" ? (
-                <Button variant="link" size="sm" Icon={ArrowUturnLeftIcon}>
+                <Button
+                  variant="link"
+                  size="sm"
+                  Icon={ArrowUturnLeftIcon}
+                  onClick={() => updateStatus("restore")}
+                >
                   Restore task
                 </Button>
               ) : (
-                <Button variant="link" size="sm" Icon={TrashIcon}>
+                <Button
+                  variant="link"
+                  size="sm"
+                  Icon={TrashIcon}
+                  onClick={() => updateStatus("delete")}
+                >
                   Delete task
                 </Button>
               )}
@@ -183,29 +207,46 @@ function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
   );
 }
 
-function ActionsCard({ task }) {
+function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
   const status = getRealTaskStatus(task);
 
   if (status == "deleted") {
     return;
   }
 
+  const leftAction = () => {
+    switch (status) {
+      case "pending":
+        return (
+          <Button variant="gray" Icon={PlayIcon} onClick={onStart}>
+            Start task
+          </Button>
+        );
+      case "completed":
+        return (
+          <Button
+            variant="gray-outline"
+            Icon={ArrowUturnLeftIcon}
+            onClick={onReset}
+          >
+            Reset task
+          </Button>
+        );
+      default:
+        return (
+          <Button variant="gray-outline" Icon={StopIcon} onClick={onStop}>
+            Stop task
+          </Button>
+        );
+    }
+  };
+
   return (
     <>
       <Card className="my-3 border-neutral-300 !bg-neutral-50">
         <CardBody className="!px-1.5">
           <FlexLine
-            left={
-              status == "pending" ? (
-                <Button variant="gray" Icon={PlayIcon}>
-                  Start task
-                </Button>
-              ) : (
-                <Button variant="gray-outline" Icon={StopIcon}>
-                  Reset task
-                </Button>
-              )
-            }
+            left={leftAction()}
             center={
               status == "in progress" && (
                 <Timer startDateTime={new Date(task.start + "Z")} />
@@ -216,6 +257,7 @@ function ActionsCard({ task }) {
                 <Button
                   variant={status == "in progress" ? "blue" : "gray-outline"}
                   Icon={status == "in progress" ? CheckCircleIcon : CheckIcon}
+                  onClick={onComplete}
                 >
                   Complete task
                 </Button>

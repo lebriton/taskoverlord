@@ -18,6 +18,11 @@ pub async fn get_taskwarrior_info() -> Result<taskwarrior::TaskwarriorInfo, Stri
 }
 
 #[tauri::command]
+pub async fn update_task_status(task_uuid: String, action: String) {
+    taskwarrior::update_task_status(task_uuid, action);
+}
+
+#[tauri::command]
 pub async fn run_shell_command(command_string: String) -> Result<shell::ShellOutput, String> {
     check_output(&command_string).map_err(|e| e.to_string())
 }

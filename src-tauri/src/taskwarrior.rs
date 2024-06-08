@@ -1,7 +1,7 @@
+use crate::shell::check_output;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Deserializer, Serialize};
-
-use crate::shell::check_output;
+use shlex::try_join;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Task {
@@ -80,4 +80,18 @@ pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
 pub fn get_project_names() -> anyhow::Result<Vec<String>> {
     let output = check_output("task projects")?;
     Ok(output.lines.lines().map(String::from).collect())
+}
+
+pub fn update_task_status(task_uuid: String, action: String) {
+    let command_parts = match action.as_str() {
+        "complete" => vec!["task", "done", task_uuid.as_str()],
+        "delete" => vec!["task", "rc.confirmation=off", "delete", task_uuid.as_str()],
+        "reset" | "restore" => vec!["task", task_uuid.as_str(), "modify", "status:pending"],
+        "start" => vec!["task", "start", task_uuid.as_str()],
+        "stop" => vec!["task", "stop", task_uuid.as_str()],
+        _ => return,
+    };
+
+    let command_string = try_join(command_parts).unwrap();
+    check_output(command_string.as_str()).unwrap();
 }
