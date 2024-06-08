@@ -6,7 +6,7 @@ import {
   ExclamationTriangleIcon,
   InformationCircleIcon,
   XCircleIcon,
-  CheckBadgeIcon,
+  CheckIcon,
 } from "@heroicons/react/24/solid";
 
 export default function Toast({
@@ -18,15 +18,15 @@ export default function Toast({
   return (
     <Card
       className={classNames(
-        "w-full max-w-sm text-neutral-500 shadow-lg",
+        "w-full max-w-sm animate-fade-up text-neutral-500 shadow-lg",
         className,
       )}
       role="alert"
     >
-      <CardBody className="flex items-start gap-3">
+      <CardBody className="flex items-start gap-2 !px-1.5">
         <div
           className={classNames(
-            "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
+            "inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg",
 
             variant == "info" && "bg-indigo-100 text-indigo-500",
             variant == "success" && "bg-green-100 text-green-500",
@@ -35,13 +35,13 @@ export default function Toast({
           )}
         >
           {variant == "info" && <InformationCircleIcon className="size-5" />}
-          {variant == "success" && <CheckBadgeIcon className="size-5" />}
+          {variant == "success" && <CheckIcon className="size-5" />}
           {variant == "warning" && (
             <ExclamationTriangleIcon className="size-5" />
           )}
           {variant == "error" && <XCircleIcon className="size-5" />}
         </div>
-        <div className="mt-1 grow">{children}</div>
+        <div className="mt-1 grow text-sm">{children}</div>
         <Button variant="plain" Icon={XMarkIcon} onClick={onClose} />
       </CardBody>
     </Card>
