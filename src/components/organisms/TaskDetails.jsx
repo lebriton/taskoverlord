@@ -251,7 +251,7 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
         );
       default:
         return (
-          <Button variant="gray-outline" Icon={StopIcon} onClick={onStop}>
+          <Button variant="red-outline" Icon={StopIcon} onClick={onStop}>
             Stop task
           </Button>
         );
