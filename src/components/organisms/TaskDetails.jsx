@@ -249,7 +249,7 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
             Reset task
           </Button>
         );
-      default:
+      case "in progress":
         return (
           <Button variant="red-outline" Icon={StopIcon} onClick={onStop}>
             Stop task
