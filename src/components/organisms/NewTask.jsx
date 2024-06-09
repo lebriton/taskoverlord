@@ -31,6 +31,9 @@ export default function NewTask({ onSubmit, onClose }) {
         <hr className="my-3" />
 
         <TaskForm />
+
+        {/* spacer */}
+        <div className="h-20" />
       </CardBody>
 
       <CardFooter>

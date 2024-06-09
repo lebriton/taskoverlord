@@ -1,13 +1,25 @@
 import Button from "../components/atoms/Button";
 import FormGroup from "../components/atoms/FormGroup";
+import Input from "../components/atoms/Input";
 import Label from "../components/atoms/Label";
+import { CardBody, CardFooter, CardHeader } from "../components/molecules/Card";
+import DropdownCard from "../components/molecules/DropdownCard";
 import { atMostXDecimalPoints, displayPriority, displayTags } from "../utils";
 
 export default function TaskForm({ task, softStyle = false }) {
   return (
     <>
       <FormGroup>
-        <EditButtonWrapper>
+        <EditButtonWrapper
+          dropdown={
+            <DropdownCard className="!w-[22.5rem]">
+              <CardHeader>
+                <Label className="!mb-0" text="Set the priority" />
+              </CardHeader>
+              <CardBody>wip</CardBody>
+            </DropdownCard>
+          }
+        >
           <Label className={softStyle && "!text-neutral-600"} text="Priority" />
         </EditButtonWrapper>
         {(task?.priority && displayPriority(task?.priority)) || (
@@ -18,7 +30,19 @@ export default function TaskForm({ task, softStyle = false }) {
       <hr className="my-3" />
 
       <FormGroup>
-        <EditButtonWrapper>
+        <EditButtonWrapper
+          dropdown={
+            <DropdownCard className="!w-[22.5rem]">
+              <CardHeader>
+                <Label className="!mb-0" text="Apply tags to this task" />
+              </CardHeader>
+              <CardBody>
+                <Input className="my-1.5" autoFocus />
+              </CardBody>
+              <CardFooter>wip: display tags</CardFooter>
+            </DropdownCard>
+          }
+        >
           <Label className={softStyle && "!text-neutral-600"} text="Tags" />
         </EditButtonWrapper>
         {(task && task.tags && displayTags(task.tags)) || (
@@ -29,7 +53,19 @@ export default function TaskForm({ task, softStyle = false }) {
       <hr className="my-3" />
 
       <FormGroup>
-        <EditButtonWrapper>
+        <EditButtonWrapper
+          dropdown={
+            <DropdownCard className="!w-[22.5rem]">
+              <CardHeader>
+                <Label
+                  className="!mb-0"
+                  text="Associate this task with a project"
+                />
+              </CardHeader>
+              <CardBody>wip</CardBody>
+            </DropdownCard>
+          }
+        >
           <Label className={softStyle && "!text-neutral-600"} text="Project" />
         </EditButtonWrapper>
         <TextValue>{task?.project || "No project yet"}</TextValue>
@@ -38,7 +74,16 @@ export default function TaskForm({ task, softStyle = false }) {
       <hr className="my-3" />
 
       <FormGroup>
-        <EditButtonWrapper>
+        <EditButtonWrapper
+          dropdown={
+            <DropdownCard className="!w-[22.5rem]">
+              <CardHeader>
+                <Label className="!mb-0" text="Select a due date" />
+              </CardHeader>
+              <CardBody>wip</CardBody>
+            </DropdownCard>
+          }
+        >
           <Label className={softStyle && "!text-neutral-600"} text="Due" />
         </EditButtonWrapper>
         <TextValue>{task?.due || "No due date yet"}</TextValue>
@@ -47,7 +92,16 @@ export default function TaskForm({ task, softStyle = false }) {
       <hr className="my-3" />
 
       <FormGroup>
-        <EditButtonWrapper>
+        <EditButtonWrapper
+          dropdown={
+            <DropdownCard className="!w-[22.5rem]">
+              <CardHeader>
+                <Label className="!mb-0" text="Select a wait date" />
+              </CardHeader>
+              <CardBody>wip</CardBody>
+            </DropdownCard>
+          }
+        >
           <Label className={softStyle && "!text-neutral-600"} text="Wait" />
         </EditButtonWrapper>
         <TextValue>{task?.wait || "No wait date yet"}</TextValue>
@@ -56,11 +110,11 @@ export default function TaskForm({ task, softStyle = false }) {
   );
 }
 
-function EditButtonWrapper({ children, onEdit }) {
+function EditButtonWrapper({ children, dropdown, onEdit }) {
   return (
     <div className="flex items-center justify-between">
       {children}
-      <Button variant="plain" onClick={onEdit}>
+      <Button variant="plain" dropdown={dropdown} onClick={onEdit}>
         Edit
       </Button>
     </div>

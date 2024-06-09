@@ -17,7 +17,6 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
 import Badge, { BadgeList } from "../components/atoms/Badge";
 import { Outlet } from "react-router-dom";
-import Heading3 from "../components/molecules/Heading3";
 import FlexLine from "../components/molecules/FlexLine";
 import Button, { ButtonList } from "../components/atoms/Button";
 import BottomBar from "../components/organisms/BottomBar";
@@ -25,6 +24,7 @@ import Checkbox from "../components/molecules/Checkbox";
 import Terminal from "../components/organisms/Terminal";
 import NewTask from "../components/organisms/NewTask";
 import Input from "../components/atoms/Input";
+import Label from "../components/atoms/Label";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -166,9 +166,9 @@ export default function RootRoute() {
           }
           right={
             <div className="flex items-center justify-end gap-2">
-              <Heading3
+              <Label
                 className="!mb-0"
-                title={<span className="hidden 2xl:inline">Tasks</span>}
+                text={<span className="hidden 2xl:inline">Tasks</span>}
                 badgeText={tasksQuery.data.length}
               />
 

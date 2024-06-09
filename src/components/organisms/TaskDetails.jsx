@@ -26,7 +26,6 @@ import {
   displayTags,
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
-import Heading3 from "../molecules/Heading3";
 import EmptyState from "../molecules/EmptyState";
 import Tabs, { Tab } from "./Tabs";
 import FormGroup from "../atoms/FormGroup";
@@ -182,7 +181,8 @@ export default function TaskDetails({
               )}
             </div>
 
-            <div className="h-12" />
+            {/* spacer */}
+            <div className="h-20" />
           </>
         ) : (
           <EmptyState
