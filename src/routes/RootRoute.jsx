@@ -25,6 +25,7 @@ import Terminal from "../components/organisms/Terminal";
 import NewTask from "../components/organisms/NewTask";
 import Input from "../components/atoms/Input";
 import Label from "../components/atoms/Label";
+import { useToast } from "../contexts/ToastContext";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -138,6 +139,8 @@ export default function RootRoute() {
   //   shortcut: (idx + 1).toString(),
   // }));
 
+  const addToast = useToast();
+
   return (
     <>
       <div className="flex h-screen w-screen flex-col overflow-hidden">
@@ -176,9 +179,10 @@ export default function RootRoute() {
                 Icon={ArrowPathIcon}
                 variant="plain"
                 shortcutText="r"
-                onClick={() =>
-                  queryClient.invalidateQueries({ queryKey: ["tasks"] })
-                }
+                onClick={() => {
+                  queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                  addToast("All tasks have been refreshed!", "success");
+                }}
               />
 
               <CountTasksByStatus tasks={tasksQuery.data} />
