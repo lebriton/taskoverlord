@@ -235,24 +235,20 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
     switch (status) {
       case "pending":
         return (
-          <Button variant="gray" Icon={PlayIcon} onClick={onStart}>
-            Start task
+          <Button variant="green" Icon={PlayIcon} onClick={onStart}>
+            Start
           </Button>
         );
       case "completed":
         return (
-          <Button
-            variant="gray-outline"
-            Icon={ArrowUturnLeftIcon}
-            onClick={onReset}
-          >
-            Reset task
+          <Button variant="gray" Icon={ArrowUturnLeftIcon} onClick={onReset}>
+            Reset
           </Button>
         );
       case "in progress":
         return (
           <Button variant="red-outline" Icon={StopIcon} onClick={onStop}>
-            Stop task
+            Stop
           </Button>
         );
     }
@@ -260,7 +256,8 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
 
   return (
     <>
-      <Card className="my-3 border-neutral-300 !bg-neutral-50">
+      <Label className="!text-neutral-600" text="Actions" />
+      <Card className="border-neutral-300 !bg-neutral-50">
         <CardBody className="!px-1.5">
           <FlexLine
             left={leftAction()}
@@ -272,11 +269,11 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
             right={
               status != "completed" && (
                 <Button
-                  variant={status == "in progress" ? "blue" : "gray-outline"}
-                  Icon={status == "in progress" ? CheckCircleIcon : CheckIcon}
+                  variant={status == "in progress" ? "blue" : "blue-outline"}
+                  Icon={CheckCircleIcon}
                   onClick={onComplete}
                 >
-                  Complete task
+                  Complete
                 </Button>
               )
             }
