@@ -120,12 +120,7 @@ export default function TaskDetails({
                 isActive={false}
               />
               <Tab variant="soft" label="Uda" badgeText={0} isActive={false} />
-              <Tab
-                variant="soft"
-                label="History"
-                badgeText={0}
-                isActive={false}
-              />
+              <Tab variant="soft" label="History" isActive={false} />
             </Tabs>
 
             <hr className="mb-3" />
