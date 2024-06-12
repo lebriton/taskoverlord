@@ -82,6 +82,17 @@ pub fn get_project_names() -> anyhow::Result<Vec<String>> {
     Ok(output.lines.lines().map(String::from).collect())
 }
 
+pub fn modify_task(task_uuid: String, description: Option<String>) {
+    let mut command_parts = vec!["task", task_uuid.as_str(), "modify"];
+
+    if let Some(ref p) = description {
+        command_parts.push(p.as_str());
+    }
+
+    let command_string = try_join(command_parts).unwrap();
+    check_output(command_string.as_str()).unwrap();
+}
+
 pub fn update_task_status(task_uuid: String, action: String) {
     let command_parts = match action.as_str() {
         "complete" => vec!["task", "done", task_uuid.as_str()],

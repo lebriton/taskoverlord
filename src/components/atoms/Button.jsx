@@ -7,6 +7,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import Dropdown from "../molecules/DropdownCard";
 
 export default function Button({
+  type = "button",
   className,
   variant = "default",
   size = "xs",
@@ -36,7 +37,7 @@ export default function Button({
     if (dropdown) {
       setShowDropdown(!showDropdown);
     } else {
-      onClick(e);
+      if (onClick) onClick(e);
     }
   };
 
@@ -44,7 +45,7 @@ export default function Button({
     <div className="relative">
       <button
         ref={buttonRef}
-        type="button"
+        type={type}
         disabled={isDisabled}
         className={classNames(
           "group inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",

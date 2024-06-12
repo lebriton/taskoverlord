@@ -1,5 +1,6 @@
 import { displayPriority, getRealTaskStatus, timeAgo } from "../../utils";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { useFormik } from "formik";
 import { invoke } from "@tauri-apps/api/tauri";
 import {
   ChevronLeftIcon,
@@ -31,7 +32,7 @@ import Tabs, { Tab } from "./Tabs";
 import FormGroup from "../atoms/FormGroup";
 import Label from "../atoms/Label";
 import TextArea from "../atoms/TextArea";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import classNames from "classnames";
 import TaskForm from "../../forms/TaskForm";
 import Timer from "../atoms/Timer";
@@ -43,7 +44,6 @@ export default function TaskDetails({
   onPreviousTaskClick,
   onNextTaskClick,
 }) {
-  const [isEditingDescription, setEditingDescription] = useState(false);
   const addToast = useToast();
 
   const queryClient = useQueryClient();
@@ -103,12 +103,18 @@ export default function TaskDetails({
               </span>
             </div>
 
-            <TaskDescriptionForm
+            <TaskDescription
               task={task}
-              isEditing={isEditingDescription}
-              onEdit={() => setEditingDescription(true)}
-              //onSubmit
-              onClose={() => setEditingDescription(false)}
+              onSubmit={(values) =>
+                invoke("modify_task", {
+                  taskUuid: task.uuid,
+                  description: values.description,
+                }).then(() => {
+                  queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                  addToast("Task description updated.", "success");
+                  return true;
+                })
+              }
             />
 
             <Tabs>
@@ -192,29 +198,67 @@ export default function TaskDetails({
   );
 }
 
-function TaskDescriptionForm({ task, isEditing, onEdit, onSubmit, onClose }) {
-  return (
-    <div className="mb-6 flex items-start justify-between gap-3">
-      {isEditing ? (
-        <TextArea rows={1} value={task.description} autoFocus isRequired />
-      ) : (
-        <Heading2
-          className="!mb-0"
-          title={task.description}
-          subtitle={task.id != 0 && `#${task.id}`}
-        />
-      )}
+function TaskDescriptionForm({ task, onSubmit, onClose }) {
+  const formik = useFormik({
+    initialValues: { description: task.description },
+    onSubmit: async (values) => {
+      const success = await onSubmit(values);
+      if (success) {
+        onClose();
+      }
+    },
+  });
 
-      {isEditing ? (
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      <div className="mb-6 flex items-start justify-between gap-3">
+        <TextArea
+          name="description"
+          rows={1}
+          value={formik.values.description}
+          autoFocus
+          isRequired
+          onChange={formik.handleChange}
+          onFocus={(e) => {
+            // Move the cursor to the end
+            e.target.selectionStart = e.target.value.length;
+            e.target.selectionEnd = e.target.value.length;
+          }}
+        />
+
         <ButtonList>
-          <Button onClick={onSubmit}>Save</Button>
+          <Button type="submit">Save</Button>
           <Button variant="plain" onClick={onClose}>
             Cancel
           </Button>
         </ButtonList>
-      ) : (
-        <Button onClick={onEdit}>Edit</Button>
-      )}
+      </div>
+    </form>
+  );
+}
+
+function TaskDescription({ task, onSubmit }) {
+  const [isEditing, setEditing] = useState(false);
+
+  if (isEditing) {
+    return (
+      <TaskDescriptionForm
+        task={task}
+        onSubmit={onSubmit}
+        onClose={() => setEditing(false)}
+      />
+    );
+  }
+
+  return (
+    <div className="mb-6 flex items-start justify-between gap-3">
+      <Heading2
+        className="!mb-0"
+        title={task.description}
+        subtitle={task.id != 0 && `#${task.id}`}
+      />
+
+      <Button onClick={() => setEditing(true)}>Edit</Button>
     </div>
   );
 }

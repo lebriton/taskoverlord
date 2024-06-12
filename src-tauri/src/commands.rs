@@ -18,6 +18,11 @@ pub async fn get_taskwarrior_info() -> Result<taskwarrior::TaskwarriorInfo, Stri
 }
 
 #[tauri::command]
+pub async fn modify_task(task_uuid: String, description: Option<String>) {
+    taskwarrior::modify_task(task_uuid, description);
+}
+
+#[tauri::command]
 pub async fn update_task_status(task_uuid: String, action: String) {
     taskwarrior::update_task_status(task_uuid, action);
 }
