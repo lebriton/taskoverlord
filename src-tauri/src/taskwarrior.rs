@@ -1,7 +1,6 @@
-use crate::shell::check_output;
+use crate::shell::{check_output, check_output2};
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Deserializer, Serialize};
-use shlex::try_join;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Task {
@@ -64,6 +63,11 @@ where
     Ok(None)
 }
 
+pub fn add_task(description: String) {
+    let command_parts = vec!["task", "add", description.as_str()];
+    check_output2(command_parts).unwrap();
+}
+
 pub fn get_all_tasks() -> anyhow::Result<Vec<Task>> {
     let output = check_output("task export")?;
     let tasks = serde_json::from_str(&output.lines)?;
@@ -89,8 +93,7 @@ pub fn modify_task(task_uuid: String, description: Option<String>) {
         command_parts.push(p.as_str());
     }
 
-    let command_string = try_join(command_parts).unwrap();
-    check_output(command_string.as_str()).unwrap();
+    check_output2(command_parts).unwrap();
 }
 
 pub fn update_task_status(task_uuid: String, action: String) {
@@ -102,7 +105,5 @@ pub fn update_task_status(task_uuid: String, action: String) {
         "stop" => vec!["task", "stop", task_uuid.as_str()],
         _ => return,
     };
-
-    let command_string = try_join(command_parts).unwrap();
-    check_output(command_string.as_str()).unwrap();
+    check_output2(command_parts).unwrap();
 }

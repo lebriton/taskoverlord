@@ -3,6 +3,11 @@ use crate::shell::check_output;
 use crate::taskwarrior;
 
 #[tauri::command]
+pub async fn add_task(description: String) {
+    taskwarrior::add_task(description);
+}
+
+#[tauri::command]
 pub async fn get_all_tasks() -> Result<Vec<taskwarrior::Task>, String> {
     taskwarrior::get_all_tasks().map_err(|e| e.to_string())
 }

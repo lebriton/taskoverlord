@@ -139,7 +139,9 @@ export default function TaskDetails({
               onReset={() => updateStatus("reset")}
             />
 
-            <TaskForm task={task} softStyle />
+            <TaskForm.Provider>
+              <TaskForm.Component task={task} softStyle />
+            </TaskForm.Provider>
 
             {false && (
               <>
@@ -230,7 +232,11 @@ function TaskDescriptionForm({ task, onSubmit, onClose }) {
           <Button type="submit" isDisabled={formik.isSubmitting}>
             Save
           </Button>
-          <Button variant="plain" isDisabled={formik.isSubmitting} onClick={onClose}>
+          <Button
+            variant="plain"
+            isDisabled={formik.isSubmitting}
+            onClick={onClose}
+          >
             Cancel
           </Button>
         </ButtonList>

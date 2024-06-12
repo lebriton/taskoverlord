@@ -5,8 +5,28 @@ import Label from "../components/atoms/Label";
 import { CardBody, CardFooter, CardHeader } from "../components/molecules/Card";
 import DropdownCard from "../components/molecules/DropdownCard";
 import { atMostXDecimalPoints, displayPriority, displayTags } from "../utils";
+import { useFormikContext, FormikProvider, useFormik } from "formik";
 
-export default function TaskForm({ task, softStyle = false }) {
+function Provider({ className, extraInitialValues, onSubmit, children }) {
+  const formik = useFormik({
+    initialValues: {
+      ...extraInitialValues,
+    },
+    onSubmit,
+  });
+
+  return (
+    <FormikProvider value={formik}>
+      <form className={className} onSubmit={formik.handleSubmit}>
+        {typeof children === "function" ? children(formik) : children}
+      </form>
+    </FormikProvider>
+  );
+}
+
+function Component({ task, softStyle = false }) {
+  const formik = useFormikContext();
+
   return (
     <>
       <FormGroup>
@@ -124,3 +144,9 @@ function EditButtonWrapper({ children, dropdown, onEdit }) {
 function TextValue({ children }) {
   return <span className="text-sm">{children}</span>;
 }
+
+const TaskForm = {
+  Component,
+  Provider,
+};
+export default TaskForm;
