@@ -227,7 +227,9 @@ function TaskDescriptionForm({ task, onSubmit, onClose }) {
         />
 
         <ButtonList>
-          <Button type="submit">Save</Button>
+          <Button type="submit" isDisabled={formik.isSubmitting}>
+            Save
+          </Button>
           <Button variant="plain" onClick={onClose}>
             Cancel
           </Button>
