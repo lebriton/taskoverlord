@@ -242,6 +242,10 @@ function TaskDescriptionForm({ task, onSubmit, onClose }) {
 function TaskDescription({ task, onSubmit }) {
   const [isEditing, setEditing] = useState(false);
 
+  useEffect(() => {
+    setEditing(false);
+  }, [task]);
+
   if (isEditing) {
     return (
       <TaskDescriptionForm
