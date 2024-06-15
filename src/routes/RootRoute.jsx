@@ -303,9 +303,13 @@ function CountTasksByStatus({ tasks }) {
     <BadgeList>
       {count["pending"] && <Badge text={count["pending"]} variant="gray" />}
       {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
+      {count["in progress"] && (
+        <Badge text={count["in progress"]} variant="yellow" />
+      )}
       {count["completed"] && (
         <Badge text={count["completed"]} variant="green" />
       )}
+      {count["deleted"] && <Badge text={count["deleted"]} variant="red" />}
     </BadgeList>
   );
 }
