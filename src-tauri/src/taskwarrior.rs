@@ -63,47 +63,57 @@ where
     Ok(None)
 }
 
-pub fn add_task(description: String) {
+pub fn add_task(description: String) -> anyhow::Result<String> {
     let command_parts = vec!["task", "add", description.as_str()];
-    check_output2(command_parts).unwrap();
+    check_output2(command_parts, true)?;
+
+    // We need to return the new task uuid
+    let output = check_output("task +LATEST export rc.json.array=off", false)?;
+    let new_task: Task = serde_json::from_str(&output.lines)?;
+    Ok(new_task.uuid)
 }
 
 pub fn get_all_tasks() -> anyhow::Result<Vec<Task>> {
-    let output = check_output("task export")?;
+    let output = check_output("task export", true)?;
     let tasks = serde_json::from_str(&output.lines)?;
     Ok(tasks)
 }
 
 pub fn get_info() -> anyhow::Result<TaskwarriorInfo> {
     Ok(TaskwarriorInfo {
-        binary_path: check_output("which task")?.lines.trim().to_string(),
-        version: check_output("task --version")?.lines.trim().to_string(),
+        binary_path: check_output("which task", true)?.lines.trim().to_string(),
+        version: check_output("task --version", true)?
+            .lines
+            .trim()
+            .to_string(),
     })
 }
 
 pub fn get_project_names() -> anyhow::Result<Vec<String>> {
-    let output = check_output("task projects")?;
+    let output = check_output("task projects", true)?;
     Ok(output.lines.lines().map(String::from).collect())
 }
 
-pub fn modify_task(task_uuid: String, description: Option<String>) {
+pub fn modify_task(task_uuid: String, description: Option<String>) -> anyhow::Result<()> {
     let mut command_parts = vec!["task", task_uuid.as_str(), "modify"];
 
     if let Some(ref p) = description {
         command_parts.push(p.as_str());
     }
 
-    check_output2(command_parts).unwrap();
+    check_output2(command_parts, true)?;
+    Ok(())
 }
 
-pub fn update_task_status(task_uuid: String, action: String) {
+pub fn update_task_status(task_uuid: String, action: String) -> anyhow::Result<()> {
     let command_parts = match action.as_str() {
         "complete" => vec!["task", "done", task_uuid.as_str()],
         "delete" => vec!["task", "rc.confirmation=off", "delete", task_uuid.as_str()],
         "reset" | "restore" => vec!["task", task_uuid.as_str(), "modify", "status:pending"],
         "start" => vec!["task", "start", task_uuid.as_str()],
         "stop" => vec!["task", "stop", task_uuid.as_str()],
-        _ => return,
+        _ => return Ok(()),
     };
-    check_output2(command_parts).unwrap();
+    check_output2(command_parts, true)?;
+    Ok(())
 }

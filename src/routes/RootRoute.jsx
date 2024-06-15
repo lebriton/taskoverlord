@@ -77,8 +77,9 @@ export default function RootRoute() {
     setNextTask(null);
   };
 
-  const displayTaskDetails = (task) => {
-    setSelectedUuid(task.uuid);
+  const displayTaskDetails = (thing) => {
+    if (typeof thing === "string") setSelectedUuid(thing);
+    else setSelectedUuid(thing.uuid);
     setShowTaskDetails(true);
   };
 
@@ -214,6 +215,21 @@ export default function RootRoute() {
             <div className="min-w-96 max-w-96 overflow-clip">
               <TaskDetails
                 task={selectedTask}
+                onSubmit={(values) =>
+                  invoke("modify_task", {
+                    taskUuid: selectedTask.uuid,
+                    description: values.description,
+                  })
+                    .then(() => {
+                      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                      addToast("Task description updated.", "success");
+                      // always close
+                      return true;
+                    })
+                    .catch((error) =>
+                      addToast(`An error occured: ${error}`, "error"),
+                    )
+                }
                 onClose={hideTaskDetails}
                 onPreviousTaskClick={
                   previousTask ? () => displayTaskDetails(previousTask) : null
@@ -238,7 +254,28 @@ export default function RootRoute() {
 
         {showNewTask && (
           <div className="fixed bottom-0 right-0 top-0 z-40 min-w-96 max-w-96 overflow-clip border-l bg-white shadow-2xl">
-            <NewTask onClose={() => setShowNewTask(false)} />
+            <NewTask
+              onSubmit={(values, actions) =>
+                invoke("add_task", { description: values.description })
+                  .then((new_task_uuid) => {
+                    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                    actions.setSubmitting(false);
+                    addToast(
+                      `New task '${values.description}' added.`,
+                      "success",
+                    );
+
+                    displayTaskDetails(new_task_uuid);
+
+                    // should close?
+                    return values.action != "continue";
+                  })
+                  .catch((error) =>
+                    addToast(`An error occured: ${error}`, "error"),
+                  )
+              }
+              onClose={() => setShowNewTask(false)}
+            />
           </div>
         )}
       </div>

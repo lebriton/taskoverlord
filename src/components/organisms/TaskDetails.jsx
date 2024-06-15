@@ -40,6 +40,7 @@ import { useToast } from "../../contexts/ToastContext";
 
 export default function TaskDetails({
   task,
+  onSubmit,
   onClose,
   onPreviousTaskClick,
   onNextTaskClick,
@@ -47,25 +48,27 @@ export default function TaskDetails({
   const addToast = useToast();
 
   const queryClient = useQueryClient();
-  const updateStatus = async (action) => {
-    await invoke("update_task_status", { taskUuid: task.uuid, action: action });
-    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+  const updateStatus = (action) =>
+    invoke("update_task_status", { taskUuid: task.uuid, action: action })
+      .then(() => {
+        queryClient.invalidateQueries({ queryKey: ["tasks"] });
 
-    let message = "Task updated successfully!";
-    switch (action) {
-      case "complete":
-        message = "Task marked as completed!";
-        break;
-      case "delete":
-        message = "Task has been deleted.";
-        break;
-      case "reset":
-      case "restore":
-        message = "Task has been restored.";
-        break;
-    }
-    addToast(message, "success");
-  };
+        let message = "Task updated successfully!";
+        switch (action) {
+          case "complete":
+            message = "Task marked as completed!";
+            break;
+          case "delete":
+            message = "Task has been deleted.";
+            break;
+          case "reset":
+          case "restore":
+            message = "Task has been restored.";
+            break;
+        }
+        addToast(message, "success");
+      })
+      .catch((error) => addToast(`An error occured: ${error}`, "error"));
 
   return (
     <Card
@@ -103,19 +106,7 @@ export default function TaskDetails({
               </span>
             </div>
 
-            <TaskDescription
-              task={task}
-              onSubmit={(values) =>
-                invoke("modify_task", {
-                  taskUuid: task.uuid,
-                  description: values.description,
-                }).then(() => {
-                  queryClient.invalidateQueries({ queryKey: ["tasks"] });
-                  addToast("Task description updated.", "success");
-                  return true;
-                })
-              }
-            />
+            <TaskDescription task={task} onSubmit={onSubmit} />
 
             <Tabs>
               <Tab variant="soft" label="Overview" isActive={true} />
@@ -203,9 +194,9 @@ export default function TaskDetails({
 function TaskDescriptionForm({ task, onSubmit, onClose }) {
   const formik = useFormik({
     initialValues: { description: task.description },
-    onSubmit: async (values) => {
-      const success = await onSubmit(values);
-      if (success) {
+    onSubmit: async (...args) => {
+      const close = await onSubmit(...args);
+      if (close) {
         onClose();
       }
     },

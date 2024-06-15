@@ -13,25 +13,18 @@ import TextArea from "../atoms/TextArea";
 import TaskForm from "../../forms/TaskForm";
 import { useFormikContext } from "formik";
 
-export default function NewTask({ onClose }) {
-  const queryClient = useQueryClient();
-  const addToast = useToast();
-
+export default function NewTask({ onSubmit, onClose }) {
   return (
     <TaskForm.Provider
       extraInitialValues={{ description: "" }}
       className="h-full w-full"
-      onSubmit={(values, actions) => {
-        invoke("add_task", { description: values.description }).then(() => {
-          queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      onSubmit={async (...args) => {
+        const close = await onSubmit(...args);
+        console.log("should close: ", close);
 
-          if (values.action != "continue") {
-            onClose();
-          }
-
-          actions.setSubmitting(false);
-          addToast(`New task '${values.description}' added.`, "success");
-        });
+        if (close) {
+          onClose();
+        }
       }}
     >
       {(formik) => (
