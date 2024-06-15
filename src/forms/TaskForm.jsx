@@ -40,7 +40,11 @@ function Component({ task, softStyle = false }) {
             </DropdownCard>
           }
         >
-          <Label className={softStyle && "!text-neutral-600"} text="Priority" />
+          <Label
+            className={softStyle && "!text-neutral-600"}
+            text="Priority"
+            isOptional={!softStyle}
+          />
         </EditButtonWrapper>
         {(task?.priority && displayPriority(task?.priority)) || (
           <TextValue>No priority yet</TextValue>
@@ -63,7 +67,11 @@ function Component({ task, softStyle = false }) {
             </DropdownCard>
           }
         >
-          <Label className={softStyle && "!text-neutral-600"} text="Tags" />
+          <Label
+            className={softStyle && "!text-neutral-600"}
+            text="Tags"
+            isOptional={!softStyle}
+          />
         </EditButtonWrapper>
         {(task && task.tags && displayTags(task.tags)) || (
           <TextValue>No tags yet</TextValue>
@@ -86,7 +94,11 @@ function Component({ task, softStyle = false }) {
             </DropdownCard>
           }
         >
-          <Label className={softStyle && "!text-neutral-600"} text="Project" />
+          <Label
+            className={softStyle && "!text-neutral-600"}
+            text="Project"
+            isOptional={!softStyle}
+          />
         </EditButtonWrapper>
         <TextValue>{task?.project || "No project yet"}</TextValue>
       </FormGroup>
@@ -104,7 +116,11 @@ function Component({ task, softStyle = false }) {
             </DropdownCard>
           }
         >
-          <Label className={softStyle && "!text-neutral-600"} text="Due" />
+          <Label
+            className={softStyle && "!text-neutral-600"}
+            text="Due"
+            isOptional={!softStyle}
+          />
         </EditButtonWrapper>
         <TextValue>{task?.due || "No due date yet"}</TextValue>
       </FormGroup>
@@ -122,7 +138,11 @@ function Component({ task, softStyle = false }) {
             </DropdownCard>
           }
         >
-          <Label className={softStyle && "!text-neutral-600"} text="Wait" />
+          <Label
+            className={softStyle && "!text-neutral-600"}
+            text="Wait"
+            isOptional={!softStyle}
+          />
         </EditButtonWrapper>
         <TextValue>{task?.wait || "No wait date yet"}</TextValue>
       </FormGroup>

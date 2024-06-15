@@ -11,7 +11,7 @@ export default function Label({ className, text, badgeText, isOptional }) {
     >
       {text}
       {isOptional && (
-        <span className="font-normal text-neutral-700"> (optional)</span>
+        <span className="ms-1 font-normal text-neutral-700"> (optional)</span>
       )}
       {badgeText != null && (
         <Badge className="ms-1" text={badgeText} variant="dark" style="tight" />
