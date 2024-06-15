@@ -16,9 +16,9 @@ export default function DropdownCard({ className, children }) {
   );
 }
 
-export function DropdownCardHeader({ label, onClose }) {
+export function DropdownCardHeader({ className, label, onClose }) {
   return (
-    <CardHeader>
+    <CardHeader className={className}>
       <div className="flex items-center justify-between">
         <Label className="!mb-0" text={label} />
         <CloseButton className="-me-1.5" onClick={onClose} />
