@@ -3,7 +3,9 @@ import FormGroup from "../components/atoms/FormGroup";
 import Input from "../components/atoms/Input";
 import Label from "../components/atoms/Label";
 import { CardBody, CardFooter, CardHeader } from "../components/molecules/Card";
-import DropdownCard from "../components/molecules/DropdownCard";
+import DropdownCard, {
+  DropdownCardHeader,
+} from "../components/molecules/DropdownCard";
 import { atMostXDecimalPoints, displayPriority, displayTags } from "../utils";
 import { useFormikContext, FormikProvider, useFormik } from "formik";
 
@@ -31,14 +33,12 @@ function Component({ task, softStyle = false }) {
     <>
       <FormGroup>
         <EditButtonWrapper
-          dropdown={
+          dropdown={({ onClose }) => (
             <DropdownCard className="!w-[22.5rem]">
-              <CardHeader>
-                <Label className="!mb-0" text="Set the priority" />
-              </CardHeader>
+              <DropdownCardHeader label="Set the priority" onClose={onClose} />
               <CardBody>wip</CardBody>
             </DropdownCard>
-          }
+          )}
         >
           <Label
             className={softStyle && "!text-neutral-600"}
@@ -55,17 +55,18 @@ function Component({ task, softStyle = false }) {
 
       <FormGroup>
         <EditButtonWrapper
-          dropdown={
+          dropdown={({ onClose }) => (
             <DropdownCard className="!w-[22.5rem]">
-              <CardHeader>
-                <Label className="!mb-0" text="Apply tags to this task" />
-              </CardHeader>
+              <DropdownCardHeader
+                label="Apply tags to this task"
+                onClose={onClose}
+              />
               <CardBody>
                 <Input className="my-1.5" autoFocus />
               </CardBody>
               <CardFooter>wip: display tags</CardFooter>
             </DropdownCard>
-          }
+          )}
         >
           <Label
             className={softStyle && "!text-neutral-600"}
@@ -82,17 +83,15 @@ function Component({ task, softStyle = false }) {
 
       <FormGroup>
         <EditButtonWrapper
-          dropdown={
+          dropdown={({ onClose }) => (
             <DropdownCard className="!w-[22.5rem]">
-              <CardHeader>
-                <Label
-                  className="!mb-0"
-                  text="Associate this task with a project"
-                />
-              </CardHeader>
+              <DropdownCardHeader
+                label="Associate this task with a project"
+                onClose={onClose}
+              />
               <CardBody>wip</CardBody>
             </DropdownCard>
-          }
+          )}
         >
           <Label
             className={softStyle && "!text-neutral-600"}
@@ -107,14 +106,12 @@ function Component({ task, softStyle = false }) {
 
       <FormGroup>
         <EditButtonWrapper
-          dropdown={
+          dropdown={({ onClose }) => (
             <DropdownCard className="!w-[22.5rem]">
-              <CardHeader>
-                <Label className="!mb-0" text="Select a due date" />
-              </CardHeader>
+              <DropdownCardHeader label="Select a due date" onClose={onClose} />
               <CardBody>wip</CardBody>
             </DropdownCard>
-          }
+          )}
         >
           <Label
             className={softStyle && "!text-neutral-600"}
@@ -129,14 +126,15 @@ function Component({ task, softStyle = false }) {
 
       <FormGroup>
         <EditButtonWrapper
-          dropdown={
+          dropdown={({ onClose }) => (
             <DropdownCard className="!w-[22.5rem]">
-              <CardHeader>
-                <Label className="!mb-0" text="Select a wait date" />
-              </CardHeader>
+              <DropdownCardHeader
+                label="Select a wait date"
+                onClose={onClose}
+              />
               <CardBody>wip</CardBody>
             </DropdownCard>
-          }
+          )}
         >
           <Label
             className={softStyle && "!text-neutral-600"}

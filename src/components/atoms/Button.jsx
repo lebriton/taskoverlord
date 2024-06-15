@@ -117,7 +117,11 @@ export default function Button({
         )}
       </button>
 
-      {showDropdown && <div ref={dropdownRef}>{dropdown}</div>}
+      {showDropdown && (
+        <div ref={dropdownRef}>
+          {dropdown({ onClose: () => setShowDropdown(false) })}
+        </div>
+      )}
     </div>
   );
 }

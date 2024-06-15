@@ -5,7 +5,6 @@ import { invoke } from "@tauri-apps/api/tauri";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  XMarkIcon,
   StopIcon,
   PlayIcon,
   CheckIcon,
@@ -37,6 +36,7 @@ import classNames from "classnames";
 import TaskForm from "../../forms/TaskForm";
 import Timer from "../atoms/Timer";
 import { useToast } from "../../contexts/ToastContext";
+import CloseButton from "../atoms/CloseButton";
 
 export default function TaskDetails({
   task,
@@ -91,7 +91,7 @@ export default function TaskDetails({
               />
             </ButtonList>
           }
-          right={<Button variant="plain" Icon={XMarkIcon} onClick={onClose} />}
+          right={<CloseButton onClick={onClose} />}
         />
       </CardHeader>
 

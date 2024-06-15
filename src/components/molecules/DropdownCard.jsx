@@ -1,5 +1,7 @@
 import classNames from "classnames";
-import Card from "./Card";
+import Card, { CardHeader } from "./Card";
+import Label from "../atoms/Label";
+import CloseButton from "../atoms/CloseButton";
 
 export default function DropdownCard({ className, children }) {
   return (
@@ -11,5 +13,16 @@ export default function DropdownCard({ className, children }) {
     >
       {children}
     </Card>
+  );
+}
+
+export function DropdownCardHeader({ label, onClose }) {
+  return (
+    <CardHeader>
+      <div className="flex items-center justify-between">
+        <Label className="!mb-0" text={label} />
+        <CloseButton className="-me-1.5" onClick={onClose} />
+      </div>
+    </CardHeader>
   );
 }

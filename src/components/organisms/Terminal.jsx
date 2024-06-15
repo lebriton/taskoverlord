@@ -2,7 +2,6 @@ import Modal from "../molecules/Modal";
 import Input from "../atoms/Input";
 import Card, { CardBody, CardFooter, CardHeader } from "../molecules/Card";
 import classNames from "classnames";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import Button from "../atoms/Button";
 import FlexLine from "../molecules/FlexLine";
 import { useEffect, useRef, useState } from "react";

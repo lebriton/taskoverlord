@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Shortcut, { ShortcutWrap } from "../components/atoms/Shortcut";
 import TaskDetails from "../components/organisms/TaskDetails";
 import {
   TableCellsIcon,
@@ -26,6 +25,9 @@ import NewTask from "../components/organisms/NewTask";
 import Input from "../components/atoms/Input";
 import Label from "../components/atoms/Label";
 import { useToast } from "../contexts/ToastContext";
+import Anchor from "../components/atoms/Anchor";
+import FormGroup from "../components/atoms/FormGroup";
+import FilterDropdownCard from "../components/organisms/FilterDropdownCard";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -95,8 +97,9 @@ export default function RootRoute() {
     {
       value: "table",
       label: (
-        <span className="hidden 2xl:inline">
-          Table <span className="hidden 4xl:inline">View</span>
+        <span className="pointer-events-none hidden 2xl:inline">
+          Table{" "}
+          <span className="pointer-events-none hidden 4xl:inline">View</span>
         </span>
       ),
       url: "/",
@@ -106,8 +109,9 @@ export default function RootRoute() {
     {
       value: "kaban",
       label: (
-        <span className="hidden 2xl:inline">
-          Kanban <span className="hidden 4xl:inline">Board</span>
+        <span className="pointer-events-none hidden 2xl:inline">
+          Kanban{" "}
+          <span className="pointer-events-none hidden 4xl:inline">Board</span>
         </span>
       ),
       url: "/",
@@ -117,8 +121,9 @@ export default function RootRoute() {
     {
       value: "gantt",
       label: (
-        <span className="hidden 2xl:inline">
-          Gantt <span className="hidden 4xl:inline">Diagram</span>
+        <span className="pointer-events-none hidden 2xl:inline">
+          Gantt{" "}
+          <span className="pointer-events-none hidden 4xl:inline">Diagram</span>
         </span>
       ),
       url: "/",
@@ -127,7 +132,9 @@ export default function RootRoute() {
     },
     {
       value: "calendar",
-      label: <span className="hidden 2xl:inline">Calendar</span>,
+      label: (
+        <span className="pointer-events-none hidden 2xl:inline">Calendar</span>
+      ),
       url: "/",
       Icon: CalendarDaysIcon,
       shortcut: "c",
@@ -178,7 +185,11 @@ export default function RootRoute() {
             <div className="flex items-center justify-end gap-2">
               <Label
                 className="!mb-0"
-                text={<span className="hidden 2xl:inline">Tasks</span>}
+                text={
+                  <span className="pointer-events-none hidden 2xl:inline">
+                    Tasks
+                  </span>
+                }
                 badgeText={tasksQuery.data.length}
               />
 
@@ -195,8 +206,16 @@ export default function RootRoute() {
               <CountTasksByStatus tasks={tasksQuery.data} />
 
               <ButtonList>
-                <Button Icon={FunnelIcon} shortcutText="f">
-                  <span className="hidden 2xl:inline">Filter</span>
+                <Button
+                  Icon={FunnelIcon}
+                  shortcutText="f"
+                  dropdown={({ onClose }) => (
+                    <FilterDropdownCard onClose={onClose} />
+                  )}
+                >
+                  <span className="pointer-events-none hidden 2xl:inline">
+                    Filter
+                  </span>
                 </Button>
                 <Button
                   variant="green"
@@ -205,7 +224,9 @@ export default function RootRoute() {
                   isDisabled={showNewTask}
                   onClick={() => setShowNewTask(true)}
                 >
-                  <span className="hidden 2xl:inline">New task</span>
+                  <span className="pointer-events-none hidden 2xl:inline">
+                    New task
+                  </span>
                 </Button>
               </ButtonList>
             </div>

@@ -1,4 +1,3 @@
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../../contexts/ToastContext";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -13,6 +12,7 @@ import TextArea from "../atoms/TextArea";
 import TaskForm from "../../forms/TaskForm";
 import { useFormikContext } from "formik";
 import Checkbox from "../molecules/Checkbox";
+import CloseButton from "../atoms/CloseButton";
 
 export default function NewTask({ onSubmit, onClose }) {
   return (
@@ -35,9 +35,7 @@ export default function NewTask({ onSubmit, onClose }) {
                 /* NB: !mb-px to align borders */
                 <Heading2 className="!mb-px" title={"New task"} />
               }
-              right={
-                <Button variant="plain" Icon={XMarkIcon} onClick={onClose} />
-              }
+              right={<CloseButton onClick={onClose} />}
             />
           </CardHeader>
 

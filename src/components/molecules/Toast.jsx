@@ -1,5 +1,4 @@
 import Button from "../atoms/Button";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import Card, { CardBody } from "./Card";
 import classNames from "classnames";
 import {
@@ -8,6 +7,7 @@ import {
   XCircleIcon,
   CheckIcon,
 } from "@heroicons/react/24/solid";
+import CloseButton from "../atoms/CloseButton";
 
 export default function Toast({
   className,
@@ -42,7 +42,7 @@ export default function Toast({
           {variant == "error" && <XCircleIcon className="size-5" />}
         </div>
         <div className="mt-1 grow text-sm">{children}</div>
-        <Button variant="plain" Icon={XMarkIcon} onClick={onClose} />
+        <CloseButton onClick={onClose} />
       </CardBody>
     </Card>
   );
