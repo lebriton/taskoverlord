@@ -140,7 +140,7 @@ function Component({ task, softStyle = false }) {
         >
           <Label
             className={softStyle && "!text-neutral-600"}
-            text="Wait"
+            text="Wait until"
             isOptional={!softStyle}
           />
         </EditButtonWrapper>
