@@ -7,6 +7,9 @@ pub struct Task {
     // TODO: check types
     // TODO: NaiveDateTime should be UTC?
     pub description: String,
+    #[serde(default)]
+    #[serde(deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub due: Option<NaiveDateTime>,
     #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
     pub entry: NaiveDateTime,
     pub id: u32,
