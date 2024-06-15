@@ -25,9 +25,11 @@ export default function NewTask({ onClose }) {
         invoke("add_task", { description: values.description }).then(() => {
           queryClient.invalidateQueries({ queryKey: ["tasks"] });
 
-          if (values.action != "continue") onClose();
-          actions.resetForm();
+          if (values.action != "continue") {
+            onClose();
+          }
 
+          actions.setSubmitting(false);
           addToast(`New task '${values.description}' added.`, "success");
         });
       }}
@@ -77,12 +79,13 @@ export default function NewTask({ onClose }) {
                   type="submit"
                   variant="blue"
                   isDisabled={formik.isSubmitting}
+                  onClick={() => formik.setFieldValue("action", "close")}
                 >
                   Add task
                 </Button>
                 <Button
                   type="submit"
-                  variant="blue"
+                  variant="blue-outline"
                   isDisabled={formik.isSubmitting}
                   onClick={() => formik.setFieldValue("action", "continue")}
                 >
