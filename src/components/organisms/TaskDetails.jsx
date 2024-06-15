@@ -61,7 +61,7 @@ export default function TaskDetails({
         break;
       case "reset":
       case "restore":
-        message = "Task status restored to pending.";
+        message = "Task has been restored.";
         break;
     }
     addToast(message, "success");

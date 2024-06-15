@@ -181,7 +181,7 @@ export default function RootRoute() {
                 shortcutText="r"
                 onClick={() => {
                   queryClient.invalidateQueries({ queryKey: ["tasks"] });
-                  addToast("All tasks have been refreshed!", "success");
+                  addToast("All tasks have been refreshed.", "success");
                 }}
               />
 
