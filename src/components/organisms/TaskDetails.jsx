@@ -166,7 +166,7 @@ export default function TaskDetails({
                 <EmptyState
                   className="rounded-md border"
                   Icon={DocumentIcon}
-                  title="No annotations"
+                  title="No annotations yet"
                   subtitle="Tasks can contain annotations and they will appear here."
                 />
               </TabPanel>
@@ -175,7 +175,7 @@ export default function TaskDetails({
                 <EmptyState
                   className="rounded-md border"
                   Icon={ListBulletIcon}
-                  title="No attributes"
+                  title="No attributes yet"
                   subtitle="Tasks can contain user-defined attributes and they will appear here."
                 />
               </TabPanel>
