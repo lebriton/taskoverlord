@@ -94,11 +94,11 @@ const columns = [
 ];
 
 export default function TableViewRoute() {
-  const [tasksQuery, selectedTask, displayTaskDetails] = useOutletContext();
+  const [filteredTasks, selectedTask, displayTaskDetails] = useOutletContext();
 
-  return tasksQuery.data.length ? (
+  return filteredTasks.length ? (
     <DataTable
-      data={tasksQuery.data}
+      data={filteredTasks}
       selectedItem={selectedTask}
       columns={columns}
       hasExternalBorder={false}

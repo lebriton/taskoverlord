@@ -20,6 +20,12 @@ export function atMostXDecimalPoints(floatValue, fractionDigits) {
   return parseFloat(floatValue.toFixed(fractionDigits));
 }
 
+export function difference(arr1, arr2) {
+  const diff1 = arr1.filter((item) => !arr2.includes(item));
+  const diff2 = arr2.filter((item) => !arr1.includes(item));
+  return [...diff1, ...diff2];
+}
+
 export function displayPriority(priority) {
   let text, variant, Icon;
   switch (priority) {

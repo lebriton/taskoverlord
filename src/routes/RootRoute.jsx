@@ -27,7 +27,7 @@ import Label from "../components/atoms/Label";
 import { useToast } from "../contexts/ToastContext";
 import Anchor from "../components/atoms/Anchor";
 import FormGroup from "../components/atoms/FormGroup";
-import FilterDropdownCard from "../components/organisms/FilterDropdownCard";
+import FilterDropdownCardForm from "../components/organisms/FilterDropdownCardForm";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -35,7 +35,14 @@ export default function RootRoute() {
     queryKey: ["tasks"],
     // TODO: handle errors
     queryFn: async () => await invoke("get_all_tasks"),
+    defaultValue: [],
   });
+  const [filters, setFilters] = useState({
+    status: ["pending", "waiting", "in progress", "completed"],
+  });
+  const filteredTasks = tasksQuery.data.filter((task) =>
+    filters.status.includes(getRealTaskStatus(task)),
+  );
 
   const [previousTask, setPreviousTask] = useState(null);
   const [selectedUuid, setSelectedUuid] = useState(null);
@@ -44,7 +51,7 @@ export default function RootRoute() {
 
   useEffect(() => {
     let task = null;
-    const tasks = tasksQuery.data;
+    const tasks = filteredTasks;
 
     if (selectedUuid) {
       task = tasks?.find((task) => task.uuid === selectedUuid);
@@ -54,7 +61,7 @@ export default function RootRoute() {
     }
 
     if (task) {
-      const currentIndex = tasksQuery.data.indexOf(task);
+      const currentIndex = filteredTasks.indexOf(task);
       if (currentIndex === -1) {
         setPreviousTask(null);
         setNextTask(null);
@@ -65,7 +72,7 @@ export default function RootRoute() {
         );
       }
     }
-  }, [selectedUuid, tasksQuery.data]);
+  }, [selectedUuid, filteredTasks]);
 
   const [showTaskDetails, setShowTaskDetails] = useState(false);
   const [showNewTask, setShowNewTask] = useState(false);
@@ -190,7 +197,7 @@ export default function RootRoute() {
                     Tasks
                   </span>
                 }
-                badgeText={tasksQuery.data.length}
+                badgeText={filteredTasks.length}
               />
 
               <Button
@@ -203,14 +210,18 @@ export default function RootRoute() {
                 }}
               />
 
-              <CountTasksByStatus tasks={tasksQuery.data} />
+              <CountTasksByStatus tasks={filteredTasks} />
 
               <ButtonList>
                 <Button
                   Icon={FunnelIcon}
                   shortcutText="f"
                   dropdown={({ onClose }) => (
-                    <FilterDropdownCard onClose={onClose} />
+                    <FilterDropdownCardForm
+                      filters={filters}
+                      onSubmit={setFilters}
+                      onClose={onClose}
+                    />
                   )}
                 >
                   <span className="pointer-events-none hidden 2xl:inline">
@@ -235,7 +246,9 @@ export default function RootRoute() {
 
         <div className="flex flex-1 grow divide-x overflow-clip">
           <div className="grow overflow-clip bg-neutral-50">
-            <Outlet context={[tasksQuery, selectedTask, displayTaskDetails]} />
+            <Outlet
+              context={[filteredTasks, selectedTask, displayTaskDetails]}
+            />
           </div>
 
           {showTaskDetails && (
