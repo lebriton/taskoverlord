@@ -2,8 +2,29 @@ import classNames from "classnames";
 import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
 import { Link } from "react-router-dom";
 import Badge from "../atoms/Badge";
+import { useState, createContext, useContext, Children } from "react";
 
-export default function Tabs({ className, children, hasSoftStyle }) {
+const Context = createContext();
+
+export function TabContext({ defaultValue, children }) {
+  const [activeTab, setActiveTab] = useState(defaultValue);
+
+  return (
+    <Context.Provider value={{ activeTab, setActiveTab }}>
+      {Children.map(children, (child) => {
+        if (child.type.name == "TabPanel") {
+          const { value } = child.props;
+
+          if (value != activeTab) return;
+        }
+
+        return child;
+      })}
+    </Context.Provider>
+  );
+}
+
+export default function Tabs({ className, children }) {
   return (
     <ul
       className={classNames(
@@ -18,14 +39,17 @@ export default function Tabs({ className, children, hasSoftStyle }) {
 
 export function Tab({
   className,
+  value,
   variant = "hard",
   label,
   Icon,
   badgeText,
   shortcutText,
-  isActive,
-  onClick,
 }) {
+  const { activeTab, setActiveTab } = useContext(Context);
+
+  const isActive = value == activeTab;
+
   return (
     <li
       className={classNames(
@@ -34,7 +58,7 @@ export function Tab({
         isActive && "!border-orange-400 font-semibold",
         className,
       )}
-      onClick={onClick}
+      onClick={() => setActiveTab(value)}
     >
       <ShortcutWrap
         className="rounded p-1 group-hover:bg-neutral-100"
@@ -56,4 +80,8 @@ export function Tab({
       </ShortcutWrap>
     </li>
   );
+}
+
+export function TabPanel({ value, children }) {
+  return children;
 }

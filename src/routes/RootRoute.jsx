@@ -11,7 +11,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
-import Tabs, { Tab } from "../components/organisms/Tabs";
+import Tabs, { Tab, TabContext } from "../components/organisms/Tabs";
 import { getRealTaskStatus } from "../utils";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -93,6 +93,7 @@ export default function RootRoute() {
 
   const links = [
     {
+      value: "table",
       label: (
         <span className="hidden 2xl:inline">
           Table <span className="hidden 4xl:inline">View</span>
@@ -103,6 +104,7 @@ export default function RootRoute() {
       shortcut: "t",
     },
     {
+      value: "kaban",
       label: (
         <span className="hidden 2xl:inline">
           Kanban <span className="hidden 4xl:inline">Board</span>
@@ -113,6 +115,7 @@ export default function RootRoute() {
       shortcut: "k",
     },
     {
+      value: "gantt",
       label: (
         <span className="hidden 2xl:inline">
           Gantt <span className="hidden 4xl:inline">Diagram</span>
@@ -123,6 +126,7 @@ export default function RootRoute() {
       shortcut: "g",
     },
     {
+      value: "calendar",
       label: <span className="hidden 2xl:inline">Calendar</span>,
       url: "/",
       Icon: CalendarDaysIcon,
@@ -148,19 +152,21 @@ export default function RootRoute() {
         <FlexLine
           className="z-20 gap-4 border-b px-2"
           left={
-            <Tabs>
-              {links.map((link, idx) => (
-                <Tab
-                  key={idx}
-                  className="!py-2"
-                  label={link.label}
-                  onClick={() => link.url}
-                  Icon={link.Icon}
-                  shortcutText={link.shortcut}
-                  isActive={idx == 0}
-                />
-              ))}
-            </Tabs>
+            <TabContext defaultValue="table">
+              <Tabs>
+                {links.map((link, idx) => (
+                  <Tab
+                    key={idx}
+                    className="!py-2"
+                    value={link.value}
+                    label={link.label}
+                    onClick={() => link.url}
+                    Icon={link.Icon}
+                    shortcutText={link.shortcut}
+                  />
+                ))}
+              </Tabs>
+            </TabContext>
           }
           center={
             <Input

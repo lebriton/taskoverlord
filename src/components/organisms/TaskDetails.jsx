@@ -28,7 +28,7 @@ import {
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
 import EmptyState from "../molecules/EmptyState";
-import Tabs, { Tab } from "./Tabs";
+import Tabs, { Tab, TabContext, TabPanel } from "./Tabs";
 import FormGroup from "../atoms/FormGroup";
 import Label from "../atoms/Label";
 import TextArea from "../atoms/TextArea";
@@ -108,72 +108,80 @@ export default function TaskDetails({
 
             <TaskDescription task={task} onSubmit={onSubmit} />
 
-            <Tabs>
-              <Tab variant="soft" label="Overview" isActive={true} />
-              <Tab
-                variant="soft"
-                label="Annotations"
-                badgeText={0}
-                isActive={false}
-              />
-              <Tab variant="soft" label="Uda" badgeText={0} isActive={false} />
-              <Tab variant="soft" label="History" isActive={false} />
-            </Tabs>
+            <TabContext defaultValue="overview">
+              <Tabs>
+                <Tab value="overview" variant="soft" label="Overview" />
+                <Tab
+                  value="annotations"
+                  variant="soft"
+                  label="Annotations"
+                  badgeText={0}
+                  isActive={false}
+                />
+                <Tab value="uda" variant="soft" label="Uda" badgeText={0} />
+                <Tab value="history" variant="soft" label="History" />
+              </Tabs>
 
-            <hr className="mb-3" />
+              <hr className="mb-3" />
 
-            <ActionsCard
-              task={task}
-              onStart={() => updateStatus("start")}
-              onStop={() => updateStatus("stop")}
-              onComplete={() => updateStatus("complete")}
-              onReset={() => updateStatus("reset")}
-            />
+              <TabPanel value="overview">
+                <ActionsCard
+                  task={task}
+                  onStart={() => updateStatus("start")}
+                  onStop={() => updateStatus("stop")}
+                  onComplete={() => updateStatus("complete")}
+                  onReset={() => updateStatus("reset")}
+                />
 
-            <TaskForm.Provider>
-              <TaskForm.Component task={task} softStyle />
-            </TaskForm.Provider>
+                <TaskForm.Provider>
+                  <TaskForm.Component task={task} softStyle />
+                </TaskForm.Provider>
 
-            {false && (
-              <>
+                <hr className="my-3" />
+
+                <div className="inline-flex flex-col gap-1">
+                  {getRealTaskStatus(task) == "deleted" ? (
+                    <Button
+                      variant="link"
+                      size="sm"
+                      Icon={ArrowUturnLeftIcon}
+                      onClick={() => updateStatus("restore")}
+                    >
+                      Restore task
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="link"
+                      size="sm"
+                      Icon={TrashIcon}
+                      onClick={() => updateStatus("delete")}
+                    >
+                      Delete task
+                    </Button>
+                  )}
+                </div>
+              </TabPanel>
+
+              <TabPanel value="annotations">
                 <EmptyState
                   className="rounded-md border"
                   Icon={DocumentIcon}
                   title="No annotations"
                   subtitle="Tasks can contain annotations and they will appear here."
                 />
+              </TabPanel>
+
+              <TabPanel value="uda">
                 <EmptyState
                   className="rounded-md border"
                   Icon={ListBulletIcon}
                   title="No attributes"
                   subtitle="Tasks can contain user-defined attributes and they will appear here."
                 />
-              </>
-            )}
+              </TabPanel>
 
-            <hr className="my-3" />
-
-            <div className="inline-flex flex-col gap-1">
-              {getRealTaskStatus(task) == "deleted" ? (
-                <Button
-                  variant="link"
-                  size="sm"
-                  Icon={ArrowUturnLeftIcon}
-                  onClick={() => updateStatus("restore")}
-                >
-                  Restore task
-                </Button>
-              ) : (
-                <Button
-                  variant="link"
-                  size="sm"
-                  Icon={TrashIcon}
-                  onClick={() => updateStatus("delete")}
-                >
-                  Delete task
-                </Button>
-              )}
-            </div>
+              <TabPanel value="history">wip history</TabPanel>
+            </TabContext>
 
             {/* spacer */}
             <div className="h-20" />

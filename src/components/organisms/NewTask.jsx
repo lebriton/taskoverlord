@@ -20,7 +20,6 @@ export default function NewTask({ onSubmit, onClose }) {
       className="h-full w-full"
       onSubmit={async (...args) => {
         const close = await onSubmit(...args);
-        console.log("should close: ", close);
 
         if (close) {
           onClose();
