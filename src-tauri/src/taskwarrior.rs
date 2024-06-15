@@ -66,9 +66,18 @@ where
     Ok(None)
 }
 
-pub fn add_task(description: String) -> anyhow::Result<String> {
-    let command_parts = vec!["task", "add", description.as_str()];
+pub fn add_task(description: String, already_completed: bool) -> anyhow::Result<String> {
+    let command_parts = if already_completed {
+        vec!["task", "log", description.as_str()]
+    } else {
+        vec!["task", "add", description.as_str()]
+    };
+
     check_output2(command_parts, true)?;
+
+    if already_completed {
+        return Ok("todo: find a way to get the uuid".to_string());
+    }
 
     // We need to return the new task uuid
     let output = check_output("task +LATEST export rc.json.array=off", false)?;

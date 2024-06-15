@@ -12,11 +12,12 @@ import FormGroup from "../atoms/FormGroup";
 import TextArea from "../atoms/TextArea";
 import TaskForm from "../../forms/TaskForm";
 import { useFormikContext } from "formik";
+import Checkbox from "../molecules/Checkbox";
 
 export default function NewTask({ onSubmit, onClose }) {
   return (
     <TaskForm.Provider
-      extraInitialValues={{ description: "" }}
+      extraInitialValues={{ description: "", already_completed: false }}
       className="h-full w-full"
       onSubmit={async (...args) => {
         const close = await onSubmit(...args);
@@ -56,6 +57,16 @@ export default function NewTask({ onSubmit, onClose }) {
             <hr className="my-3" />
 
             <TaskForm.Component />
+
+            <hr className="my-3" />
+
+            <Checkbox
+              name="already_completed"
+              label="Already completed"
+              helpText="Sometimes it is necessary to record tasks that are already completed, if you are faithfully tracking work."
+              isChecked={formik.values.already_completed}
+              onChange={formik.handleChange}
+            />
 
             {/* spacer */}
             <div className="h-20" />

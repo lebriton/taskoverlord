@@ -3,8 +3,8 @@ use crate::shell::check_output;
 use crate::taskwarrior;
 
 #[tauri::command]
-pub async fn add_task(description: String) -> Result<String, String> {
-    taskwarrior::add_task(description).map_err(|e| e.to_string())
+pub async fn add_task(description: String, already_completed: bool) -> Result<String, String> {
+    taskwarrior::add_task(description, already_completed).map_err(|e| e.to_string())
 }
 
 #[tauri::command]

@@ -262,7 +262,10 @@ export default function RootRoute() {
           <div className="fixed bottom-0 right-0 top-0 z-40 min-w-96 max-w-96 overflow-clip border-l bg-white shadow-2xl">
             <NewTask
               onSubmit={(values, actions) =>
-                invoke("add_task", { description: values.description })
+                invoke("add_task", {
+                  description: values.description,
+                  alreadyCompleted: values.already_completed,
+                })
                   .then((new_task_uuid) => {
                     queryClient.invalidateQueries({ queryKey: ["tasks"] });
                     actions.setSubmitting(false);
