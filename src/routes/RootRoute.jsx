@@ -210,8 +210,6 @@ export default function RootRoute() {
                 }}
               />
 
-              <CountTasksByStatus tasks={filteredTasks} />
-
               <ButtonList>
                 <Button
                   Icon={FunnelIcon}
@@ -227,6 +225,7 @@ export default function RootRoute() {
                   <span className="pointer-events-none hidden 2xl:inline">
                     Filter
                   </span>
+                  <CountTasksByStatus tasks={filteredTasks} />
                 </Button>
                 <Button
                   variant="green"
