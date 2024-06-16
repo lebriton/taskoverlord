@@ -37,6 +37,7 @@ import TaskForm from "../../forms/TaskForm";
 import Timer from "../atoms/Timer";
 import { useToast } from "../../contexts/ToastContext";
 import CloseButton from "../atoms/CloseButton";
+import Input from "../atoms/Input";
 
 export default function TaskDetails({
   task,
@@ -213,7 +214,7 @@ function TaskDescriptionForm({ task, onSubmit, onClose }) {
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="mb-6 flex items-start justify-between gap-3">
-        <TextArea
+        <Input
           name="description"
           rows={1}
           value={formik.values.description}

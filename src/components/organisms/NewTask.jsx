@@ -42,7 +42,7 @@ export default function NewTask({ onSubmit, onClose }) {
           <CardBody className="h-full overflow-scroll">
             <FormGroup>
               <Label text="Add a description" />
-              <TextArea
+              <Input
                 name="description"
                 value={formik.values.description}
                 rows={2}

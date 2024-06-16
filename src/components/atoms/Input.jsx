@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 const Input = forwardRef(function Input(
   {
     className,
+    name,
     size = "sm",
     value,
     placeholder,
@@ -40,6 +41,7 @@ const Input = forwardRef(function Input(
             buttonChildren && "!p-3",
             className,
           )}
+          name={name}
           type="text"
           value={value}
           placeholder={placeholder}
