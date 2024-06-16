@@ -50,6 +50,7 @@ export default function Button({
         className={classNames(
           "group inline-flex items-center gap-1 text-nowrap rounded-md p-1.5 font-medium",
           "disabled:cursor-not-allowed disabled:opacity-50",
+          "[&>*]:pointer-events-none",
 
           variant == "plain" && "text-neutral-700 enabled:hover:bg-neutral-100",
           variant != "plain" && "border",

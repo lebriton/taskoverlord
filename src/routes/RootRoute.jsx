@@ -104,9 +104,8 @@ export default function RootRoute() {
     {
       value: "table",
       label: (
-        <span className="pointer-events-none hidden 2xl:inline">
-          Table{" "}
-          <span className="pointer-events-none hidden 4xl:inline">View</span>
+        <span className="hidden 2xl:inline">
+          Table <span className="hidden 4xl:inline">View</span>
         </span>
       ),
       url: "/",
@@ -116,9 +115,8 @@ export default function RootRoute() {
     {
       value: "kaban",
       label: (
-        <span className="pointer-events-none hidden 2xl:inline">
-          Kanban{" "}
-          <span className="pointer-events-none hidden 4xl:inline">Board</span>
+        <span className="hidden 2xl:inline">
+          Kanban <span className="hidden 4xl:inline">Board</span>
         </span>
       ),
       url: "/",
@@ -128,9 +126,8 @@ export default function RootRoute() {
     {
       value: "gantt",
       label: (
-        <span className="pointer-events-none hidden 2xl:inline">
-          Gantt{" "}
-          <span className="pointer-events-none hidden 4xl:inline">Diagram</span>
+        <span className="hidden 2xl:inline">
+          Gantt <span className="hidden 4xl:inline">Diagram</span>
         </span>
       ),
       url: "/",
@@ -139,9 +136,7 @@ export default function RootRoute() {
     },
     {
       value: "calendar",
-      label: (
-        <span className="pointer-events-none hidden 2xl:inline">Calendar</span>
-      ),
+      label: <span className="hidden 2xl:inline">Calendar</span>,
       url: "/",
       Icon: CalendarDaysIcon,
       shortcut: "c",
@@ -192,11 +187,7 @@ export default function RootRoute() {
             <div className="flex items-center justify-end gap-2">
               <Label
                 className="!mb-0"
-                text={
-                  <span className="pointer-events-none hidden 2xl:inline">
-                    Tasks
-                  </span>
-                }
+                text={<span className="hidden 2xl:inline">Tasks</span>}
                 badgeText={filteredTasks.length}
               />
 
@@ -222,9 +213,7 @@ export default function RootRoute() {
                     />
                   )}
                 >
-                  <span className="pointer-events-none hidden 2xl:inline">
-                    Filter
-                  </span>
+                  <span className="hidden 2xl:inline">Filter</span>
                   <CountTasksByStatus tasks={filteredTasks} />
                 </Button>
                 <Button
@@ -234,9 +223,7 @@ export default function RootRoute() {
                   isDisabled={showNewTask}
                   onClick={() => setShowNewTask(true)}
                 >
-                  <span className="pointer-events-none hidden 2xl:inline">
-                    New task
-                  </span>
+                  <span className="hidden 2xl:inline">New task</span>
                 </Button>
               </ButtonList>
             </div>
@@ -333,7 +320,7 @@ function CountTasksByStatus({ tasks }) {
   });
 
   return (
-    <BadgeList className="pointer-events-none">
+    <BadgeList>
       {count["pending"] && <Badge text={count["pending"]} variant="gray" />}
       {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
       {count["in progress"] && (
