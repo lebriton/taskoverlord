@@ -29,7 +29,7 @@ _Taskoverlord is currently only available for Linux.<br :>Windows and Mac builds
 
 ## 🗺️ Roadmap
 
-- Customize your experience to your preferences with an easy-to-modify **configuration file**.
+To stay updated with TaskOverlord's latest developments, planned features, and progress, visit the [GitHub project page](https://github.com/users/lebriton/projects/4/views/4). Your feedback and contributions are highly appreciated.
 
 ## 📦 Install
 
