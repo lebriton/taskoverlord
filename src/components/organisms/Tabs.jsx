@@ -3,6 +3,7 @@ import Shortcut, { ShortcutWrap } from "../atoms/Shortcut";
 import { Link } from "react-router-dom";
 import Badge from "../atoms/Badge";
 import { useState, createContext, useContext, Children } from "react";
+import { cloneElement } from "react";
 
 const Context = createContext();
 
@@ -12,10 +13,13 @@ export function TabContext({ defaultValue, children }) {
   return (
     <Context.Provider value={{ activeTab, setActiveTab }}>
       {Children.map(children, (child) => {
+        // Hide `TabPanel`s which do not correspond to the selected Tab
         if (child.type.name == "TabPanel") {
-          const { value } = child.props;
-
-          if (value != activeTab) return;
+          if (child.props.value != activeTab) {
+            return cloneElement(child, {
+              className: `${child.props.className} !hidden`,
+            });
+          }
         }
 
         return child;
@@ -82,6 +86,10 @@ export function Tab({
   );
 }
 
-export function TabPanel({ value, children }) {
-  return children;
+export function TabPanel({ className, value, children }) {
+  return (
+    <div key={value} className={className}>
+      {children}
+    </div>
+  );
 }
