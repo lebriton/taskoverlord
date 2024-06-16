@@ -55,9 +55,9 @@ Alternatively, you can opt to automate the prior command's execution by installi
 </details>
 
 <details>
-<summary>Build</summary>
+<summary>Publish</summary>
 
-[wip (github action)](https://tauri.app/v1/guides/building/linux/)
+A GitHub action automatically creates a new release on GitHub whenever code is pushed to the release branch.
 
 </details>
 
