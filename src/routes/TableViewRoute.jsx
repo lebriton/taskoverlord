@@ -110,7 +110,15 @@ export default function TableViewRoute() {
       className="!h-full"
       Icon={CubeIcon}
       title="No tasks"
-      subtitle="Looks like you haven't created any tasks yet."
+      subtitle={
+        <>
+          Looks like you haven't created any tasks yet.
+          <br />
+          <span className="text-xs">
+            (Or maybe they are simply hidden by filters)
+          </span>
+        </>
+      }
     />
   );
 }
