@@ -55,7 +55,12 @@ export default function Badge({
 
 export function BadgeList({ className, children }) {
   return (
-    <div className={classNames("inline-flex items-center gap-1", className)}>
+    <div
+      className={classNames(
+        "inline-flex flex-wrap items-center gap-1",
+        className,
+      )}
+    >
       {children}
     </div>
   );
