@@ -14,7 +14,7 @@ export function TabContext({ defaultValue, children }) {
     <Context.Provider value={{ activeTab, setActiveTab }}>
       {Children.map(children, (child) => {
         // Hide `TabPanel`s which do not correspond to the selected Tab
-        if (child.type.name == "TabPanel") {
+        if (child.type && child.type.displayName == "TabPanel") {
           if (child.props.value != activeTab) {
             return cloneElement(child, {
               className: `${child.props.className} !hidden`,
@@ -93,3 +93,4 @@ export function TabPanel({ className, value, children }) {
     </div>
   );
 }
+TabPanel.displayName = "TabPanel";
