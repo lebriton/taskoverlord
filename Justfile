@@ -14,8 +14,8 @@ fi
 
 alias dev := develop
 
-build:
-    pnpm tauri build
+build *args='':
+    pnpm tauri build {{args}}
 
 pre-commit:
     cd src-tauri && cargo clippy -- -Dwarnings
