@@ -297,7 +297,7 @@ export default function RootRoute() {
                     displayTaskDetails(new_task_uuid);
 
                     // should close?
-                    return values.action != "continue";
+                    return !values.continueEditing;
                   })
                   .catch((error) =>
                     addToast(`An error occured: ${error}`, "error"),

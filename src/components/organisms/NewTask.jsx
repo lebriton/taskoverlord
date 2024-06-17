@@ -17,7 +17,11 @@ import CloseButton from "../atoms/CloseButton";
 export default function NewTask({ onSubmit, onClose }) {
   return (
     <TaskForm.Provider
-      extraInitialValues={{ description: "", already_completed: false }}
+      extraInitialValues={{
+        description: "",
+        already_completed: false,
+        continueEditing: false,
+      }}
       className="h-full w-full"
       onSubmit={async (...args) => {
         const close = await onSubmit(...args);
@@ -71,7 +75,17 @@ export default function NewTask({ onSubmit, onClose }) {
           </CardBody>
 
           <CardFooter>
-            <div className="flex justify-end">
+            <div className="flex justify-between">
+              <Checkbox
+                label="Continue editing"
+                isChecked={formik.values.continueEditing}
+                onChange={() =>
+                  formik.setFieldValue(
+                    "continueEditing",
+                    !formik.values.continueEditing,
+                  )
+                }
+              />
               <ButtonList>
                 <Button isDisabled={formik.isSubmitting} onClick={onClose}>
                   Cancel
@@ -80,17 +94,8 @@ export default function NewTask({ onSubmit, onClose }) {
                   type="submit"
                   variant="blue"
                   isDisabled={formik.isSubmitting}
-                  onClick={() => formik.setFieldValue("action", "close")}
                 >
                   Add task
-                </Button>
-                <Button
-                  type="submit"
-                  variant="blue-outline"
-                  isDisabled={formik.isSubmitting}
-                  onClick={() => formik.setFieldValue("action", "continue")}
-                >
-                  Add task and continue
                 </Button>
               </ButtonList>
             </div>
