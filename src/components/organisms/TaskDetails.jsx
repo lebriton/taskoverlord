@@ -22,7 +22,7 @@ import Card, { CardBody, CardHeader } from "../molecules/Card";
 import FlexLine from "../molecules/FlexLine";
 import {
   atMostXDecimalPoints,
-  displayStatusBadgeForTask,
+  displayStatusBadge,
   displayTags,
 } from "../../utils";
 import Heading2 from "../molecules/Heading2";
@@ -100,7 +100,7 @@ export default function TaskDetails({
         {task ? (
           <>
             <div className="mb-3 flex items-center gap-1.5">
-              {displayStatusBadgeForTask(task, true)}
+              {displayStatusBadge(getRealTaskStatus(task), true)}
               <span className="text-sm font-medium text-neutral-800">
                 {/* XXX: + "Z" as a hack to force UTC (for now) */}
                 Modified {timeAgo(new Date(task.modified + "Z"))}

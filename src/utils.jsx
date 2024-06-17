@@ -63,9 +63,7 @@ export function displayTags(tags) {
   );
 }
 
-export function displayStatusBadgeForTask(task, big = false) {
-  let status = getRealTaskStatus(task);
-
+export function displayStatusBadge(status, big = false) {
   let variant, Icon;
   switch (status) {
     case "completed":

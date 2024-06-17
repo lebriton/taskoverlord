@@ -7,7 +7,7 @@ import Label from "../atoms/Label";
 import { CardBody, CardFooter } from "../molecules/Card";
 import { CheckboxList } from "../molecules/Checkbox";
 import DropdownCard, { DropdownCardHeader } from "../molecules/DropdownCard";
-import { difference } from "../../utils";
+import { difference, displayStatusBadge } from "../../utils";
 
 function Group({ label, onClear, children }) {
   return (
@@ -25,11 +25,11 @@ function Group({ label, onClear, children }) {
 export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
   const getInitialStatusOptions = () =>
     [
-      { label: "Pending", value: "pending" },
-      { label: "Waiting", value: "waiting" },
-      { label: "In Progress", value: "in progress" },
-      { label: "Completed", value: "completed" },
-      { label: "Deleted", value: "deleted" },
+      { label: displayStatusBadge("pending"), value: "pending" },
+      { label: displayStatusBadge("waiting"), value: "waiting" },
+      { label: displayStatusBadge("in progress"), value: "in progress" },
+      { label: displayStatusBadge("completed"), value: "completed" },
+      { label: displayStatusBadge("deleted"), value: "deleted" },
     ].map((option) => ({
       ...option,
       isChecked: filters.status.includes(option.value),

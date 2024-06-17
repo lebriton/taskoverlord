@@ -1,9 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { displayPriority, timeAgo } from "../utils";
+import { displayPriority, getRealTaskStatus, timeAgo } from "../utils";
 import { useOutletContext } from "react-router-dom";
 import {
   atMostXDecimalPoints,
-  displayStatusBadgeForTask,
+  displayStatusBadge,
   displayTags,
 } from "../utils";
 import {
@@ -49,7 +49,7 @@ const columns = [
     header: () => <IconLabel Icon={CheckCircleIcon} label="Status" />,
     cell: (info) => {
       let task = info.row.original;
-      return displayStatusBadgeForTask(task);
+      return displayStatusBadge(getRealTaskStatus(task));
     },
     meta: {
       className: "whitespace-nowrap",
