@@ -320,7 +320,7 @@ function CountTasksByStatus({ tasks }) {
   });
 
   return (
-    <BadgeList>
+    <BadgeList className="!flex-nowrap">
       {count["pending"] && <Badge text={count["pending"]} variant="gray" />}
       {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
       {count["in progress"] && (
