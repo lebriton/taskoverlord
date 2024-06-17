@@ -284,7 +284,7 @@ export default function RootRoute() {
               onSubmit={(values, actions) =>
                 invoke("add_task", {
                   description: values.description,
-                  alreadyCompleted: values.already_completed,
+                  alreadyCompleted: values.alreadyCompleted,
                 })
                   .then((new_task_uuid) => {
                     queryClient.invalidateQueries({ queryKey: ["tasks"] });

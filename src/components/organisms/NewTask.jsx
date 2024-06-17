@@ -19,7 +19,7 @@ export default function NewTask({ onSubmit, onClose }) {
     <TaskForm.Provider
       extraInitialValues={{
         description: "",
-        already_completed: false,
+        alreadyCompleted: false,
         continueEditing: false,
       }}
       className="h-full w-full"
@@ -63,10 +63,10 @@ export default function NewTask({ onSubmit, onClose }) {
             <hr className="my-3" />
 
             <Checkbox
-              name="already_completed"
+              name="alreadyCompleted"
               label="Already completed"
               helpText="Sometimes it is necessary to record tasks that are already completed, if you are faithfully tracking work."
-              isChecked={formik.values.already_completed}
+              isChecked={formik.values.alreadyCompleted}
               onChange={formik.handleChange}
             />
 
