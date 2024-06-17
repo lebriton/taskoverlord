@@ -265,7 +265,7 @@ function TaskDescription({ task, onSubmit }) {
   return (
     <div className="mb-6 flex items-start justify-between gap-3">
       <Heading2
-        className="!mb-0 whitespace-pre-wrap break-word"
+        className="break-word !mb-0 whitespace-pre-wrap"
         title={task.description}
         subtitle={task.id != 0 && `#${task.id}`}
       />
