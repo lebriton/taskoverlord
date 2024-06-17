@@ -32,5 +32,10 @@ pre-commit:
     cd src-tauri && cargo fmt --all
     pnpm exec prettier . --write
 
+    black bin/release --line-length 120
+
+release:
+    bin/release
+
 setup:
     pnpm install

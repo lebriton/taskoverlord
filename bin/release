@@ -1,0 +1,73 @@
+#!/usr/bin/python3
+
+import fileinput
+import json
+from subprocess import check_output, run
+
+# ANSI color codes
+CYAN = "\033[1;36m"
+GREEN = "\033[1;32m"
+MAGENTA = "\033[1;35m"
+RESET = "\033[0m"
+
+
+def check_git_status():
+    git_status = check_output(["git", "status", "--porcelain", "--untracked-files=no"]).decode()
+    if git_status:
+        exit(f"Aborted: the git repository status is not clean\n\n{git_status}")
+    git_branch = check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).decode().strip()
+    if git_branch != "main":
+        exit(f"Aborted: releases must originate from the 'main' git branch (current branch: {git_branch})")
+
+
+def find_current_version():
+    with open("src-tauri/tauri.conf.json") as f:
+        conf = json.load(f)
+        return conf["package"]["version"]
+
+
+# TODO: based on thing to bump (major, minor or patch)
+def compute_new_version():
+    return "0.1.0"
+
+
+def bump_version_in_files(files, old_version, new_version):
+    for line in fileinput.input(files, inplace=True):
+        print(line.replace(old_version, new_version), end="")
+
+
+def push(branch):
+    print(f"Pushing changes to origin/{branch}... ", end="", flush=True)
+    run(["git", "push", "origin", branch])
+    print(f"{GREEN}OK{RESET}")
+
+
+def commit_and_push(*branch_list):
+    commit_message = f"Release v{new_version}"
+    run(["git", "commit", "--all", "--message", commit_message])
+
+    for branch in branch_list:
+        push(branch)
+
+
+# Make sure that the git status is clean before proceeding
+check_git_status()
+
+old_version = find_current_version()
+print(f"\n{MAGENTA}TaskOverlord{RESET} version {MAGENTA}{old_version}{RESET} is currently released\n")
+
+new_version = compute_new_version()
+
+# Ask for confirmation
+if input(f"Do you want to release version {MAGENTA}{new_version}{RESET}? (y/N): ").lower() != "y":
+    exit("Aborting...")
+
+files = [
+    "package.json",
+    "src-tauri/Cargo.toml",
+    "src-tauri/Cargo.lock",
+    "src-tauri/tauri.conf.json",
+]
+bump_version_in_files(files, old_version, new_version)
+
+commit_and_push("main", "release")
