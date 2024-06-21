@@ -191,7 +191,7 @@ export default function RootRoute() {
               <Label
                 className="!mb-0"
                 text={<span className="hidden 2xl:inline">Tasks</span>}
-                badgeText={filteredTasks.length}
+                badgeText={`${filteredTasks.length} / ${tasksQuery.data.length}`}
               />
 
               <CountTasksByStatus tasks={filteredTasks} />
