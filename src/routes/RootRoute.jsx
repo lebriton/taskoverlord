@@ -194,7 +194,7 @@ export default function RootRoute() {
                 shortcutText="r"
                 onClick={() => {
                   queryClient.invalidateQueries({ queryKey: ["tasks"] });
-                  addToast("All tasks have been refreshed.", "success");
+                  addToast("All tasks have been refreshed.", "info");
                 }}
               />
 
@@ -207,7 +207,14 @@ export default function RootRoute() {
                       tasks={tasks}
                       filteredTasks={filteredTasks}
                       filters={filters}
-                      onSubmit={setFilters}
+                      onSubmit={(filters) => {
+                        setFilters(filters);
+                        // TODO: pluralize
+                        addToast(
+                          `${countFilters(filters)} filters applied.`,
+                          "info",
+                        );
+                      }}
                       onClose={onClose}
                     />
                   )}
