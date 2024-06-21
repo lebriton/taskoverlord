@@ -1,5 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { displayPriority, getRealTaskStatus, timeAgo } from "../utils";
+import {
+  displayPriority,
+  getRealTaskStatus,
+  highlightMatch,
+  timeAgo,
+} from "../utils";
 import { useOutletContext } from "react-router-dom";
 import {
   atMostXDecimalPoints,
@@ -57,7 +62,12 @@ const columns = [
   }),
   columnHelper.accessor("description", {
     header: () => <IconLabel Icon={Bars3BottomLeftIcon} label="Description" />,
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      let task = info.row.original;
+      let description = info.getValue();
+
+      return highlightMatch(description, task._descriptionMatches);
+    },
   }),
   columnHelper.accessor("modified", {
     header: () => <IconLabel Icon={ClockIcon} label="Modified" />,

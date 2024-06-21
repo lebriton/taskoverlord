@@ -24,6 +24,7 @@ function Group({ label, onClear, children }) {
 }
 
 export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
+  const [description, setDescription] = useState(filters.description);
   const getInitialStatusOptions = () =>
     [
       { label: displayStatusBadge("pending"), value: "pending" },
@@ -38,6 +39,7 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
   const [statusOptions, setStatusOptions] = useState(getInitialStatusOptions());
 
   const handleReset = () => {
+    setDescription(filters.description);
     setStatusOptions(getInitialStatusOptions());
   };
 
@@ -45,11 +47,12 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
   useEffect(() => {
     setTemporaryFilters({
       ...temporaryFilters,
+      description: description,
       status: statusOptions
         .filter((option) => option.isChecked)
         .map((option) => option.value),
     });
-  }, [statusOptions]);
+  }, [description, statusOptions]);
   const delta = countFilterDifferences(filters, temporaryFilters);
 
   return (
@@ -59,6 +62,14 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
         <HelpText className="!mb-2 !mt-0">
           Use these filters to narrow down your search and find the exact task.
         </HelpText>
+        <Group label="Description" onClear={() => setDescription("")}>
+          <Input
+            value={description}
+            placeholder="Fuzzy search by description…"
+            onChange={(e) => setDescription(e.target.value)}
+            autoFocus
+          />
+        </Group>
         <Group
           label="Status"
           onClear={() =>
@@ -95,11 +106,14 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
 }
 
 export function countFilters(filters) {
-  return filters.status.length;
+  let count = filters.status.length;
+  if (filters.description !== "") count++;
+  return count;
 }
 
 export function countFilterDifferences(a, b) {
   let delta = 0;
   delta += difference(a.status, b.status).length;
+  if (a.description != b.description) delta++;
   return delta;
 }

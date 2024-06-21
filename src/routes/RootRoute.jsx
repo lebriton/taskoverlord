@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TaskDetails from "../components/organisms/TaskDetails";
+import Fuse from "fuse.js";
 import {
   TableCellsIcon,
   ViewColumnsIcon,
@@ -40,13 +41,11 @@ export default function RootRoute() {
     defaultValue: [],
   });
   const [filters, setFilters] = useState({
+    description: "",
     status: ["pending", "waiting", "in progress", "completed"],
   });
   const filtersCount = countFilters(filters);
-  const filteredTasks = tasksQuery.data.filter((task) => {
-    if (filters.status.length === 0) return true;
-    return filters.status.includes(getRealTaskStatus(task));
-  });
+  const filteredTasks = filterTasks(tasksQuery.data, filters);
 
   const [previousTask, setPreviousTask] = useState(null);
   const [selectedUuid, setSelectedUuid] = useState(null);
@@ -340,4 +339,31 @@ function CountTasksByStatus({ tasks }) {
       {count["deleted"] && <Badge text={count["deleted"]} variant="red" />}
     </BadgeList>
   );
+}
+
+function filterTasks(tasks, filters) {
+  let output = tasks.map((task) => {
+    task._descriptionMatches = "";
+    return task;
+  });
+
+  if (countFilters(filters) > 0)
+    output = output.filter((task) => {
+      return filters.status.includes(getRealTaskStatus(task));
+    });
+
+  if (filters.description) {
+    const fuse = new Fuse(output, {
+      keys: ["description"],
+      includeMatches: true,
+      threshold: 0.4,
+    });
+
+    output = fuse.search(filters.description).map(({ item, matches }) => {
+      item._descriptionMatches = matches;
+      return item;
+    });
+  }
+
+  return output;
 }

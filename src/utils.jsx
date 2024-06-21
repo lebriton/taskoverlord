@@ -113,6 +113,26 @@ export function getRealTaskStatus(task) {
   return task.status;
 }
 
+export function highlightMatch(string, matches) {
+  if (!matches) return string;
+  const matchedIndices = matches.reduce((acc, match) => {
+    acc.push(...match.indices);
+    return acc;
+  }, []);
+
+  let lastIndex = 0;
+  const parts = [];
+
+  matchedIndices.forEach(([start, end]) => {
+    parts.push(string.slice(lastIndex, start));
+    parts.push(<mark key={start}>{string.slice(start, end + 1)}</mark>);
+    lastIndex = end + 1;
+  });
+
+  parts.push(string.slice(lastIndex));
+  return parts;
+}
+
 export function timeAgo(date) {
   return _timeAgo.format(date, "en-US");
 }
