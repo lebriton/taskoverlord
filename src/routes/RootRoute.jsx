@@ -199,31 +199,34 @@ export default function RootRoute() {
               />
 
               <ButtonList>
-                <Button
-                  Icon={FunnelIcon}
-                  shortcutText="f"
-                  dropdown={({ onClose }) => (
-                    <FilterDropdownCardForm
-                      tasks={tasks}
-                      filteredTasks={filteredTasks}
-                      filters={filters}
-                      onSubmit={(filters) => {
-                        setFilters(filters);
-                        // TODO: pluralize
-                        addToast(
-                          `${countFilters(filters)} filters applied.`,
-                          "info",
-                        );
-                      }}
-                      onClose={onClose}
-                    />
-                  )}
-                >
-                  <span className="hidden 2xl:inline">
-                    Filters
-                    {filtersCount !== 0 && ` (${filtersCount})`}
-                  </span>
-                </Button>
+                <div>
+                  <Button
+                    Icon={FunnelIcon}
+                    shortcutText="f"
+                    dropdown={({ onClose }) => (
+                      <FilterDropdownCardForm
+                        tasks={tasks}
+                        filteredTasks={filteredTasks}
+                        filters={filters}
+                        onSubmit={(filters) => {
+                          setFilters(filters);
+                          // TODO: pluralize
+                          addToast(
+                            `${countFilters(filters)} filters applied.`,
+                            "info",
+                          );
+                        }}
+                        onClose={onClose}
+                      />
+                    )}
+                  >
+                    <span className="hidden 2xl:inline">
+                      Filters
+                      {filtersCount !== 0 && ` (${filtersCount})`}
+                    </span>
+                  </Button>
+                </div>
+
                 <Button
                   variant="green"
                   Icon={PlusCircleIcon}

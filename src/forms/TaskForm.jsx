@@ -152,9 +152,11 @@ function EditButtonWrapper({ children, dropdown, onEdit }) {
   return (
     <div className="flex items-center justify-between">
       {children}
-      <Button variant="plain" dropdown={dropdown} onClick={onEdit}>
-        Edit
-      </Button>
+      <div>
+        <Button variant="plain" dropdown={dropdown} onClick={onEdit}>
+          Edit
+        </Button>
+      </div>
     </div>
   );
 }
