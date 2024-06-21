@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Card, { CardHeader } from "./Card";
 import Label from "../atoms/Label";
 import CloseButton from "../atoms/CloseButton";
+import HSeparator from "../atoms/HSeparator";
 
 export default function DropdownCard({ className, children }) {
   return (
@@ -21,7 +22,7 @@ export function DropdownCardHeader({ className, label, extra, onClose }) {
     <CardHeader className={className}>
       <div className="flex items-center justify-between gap-2">
         <Label className="!mb-0" text={label} />
-        {extra && <div className="h-4 border-l" />}
+        {extra && <HSeparator />}
         {extra}
         <div className="grow" />
         <CloseButton className="-me-1.5" onClick={onClose} />

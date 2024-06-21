@@ -30,6 +30,7 @@ import FormGroup from "../components/atoms/FormGroup";
 import FilterDropdownCardForm, {
   countFilters,
 } from "../components/organisms/FilterDropdownCardForm";
+import HSeparator from "../components/atoms/HSeparator";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -187,18 +188,18 @@ export default function RootRoute() {
             />
           }
           right={
-            <div className="flex items-center justify-end gap-2">
-              <Button
-                Icon={ArrowPathIcon}
-                variant="plain"
-                shortcutText="r"
-                onClick={() => {
-                  queryClient.invalidateQueries({ queryKey: ["tasks"] });
-                  addToast("All tasks have been refreshed.", "info");
-                }}
-              />
-
+            <div className="flex items-center justify-between gap-2">
               <ButtonList>
+                <Button
+                  Icon={ArrowPathIcon}
+                  variant="plain"
+                  shortcutText="r"
+                  onClick={() => {
+                    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+                    addToast("All tasks have been refreshed.", "info");
+                  }}
+                />
+
                 <div>
                   <Button
                     Icon={FunnelIcon}
@@ -226,17 +227,19 @@ export default function RootRoute() {
                     </span>
                   </Button>
                 </div>
-
-                <Button
-                  variant="green"
-                  Icon={PlusCircleIcon}
-                  shortcutText="a"
-                  isDisabled={showNewTask}
-                  onClick={() => setShowNewTask(true)}
-                >
-                  <span className="hidden 2xl:inline">New task</span>
-                </Button>
               </ButtonList>
+
+              <HSeparator />
+
+              <Button
+                variant="green"
+                Icon={PlusCircleIcon}
+                shortcutText="a"
+                isDisabled={showNewTask}
+                onClick={() => setShowNewTask(true)}
+              >
+                <span className="hidden 2xl:inline">New task</span>
+              </Button>
             </div>
           }
         />

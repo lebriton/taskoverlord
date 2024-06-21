@@ -120,13 +120,11 @@ export default function Button({
         {shortcutText && <Shortcut className="ms-1" text={shortcutText} />}
       </button>
 
-      <div className="relative">
-        {showDropdown && (
-          <div ref={dropdownRef}>
-            {dropdown({ onClose: () => setShowDropdown(false) })}
-          </div>
-        )}
-      </div>
+      {showDropdown && (
+        <div ref={dropdownRef} className="relative">
+          {dropdown({ onClose: () => setShowDropdown(false) })}
+        </div>
+      )}
     </>
   );
 }
