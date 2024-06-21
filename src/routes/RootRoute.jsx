@@ -42,9 +42,11 @@ export default function RootRoute() {
   const [filters, setFilters] = useState({
     status: ["pending", "waiting", "in progress", "completed"],
   });
-  const filteredTasks = tasksQuery.data.filter((task) =>
-    filters.status.includes(getRealTaskStatus(task)),
-  );
+  const filtersCount = countFilters(filters);
+  const filteredTasks = tasksQuery.data.filter((task) => {
+    if (filters.status.length === 0) return true;
+    return filters.status.includes(getRealTaskStatus(task));
+  });
 
   const [previousTask, setPreviousTask] = useState(null);
   const [selectedUuid, setSelectedUuid] = useState(null);
@@ -218,7 +220,8 @@ export default function RootRoute() {
                   )}
                 >
                   <span className="hidden 2xl:inline">
-                    Filters ({countFilters(filters)})
+                    Filters
+                    {filtersCount !== 0 && ` (${filtersCount})`}
                   </span>
                 </Button>
                 <Button
