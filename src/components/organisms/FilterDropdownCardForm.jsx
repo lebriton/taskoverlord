@@ -86,7 +86,7 @@ export default function FilterDropdownCardForm({
         <Group label="Description" onClear={() => setDescription("")}>
           <Input
             value={description}
-            placeholder="Fuzzy search by description…"
+            placeholder="Fuzzy search descriptions…"
             onChange={(e) => setDescription(e.target.value)}
             autoFocus
           />
