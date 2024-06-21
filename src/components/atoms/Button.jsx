@@ -96,16 +96,14 @@ export default function Button({
             )}
           />
         )}
-        {shortcutText && <Shortcut className="me-1" text={shortcutText} />}
         {Icon && variant == "link" && (
           <Icon className="size-4 text-neutral-900 group-hover:text-blue-600" />
         )}
-        {children}
         {Icon && variant != "link" && (
           <Icon
             className={classNames(
               "size-4 text-neutral-700",
-              children && "-me-0.5",
+              children && "-ms-0.5",
               ["green", "gray", "blue"].includes(variant) && "text-white",
               variant == "gray-outline" &&
                 "!text-neutral-600 group-hover:!text-white",
@@ -116,6 +114,8 @@ export default function Button({
             )}
           />
         )}
+        {children}
+        {shortcutText && <Shortcut className="ms-1" text={shortcutText} />}
       </button>
 
       {showDropdown && (
