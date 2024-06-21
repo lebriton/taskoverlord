@@ -8,6 +8,7 @@ import { CardBody, CardFooter } from "../molecules/Card";
 import { CheckboxList } from "../molecules/Checkbox";
 import DropdownCard, { DropdownCardHeader } from "../molecules/DropdownCard";
 import { difference, displayStatusBadge } from "../../utils";
+import HelpText from "../atoms/HelpText";
 
 function Group({ label, onClear, children }) {
   return (
@@ -40,7 +41,6 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
     setStatusOptions(getInitialStatusOptions());
   };
 
-  let delta = 0;
   const [temporaryFilters, setTemporaryFilters] = useState(filters);
   useEffect(() => {
     setTemporaryFilters({
@@ -50,16 +50,15 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
         .map((option) => option.value),
     });
   }, [statusOptions]);
-  delta += difference(filters.status, temporaryFilters.status).length;
+  const delta = countFilterDifferences(filters, temporaryFilters);
 
   return (
     <DropdownCard className="!w-[22.5rem]">
-      <DropdownCardHeader
-        className="!bg-neutral-50"
-        label="Filter"
-        onClose={onClose}
-      />
+      <DropdownCardHeader label="Filters" onClose={onClose} />
       <CardBody className="!pb-0 !pt-3">
+        <HelpText className="!mb-2 !mt-0">
+          Use these filters to narrow down your search and find the exact task.
+        </HelpText>
         <Group
           label="Status"
           onClear={() =>
@@ -71,8 +70,12 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
           <CheckboxList options={statusOptions} onChange={setStatusOptions} />
         </Group>
       </CardBody>
-      <CardFooter>
-        <ButtonList className="justify-between">
+      <CardFooter className="flex items-center justify-between">
+        {/* TODO: pluralize */}
+        <span className="text-sm text-neutral-400">
+          {countFilters(filters)} filters applied
+        </span>
+        <ButtonList>
           <Button isDisabled={delta == 0} onClick={handleReset}>
             Reset
           </Button>
@@ -89,4 +92,14 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
       </CardFooter>
     </DropdownCard>
   );
+}
+
+export function countFilters(filters) {
+  return filters.status.length;
+}
+
+export function countFilterDifferences(a, b) {
+  let delta = 0;
+  delta += difference(a.status, b.status).length;
+  return delta;
 }

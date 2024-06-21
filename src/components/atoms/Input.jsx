@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import Button from "../atoms/Button";
 import { forwardRef } from "react";
+import HelpText from "./HelpText";
 
 const Input = forwardRef(function Input(
   {
@@ -74,7 +75,7 @@ const Input = forwardRef(function Input(
         )}
       </div>
 
-      {helpText && <p className="mt-2 text-sm text-neutral-500">{helpText}</p>}
+      {helpText && <HelpText>{helpText}</HelpText>}
     </>
   );
 });

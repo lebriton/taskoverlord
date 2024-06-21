@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { forwardRef } from "react";
+import HelpText from "./HelpText";
 
 const TextArea = forwardRef(function (
   {
@@ -38,7 +39,7 @@ const TextArea = forwardRef(function (
         onFocus={onFocus}
       />
 
-      {helpText && <p className="mt-2 text-sm text-neutral-500">{helpText}</p>}
+      {helpText && <HelpText>{helpText}</HelpText>}
     </>
   );
 });

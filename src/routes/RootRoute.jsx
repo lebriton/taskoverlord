@@ -27,7 +27,9 @@ import Label from "../components/atoms/Label";
 import { useToast } from "../contexts/ToastContext";
 import Anchor from "../components/atoms/Anchor";
 import FormGroup from "../components/atoms/FormGroup";
-import FilterDropdownCardForm from "../components/organisms/FilterDropdownCardForm";
+import FilterDropdownCardForm, {
+  countFilters,
+} from "../components/organisms/FilterDropdownCardForm";
 
 export default function RootRoute() {
   const queryClient = useQueryClient();
@@ -191,6 +193,8 @@ export default function RootRoute() {
                 badgeText={filteredTasks.length}
               />
 
+              <CountTasksByStatus tasks={filteredTasks} />
+
               <Button
                 Icon={ArrowPathIcon}
                 variant="plain"
@@ -213,8 +217,9 @@ export default function RootRoute() {
                     />
                   )}
                 >
-                  <span className="hidden 2xl:inline">Filter</span>
-                  <CountTasksByStatus tasks={filteredTasks} />
+                  <span className="hidden 2xl:inline">
+                    Filters ({countFilters(filters)})
+                  </span>
                 </Button>
                 <Button
                   variant="green"
