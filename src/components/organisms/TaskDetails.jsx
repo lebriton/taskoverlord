@@ -282,53 +282,77 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
     return;
   }
 
-  const leftAction = () => {
+  const getButtons = () => {
     switch (status) {
       case "pending":
-        return (
-          <Button variant="green" Icon={PlayIcon} onClick={onStart}>
-            Start
-          </Button>
-        );
-      case "completed":
-        return (
-          <Button variant="gray" Icon={ArrowUturnLeftIcon} onClick={onReset}>
-            Reset
-          </Button>
-        );
+        return [
+          <Button
+            className="w-full"
+            variant="green"
+            Icon={PlayIcon}
+            onClick={onStart}
+          >
+            Start task
+          </Button>,
+          <Button
+            className="w-full"
+            variant="blue-outline"
+            Icon={CheckCircleIcon}
+            onClick={onComplete}
+          >
+            Complete
+          </Button>,
+        ];
       case "in progress":
-        return (
-          <Button variant="red-outline" Icon={StopIcon} onClick={onStop}>
+        return [
+          <Button
+            className="w-full"
+            variant="blue"
+            Icon={CheckCircleIcon}
+            onClick={onComplete}
+          >
+            Complete task
+          </Button>,
+          <Button
+            className="w-full"
+            variant="red-outline"
+            Icon={StopIcon}
+            onClick={onStop}
+          >
             Stop
-          </Button>
-        );
+          </Button>,
+        ];
+      case "completed":
+        return [
+          <Button
+            className="w-full"
+            variant="gray"
+            Icon={ArrowUturnLeftIcon}
+            onClick={onReset}
+          >
+            Reset task
+          </Button>,
+        ];
     }
   };
+  const buttons = getButtons();
 
   return (
     <>
       <Label className="!text-neutral-600" text="Actions" />
       <Card className="border-neutral-300 !bg-neutral-50">
+        {getRealTaskStatus(task) === "in progress" && (
+          <CardHeader>
+            <Timer startDateTime={new Date(task.start + "Z")} />
+          </CardHeader>
+        )}
         <CardBody className="!px-1.5">
-          <FlexLine
-            left={leftAction()}
-            center={
-              status == "in progress" && (
-                <Timer startDateTime={new Date(task.start + "Z")} />
-              )
-            }
-            right={
-              status != "completed" && (
-                <Button
-                  variant={status == "in progress" ? "blue" : "blue-outline"}
-                  Icon={CheckCircleIcon}
-                  onClick={onComplete}
-                >
-                  Complete
-                </Button>
-              )
-            }
-          />
+          <ButtonList>
+            <div className="flex-1" style={{ flex: 2 }}>
+              {buttons[0]}
+            </div>
+            {buttons[1] && <div className="flex-1">{buttons[1]}</div>}
+          </ButtonList>
         </CardBody>
       </Card>
       <hr className="my-3" />
