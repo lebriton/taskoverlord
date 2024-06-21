@@ -9,6 +9,7 @@ import Dropdown from "../molecules/DropdownCard";
 export default function Button({
   type = "button",
   className,
+  style,
   variant = "default",
   size = "xs",
   Icon,
@@ -42,7 +43,7 @@ export default function Button({
   };
 
   return (
-    <div className="relative">
+    <>
       <button
         ref={buttonRef}
         type={type}
@@ -86,6 +87,7 @@ export default function Button({
 
           className,
         )}
+        style={style}
         onClick={handleClick}
       >
         {isLoading && (
@@ -118,12 +120,14 @@ export default function Button({
         {shortcutText && <Shortcut className="ms-1" text={shortcutText} />}
       </button>
 
-      {showDropdown && (
-        <div ref={dropdownRef}>
-          {dropdown({ onClose: () => setShowDropdown(false) })}
-        </div>
-      )}
-    </div>
+      <div className="relative">
+        {showDropdown && (
+          <div ref={dropdownRef}>
+            {dropdown({ onClose: () => setShowDropdown(false) })}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

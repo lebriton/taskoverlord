@@ -285,57 +285,62 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
   const getButtons = () => {
     switch (status) {
       case "pending":
-        return [
-          <Button
-            className="w-full"
-            variant="green"
-            Icon={PlayIcon}
-            onClick={onStart}
-          >
-            Start task
-          </Button>,
-          <Button
-            className="w-full"
-            variant="blue-outline"
-            Icon={CheckCircleIcon}
-            onClick={onComplete}
-          >
-            Complete
-          </Button>,
-        ];
+        return (
+          <>
+            <Button
+              className="flex-1"
+              style={{ flex: 2 }}
+              variant="green"
+              Icon={PlayIcon}
+              onClick={onStart}
+            >
+              Start task
+            </Button>
+            <Button
+              className="flex-1"
+              variant="blue-outline"
+              Icon={CheckCircleIcon}
+              onClick={onComplete}
+            >
+              Complete
+            </Button>
+          </>
+        );
       case "in progress":
-        return [
-          <Button
-            className="w-full"
-            variant="blue"
-            Icon={CheckCircleIcon}
-            onClick={onComplete}
-          >
-            Complete task
-          </Button>,
-          <Button
-            className="w-full"
-            variant="red-outline"
-            Icon={StopIcon}
-            onClick={onStop}
-          >
-            Stop
-          </Button>,
-        ];
+        return (
+          <>
+            <Button
+              className="flex-1"
+              variant="red-outline"
+              Icon={StopIcon}
+              onClick={onStop}
+            >
+              Stop
+            </Button>
+            <Button
+              className="flex-1"
+              style={{ flex: 2 }}
+              variant="blue"
+              Icon={CheckCircleIcon}
+              onClick={onComplete}
+            >
+              Complete task
+            </Button>
+          </>
+        );
       case "completed":
-        return [
+        return (
           <Button
-            className="w-full"
+            className="flex-1"
             variant="gray"
             Icon={ArrowUturnLeftIcon}
             onClick={onReset}
           >
             Reset task
-          </Button>,
-        ];
+          </Button>
+        );
     }
   };
-  const buttons = getButtons();
 
   return (
     <>
@@ -347,12 +352,7 @@ function ActionsCard({ task, onStart, onStop, onComplete, onReset }) {
           </CardHeader>
         )}
         <CardBody className="!px-1.5">
-          <ButtonList>
-            <div className="flex-1" style={{ flex: 2 }}>
-              {buttons[0]}
-            </div>
-            {buttons[1] && <div className="flex-1">{buttons[1]}</div>}
-          </ButtonList>
+          <ButtonList>{getButtons()}</ButtonList>
         </CardBody>
       </Card>
       <hr className="my-3" />
