@@ -48,6 +48,7 @@ export default function NewTask({ onSubmit, onClose }) {
               <Label text="Add a description" />
               <Input
                 name="description"
+                placeholder="Short description of this task"
                 value={formik.values.description}
                 rows={2}
                 autoFocus
