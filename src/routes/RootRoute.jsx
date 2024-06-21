@@ -15,7 +15,6 @@ import Tabs, { Tab, TabContext } from "../components/organisms/Tabs";
 import { getRealTaskStatus } from "../utils";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/tauri";
-import Badge, { BadgeList } from "../components/atoms/Badge";
 import { Outlet } from "react-router-dom";
 import FlexLine from "../components/molecules/FlexLine";
 import Button, { ButtonList } from "../components/atoms/Button";
@@ -45,7 +44,8 @@ export default function RootRoute() {
     status: ["pending", "waiting", "in progress", "completed"],
   });
   const filtersCount = countFilters(filters);
-  const filteredTasks = filterTasks(tasksQuery.data, filters);
+  const tasks = tasksQuery.data;
+  const filteredTasks = filterTasks(tasks, filters);
 
   const [previousTask, setPreviousTask] = useState(null);
   const [selectedUuid, setSelectedUuid] = useState(null);
@@ -188,14 +188,6 @@ export default function RootRoute() {
           }
           right={
             <div className="flex items-center justify-end gap-2">
-              <Label
-                className="!mb-0"
-                text={<span className="hidden 2xl:inline">Tasks</span>}
-                badgeText={`${filteredTasks.length} / ${tasksQuery.data.length}`}
-              />
-
-              <CountTasksByStatus tasks={filteredTasks} />
-
               <Button
                 Icon={ArrowPathIcon}
                 variant="plain"
@@ -212,6 +204,8 @@ export default function RootRoute() {
                   shortcutText="f"
                   dropdown={({ onClose }) => (
                     <FilterDropdownCardForm
+                      tasks={tasks}
+                      filteredTasks={filteredTasks}
                       filters={filters}
                       onSubmit={setFilters}
                       onClose={onClose}
@@ -316,28 +310,6 @@ export default function RootRoute() {
         )}
       </div>
     </>
-  );
-}
-
-function CountTasksByStatus({ tasks }) {
-  const count = {};
-  tasks.forEach((task) => {
-    let status = getRealTaskStatus(task);
-    count[status] = (count[status] || 0) + 1;
-  });
-
-  return (
-    <BadgeList className="!flex-nowrap">
-      {count["pending"] && <Badge text={count["pending"]} variant="gray" />}
-      {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
-      {count["in progress"] && (
-        <Badge text={count["in progress"]} variant="yellow" />
-      )}
-      {count["completed"] && (
-        <Badge text={count["completed"]} variant="green" />
-      )}
-      {count["deleted"] && <Badge text={count["deleted"]} variant="red" />}
-    </BadgeList>
   );
 }
 

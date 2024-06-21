@@ -16,11 +16,14 @@ export default function DropdownCard({ className, children }) {
   );
 }
 
-export function DropdownCardHeader({ className, label, onClose }) {
+export function DropdownCardHeader({ className, label, extra, onClose }) {
   return (
     <CardHeader className={className}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <Label className="!mb-0" text={label} />
+        {extra && <div className="h-4 border-l" />}
+        {extra}
+        <div className="grow" />
         <CloseButton className="-me-1.5" onClick={onClose} />
       </div>
     </CardHeader>

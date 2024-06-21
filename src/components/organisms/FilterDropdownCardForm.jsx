@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Badge, { BadgeList } from "../atoms/Badge";
+import { getRealTaskStatus } from "../../utils";
 import Anchor from "../atoms/Anchor";
 import Button, { ButtonList } from "../atoms/Button";
 import FormGroup from "../atoms/FormGroup";
@@ -23,7 +25,13 @@ function Group({ label, onClear, children }) {
   );
 }
 
-export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
+export default function FilterDropdownCardForm({
+  tasks,
+  filteredTasks,
+  filters,
+  onSubmit,
+  onClose,
+}) {
   const [description, setDescription] = useState(filters.description);
   const getInitialStatusOptions = () =>
     [
@@ -57,7 +65,20 @@ export default function FilterDropdownCardForm({ filters, onSubmit, onClose }) {
 
   return (
     <DropdownCard className="!w-[22.5rem]">
-      <DropdownCardHeader label="Filters" onClose={onClose} />
+      <DropdownCardHeader
+        label="Filters"
+        extra={
+          <>
+            <CountTasksByStatus tasks={filteredTasks} />
+            <Badge
+              text={`${filteredTasks.length} / ${tasks.length}`}
+              variant="dark"
+              style="pill"
+            />
+          </>
+        }
+        onClose={onClose}
+      />
       <CardBody className="!pb-0 !pt-3">
         <HelpText className="!mb-2 !mt-0">
           Use these filters to narrow down your search and find the exact task.
@@ -116,4 +137,26 @@ export function countFilterDifferences(a, b) {
   delta += difference(a.status, b.status).length;
   if (a.description != b.description) delta++;
   return delta;
+}
+
+function CountTasksByStatus({ tasks }) {
+  const count = {};
+  tasks.forEach((task) => {
+    let status = getRealTaskStatus(task);
+    count[status] = (count[status] || 0) + 1;
+  });
+
+  return (
+    <BadgeList className="!flex-nowrap">
+      {count["pending"] && <Badge text={count["pending"]} variant="gray" />}
+      {count["waiting"] && <Badge text={count["waiting"]} variant="indigo" />}
+      {count["in progress"] && (
+        <Badge text={count["in progress"]} variant="yellow" />
+      )}
+      {count["completed"] && (
+        <Badge text={count["completed"]} variant="green" />
+      )}
+      {count["deleted"] && <Badge text={count["deleted"]} variant="red" />}
+    </BadgeList>
+  );
 }
