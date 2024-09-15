@@ -1,7 +1,5 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Navbar from "@/components/layout/navbar";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { useLocation } from "@tanstack/react-router";
-import { useNavigate } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
@@ -28,22 +26,9 @@ const tabsList = [
 ];
 
 function Root() {
-  const pathname = useLocation({
-    select: (location) => location.pathname,
-  });
-  const navigate = useNavigate({ from: pathname });
-
   return (
     <>
-      <Tabs value={pathname} onValueChange={(value) => navigate({ to: value })}>
-        <TabsList>
-          {tabsList.map((item, index) => (
-            <TabsTrigger key={index} value={item.pathname}>
-              {item.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+      <Navbar tabsList={tabsList} />
       <Outlet />
       <TanStackRouterDevtools />
     </>
