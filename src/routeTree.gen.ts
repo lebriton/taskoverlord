@@ -16,33 +16,39 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const TableViewLazyImport = createFileRoute('/table-view')()
-const KanbanBoardLazyImport = createFileRoute('/kanban-board')()
-const GanttDiagramLazyImport = createFileRoute('/gantt-diagram')()
-const CalendarLazyImport = createFileRoute('/calendar')()
+const TagsLazyImport = createFileRoute('/tags')()
+const SettingsLazyImport = createFileRoute('/settings')()
+const ProjectsLazyImport = createFileRoute('/projects')()
+const NextLazyImport = createFileRoute('/next')()
+const CompletedLazyImport = createFileRoute('/completed')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const TableViewLazyRoute = TableViewLazyImport.update({
-  path: '/table-view',
+const TagsLazyRoute = TagsLazyImport.update({
+  path: '/tags',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/table-view.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/tags.lazy').then((d) => d.Route))
 
-const KanbanBoardLazyRoute = KanbanBoardLazyImport.update({
-  path: '/kanban-board',
+const SettingsLazyRoute = SettingsLazyImport.update({
+  path: '/settings',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/kanban-board.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/settings.lazy').then((d) => d.Route))
 
-const GanttDiagramLazyRoute = GanttDiagramLazyImport.update({
-  path: '/gantt-diagram',
+const ProjectsLazyRoute = ProjectsLazyImport.update({
+  path: '/projects',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/gantt-diagram.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/projects.lazy').then((d) => d.Route))
 
-const CalendarLazyRoute = CalendarLazyImport.update({
-  path: '/calendar',
+const NextLazyRoute = NextLazyImport.update({
+  path: '/next',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/calendar.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/next.lazy').then((d) => d.Route))
+
+const CompletedLazyRoute = CompletedLazyImport.update({
+  path: '/completed',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/completed.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -60,32 +66,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/calendar': {
-      id: '/calendar'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof CalendarLazyImport
+    '/completed': {
+      id: '/completed'
+      path: '/completed'
+      fullPath: '/completed'
+      preLoaderRoute: typeof CompletedLazyImport
       parentRoute: typeof rootRoute
     }
-    '/gantt-diagram': {
-      id: '/gantt-diagram'
-      path: '/gantt-diagram'
-      fullPath: '/gantt-diagram'
-      preLoaderRoute: typeof GanttDiagramLazyImport
+    '/next': {
+      id: '/next'
+      path: '/next'
+      fullPath: '/next'
+      preLoaderRoute: typeof NextLazyImport
       parentRoute: typeof rootRoute
     }
-    '/kanban-board': {
-      id: '/kanban-board'
-      path: '/kanban-board'
-      fullPath: '/kanban-board'
-      preLoaderRoute: typeof KanbanBoardLazyImport
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsLazyImport
       parentRoute: typeof rootRoute
     }
-    '/table-view': {
-      id: '/table-view'
-      path: '/table-view'
-      fullPath: '/table-view'
-      preLoaderRoute: typeof TableViewLazyImport
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/tags': {
+      id: '/tags'
+      path: '/tags'
+      fullPath: '/tags'
+      preLoaderRoute: typeof TagsLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -95,63 +108,64 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/calendar': typeof CalendarLazyRoute
-  '/gantt-diagram': typeof GanttDiagramLazyRoute
-  '/kanban-board': typeof KanbanBoardLazyRoute
-  '/table-view': typeof TableViewLazyRoute
+  '/completed': typeof CompletedLazyRoute
+  '/next': typeof NextLazyRoute
+  '/projects': typeof ProjectsLazyRoute
+  '/settings': typeof SettingsLazyRoute
+  '/tags': typeof TagsLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/calendar': typeof CalendarLazyRoute
-  '/gantt-diagram': typeof GanttDiagramLazyRoute
-  '/kanban-board': typeof KanbanBoardLazyRoute
-  '/table-view': typeof TableViewLazyRoute
+  '/completed': typeof CompletedLazyRoute
+  '/next': typeof NextLazyRoute
+  '/projects': typeof ProjectsLazyRoute
+  '/settings': typeof SettingsLazyRoute
+  '/tags': typeof TagsLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/calendar': typeof CalendarLazyRoute
-  '/gantt-diagram': typeof GanttDiagramLazyRoute
-  '/kanban-board': typeof KanbanBoardLazyRoute
-  '/table-view': typeof TableViewLazyRoute
+  '/completed': typeof CompletedLazyRoute
+  '/next': typeof NextLazyRoute
+  '/projects': typeof ProjectsLazyRoute
+  '/settings': typeof SettingsLazyRoute
+  '/tags': typeof TagsLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/calendar'
-    | '/gantt-diagram'
-    | '/kanban-board'
-    | '/table-view'
+  fullPaths: '/' | '/completed' | '/next' | '/projects' | '/settings' | '/tags'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/gantt-diagram' | '/kanban-board' | '/table-view'
+  to: '/' | '/completed' | '/next' | '/projects' | '/settings' | '/tags'
   id:
     | '__root__'
     | '/'
-    | '/calendar'
-    | '/gantt-diagram'
-    | '/kanban-board'
-    | '/table-view'
+    | '/completed'
+    | '/next'
+    | '/projects'
+    | '/settings'
+    | '/tags'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  CalendarLazyRoute: typeof CalendarLazyRoute
-  GanttDiagramLazyRoute: typeof GanttDiagramLazyRoute
-  KanbanBoardLazyRoute: typeof KanbanBoardLazyRoute
-  TableViewLazyRoute: typeof TableViewLazyRoute
+  CompletedLazyRoute: typeof CompletedLazyRoute
+  NextLazyRoute: typeof NextLazyRoute
+  ProjectsLazyRoute: typeof ProjectsLazyRoute
+  SettingsLazyRoute: typeof SettingsLazyRoute
+  TagsLazyRoute: typeof TagsLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  CalendarLazyRoute: CalendarLazyRoute,
-  GanttDiagramLazyRoute: GanttDiagramLazyRoute,
-  KanbanBoardLazyRoute: KanbanBoardLazyRoute,
-  TableViewLazyRoute: TableViewLazyRoute,
+  CompletedLazyRoute: CompletedLazyRoute,
+  NextLazyRoute: NextLazyRoute,
+  ProjectsLazyRoute: ProjectsLazyRoute,
+  SettingsLazyRoute: SettingsLazyRoute,
+  TagsLazyRoute: TagsLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -167,26 +181,30 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/calendar",
-        "/gantt-diagram",
-        "/kanban-board",
-        "/table-view"
+        "/completed",
+        "/next",
+        "/projects",
+        "/settings",
+        "/tags"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/calendar": {
-      "filePath": "calendar.lazy.tsx"
+    "/completed": {
+      "filePath": "completed.lazy.tsx"
     },
-    "/gantt-diagram": {
-      "filePath": "gantt-diagram.lazy.tsx"
+    "/next": {
+      "filePath": "next.lazy.tsx"
     },
-    "/kanban-board": {
-      "filePath": "kanban-board.lazy.tsx"
+    "/projects": {
+      "filePath": "projects.lazy.tsx"
     },
-    "/table-view": {
-      "filePath": "table-view.lazy.tsx"
+    "/settings": {
+      "filePath": "settings.lazy.tsx"
+    },
+    "/tags": {
+      "filePath": "tags.lazy.tsx"
     }
   }
 }

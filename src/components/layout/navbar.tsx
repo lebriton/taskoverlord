@@ -1,92 +1,72 @@
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  DotFilledIcon,
-  PlusIcon,
-  TriangleDownIcon,
-} from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 import { useLocation } from "@tanstack/react-router";
-import { useNavigate } from "@tanstack/react-router";
+import { LucideIcon } from "lucide-react";
 
-interface Tab {
+interface NavItemProps {
   label: string;
-  pathname: string;
+  to: string;
+  Icon: LucideIcon;
+  active: boolean;
 }
+
+interface NavbarItem extends Omit<NavItemProps, "active"> {}
+
+type NavbarGroup = NavbarItem[];
 
 interface NavbarProps {
-  tabsList: Tab[];
+  groups: NavbarGroup[];
 }
 
-function CreateNew() {
+function NavItem({ label, to, Icon, active }: NavItemProps) {
   return (
-    <DropdownMenu>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline">
-                <PlusIcon className="mr-2 size-4" />
-                <TriangleDownIcon className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent align="end">
-            <p>Create new&hellip;</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
-      <DropdownMenuContent className="w-56" align="end">
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <DotFilledIcon className="mr-2 size-4" />
-            New task
-            <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            to={to}
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8",
+              "data-[status=active]:bg-accent data-[status=active]:text-accent-foreground",
+            )}
+            data-active={active}
+          >
+            <Icon className="h-5 w-5" />
+            <span className="sr-only">{label}</span>
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="right">{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }
 
-export default function Navbar({ tabsList }: NavbarProps) {
+export default function Navbar({ groups }: NavbarProps) {
   const pathname = useLocation({
     select: (location) => location.pathname,
   });
-  const navigate = useNavigate({ from: pathname });
 
   return (
-    <header className="w-full border-b p-2 flex items-center justify-between">
-      <Tabs value={pathname} onValueChange={(value) => navigate({ to: value })}>
-        <TabsList>
-          {tabsList.map((item, index) => (
-            <TabsTrigger key={index} value={item.pathname}>
-              {item.label}
-            </TabsTrigger>
+    <aside className="fixed inset-y-0 left-0 z-10 w-14 flex-col border-r bg-background flex">
+      {groups.map((group, index) => (
+        <nav
+          key={index}
+          className={cn(
+            "flex flex-col items-center gap-4 px-2 py-4",
+            index > 0 && "mt-auto",
+          )}
+        >
+          {group.map((item, index) => (
+            <NavItem key={index} {...item} active={item.to === pathname} />
           ))}
-        </TabsList>
-      </Tabs>
-
-      <div className="flex h-5 items-center gap-x-4 text-sm">
-        <span>wip search bar</span>
-        <Separator orientation="vertical" />
-        <CreateNew />
-      </div>
-    </header>
+        </nav>
+      ))}
+    </aside>
   );
 }
