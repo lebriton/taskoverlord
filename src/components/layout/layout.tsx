@@ -1,9 +1,14 @@
+import AuxiliaryBar from "./auxiliary-bar";
+import MainContent from "./main-content";
+import Timeline from "./timeline";
+import Workbench from "./workbench";
 import Navbar from "@/components/layout/navbar";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
   ArrowBigRightDash,
   CircleCheckBig,
@@ -20,6 +25,11 @@ const navItems = [
       label: "Inbox",
       to: "/",
       Icon: InboxIcon,
+    },
+    {
+      label: "Search",
+      to: "/search",
+      Icon: MagnifyingGlassIcon,
     },
     {
       label: "Next",
@@ -53,27 +63,34 @@ const navItems = [
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+    <div className="flex min-h-screen w-full">
       <Navbar groups={navItems} />
 
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="pl-14 min-h-screen"
-      >
-        <ResizablePanel defaultSize={25} minSize={15} maxSize={30}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">Workbench</span>
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={75}>{children}</ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={20} minSize={15} maxSize={25}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">AuxiliaryBar</span>
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <div className="grow">
+        <ResizablePanelGroup direction="horizontal">
+          <ResizablePanel defaultSize={20} minSize={15} maxSize={80}>
+            <Workbench>{children}</Workbench>
+          </ResizablePanel>
+
+          <ResizableHandle withHandle />
+
+          <ResizablePanel>
+            <div className="flex size-full flex-col bg-muted/5">
+              <Timeline />
+
+              <div className="flex size-full">
+                <div className="grow">
+                  <MainContent />
+                </div>
+
+                <div className="w-64 shadow-md">
+                  <AuxiliaryBar />
+                </div>
+              </div>
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
     </div>
   );
 }

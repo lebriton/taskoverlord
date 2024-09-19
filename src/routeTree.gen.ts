@@ -17,7 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const TagsLazyImport = createFileRoute('/tags')()
-const SettingsLazyImport = createFileRoute('/settings')()
+const SearchLazyImport = createFileRoute('/search')()
 const ProjectsLazyImport = createFileRoute('/projects')()
 const NextLazyImport = createFileRoute('/next')()
 const CompletedLazyImport = createFileRoute('/completed')()
@@ -30,10 +30,10 @@ const TagsLazyRoute = TagsLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/tags.lazy').then((d) => d.Route))
 
-const SettingsLazyRoute = SettingsLazyImport.update({
-  path: '/settings',
+const SearchLazyRoute = SearchLazyImport.update({
+  path: '/search',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/settings.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/search.lazy').then((d) => d.Route))
 
 const ProjectsLazyRoute = ProjectsLazyImport.update({
   path: '/projects',
@@ -87,11 +87,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsLazyImport
       parentRoute: typeof rootRoute
     }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsLazyImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchLazyImport
       parentRoute: typeof rootRoute
     }
     '/tags': {
@@ -111,7 +111,7 @@ export interface FileRoutesByFullPath {
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/search': typeof SearchLazyRoute
   '/tags': typeof TagsLazyRoute
 }
 
@@ -120,7 +120,7 @@ export interface FileRoutesByTo {
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/search': typeof SearchLazyRoute
   '/tags': typeof TagsLazyRoute
 }
 
@@ -130,22 +130,22 @@ export interface FileRoutesById {
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
-  '/settings': typeof SettingsLazyRoute
+  '/search': typeof SearchLazyRoute
   '/tags': typeof TagsLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/completed' | '/next' | '/projects' | '/settings' | '/tags'
+  fullPaths: '/' | '/completed' | '/next' | '/projects' | '/search' | '/tags'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/completed' | '/next' | '/projects' | '/settings' | '/tags'
+  to: '/' | '/completed' | '/next' | '/projects' | '/search' | '/tags'
   id:
     | '__root__'
     | '/'
     | '/completed'
     | '/next'
     | '/projects'
-    | '/settings'
+    | '/search'
     | '/tags'
   fileRoutesById: FileRoutesById
 }
@@ -155,7 +155,7 @@ export interface RootRouteChildren {
   CompletedLazyRoute: typeof CompletedLazyRoute
   NextLazyRoute: typeof NextLazyRoute
   ProjectsLazyRoute: typeof ProjectsLazyRoute
-  SettingsLazyRoute: typeof SettingsLazyRoute
+  SearchLazyRoute: typeof SearchLazyRoute
   TagsLazyRoute: typeof TagsLazyRoute
 }
 
@@ -164,7 +164,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompletedLazyRoute: CompletedLazyRoute,
   NextLazyRoute: NextLazyRoute,
   ProjectsLazyRoute: ProjectsLazyRoute,
-  SettingsLazyRoute: SettingsLazyRoute,
+  SearchLazyRoute: SearchLazyRoute,
   TagsLazyRoute: TagsLazyRoute,
 }
 
@@ -184,7 +184,7 @@ export const routeTree = rootRoute
         "/completed",
         "/next",
         "/projects",
-        "/settings",
+        "/search",
         "/tags"
       ]
     },
@@ -200,8 +200,8 @@ export const routeTree = rootRoute
     "/projects": {
       "filePath": "projects.lazy.tsx"
     },
-    "/settings": {
-      "filePath": "settings.lazy.tsx"
+    "/search": {
+      "filePath": "search.lazy.tsx"
     },
     "/tags": {
       "filePath": "tags.lazy.tsx"

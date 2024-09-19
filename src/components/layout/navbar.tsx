@@ -53,7 +53,7 @@ export default function Navbar({ groups }: NavbarProps) {
   });
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 w-14 flex-col border-r bg-background flex">
+    <aside className="flex w-14 flex-col border-r bg-background">
       {groups.map((group, index) => (
         <nav
           key={index}
