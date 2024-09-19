@@ -12,7 +12,7 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
   ArrowBigRightDash,
   CircleCheckBig,
-  HomeIcon,
+  FoldersIcon,
   InboxIcon,
   SettingsIcon,
   TagIcon,
@@ -39,7 +39,7 @@ const navItems = [
     {
       label: "Projects",
       to: "/projects",
-      Icon: HomeIcon,
+      Icon: FoldersIcon,
     },
     {
       label: "Tags",
@@ -75,7 +75,7 @@ export default function Layout({ children }: PropsWithChildren) {
           <ResizableHandle withHandle />
 
           <ResizablePanel>
-            <div className="flex size-full flex-col bg-muted/5">
+            <div className="flex size-full flex-col">
               <Timeline />
 
               <div className="flex size-full">
@@ -83,7 +83,7 @@ export default function Layout({ children }: PropsWithChildren) {
                   <MainContent />
                 </div>
 
-                <div className="w-96 shadow-md">
+                <div className="w-80 shadow-md">
                   <AuxiliaryBar />
                 </div>
               </div>

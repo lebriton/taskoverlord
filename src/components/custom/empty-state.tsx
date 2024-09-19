@@ -4,8 +4,8 @@ import * as React from "react";
 
 interface EmptyStateProps {
   className?: string;
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   extra?: React.ReactElement | null;
 }
 
@@ -20,8 +20,8 @@ const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
         ref={ref}
       >
         <div className="flex flex-col items-center gap-1 text-center">
-          <TypographyH3>{title}</TypographyH3>
-          <TypographyMuted>{subtitle}</TypographyMuted>
+          {title && <TypographyH3>{title}</TypographyH3>}
+          {subtitle && <TypographyMuted>{subtitle}</TypographyMuted>}
 
           {extra}
         </div>
