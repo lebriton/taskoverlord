@@ -83,7 +83,7 @@ export default function Layout({ children }: PropsWithChildren) {
                   <MainContent />
                 </div>
 
-                <div className="w-64 shadow-md">
+                <div className="w-96 shadow-md">
                   <AuxiliaryBar />
                 </div>
               </div>
