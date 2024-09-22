@@ -10,12 +10,12 @@ import {
 import { CustomBadge, TaskStatusBadge } from "@/components/utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task } from "@/types/task";
+import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import {
   CalendarClockIcon,
   LucideIcon,
   PlusIcon,
   SquarePenIcon,
-  StarIcon,
 } from "lucide-react";
 import React from "react";
 
@@ -38,7 +38,8 @@ interface TaskListProps {
 interface ActionButtonProps extends ButtonProps {
   className?: string;
   tooltip: React.ReactNode;
-  Icon: LucideIcon;
+  // TODO: fix the type (LucideIcon?)
+  Icon: any;
 }
 
 function BadgeList({ task }: BadgeListProps) {
@@ -153,7 +154,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
           <ButtonList size="sm">
             <ActionButton
               tooltip="Add to favorites"
-              Icon={StarIcon}
+              Icon={favorite ? StarFilledIcon : StarIcon}
               className="hover:text-amber-600 data-[favorite=true]:text-amber-600"
               data-favorite={favorite}
               onClick={(event) => {
