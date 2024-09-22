@@ -43,7 +43,7 @@ const wipTasks: Task[] = [
     description: "Prepare presentation slides",
     due: new Date("2024-09-28"),
     favorite: false,
-    status: TaskStatus.PENDING,
+    status: TaskStatus.WAITING,
   },
   {
     id: 5,
@@ -64,7 +64,7 @@ const wipTasks: Task[] = [
     description: "Organize team workshop",
     due: new Date("2024-10-01"),
     favorite: true,
-    status: TaskStatus.PENDING,
+    status: TaskStatus.WAITING,
   },
   {
     id: 8,
