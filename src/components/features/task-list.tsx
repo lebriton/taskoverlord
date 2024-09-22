@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import { CustomBadge, TaskStatusBadge } from "@/components/utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
-import { Task } from "@/types/task";
+import { Task, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import {
   CalendarClockIcon,
@@ -105,7 +105,7 @@ function ActionButton({
 }
 
 function TaskItem({ task, active, onSelect }: TaskItemProps) {
-  const { description, favorite } = task;
+  const { description, favorite, status } = task;
 
   return (
     <div
@@ -125,6 +125,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
       >
         <Checkbox
           className="ms-2 rounded-full"
+          checked={status === TaskStatus.COMPLETED}
           onClick={(event) => {
             event.stopPropagation();
           }}
