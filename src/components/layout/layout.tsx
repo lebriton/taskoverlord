@@ -28,7 +28,7 @@ const navItems = [
       Icon: InboxIcon,
     },
     {
-      label: "Favorite",
+      label: "Favorites",
       to: "/favorite",
       Icon: StarIcon,
     },
