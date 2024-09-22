@@ -7,7 +7,6 @@ import {
   CheckCircledIcon,
   ClockIcon,
 } from "@radix-ui/react-icons";
-import { LucideIcon } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 interface CustomBadgeProps extends BadgeProps {
