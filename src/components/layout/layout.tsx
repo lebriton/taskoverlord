@@ -23,46 +23,46 @@ import { PropsWithChildren } from "react";
 const navItems = [
   [
     {
-      label: "Inbox",
       to: "/",
       Icon: InboxIcon,
+      tooltip: "Inbox",
     },
     {
-      label: "Favorites",
       to: "/favorite",
       Icon: StarIcon,
+      tooltip: "Favorites",
     },
     {
-      label: "Search",
       to: "/search",
       Icon: MagnifyingGlassIcon,
+      tooltip: "Search",
     },
     {
-      label: "Next",
       to: "/next",
       Icon: ArrowBigRightDash,
+      tooltip: "Next",
     },
     {
-      label: "Projects",
       to: "/projects",
       Icon: FoldersIcon,
+      tooltip: "Projects",
     },
     {
-      label: "Tags",
       to: "/tags",
       Icon: TagIcon,
+      tooltip: "Tags",
     },
     {
-      label: "Completed",
       to: "/completed",
       Icon: CircleCheckBig,
+      tooltip: "Completed",
     },
   ],
   [
     {
-      label: "Settings",
       to: "/settings",
       Icon: SettingsIcon,
+      tooltip: "Settings",
     },
   ],
 ];

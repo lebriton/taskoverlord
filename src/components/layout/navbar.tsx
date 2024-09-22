@@ -5,17 +5,17 @@ import { useLocation } from "@tanstack/react-router";
 import { LucideIcon } from "lucide-react";
 
 interface NavItemProps {
-  label: string;
   to: string;
   Icon: LucideIcon;
   active: boolean;
+  tooltip: string;
 }
 
 interface NavbarItem {
-  label: string;
   to: string;
   // TODO: fix the type (LucideIcon?)
   Icon: any;
+  tooltip: string;
 }
 
 type NavbarGroup = NavbarItem[];
@@ -24,9 +24,9 @@ interface NavbarProps {
   groups: NavbarGroup[];
 }
 
-function NavItem({ label, to, Icon, active }: NavItemProps) {
+function NavItem({ to, Icon, tooltip, active }: NavItemProps) {
   return (
-    <TooltipWrapper content={<p>{label}</p>} side="right">
+    <TooltipWrapper content={<p>{tooltip}</p>} side="right">
       <Link
         to={to}
         className={cn(
@@ -36,7 +36,7 @@ function NavItem({ label, to, Icon, active }: NavItemProps) {
         data-active={active}
       >
         <Icon className="h-5 w-5" />
-        <span className="sr-only">{label}</span>
+        <span className="sr-only">{tooltip}</span>
       </Link>
     </TooltipWrapper>
   );
