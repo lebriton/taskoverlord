@@ -23,9 +23,15 @@ interface ActionBarProps {
   className?: string;
   tabs: Tab[];
   actions: Action[];
+  onNewTaskCreate: () => void;
 }
 
-function ActionBar({ className, tabs, actions }: ActionBarProps) {
+function ActionBar({
+  className,
+  tabs,
+  actions,
+  onNewTaskCreate,
+}: ActionBarProps) {
   return (
     <FlexLine
       className={cn("border-b px-3 py-1.5", className)}
@@ -53,7 +59,9 @@ function ActionBar({ className, tabs, actions }: ActionBarProps) {
             ))}
           </ButtonList>
 
-          <Button size="sm">New task</Button>
+          <Button size="sm" onClick={onNewTaskCreate}>
+            New task
+          </Button>
         </ButtonList>
       }
     />

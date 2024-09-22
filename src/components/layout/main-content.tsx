@@ -186,15 +186,21 @@ const actionActions = [
 ];
 
 export default function MainContent() {
-  const [selectedTask, setSelectedTask] = React.useState<Task>(null);
+  const [selectedTask, setSelectedTask] = React.useState<Task | null>(null);
 
-  const handleTaskSelect = (task: Task) => {
+  const handleTaskSelect = (task: Task | null) => {
     setSelectedTask(task);
   };
 
+  const handleNewTaskCreate = () => {};
+
   return (
     <div className="flex max-h-full flex-col">
-      <ActionBar tabs={actionTabs} actions={actionActions} />
+      <ActionBar
+        tabs={actionTabs}
+        actions={actionActions}
+        onNewTaskCreate={handleNewTaskCreate}
+      />
 
       <TaskList
         tasks={wipTasks}

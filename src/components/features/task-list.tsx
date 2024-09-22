@@ -24,7 +24,7 @@ interface TaskItemProps {
 
 interface TaskListProps {
   tasks: Task[];
-  selectedTask: Task;
+  selectedTask: Task | null;
   onTaskSelect: (task: Task | null) => void;
 }
 
