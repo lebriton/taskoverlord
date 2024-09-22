@@ -43,10 +43,10 @@ function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
       className={cn(
         "text-white",
 
-        status === TaskStatus.PENDING && "bg-yellow-600",
-        status === TaskStatus.WAITING && "bg-gray-600",
-        status === TaskStatus.IN_PROGRESS && "bg-blue-600",
-        status === TaskStatus.COMPLETED && "bg-green-600",
+        status === TaskStatus.PENDING && "!bg-yellow-600",
+        status === TaskStatus.WAITING && "!bg-gray-600",
+        status === TaskStatus.IN_PROGRESS && "!bg-blue-600",
+        status === TaskStatus.COMPLETED && "!bg-green-600",
       )}
       variant="secondary"
       Icon={Icon}

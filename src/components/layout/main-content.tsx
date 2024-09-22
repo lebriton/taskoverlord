@@ -2,6 +2,7 @@ import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/features/action-bar";
 import { Task, TaskStatus } from "@/types/task";
 import { Columns3Icon, ListIcon } from "lucide-react";
+import * as React from "react";
 
 const actionTabs = [
   {
@@ -161,11 +162,21 @@ const wipTasks: Task[] = [
 ];
 
 export default function MainContent() {
+  const [selectedTask, setSelectedTask] = React.useState<Task>(null);
+
+  const handleTaskSelect = (task: Task) => {
+    setSelectedTask(task);
+  };
+
   return (
     <div className="flex max-h-full flex-col">
       <ActionBar tabs={actionTabs} />
 
-      <TaskList tasks={wipTasks} />
+      <TaskList
+        tasks={wipTasks}
+        selectedTask={selectedTask}
+        onTaskSelect={handleTaskSelect}
+      />
     </div>
   );
 }

@@ -24,10 +24,13 @@ interface BadgeListProps {
 interface TaskItemProps {
   task: Task;
   active: boolean;
+  onSelect: () => void;
 }
 
 interface TaskListProps {
   tasks: Task[];
+  selectedTask: Task;
+  onTaskSelect: (task: Task) => void;
 }
 
 function BadgeList({ task }: BadgeListProps) {
@@ -52,35 +55,55 @@ function BadgeList({ task }: BadgeListProps) {
         </TooltipProvider>
       )}
 
-      <Button variant="outline" size="icon_xs">
+      <Button
+        variant="outline"
+        size="icon_xs"
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      >
         <PlusIcon className="size-3 text-muted-foreground" />
       </Button>
     </div>
   );
 }
 
-function TaskItem({ task, active }: TaskItemProps) {
+function TaskItem({ task, active, onSelect }: TaskItemProps) {
   const { description, favorite } = task;
 
   return (
-    <div className={cn(active && "bg-primary text-primary-foreground")}>
+    <div
+      className={cn(
+        "group cursor-pointer transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)]",
+        active && "bg-primary text-primary-foreground",
+      )}
+    >
       <div
         className={cn(
-          "items-top group flex cursor-pointer gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)]",
+          "items-top flex gap-x-2 p-3",
           !active && "data-[favorite=true]:bg-amber-50/50",
           active && "dark",
         )}
         data-favorite={favorite}
+        onClick={onSelect}
       >
-        <Checkbox className="ms-2 rounded-full" />
+        <Checkbox
+          className="ms-2 rounded-full"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        />
         <div className="grid grow gap-1.5 leading-none">
           <div className="-my-[0.3125rem] flex items-center gap-1">
             <p className="text-sm font-medium leading-none">{description}</p>
 
             <Button
-              className="opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100"
+              className="opacity-0 focus:opacity-100 group-hover:opacity-100"
               variant="ghost"
               size="icon_xs"
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
             >
               <SquarePenIcon className="size-4 text-muted-foreground" />
             </Button>
@@ -100,6 +123,9 @@ function TaskItem({ task, active }: TaskItemProps) {
               size="icon_xs"
               className="text-muted-foreground/50 hover:text-amber-600 data-[favorite=true]:text-amber-600"
               data-favorite={favorite}
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
             >
               <StarIcon className="size-4" />
             </Button>
@@ -110,7 +136,7 @@ function TaskItem({ task, active }: TaskItemProps) {
   );
 }
 
-function TaskList({ tasks }: TaskListProps) {
+function TaskList({ tasks, selectedTask, onTaskSelect }: TaskListProps) {
   return (
     <div className="flex flex-col divide-y overflow-y-auto pb-24">
       {tasks.map((task, index) => (
@@ -120,7 +146,12 @@ function TaskList({ tasks }: TaskListProps) {
             "overflow-x-clip"
           }
         >
-          <TaskItem key={index} task={task} active={index === 5} />
+          <TaskItem
+            key={index}
+            task={task}
+            active={task === selectedTask}
+            onSelect={() => onTaskSelect(task)}
+          />
         </div>
       ))}
     </div>
