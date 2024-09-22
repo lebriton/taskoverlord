@@ -1,4 +1,4 @@
-import { TypographyH3, TypographyMuted } from "./typography";
+import { TypographyH3, TypographyMuted } from "@/components/custom/typography";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 

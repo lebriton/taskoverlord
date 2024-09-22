@@ -107,7 +107,7 @@ const wipTasks: Task[] = [
     description: "Prepare for client presentation",
     due: new Date("2024-10-07"),
     favorite: false,
-    status: TaskStatus.NOT_STARTED,
+    status: TaskStatus.PENDING,
   },
   {
     id: 14,
@@ -135,14 +135,14 @@ const wipTasks: Task[] = [
     description: "Host team-building event",
     due: new Date("2024-10-11"),
     favorite: false,
-    status: TaskStatus.NOT_STARTED,
+    status: TaskStatus.PENDING,
   },
   {
     id: 18,
     description: "Launch marketing campaign",
     due: new Date("2024-10-12"),
     favorite: true,
-    status: TaskStatus.IN_PROGRESS,
+    status: TaskStatus.PENDING,
   },
   {
     id: 19,
@@ -156,7 +156,7 @@ const wipTasks: Task[] = [
     description: "Prepare year-end financial report",
     due: new Date("2024-10-14"),
     favorite: false,
-    status: TaskStatus.NOT_STARTED,
+    status: TaskStatus.PENDING,
   },
 ];
 
