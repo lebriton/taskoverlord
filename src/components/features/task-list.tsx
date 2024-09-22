@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { CustomBadge, TaskStatusBadge } from "@/components/utils";
-import { toLocalTimeago, toLocaleDateString } from "@/lib/utils";
+import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task } from "@/types/task";
 import {
   CalendarClockIcon,
@@ -23,6 +23,7 @@ interface BadgeListProps {
 
 interface TaskItemProps {
   task: Task;
+  active: boolean;
 }
 
 interface TaskListProps {
@@ -58,46 +59,52 @@ function BadgeList({ task }: BadgeListProps) {
   );
 }
 
-function TaskItem({ task }: TaskItemProps) {
+function TaskItem({ task, active }: TaskItemProps) {
   const { description, favorite } = task;
 
   return (
-    <div
-      className="items-top group flex cursor-pointer gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)] data-[favorite=true]:bg-amber-50/50"
-      data-favorite={favorite}
-    >
-      <Checkbox className="ms-2 rounded-full" />
-      <div className="grid grow gap-1.5 leading-none">
-        <div className="-my-[0.3125rem] flex items-center gap-1">
-          <p className="text-sm font-medium leading-none">{description}</p>
+    <div className={cn(active && "bg-primary text-primary-foreground")}>
+      <div
+        className={cn(
+          "items-top group flex cursor-pointer gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)]",
+          !active && "data-[favorite=true]:bg-amber-50/50",
+          active && "dark",
+        )}
+        data-favorite={favorite}
+      >
+        <Checkbox className="ms-2 rounded-full" />
+        <div className="grid grow gap-1.5 leading-none">
+          <div className="-my-[0.3125rem] flex items-center gap-1">
+            <p className="text-sm font-medium leading-none">{description}</p>
 
-          <Button
-            className="opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100"
-            variant="ghost"
-            size="icon_xs"
-          >
-            <SquarePenIcon className="size-4 text-muted-foreground" />
-          </Button>
+            <Button
+              className="opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100"
+              variant="ghost"
+              size="icon_xs"
+            >
+              <SquarePenIcon className="size-4 text-muted-foreground" />
+            </Button>
+          </div>
+
+          <BadgeList task={task} />
+
+          <p className="text-sm text-muted-foreground">
+            Lorem ipsum, this is an extra note
+          </p>
         </div>
 
-        <BadgeList task={task} />
-
-        <p className="text-sm text-muted-foreground">
-          Lorem ipsum, this is an extra note
-        </p>
-      </div>
-
-      <div>
-        <ButtonList size="sm">
-          <Button
-            variant="ghost"
-            size="icon_xs"
-            className="text-muted-foreground/50 hover:text-amber-600 data-[favorite=true]:text-amber-600"
-            data-favorite={favorite}
-          >
-            <StarIcon className="size-4" />
-          </Button>
-        </ButtonList>
+        <div>
+          <ButtonList size="sm">
+            <Button
+              variant="ghost"
+              size="icon_xs"
+              className="text-muted-foreground/50 hover:text-amber-600 data-[favorite=true]:text-amber-600"
+              data-favorite={favorite}
+            >
+              <StarIcon className="size-4" />
+            </Button>
+          </ButtonList>
+        </div>
       </div>
     </div>
   );
@@ -113,7 +120,7 @@ function TaskList({ tasks }: TaskListProps) {
             "overflow-x-clip"
           }
         >
-          <TaskItem key={index} task={task} />
+          <TaskItem key={index} task={task} active={index === 5} />
         </div>
       ))}
     </div>
