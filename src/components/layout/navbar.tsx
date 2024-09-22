@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { TooltipWrapper } from "@/components/utils";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { useLocation } from "@tanstack/react-router";
@@ -31,24 +26,19 @@ interface NavbarProps {
 
 function NavItem({ label, to, Icon, active }: NavItemProps) {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Link
-            to={to}
-            className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground md:h-8 md:w-8",
-              "data-[status=active]:bg-accent data-[status=active]:text-accent-foreground",
-            )}
-            data-active={active}
-          >
-            <Icon className="h-5 w-5" />
-            <span className="sr-only">{label}</span>
-          </Link>
-        </TooltipTrigger>
-        <TooltipContent side="right">{label}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <TooltipWrapper content={<p>{label}</p>} side="right">
+      <Link
+        to={to}
+        className={cn(
+          "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground md:h-8 md:w-8",
+          "data-[status=active]:bg-accent data-[status=active]:text-accent-foreground",
+        )}
+        data-active={active}
+      >
+        <Icon className="h-5 w-5" />
+        <span className="sr-only">{label}</span>
+      </Link>
+    </TooltipWrapper>
   );
 }
 

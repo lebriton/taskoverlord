@@ -2,12 +2,10 @@ import { ButtonList } from "../custom/button-utils";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { CustomBadge, TaskStatusBadge } from "@/components/utils";
+  CustomBadge,
+  TaskStatusBadge,
+  TooltipWrapper,
+} from "@/components/utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
@@ -45,32 +43,30 @@ function BadgeList({ task }: BadgeListProps) {
       <TaskStatusBadge status={status} />
 
       {due && (
-        <TooltipProvider delayDuration={0}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <CustomBadge
-                className="!bg-yellow-100 !text-yellow-800"
-                Icon={CalendarClockIcon}
-              >
-                {toLocalTimeago(due)}
-              </CustomBadge>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{toLocaleDateString(due)}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <TooltipWrapper
+          content={<p>{toLocaleDateString(due)}</p>}
+          asChild={false}
+        >
+          <CustomBadge
+            className="!bg-yellow-100 !text-yellow-800"
+            Icon={CalendarClockIcon}
+          >
+            {toLocalTimeago(due)}
+          </CustomBadge>
+        </TooltipWrapper>
       )}
 
-      <Button
-        variant="outline"
-        size="icon_xs"
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        <PlusIcon className="size-3 text-muted-foreground" />
-      </Button>
+      <TooltipWrapper content="Add a new property">
+        <Button
+          variant="outline"
+          size="icon_xs"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <PlusIcon className="size-3 text-muted-foreground" />
+        </Button>
+      </TooltipWrapper>
     </div>
   );
 }
@@ -82,23 +78,16 @@ function ActionButton({
   ...props
 }: ActionButtonProps) {
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon_xs"
-            className={cn("text-muted-foreground/50", className)}
-            {...props}
-          >
-            <Icon className="size-4" />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{tooltip}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <TooltipWrapper content={<p>{tooltip}</p>}>
+      <Button
+        variant="ghost"
+        size="icon_xs"
+        className={cn("text-muted-foreground/50", className)}
+        {...props}
+      >
+        <Icon className="size-4" />
+      </Button>
+    </TooltipWrapper>
   );
 }
 
