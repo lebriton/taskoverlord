@@ -68,7 +68,7 @@ function TaskItem({ task }: TaskItemProps) {
   return (
     <label
       htmlFor={checkboxId}
-      className="items-top group flex gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)] data-[favorite=true]:bg-amber-50/50"
+      className="items-top group flex cursor-pointer gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)] data-[favorite=true]:bg-amber-50/50"
       data-favorite={favorite}
     >
       <Checkbox id={checkboxId} className="ms-2 rounded-full" />
@@ -97,7 +97,7 @@ function TaskItem({ task }: TaskItemProps) {
           <Button
             variant="ghost"
             size="icon_xs"
-            className="text-muted-foreground/50 hover:text-amber-600 focus:text-amber-600 data-[favorite=true]:text-amber-600"
+            className="text-muted-foreground/50 hover:text-amber-600 data-[favorite=true]:text-amber-600"
             data-favorite={favorite}
           >
             <StarIcon className="size-4" />
