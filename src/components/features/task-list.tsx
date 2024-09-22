@@ -28,8 +28,9 @@ interface TaskListProps {
   onTaskSelect: (task: Task | null) => void;
 }
 
-interface ActionButtonProps extends ButtonProps {
+interface CustomButtonProps extends ButtonProps {
   className?: string;
+  size?: "default" | "sm";
   tooltip: React.ReactNode;
   // TODO: fix the type (LucideIcon?)
   Icon: any;
@@ -71,12 +72,13 @@ function BadgeList({ task }: BadgeListProps) {
   );
 }
 
-function ActionButton({
+function CustomButton({
   className,
+  size = "default",
   tooltip,
   Icon,
   ...props
-}: ActionButtonProps) {
+}: CustomButtonProps) {
   return (
     <TooltipWrapper content={<p>{tooltip}</p>}>
       <Button
@@ -85,7 +87,7 @@ function ActionButton({
         className={cn("text-muted-foreground/50", className)}
         {...props}
       >
-        <Icon className="size-4" />
+        <Icon className={{ default: "size-5", sm: "size-4" }[size]} />
       </Button>
     </TooltipWrapper>
   );
@@ -121,8 +123,9 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
           <div className="-my-[0.3125rem] flex items-center gap-1">
             <p className="text-sm font-medium leading-none">{description}</p>
 
-            <ActionButton
+            <CustomButton
               className="opacity-0 focus:opacity-100 group-hover:opacity-100"
+              size="sm"
               tooltip="Edit"
               onClick={(event) => {
                 event.stopPropagation();
@@ -140,7 +143,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
 
         <div>
           <ButtonList size="sm">
-            <ActionButton
+            <CustomButton
               tooltip="Add to favorites"
               Icon={favorite ? StarFilledIcon : StarIcon}
               className="hover:text-amber-600 data-[favorite=true]:text-amber-600"

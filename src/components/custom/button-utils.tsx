@@ -2,21 +2,21 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { PropsWithChildren } from "react";
 
-interface ButtonListProps extends VariantProps<typeof buttonListVariants> {
-  className?: string;
-}
-
 const buttonListVariants = cva("flex items-center", {
   variants: {
     size: {
       default: "gap-2",
-      sm: "gap-0.5",
+      sm: "gap-1",
     },
   },
   defaultVariants: {
     size: "default",
   },
 });
+
+interface ButtonListProps extends VariantProps<typeof buttonListVariants> {
+  className?: string;
+}
 
 function ButtonList({
   className,

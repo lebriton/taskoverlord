@@ -52,14 +52,14 @@ function ActionBar({
           <ButtonList size="sm">
             {actions.map((action, index) => (
               <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
-                <Button variant="ghost" size="icon_sm" onClick={action.onClick}>
+                <Button variant="ghost" size="icon_xs" onClick={action.onClick}>
                   <action.Icon className="size-4" />
                 </Button>
               </TooltipWrapper>
             ))}
           </ButtonList>
 
-          <Button size="sm" onClick={onNewTaskCreate}>
+          <Button size="xs" onClick={onNewTaskCreate}>
             New task
           </Button>
         </ButtonList>
