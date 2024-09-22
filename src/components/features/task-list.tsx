@@ -1,11 +1,8 @@
-import { ButtonList } from "../custom/button-utils";
+import { ButtonList } from "../utils/button-utils";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  CustomBadge,
-  TaskStatusBadge,
-  TooltipWrapper,
-} from "@/components/utils";
+import { CustomBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
+import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
@@ -166,13 +163,13 @@ function TaskList({ tasks, selectedTask, onTaskSelect }: TaskListProps) {
         const isActive = task === selectedTask;
         return (
           <div
+            key={index}
             className={
               // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
               "overflow-x-clip"
             }
           >
             <TaskItem
-              key={index}
               task={task}
               active={isActive}
               onSelect={() => onTaskSelect(isActive ? null : task)}

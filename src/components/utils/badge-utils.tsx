@@ -1,10 +1,4 @@
 import { Badge, type BadgeProps } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { TaskStatus } from "@/types/task";
 import {
@@ -22,14 +16,6 @@ interface CustomBadgeProps extends BadgeProps {
 
 interface TaskStatusBadgeProps {
   status: TaskStatus;
-}
-
-interface TooltipWrapperProps {
-  content: React.ReactNode;
-  delayDuration?: number;
-  side?: "right" | "top" | "bottom" | "left"; // TODO: import the correct type (enum?)
-  align?: "center" | "end" | "start"; // TODO: use the correct type (enum?)
-  asChild?: boolean;
 }
 
 function CustomBadge({
@@ -71,24 +57,4 @@ function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
   );
 }
 
-function TooltipWrapper({
-  content,
-  delayDuration = 0.5,
-  side = "top",
-  align = "center",
-  asChild = true,
-  children,
-}: PropsWithChildren<TooltipWrapperProps>) {
-  return (
-    <TooltipProvider delayDuration={delayDuration}>
-      <Tooltip>
-        <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
-        <TooltipContent side={side} align={align}>
-          {content}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-}
-
-export { CustomBadge, TaskStatusBadge, TooltipWrapper };
+export { CustomBadge, TaskStatusBadge };
