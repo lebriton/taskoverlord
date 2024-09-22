@@ -7,7 +7,7 @@ export enum TaskStatus {
 
 export interface Task {
   description: string;
-  due: Date;
+  due?: Date;
   favorite: boolean;
   id: number;
   status: TaskStatus;

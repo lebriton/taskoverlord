@@ -1,8 +1,16 @@
 import { ButtonList } from "../custom/button-utils";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task } from "@/types/task";
-import { StarIcon } from "lucide-react";
+import { CalendarClockIcon, PlusIcon, StarIcon } from "lucide-react";
 
 interface TaskListProps {
   tasks: Task[];
@@ -23,8 +31,31 @@ function TaskItem({ description, due, favorite, id, status }: Task) {
         <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
           {description}
         </p>
+        <div className="flex items-baseline gap-1.5">
+          {due && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Badge variant="secondary">
+                    <CalendarClockIcon className="me-1 size-3" />
+                    <span className="first-letter:uppercase">
+                      {toLocalTimeago(due)}
+                    </span>
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{toLocaleDateString(due)}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+
+          <Button variant="outline" size="icon_xs">
+            <PlusIcon className="size-3 text-muted-foreground" />
+          </Button>
+        </div>
         <p className="text-sm text-muted-foreground">
-          You agree to our Terms of Service and Privacy Policy.
+          Lorem ipsum, this is an extra note
         </p>
       </div>
 
@@ -46,14 +77,16 @@ function TaskItem({ description, due, favorite, id, status }: Task) {
 
 function TaskList({ tasks }: TaskListProps) {
   return (
-    <div
-      className={
-        // NB: `overflow-x-hidden` is used to prevent the TaskItem component shadow from leaking horizontally
-        "flex flex-col divide-y overflow-x-hidden pb-24"
-      }
-    >
+    <div className="flex flex-col divide-y overflow-y-auto pb-24">
       {tasks.map((task, index) => (
-        <TaskItem key={index} {...task} />
+        <div
+          className={
+            // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
+            "overflow-x-clip"
+          }
+        >
+          <TaskItem key={index} {...task} />
+        </div>
       ))}
     </div>
   );
