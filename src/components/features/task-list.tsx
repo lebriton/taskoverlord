@@ -33,7 +33,7 @@ function TaskItem({ description, due, favorite, id, status }: Task) {
         </p>
         <div className="flex items-baseline gap-1.5">
           {due && (
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0}>
               <Tooltip>
                 <TooltipTrigger>
                   <Badge variant="secondary">
