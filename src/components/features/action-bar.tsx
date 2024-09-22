@@ -39,7 +39,14 @@ function ActionBar({
         <Tabs defaultValue={tabs[0].value}>
           <TabsList>
             {tabs.map((tab, index) => (
-              <TabsTrigger key={index} value={tab.value}>
+              <TabsTrigger
+                key={index}
+                className={cn(
+                  "relative",
+                  "after:absolute after:bottom-[-13px] after:bg-primary data-[state=active]:after:h-[2px] data-[state=active]:after:w-full",
+                )}
+                value={tab.value}
+              >
                 <tab.Icon className="me-2 size-4" />
                 {tab.label}
               </TabsTrigger>
