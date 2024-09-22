@@ -1,5 +1,5 @@
 import { ButtonList } from "../custom/button-utils";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -12,10 +12,12 @@ import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task } from "@/types/task";
 import {
   CalendarClockIcon,
+  LucideIcon,
   PlusIcon,
   SquarePenIcon,
   StarIcon,
 } from "lucide-react";
+import React from "react";
 
 interface BadgeListProps {
   task: Task;
@@ -30,7 +32,13 @@ interface TaskItemProps {
 interface TaskListProps {
   tasks: Task[];
   selectedTask: Task;
-  onTaskSelect: (task: Task) => void;
+  onTaskSelect: (task: Task | null) => void;
+}
+
+interface ActionButtonProps extends ButtonProps {
+  className?: string;
+  tooltip: React.ReactNode;
+  Icon: LucideIcon;
 }
 
 function BadgeList({ task }: BadgeListProps) {
@@ -68,6 +76,33 @@ function BadgeList({ task }: BadgeListProps) {
   );
 }
 
+function ActionButton({
+  className,
+  tooltip,
+  Icon,
+  ...props
+}: ActionButtonProps) {
+  return (
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon_xs"
+            className={cn("text-muted-foreground/50", className)}
+            {...props}
+          >
+            <Icon className="size-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
 function TaskItem({ task, active, onSelect }: TaskItemProps) {
   const { description, favorite } = task;
 
@@ -97,16 +132,14 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
           <div className="-my-[0.3125rem] flex items-center gap-1">
             <p className="text-sm font-medium leading-none">{description}</p>
 
-            <Button
+            <ActionButton
               className="opacity-0 focus:opacity-100 group-hover:opacity-100"
-              variant="ghost"
-              size="icon_xs"
+              tooltip="Edit"
               onClick={(event) => {
                 event.stopPropagation();
               }}
-            >
-              <SquarePenIcon className="size-4 text-muted-foreground" />
-            </Button>
+              Icon={SquarePenIcon}
+            />
           </div>
 
           <BadgeList task={task} />
@@ -118,17 +151,15 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
 
         <div>
           <ButtonList size="sm">
-            <Button
-              variant="ghost"
-              size="icon_xs"
-              className="text-muted-foreground/50 hover:text-amber-600 data-[favorite=true]:text-amber-600"
+            <ActionButton
+              tooltip="Add to favorites"
+              Icon={StarIcon}
+              className="hover:text-amber-600 data-[favorite=true]:text-amber-600"
               data-favorite={favorite}
               onClick={(event) => {
                 event.stopPropagation();
               }}
-            >
-              <StarIcon className="size-4" />
-            </Button>
+            />
           </ButtonList>
         </div>
       </div>
@@ -139,21 +170,24 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
 function TaskList({ tasks, selectedTask, onTaskSelect }: TaskListProps) {
   return (
     <div className="flex flex-col divide-y overflow-y-auto pb-24">
-      {tasks.map((task, index) => (
-        <div
-          className={
-            // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
-            "overflow-x-clip"
-          }
-        >
-          <TaskItem
-            key={index}
-            task={task}
-            active={task === selectedTask}
-            onSelect={() => onTaskSelect(task)}
-          />
-        </div>
-      ))}
+      {tasks.map((task, index) => {
+        const isActive = task === selectedTask;
+        return (
+          <div
+            className={
+              // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
+              "overflow-x-clip"
+            }
+          >
+            <TaskItem
+              key={index}
+              task={task}
+              active={isActive}
+              onSelect={() => onTaskSelect(isActive ? null : task)}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }
