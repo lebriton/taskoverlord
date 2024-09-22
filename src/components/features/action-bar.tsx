@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import {
   ArrowUpDownIcon,
+  EyeIcon,
   GroupIcon,
   ListFilterIcon,
   LucideIcon,
@@ -52,6 +53,9 @@ function ActionBar({ className, tabs }: ActionBarProps) {
             </Button>
             <Button variant="ghost" size="icon_sm">
               <GroupIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon_sm">
+              <EyeIcon className="size-4" />
             </Button>
           </ButtonList>
 
