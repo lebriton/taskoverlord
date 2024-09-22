@@ -46,7 +46,12 @@ function TaskItem({ description, due, favorite, id, status }: Task) {
 
 function TaskList({ tasks }: TaskListProps) {
   return (
-    <div className="flex max-h-full flex-col divide-y overflow-y-auto overflow-x-hidden pb-24">
+    <div
+      className={
+        // NB: `overflow-x-hidden` is used to prevent the TaskItem component shadow from leaking horizontally
+        "flex flex-col divide-y overflow-x-hidden pb-24"
+      }
+    >
       {tasks.map((task, index) => (
         <TaskItem key={index} {...task} />
       ))}

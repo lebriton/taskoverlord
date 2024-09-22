@@ -82,9 +82,11 @@ export default function Layout({ children }: PropsWithChildren) {
 
           <ResizablePanel>
             <div className="flex size-full flex-col">
-              <Timeline />
+              <div className="shrink-0">
+                <Timeline />
+              </div>
 
-              <div className="flex size-full">
+              <div className="flex flex-1 overflow-hidden">
                 <div className="grow">
                   <MainContent />
                 </div>
