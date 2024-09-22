@@ -2,6 +2,7 @@ import { ButtonList } from "@/components/custom/button-utils";
 import FlexLine from "@/components/custom/flex-line";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/lib/utils";
 import {
   ArrowUpDownIcon,
   GroupIcon,
@@ -17,19 +18,20 @@ interface Tab {
 }
 
 interface ActionBarProps {
+  className?: string;
   tabs: Tab[];
 }
 
-function ActionBar({ tabs }: ActionBarProps) {
+function ActionBar({ className, tabs }: ActionBarProps) {
   return (
     <FlexLine
-      className="border-b pb-2"
+      className={cn("border-b px-3 py-1.5", className)}
       start={
         <Tabs defaultValue={tabs[0].value}>
           <TabsList>
             {tabs.map((tab, index) => (
               <TabsTrigger key={index} value={tab.value}>
-                <tab.Icon className="me-2" />
+                <tab.Icon className="me-2 size-4" />
                 {tab.label}
               </TabsTrigger>
             ))}
@@ -38,19 +40,22 @@ function ActionBar({ tabs }: ActionBarProps) {
       }
       end={
         <ButtonList>
-          <Button variant="ghost" size="icon">
-            <ListFilterIcon />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <ArrowUpDownIcon />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <SearchIcon />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <GroupIcon />
-          </Button>
-          <Button>New task</Button>
+          <ButtonList size="sm">
+            <Button variant="ghost" size="icon_sm">
+              <ListFilterIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon_sm">
+              <ArrowUpDownIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon_sm">
+              <SearchIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" size="icon_sm">
+              <GroupIcon className="size-4" />
+            </Button>
+          </ButtonList>
+
+          <Button size="sm">New task</Button>
         </ButtonList>
       }
     />

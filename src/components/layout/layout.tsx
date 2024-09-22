@@ -15,6 +15,7 @@ import {
   FoldersIcon,
   InboxIcon,
   SettingsIcon,
+  StarIcon,
   TagIcon,
 } from "lucide-react";
 import { PropsWithChildren } from "react";
@@ -25,6 +26,11 @@ const navItems = [
       label: "Inbox",
       to: "/",
       Icon: InboxIcon,
+    },
+    {
+      label: "Favorite",
+      to: "/favorite",
+      Icon: StarIcon,
     },
     {
       label: "Search",
@@ -63,7 +69,7 @@ const navItems = [
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex max-h-screen min-h-screen w-full">
       <Navbar groups={navItems} />
 
       <div className="grow">
@@ -83,7 +89,7 @@ export default function Layout({ children }: PropsWithChildren) {
                   <MainContent />
                 </div>
 
-                <div className="w-80 shadow-md">
+                <div className="w-80 border-s">
                   <AuxiliaryBar />
                 </div>
               </div>
