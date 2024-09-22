@@ -13,7 +13,6 @@ import { Task, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import {
   CalendarClockIcon,
-  LucideIcon,
   PlusIcon,
   SquarePenIcon,
 } from "lucide-react";
