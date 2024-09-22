@@ -11,11 +11,7 @@ import { CustomBadge, TaskStatusBadge } from "@/components/utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import {
-  CalendarClockIcon,
-  PlusIcon,
-  SquarePenIcon,
-} from "lucide-react";
+import { CalendarClockIcon, PlusIcon, SquarePenIcon } from "lucide-react";
 import React from "react";
 
 interface BadgeListProps {
@@ -52,7 +48,10 @@ function BadgeList({ task }: BadgeListProps) {
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <CustomBadge variant="secondary" Icon={CalendarClockIcon}>
+              <CustomBadge
+                className="!bg-yellow-100 !text-yellow-800"
+                Icon={CalendarClockIcon}
+              >
                 {toLocalTimeago(due)}
               </CustomBadge>
             </TooltipTrigger>
