@@ -28,21 +28,18 @@ const wipTasks: Task[] = [
   {
     id: 2,
     description: "Review team feedback",
-    due: new Date("2024-09-26"),
     favorite: false,
     status: TaskStatus.PENDING,
   },
   {
     id: 3,
     description: "Update project timeline",
-    due: new Date("2024-09-27"),
     favorite: false,
     status: TaskStatus.IN_PROGRESS,
   },
   {
     id: 4,
     description: "Prepare presentation slides",
-    due: new Date("2024-09-28"),
     favorite: false,
     status: TaskStatus.WAITING,
   },
@@ -56,7 +53,6 @@ const wipTasks: Task[] = [
   {
     id: 6,
     description: "Draft budget report",
-    due: new Date("2024-09-30"),
     favorite: false,
     status: TaskStatus.COMPLETED,
   },
@@ -70,7 +66,6 @@ const wipTasks: Task[] = [
   {
     id: 8,
     description: "Finalize project requirements",
-    due: new Date("2024-10-02"),
     favorite: false,
     status: TaskStatus.COMPLETED,
   },
@@ -84,7 +79,6 @@ const wipTasks: Task[] = [
   {
     id: 10,
     description: "Review legal documents",
-    due: new Date("2024-10-04"),
     favorite: false,
     status: TaskStatus.IN_PROGRESS,
   },
@@ -92,7 +86,6 @@ const wipTasks: Task[] = [
   {
     id: 11,
     description: "Analyze market trends",
-    due: new Date("2024-10-05"),
     favorite: false,
     status: TaskStatus.PENDING,
   },
@@ -106,21 +99,18 @@ const wipTasks: Task[] = [
   {
     id: 13,
     description: "Prepare for client presentation",
-    due: new Date("2024-10-07"),
     favorite: false,
     status: TaskStatus.PENDING,
   },
   {
     id: 14,
     description: "Conduct performance reviews",
-    due: new Date("2024-10-08"),
     favorite: false,
     status: TaskStatus.PENDING,
   },
   {
     id: 15,
     description: "Write project documentation",
-    due: new Date("2024-10-09"),
     favorite: true,
     status: TaskStatus.IN_PROGRESS,
   },
@@ -148,7 +138,6 @@ const wipTasks: Task[] = [
   {
     id: 19,
     description: "Evaluate project outcomes",
-    due: new Date("2024-10-13"),
     favorite: false,
     status: TaskStatus.PENDING,
   },
