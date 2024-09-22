@@ -11,7 +11,8 @@ import { LucideIcon } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 interface CustomBadgeProps extends BadgeProps {
-  Icon?: LucideIcon;
+  // TODO: fix the type (LucideIcon?)
+  Icon?: any;
 }
 interface TaskStatusBadgeProps {
   status: TaskStatus;

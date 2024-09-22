@@ -16,7 +16,12 @@ interface NavItemProps {
   active: boolean;
 }
 
-interface NavbarItem extends Omit<NavItemProps, "active"> {}
+interface NavbarItem {
+  label: string;
+  to: string;
+  // TODO: fix the type (LucideIcon?)
+  Icon: any;
+}
 
 type NavbarGroup = NavbarItem[];
 
