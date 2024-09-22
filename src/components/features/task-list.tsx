@@ -13,7 +13,6 @@ import { Task } from "@/types/task";
 import {
   CalendarClockIcon,
   PlusIcon,
-  SettingsIcon,
   SquarePenIcon,
   StarIcon,
 } from "lucide-react";
@@ -60,18 +59,14 @@ function BadgeList({ task }: BadgeListProps) {
 }
 
 function TaskItem({ task }: TaskItemProps) {
-  const { description, favorite, id } = task;
-
-  // TODO: find a format convention
-  const checkboxId = `task-${id}`;
+  const { description, favorite } = task;
 
   return (
-    <label
-      htmlFor={checkboxId}
+    <div
       className="items-top group flex cursor-pointer gap-x-2 p-3 transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)] data-[favorite=true]:bg-amber-50/50"
       data-favorite={favorite}
     >
-      <Checkbox id={checkboxId} className="ms-2 rounded-full" />
+      <Checkbox className="ms-2 rounded-full" />
       <div className="grid grow gap-1.5 leading-none">
         <div className="-my-[0.3125rem] flex items-center gap-1">
           <p className="text-sm font-medium leading-none">{description}</p>
@@ -102,17 +97,9 @@ function TaskItem({ task }: TaskItemProps) {
           >
             <StarIcon className="size-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="icon_xs"
-            className="text-muted-foreground/50"
-            data-favorite={favorite}
-          >
-            <SettingsIcon className="size-4" />
-          </Button>
         </ButtonList>
       </div>
-    </label>
+    </div>
   );
 }
 
