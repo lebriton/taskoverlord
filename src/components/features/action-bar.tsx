@@ -1,16 +1,10 @@
+import { TooltipWrapper } from "../utils";
 import { ButtonList } from "@/components/custom/button-utils";
 import FlexLine from "@/components/custom/flex-line";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import {
-  ArrowUpDownIcon,
-  EyeIcon,
-  GroupIcon,
-  ListFilterIcon,
-  LucideIcon,
-  SearchIcon,
-} from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface Tab {
   label: string;
@@ -18,12 +12,20 @@ interface Tab {
   Icon: LucideIcon;
 }
 
+interface Action {
+  // TODO: fix the type (LucideIcon?)
+  Icon: any;
+  tooltip: string;
+  onClick: (event: any) => void; // TODO: event type
+}
+
 interface ActionBarProps {
   className?: string;
   tabs: Tab[];
+  actions: Action[];
 }
 
-function ActionBar({ className, tabs }: ActionBarProps) {
+function ActionBar({ className, tabs, actions }: ActionBarProps) {
   return (
     <FlexLine
       className={cn("border-b px-3 py-1.5", className)}
@@ -42,21 +44,13 @@ function ActionBar({ className, tabs }: ActionBarProps) {
       end={
         <ButtonList>
           <ButtonList size="sm">
-            <Button variant="ghost" size="icon_sm">
-              <ListFilterIcon className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon_sm">
-              <ArrowUpDownIcon className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon_sm">
-              <SearchIcon className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon_sm">
-              <GroupIcon className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon_sm">
-              <EyeIcon className="size-4" />
-            </Button>
+            {actions.map((action, index) => (
+              <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
+                <Button variant="ghost" size="icon_sm" onClick={action.onClick}>
+                  <action.Icon className="size-4" />
+                </Button>
+              </TooltipWrapper>
+            ))}
           </ButtonList>
 
           <Button size="sm">New task</Button>
