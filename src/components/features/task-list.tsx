@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { CustomBadge, TaskStatusBadge } from "@/components/utils";
 import { toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { Task } from "@/types/task";
 import {
@@ -16,60 +17,50 @@ import {
   SquarePenIcon,
   StarIcon,
 } from "lucide-react";
-import { CustomBadge, TaskStatusBadge } from "@/components/utils";
-
 
 interface BadgeListProps {
   task: Task;
 }
 
-
 interface TaskItemProps {
   task: Task;
 }
-
 
 interface TaskListProps {
   tasks: Task[];
 }
 
+function BadgeList({ task }: BadgeListProps) {
+  const { due, status } = task;
 
+  return (
+    <div className="flex items-center gap-1.5">
+      <TaskStatusBadge status={status} />
 
+      {due && (
+        <TooltipProvider delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <CustomBadge variant="secondary" Icon={CalendarClockIcon}>
+                {toLocalTimeago(due)}
+              </CustomBadge>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{toLocaleDateString(due)}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
 
-function BadgeList({task}: BadgeListProps){
-  const {due, status} = task
-
-return <div className="flex items-center gap-1.5">
-<TaskStatusBadge status={status}/>
-
-          {due && (
-            <TooltipProvider delayDuration={0}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <CustomBadge variant="secondary"
-                    Icon={CalendarClockIcon}
-                  >
-                      {toLocalTimeago(due)}
-                  </CustomBadge>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{toLocaleDateString(due)}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-
-          <Button variant="outline" size="icon_xs">
-            <PlusIcon className="size-3 text-muted-foreground" />
-          </Button>
-        </div>
+      <Button variant="outline" size="icon_xs">
+        <PlusIcon className="size-3 text-muted-foreground" />
+      </Button>
+    </div>
+  );
 }
 
-
-
-
-function TaskItem({task}: TaskItemProps) {
- const { description, favorite, id } = task
+function TaskItem({ task }: TaskItemProps) {
+  const { description, favorite, id } = task;
 
   // TODO: find a format convention
   const checkboxId = `task-${id}`;
@@ -94,8 +85,8 @@ function TaskItem({task}: TaskItemProps) {
           </Button>
         </div>
 
-<BadgeList task={task} />
-        
+        <BadgeList task={task} />
+
         <p className="text-sm text-muted-foreground">
           Lorem ipsum, this is an extra note
         </p>
