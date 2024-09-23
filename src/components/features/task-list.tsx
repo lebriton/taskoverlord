@@ -180,7 +180,7 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <div className="flex items-center gap-3 border-b px-3 py-1.5">
+      <div className="mt-6 flex items-center gap-3 border-b px-3 py-1.5">
         <CollapsibleTrigger asChild>
           <Button className="-me-1.5" variant="ghost" size="icon">
             <Icon className="size-7 text-muted-foreground" />
