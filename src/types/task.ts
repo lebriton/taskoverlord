@@ -5,6 +5,11 @@ export enum TaskStatus {
   COMPLETED = "completed",
 }
 
+export interface TaskGroup {
+  name: string;
+  tasks: Task[];
+}
+
 export interface Task {
   description: string;
   due?: Date;

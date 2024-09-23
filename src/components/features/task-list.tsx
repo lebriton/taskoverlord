@@ -1,13 +1,26 @@
 import { ButtonList } from "../utils/button-utils";
+import { TypographyH3 } from "@/components/custom/typography";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { CustomBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
-import { Task, TaskStatus } from "@/types/task";
+import { Task, TaskGroup, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { CalendarClockIcon, PlusIcon, SquarePenIcon } from "lucide-react";
-import React from "react";
+import {
+  CalendarClockIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PlusIcon,
+  SquarePenIcon,
+} from "lucide-react";
+import React, { PropsWithChildren } from "react";
 
 interface BadgeListProps {
   task: Task;
@@ -20,7 +33,7 @@ interface TaskItemProps {
 }
 
 interface TaskListProps {
-  tasks: Task[];
+  groupedTasks: TaskGroup[];
   selectedTask: Task | null;
   onTaskSelect: (task: Task | null) => void;
 }
@@ -31,6 +44,10 @@ interface CustomButtonProps extends ButtonProps {
   tooltip: React.ReactNode;
   // TODO: fix the type (LucideIcon?)
   Icon: any;
+}
+
+interface GroupProps {
+  name: string;
 }
 
 function BadgeList({ task }: BadgeListProps) {
@@ -156,28 +173,57 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
   );
 }
 
-function TaskList({ tasks, selectedTask, onTaskSelect }: TaskListProps) {
+function Group({ name, children }: PropsWithChildren<GroupProps>) {
+  const [open, setOpen] = React.useState(true);
+
+  const Icon = open ? ChevronDownIcon : ChevronUpIcon;
+
   return (
-    <div className="flex flex-col divide-y overflow-y-auto pb-24">
-      {tasks.map((task, index) => {
-        const isActive = task === selectedTask;
-        return (
-          <div
-            key={index}
-            className={
-              // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
-              "overflow-x-clip"
-            }
-          >
-            <TaskItem
-              task={task}
-              active={isActive}
-              onSelect={() => onTaskSelect(isActive ? null : task)}
-            />
-          </div>
-        );
-      })}
-    </div>
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <div className="flex items-center gap-3 border-b px-3 py-1.5">
+        <CollapsibleTrigger asChild>
+          <Button className="-me-1.5" variant="ghost" size="icon">
+            <Icon className="size-7 text-muted-foreground" />
+          </Button>
+        </CollapsibleTrigger>
+        <TypographyH3>{name}</TypographyH3>
+      </div>
+
+      <CollapsibleContent className="flex flex-col divide-y">
+        {children}
+      </CollapsibleContent>
+    </Collapsible>
+  );
+}
+
+function TaskList({ groupedTasks, selectedTask, onTaskSelect }: TaskListProps) {
+  return (
+    <ScrollArea className="flex flex-col">
+      {groupedTasks.map((group, index) => (
+        <Group key={index} name={group.name}>
+          {group.tasks.map((task, index) => {
+            const isActive = task === selectedTask;
+            return (
+              <div
+                key={index}
+                className={
+                  // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
+                  "overflow-x-clip"
+                }
+              >
+                <TaskItem
+                  task={task}
+                  active={isActive}
+                  onSelect={() => onTaskSelect(isActive ? null : task)}
+                />
+              </div>
+            );
+          })}
+        </Group>
+      ))}
+
+      <div className="h-24" />
+    </ScrollArea>
   );
 }
 
