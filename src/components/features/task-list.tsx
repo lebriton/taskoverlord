@@ -158,7 +158,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
         <div>
           <ButtonList size="sm">
             <CustomButton
-              tooltip="Add to favorites"
+              tooltip={favorite ? "Remove from favorites" : "Add to favorites"}
               Icon={favorite ? StarFilledIcon : StarIcon}
               className="hover:text-amber-600 data-[favorite=true]:text-amber-600"
               data-favorite={favorite}
