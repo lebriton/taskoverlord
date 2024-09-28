@@ -1,5 +1,6 @@
 import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { TaskStatus } from "@/lib/types/task";
+import { Task } from "@/lib/types/task";
 import { cn } from "@/lib/utils";
 import { CircleIcon, CheckCircledIcon, ClockIcon, CrossCircledIcon, DiscIcon } from "@radix-ui/react-icons";
 import { PropsWithChildren } from "react";
@@ -7,6 +8,10 @@ import { PropsWithChildren } from "react";
 interface CustomBadgeProps extends BadgeProps {
   // TODO: fix the type (LucideIcon?)
   Icon?: any;
+}
+
+interface TaskIdBadgeProps {
+  task: Task;
 }
 
 interface TaskStatusBadgeProps {
@@ -20,6 +25,10 @@ function CustomBadge({ Icon, children, ...props }: PropsWithChildren<CustomBadge
       <span className="first-letter:uppercase">{children}</span>
     </Badge>
   );
+}
+
+function TaskIdBadge({ task }: TaskIdBadgeProps) {
+  return <CustomBadge className="!rounded-full !bg-indigo-100 !px-1.5 !text-indigo-800">ID: {task.id}</CustomBadge>;
 }
 
 function TaskStatusBadge({ task }: TaskStatusBadgeProps) {
@@ -60,4 +69,4 @@ function TaskStatusBadge({ task }: TaskStatusBadgeProps) {
   );
 }
 
-export { CustomBadge, TaskStatusBadge };
+export { CustomBadge, TaskIdBadge, TaskStatusBadge };

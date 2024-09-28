@@ -4,7 +4,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CustomBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
+import { CustomBadge, TaskIdBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
@@ -41,11 +41,13 @@ interface GroupProps {
 }
 
 function BadgeList({ task }: BadgeListProps) {
-  const { due } = task;
+  const { id, due } = task;
 
   return (
     <div className="flex items-center gap-1.5">
       <TaskStatusBadge task={task} />
+
+      {id > 0 && <TaskIdBadge task={task} />}
 
       {due && (
         <TooltipWrapper content={<p>{toLocaleDateString(due)}</p>} asChild={false}>
