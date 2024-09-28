@@ -1,7 +1,7 @@
 import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { TaskStatus } from "@/lib/types/task";
 import { cn } from "@/lib/utils";
-import { CircleIcon, StopwatchIcon, CheckCircledIcon, ClockIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CheckCircledIcon, ClockIcon, CrossCircledIcon, DiscIcon } from "@radix-ui/react-icons";
 import { PropsWithChildren } from "react";
 
 interface CustomBadgeProps extends BadgeProps {
@@ -25,10 +25,10 @@ function CustomBadge({ Icon, children, ...props }: PropsWithChildren<CustomBadge
 function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
   const Icon = {
     [TaskStatus.PENDING]: CircleIcon,
-    [TaskStatus.WAITING]: ClockIcon,
-    [TaskStatus.IN_PROGRESS]: StopwatchIcon,
-    [TaskStatus.COMPLETED]: CheckCircledIcon,
     [TaskStatus.DELETED]: CrossCircledIcon,
+    [TaskStatus.COMPLETED]: CheckCircledIcon,
+    [TaskStatus.WAITING]: ClockIcon,
+    [TaskStatus.RECURRING]: DiscIcon,
   }[status];
 
   return (
@@ -37,10 +37,10 @@ function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
         "text-white",
 
         status === TaskStatus.PENDING && "border-yellow-700 !bg-yellow-600",
-        status === TaskStatus.WAITING && "border-gray-700 !bg-gray-600",
-        status === TaskStatus.IN_PROGRESS && "border-blue-700 !bg-blue-600",
-        status === TaskStatus.COMPLETED && "border-green-700 !bg-green-600",
         status === TaskStatus.DELETED && "border-red-700 !bg-red-600",
+        status === TaskStatus.COMPLETED && "border-green-700 !bg-green-600",
+        status === TaskStatus.WAITING && "border-gray-700 !bg-gray-600",
+        status === TaskStatus.RECURRING && "border-blue-700 !bg-blue-600",
       )}
       variant="secondary"
       Icon={Icon}

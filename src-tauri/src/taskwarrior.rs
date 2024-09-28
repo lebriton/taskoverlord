@@ -3,26 +3,60 @@ use anyhow::{Context, Result};
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Deserializer, Serialize};
 
+// See https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/doc/devel/rfcs/task.md#the-attributes
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Task {
-    pub description: String,
-    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
-    pub due: Option<NaiveDateTime>,
+    pub status: String,
+
+    pub uuid: String,
+
     #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
     pub entry: NaiveDateTime,
-    pub id: u32,
-    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
-    pub modified: NaiveDateTime,
-    pub priority: Option<String>,
-    pub project: Option<String>,
+
+    pub description: String,
+
     #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub start: Option<NaiveDateTime>,
-    pub status: String,
-    pub tags: Option<Vec<String>>,
-    pub urgency: f32,
-    pub uuid: String,
+
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub end: Option<NaiveDateTime>,
+
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub due: Option<NaiveDateTime>,
+
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub until: Option<NaiveDateTime>,
+
     #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub wait: Option<NaiveDateTime>,
+
+    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
+    pub modified: NaiveDateTime,
+
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
+    pub scheduled: Option<NaiveDateTime>,
+
+    pub recur: Option<String>,
+
+    pub mask: Option<String>,
+
+    pub imask: Option<u32>,
+
+    pub parent: Option<String>,
+
+    pub project: Option<String>,
+
+    pub priority: Option<String>,
+
+    pub depends: Option<String>,
+
+    pub tags: Option<Vec<String>>,
+
+    pub annotation: Option<Vec<String>>,
+
+    // Dynamic values
+    pub id: u32,
+    pub urgency: f32,
 }
 
 fn parse_taskwarrior_datetime(s: &str) -> Result<NaiveDateTime, chrono::ParseError> {
