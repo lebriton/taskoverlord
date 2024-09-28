@@ -10,7 +10,7 @@ interface CustomBadgeProps extends BadgeProps {
 }
 
 interface TaskStatusBadgeProps {
-  status: TaskStatus;
+  task: Task;
 }
 
 function CustomBadge({ Icon, children, ...props }: PropsWithChildren<CustomBadgeProps>) {
@@ -22,7 +22,17 @@ function CustomBadge({ Icon, children, ...props }: PropsWithChildren<CustomBadge
   );
 }
 
-function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
+function TaskStatusBadge({ task }: TaskStatusBadgeProps) {
+  let status: TaskStatus = task.status;
+
+  // TODO: this should not be done here
+  if (status === TaskStatus.PENDING && task.wait) {
+    status = TaskStatus.WAITING;
+  }
+  if (status === TaskStatus.PENDING && task.recur && !task.parent) {
+    status = TaskStatus.RECURRING;
+  }
+
   const Icon = {
     [TaskStatus.PENDING]: CircleIcon,
     [TaskStatus.DELETED]: CrossCircledIcon,

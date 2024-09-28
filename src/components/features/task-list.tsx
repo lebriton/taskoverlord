@@ -41,11 +41,11 @@ interface GroupProps {
 }
 
 function BadgeList({ task }: BadgeListProps) {
-  const { due, status } = task;
+  const { due } = task;
 
   return (
     <div className="flex items-center gap-1.5">
-      <TaskStatusBadge status={status} />
+      <TaskStatusBadge task={task} />
 
       {due && (
         <TooltipWrapper content={<p>{toLocaleDateString(due)}</p>} asChild={false}>
