@@ -51,7 +51,7 @@ function BadgeList({ task }: BadgeListProps) {
       {id > 0 && <TaskIdBadge task={task} />}
 
       {due && (
-        <TooltipWrapper content={<p>{toLocaleDateString(due)}</p>} asChild={false}>
+        <TooltipWrapper content={<p>Due: {toLocaleDateString(due)}</p>} asChild={false}>
           <CustomBadge className="!bg-yellow-100 !text-yellow-800" Icon={CalendarClockIcon}>
             {toLocalTimeago(due)}
           </CustomBadge>
