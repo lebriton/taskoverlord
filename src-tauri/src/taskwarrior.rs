@@ -3,6 +3,13 @@ use anyhow::{Context, Result};
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Deserializer, Serialize};
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Annotation {
+    #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
+    pub entry: NaiveDateTime,
+    pub description: String,
+}
+
 // See https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/doc/devel/rfcs/task.md#the-attributes
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Task {
@@ -52,7 +59,7 @@ pub struct Task {
 
     pub tags: Option<Vec<String>>,
 
-    pub annotation: Option<Vec<String>>,
+    pub annotations: Option<Vec<Annotation>>,
 
     // Dynamic values
     pub id: u32,

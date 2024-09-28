@@ -9,8 +9,9 @@ import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon, SquarePenIcon } from "lucide-react";
+import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon, SquarePenIcon, StickyNote } from "lucide-react";
 import React, { PropsWithChildren } from "react";
+import Pluralize from "react-pluralize";
 
 interface BadgeListProps {
   task: Task;
@@ -83,7 +84,7 @@ function CustomButton({ className, size = "default", tooltip, Icon, ...props }: 
 }
 
 function TaskItem({ task, active, onSelect }: TaskItemProps) {
-  const { description, favorite, status } = task;
+  const { description, favorite, status, annotations } = task;
 
   return (
     <div
@@ -121,7 +122,12 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
 
           <BadgeList task={task} />
 
-          <p className="text-sm text-muted-foreground">Lorem ipsum, this is an extra note</p>
+          {annotations && (
+            <div className="flex items-center text-sm font-medium text-muted-foreground">
+              <StickyNote className="me-1 size-4" />
+              <Pluralize singular={"annotation"} count={annotations.length} />
+            </div>
+          )}
         </div>
 
         <div>
