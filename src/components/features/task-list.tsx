@@ -10,8 +10,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CustomBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
+import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
-import { Task, TaskGroup, TaskStatus } from "@/types/task";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import {
   CalendarClockIcon,

@@ -1,4 +1,5 @@
 import Layout from "@/components/layout/layout";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
@@ -13,6 +14,7 @@ function Root() {
         <Outlet />
       </Layout>
 
+      <ReactQueryDevtools />
       <TanStackRouterDevtools position="bottom-right" />
     </>
   );

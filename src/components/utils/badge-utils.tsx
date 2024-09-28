@@ -1,11 +1,12 @@
 import { Badge, type BadgeProps } from "@/components/ui/badge";
+import { TaskStatus } from "@/lib/types/task";
 import { cn } from "@/lib/utils";
-import { TaskStatus } from "@/types/task";
 import {
   CircleIcon,
   StopwatchIcon,
   CheckCircledIcon,
   ClockIcon,
+  CrossCircledIcon,
 } from "@radix-ui/react-icons";
 import { PropsWithChildren } from "react";
 
@@ -37,6 +38,7 @@ function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
     [TaskStatus.WAITING]: ClockIcon,
     [TaskStatus.IN_PROGRESS]: StopwatchIcon,
     [TaskStatus.COMPLETED]: CheckCircledIcon,
+    [TaskStatus.DELETED]: CrossCircledIcon,
   }[status];
 
   return (
@@ -48,6 +50,7 @@ function TaskStatusBadge({ status }: TaskStatusBadgeProps) {
         status === TaskStatus.WAITING && "border-gray-700 !bg-gray-600",
         status === TaskStatus.IN_PROGRESS && "border-blue-700 !bg-blue-600",
         status === TaskStatus.COMPLETED && "border-green-700 !bg-green-600",
+        status === TaskStatus.DELETED && "border-red-700 !bg-red-600",
       )}
       variant="secondary"
       Icon={Icon}
