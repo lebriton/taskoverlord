@@ -52,10 +52,10 @@ export default function MainContent() {
   const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
   const groupedTasks = [{ name: "Ungrouped", tasks: tasksQuery.data || [] }];
 
-  const [selectedTask, setSelectedTask] = React.useState<Task | null>(null);
+  const [selectedTaskUuid, setSelectedTaskUuid] = React.useState<string | null>(null);
 
-  const handleTaskSelect = (task: Task | null) => {
-    setSelectedTask(task);
+  const handleTaskSelect = (uuid: string | null) => {
+    setSelectedTaskUuid(uuid);
   };
   const handleNewTaskCreate = () => {};
 
@@ -63,7 +63,7 @@ export default function MainContent() {
     <div className="flex max-h-full flex-col">
       <ActionBar tabs={actionTabs} actions={actionActions} onNewTaskCreate={handleNewTaskCreate} />
 
-      <TaskList groupedTasks={groupedTasks} selectedTask={selectedTask} onTaskSelect={handleTaskSelect} />
+      <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={handleTaskSelect} />
     </div>
   );
 }

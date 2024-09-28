@@ -24,8 +24,8 @@ interface TaskItemProps {
 
 interface TaskListProps {
   groupedTasks: TaskGroup[];
-  selectedTask: Task | null;
-  onTaskSelect: (task: Task | null) => void;
+  selectedTaskUuid: string | null;
+  onTaskSelect: (uuid: string | null) => void;
 }
 
 interface CustomButtonProps extends ButtonProps {
@@ -161,13 +161,13 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
   );
 }
 
-function TaskList({ groupedTasks, selectedTask, onTaskSelect }: TaskListProps) {
+function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProps) {
   return (
     <ScrollArea className="flex flex-col">
       {groupedTasks.map((group, index) => (
         <Group key={index} name={group.name}>
           {group.tasks.map((task, index) => {
-            const isActive = task === selectedTask;
+            const isActive = task.uuid === selectedTaskUuid;
             return (
               <div
                 key={index}
@@ -176,7 +176,7 @@ function TaskList({ groupedTasks, selectedTask, onTaskSelect }: TaskListProps) {
                   "overflow-x-clip"
                 }
               >
-                <TaskItem task={task} active={isActive} onSelect={() => onTaskSelect(isActive ? null : task)} />
+                <TaskItem task={task} active={isActive} onSelect={() => onTaskSelect(isActive ? null : task.uuid)} />
               </div>
             );
           })}
