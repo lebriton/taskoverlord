@@ -9,7 +9,8 @@ import { LucideIcon } from "lucide-react";
 interface Tab {
   label: string;
   value: string;
-  Icon: LucideIcon;
+  // TODO: fix the type (LucideIcon?)
+  Icon: any;
 }
 
 interface Action {
@@ -51,7 +52,7 @@ function ActionBar({ className, tabs, actions, onNewTaskCreate }: ActionBarProps
       }
       end={
         <ButtonList>
-          <ButtonList size="sm">
+          <ButtonList size="xs">
             {actions.map((action, index) => (
               <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
                 <Button variant="ghost" size="icon_xs" onClick={action.onClick}>

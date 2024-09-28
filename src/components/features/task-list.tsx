@@ -1,30 +1,37 @@
 import { ButtonList } from "../utils/button-utils";
 import { TypographyH3 } from "@/components/custom/typography";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CustomBadge, TaskIdBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
-import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
+import { cn, toLocaleTimeago, toLocaleDateString } from "@/lib/utils";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, FileTextIcon, PlusIcon, SquarePenIcon } from "lucide-react";
+import {
+  AlarmClockIcon,
+  CalendarClockIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClockAlertIcon,
+  HourglassIcon,
+  MessageSquareIcon,
+  SquarePenIcon,
+  Trash2Icon,
+} from "lucide-react";
 import React, { PropsWithChildren } from "react";
 import Pluralize from "react-pluralize";
 
-interface BadgeListProps {
-  task: Task;
-}
-
-interface AnnotationIconProps {
-  count: number;
-}
-
 interface TaskItemProps {
   task: Task;
-  active: boolean;
+  selected: boolean;
   onSelect: () => void;
+}
+
+interface AttributeProps {
+  className?: string;
+  // TODO: fix the type (LucideIcon?)
+  Icon?: any;
 }
 
 interface TaskListProps {
@@ -33,140 +40,157 @@ interface TaskListProps {
   onTaskSelect: (uuid: string | null) => void;
 }
 
-interface CustomButtonProps extends ButtonProps {
-  className?: string;
-  size?: "default" | "sm";
-  tooltip: React.ReactNode;
-  // TODO: fix the type (LucideIcon?)
-  Icon: any;
-}
-
 interface GroupProps {
   name: string;
 }
 
-function BadgeList({ task }: BadgeListProps) {
-  const { id, due } = task;
+function TaskItem({ task, selected, onSelect }: TaskItemProps) {
+  const { description, favorite, status, annotations, due, scheduled, wait, until, modified } = task;
+  const checked = status === TaskStatus.COMPLETED;
 
   return (
-    <div className="flex items-center gap-1.5">
-      <TaskStatusBadge task={task} />
+    <div
+      className="group flex cursor-pointer items-start gap-2 py-2 pe-3 ps-6 hover:!bg-muted/50 data-[checked=true]:bg-muted/25 data-[favorite=true]:bg-amber-50/75 data-[state=selected]:!bg-muted"
+      data-checked={checked}
+      data-state={selected ? "selected" : ""}
+      data-favorite={favorite}
+      onClick={onSelect}
+    >
+      <Checkbox
+        className="mt-0.5 size-5 rounded-full"
+        checked={checked}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
+      />
 
-      {id > 0 && <TaskIdBadge task={task} />}
+      {/* Center section */}
+      <div className="flex min-w-0 flex-1 flex-col flex-nowrap gap-0.5">
+        {/* 1st row */}
+        <div className="flex min-w-0 items-center gap-2">
+          <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[checked=true]:opacity-70">
+            {description}
+          </label>
 
-      {due && (
-        <TooltipWrapper content={<p>Due: {toLocaleDateString(due)}</p>} asChild={false}>
-          <CustomBadge className="!bg-yellow-100 !text-yellow-800" Icon={CalendarClockIcon}>
-            {toLocalTimeago(due)}
-          </CustomBadge>
-        </TooltipWrapper>
-      )}
+          <EditButton />
+        </div>
 
-      <TooltipWrapper content="Add a new property">
-        <Button
-          variant="outline"
-          size="icon_xs"
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-        >
-          <PlusIcon className="size-3 text-muted-foreground" />
-        </Button>
-      </TooltipWrapper>
+        {/* 2nd row */}
+        <div className="flex min-w-0 items-center gap-2.5 text-ellipsis whitespace-nowrap group-hover:overflow-clip">
+          {annotations && (
+            <TooltipWrapper
+              content={
+                <p>
+                  <Pluralize singular={"annotation"} count={annotations.length} />
+                </p>
+              }
+              asChild={false}
+            >
+              <Attribute Icon={MessageSquareIcon}>{annotations.length}</Attribute>
+            </TooltipWrapper>
+          )}
+
+          <TooltipWrapper content={<p>Modified: {toLocaleDateString(modified)}</p>} asChild={false}>
+            <Attribute className="font-normal">{toLocaleTimeago(modified, true)}</Attribute>
+          </TooltipWrapper>
+
+          {due && (
+            <TooltipWrapper content={<p>Due: {toLocaleDateString(due)}</p>} asChild={false}>
+              <Attribute className="text-yellow-600" Icon={CalendarClockIcon}>
+                {toLocaleTimeago(due)}
+              </Attribute>
+            </TooltipWrapper>
+          )}
+
+          {scheduled && (
+            <TooltipWrapper content={<p>Scheduled: {toLocaleDateString(scheduled)}</p>} asChild={false}>
+              <Attribute className="text-lime-600" Icon={AlarmClockIcon}>
+                {toLocaleTimeago(scheduled)}
+              </Attribute>
+            </TooltipWrapper>
+          )}
+
+          {wait && (
+            <TooltipWrapper content={<p>Wait: {toLocaleDateString(wait)}</p>} asChild={false}>
+              <Attribute className="text-violet-600" Icon={HourglassIcon}>
+                {toLocaleTimeago(wait)}
+              </Attribute>
+            </TooltipWrapper>
+          )}
+
+          {until && (
+            <TooltipWrapper content={<p>Until: {toLocaleDateString(until)}</p>} asChild={false}>
+              <Attribute className="text-orange-600" Icon={ClockAlertIcon}>
+                {toLocaleTimeago(until)}
+              </Attribute>
+            </TooltipWrapper>
+          )}
+        </div>
+      </div>
+
+      {/* End section */}
+      <ButtonList>
+        <ButtonList size="xs">
+          <DeleteButton />
+        </ButtonList>
+
+        <AddToFavoriteButton favorite={favorite} />
+      </ButtonList>
     </div>
   );
 }
 
-function CustomButton({ className, size = "default", tooltip, Icon, ...props }: CustomButtonProps) {
+function Attribute({ className, Icon, children }: PropsWithChildren<AttributeProps>) {
   return (
-    <TooltipWrapper content={<p>{tooltip}</p>}>
-      <Button variant="ghost" size="icon_xs" className={cn("text-muted-foreground/50", className)} {...props}>
-        <Icon className={{ default: "size-5", sm: "size-4" }[size]} />
+    <div className={cn("flex items-center gap-0.5 text-[0.8rem] font-medium text-muted-foreground", className)}>
+      {Icon && <Icon className="mb-0.5 size-3 shrink-0" />}
+      <div className="first-letter:uppercase">{children}</div>
+    </div>
+  );
+}
+
+function EditButton() {
+  return (
+    <TooltipWrapper content={<p>Modify</p>}>
+      <Button
+        className="shrink-0 opacity-0 group-hover:opacity-100"
+        variant="outline"
+        size="icon_xs"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <SquarePenIcon className="size-4" />
       </Button>
     </TooltipWrapper>
   );
 }
 
-function AnnotationIcon({ count }: AnnotationIconProps) {
+function DeleteButton() {
   return (
-    <TooltipWrapper
-      content={
-        <p>
-          <Pluralize singular={"annotation"} count={count} />
-        </p>
-      }
-    >
-      <div className="flex items-center text-sm font-medium text-muted-foreground/75">
-        <FileTextIcon className="size-5" />
-      </div>
+    <TooltipWrapper content={<p>Delete task</p>}>
+      <Button
+        className="shrink-0 opacity-0 hover:text-rose-600 group-hover:opacity-100"
+        variant="outline"
+        size="icon_xs"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Trash2Icon className="size-4" />
+      </Button>
     </TooltipWrapper>
   );
 }
 
-function TaskItem({ task, active, onSelect }: TaskItemProps) {
-  const { description, favorite, status, annotations } = task;
-
+function AddToFavoriteButton({ favorite }) {
   return (
-    <div
-      className={cn(
-        "group cursor-pointer transition-shadow hover:z-10 hover:shadow-[0px_4px_12px_0px_rgba(0,_0,_0,_0.1)]",
-        active && "bg-primary text-primary-foreground",
-      )}
-    >
-      <div
-        className={cn("items-top flex gap-x-2 p-3", !active && "data-[favorite=true]:bg-amber-50/50", active && "dark")}
-        data-favorite={favorite}
-        onClick={onSelect}
+    <TooltipWrapper content={<p>{favorite ? "Remove from favorites" : "Add to favorites"}</p>}>
+      <Button
+        className="shrink-0 opacity-0 hover:text-amber-500 group-hover:opacity-100 group-data-[favorite=true]:text-amber-500 group-data-[favorite=true]:opacity-100"
+        variant="ghost"
+        size="icon_xs"
+        onClick={(e) => e.stopPropagation()}
       >
-        <Checkbox
-          className="ms-2 size-5 rounded-full"
-          checked={status === TaskStatus.COMPLETED}
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-        />
-        <div className="grid grow gap-1.5 leading-none">
-          <div className="-my-[0.3125rem] flex items-center gap-1">
-            <p className="text-sm font-medium leading-none">{description}</p>
-
-            <CustomButton
-              className="opacity-0 focus:opacity-100 group-hover:opacity-100"
-              size="sm"
-              tooltip="Edit"
-              onClick={(event) => {
-                event.stopPropagation();
-              }}
-              Icon={SquarePenIcon}
-            />
-          </div>
-
-          <div className="flex items-center gap-1">
-            {annotations && (
-              <>
-                <AnnotationIcon count={annotations.length} />
-                <span className="text-muted-foreground">&bull;</span>
-              </>
-            )}
-
-            <BadgeList task={task} />
-          </div>
-        </div>
-
-        <div>
-          <ButtonList size="sm">
-            <CustomButton
-              tooltip={favorite ? "Remove from favorites" : "Add to favorites"}
-              Icon={favorite ? StarFilledIcon : StarIcon}
-              className="hover:text-amber-600 data-[favorite=true]:text-amber-600"
-              data-favorite={favorite}
-              onClick={(event) => {
-                event.stopPropagation();
-              }}
-            />
-          </ButtonList>
-        </div>
-      </div>
-    </div>
+        {favorite ? <StarFilledIcon className="size-5" /> : <StarIcon className="size-5" />}
+      </Button>
+    </TooltipWrapper>
   );
 }
 
@@ -176,14 +200,16 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
   const Icon = open ? ChevronDownIcon : ChevronUpIcon;
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <div className="mt-6 flex items-center gap-3 border-b px-3 py-1.5">
+    <Collapsible className="max-w-full" open={open} onOpenChange={setOpen}>
+      <div className="mt-6 flex items-center gap-1.5 border-b px-3 py-1.5">
         <CollapsibleTrigger asChild>
-          <Button className="-me-1.5" variant="ghost" size="icon">
+          <Button variant="ghost" size="icon">
             <Icon className="size-7 text-muted-foreground" />
           </Button>
         </CollapsibleTrigger>
-        <TypographyH3>{name}</TypographyH3>
+        <TypographyH3>
+          {name} <span className="text-xl font-medium text-muted-foreground/75">{children.length}</span>
+        </TypographyH3>
       </div>
 
       <CollapsibleContent className="flex flex-col divide-y">{children}</CollapsibleContent>
@@ -193,21 +219,30 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
 
 function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProps) {
   return (
-    <ScrollArea className="flex flex-col">
+    <ScrollArea
+      className={cn(
+        "flex-container flex-col",
+
+        // The Group component utilizes shadcn's Collapsible, which is composed of nested div elements.
+        // One of the parent divs has a display style of "table", which must be overidden to somehow
+        // restrict the max-width. Unfortunately, we cannot modify the source code of Collapsible,
+        // as it acts as an alias for a Radix UI component; nor can we apply a className to the
+        // Collapsible component, since it would only affect the innermost div.
+        // That's why we use the following hack:
+        "[&>div>div]:!block",
+      )}
+    >
       {groupedTasks.map((group, index) => (
         <Group key={index} name={group.name}>
           {group.tasks.map((task, index) => {
-            const isActive = task.uuid === selectedTaskUuid;
+            const selected = task.uuid === selectedTaskUuid;
             return (
-              <div
+              <TaskItem
                 key={index}
-                className={
-                  // NB: `overflow-x-clip` is used to prevent the TaskItem shadow from leaking horizontally
-                  "overflow-x-clip"
-                }
-              >
-                <TaskItem task={task} active={isActive} onSelect={() => onTaskSelect(isActive ? null : task.uuid)} />
-              </div>
+                task={task}
+                selected={selected}
+                onSelect={() => onTaskSelect(selected ? null : task.uuid)}
+              />
             );
           })}
         </Group>

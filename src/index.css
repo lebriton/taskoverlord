@@ -76,3 +76,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .flex-container {
+    @apply flex max-h-full max-w-full flex-nowrap overflow-hidden;
+  }
+}

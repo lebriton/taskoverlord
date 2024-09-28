@@ -1,25 +1,30 @@
 import { clsx, type ClassValue } from "clsx";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
+import { formatDistanceToNow, format, isToday, isYesterday, isSameYear } from "date-fns";
+import { enUS } from "date-fns/locale";
 import { twMerge } from "tailwind-merge";
-
-TimeAgo.addDefaultLocale(en);
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export function toLocaleDateString(date: Date) {
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  return date.toLocaleDateString("en-US", options);
+  return format(date, "EEEE, MMMM do, yyyy", { locale: enUS });
 }
 
-export function toLocalTimeago(date: Date) {
-  const timeAgo = new TimeAgo("en-US");
-  return timeAgo.format(date);
+export function toLocaleTimeago(date: Date, detailed: boolean = false) {
+  const locale = enUS;
+
+  if (detailed) {
+    if (isToday(date)) {
+      return format(date, "HH:mm", { locale });
+    } else if (isYesterday(date)) {
+      return "Yesterday";
+    } else {
+      const now = new Date();
+      const formatStr = isSameYear(date, now) ? "MMMM do" : "MMMM do, yyyy";
+      return format(date, formatStr, { locale });
+    }
+  }
+
+  return formatDistanceToNow(date, { addSuffix: true, locale });
 }

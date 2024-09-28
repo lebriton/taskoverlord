@@ -8,7 +8,7 @@ import { ChevronDownIcon, ChevronsRightIcon, ChevronUpIcon } from "lucide-react"
 export default function AuxiliaryBar() {
   return (
     <div className="flex size-full flex-col gap-3 p-3">
-      <ButtonList size="sm">
+      <ButtonList size="xs">
         <TooltipWrapper content={<p>Close</p>}>
           <Button variant="ghost" size="icon_xs">
             <ChevronsRightIcon className="size-5" />

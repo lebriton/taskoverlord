@@ -1,7 +1,7 @@
 import { TaskList } from "../features/task-list";
+import CalendarStripe from "./calendar-stripe";
 import { ActionBar } from "@/components/features/action-bar";
 import { getTasks } from "@/lib/ipc";
-import { Task } from "@/lib/types/task";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, SearchIcon } from "lucide-react";
 import { Columns3Icon, ListIcon } from "lucide-react";
@@ -48,7 +48,7 @@ const actionActions = [
   },
 ];
 
-export default function MainContent() {
+export default function PrimaryContent() {
   const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
   const groupedTasks = [{ name: "Ungrouped", tasks: tasksQuery.data || [] }];
 
@@ -60,7 +60,9 @@ export default function MainContent() {
   const handleNewTaskCreate = () => {};
 
   return (
-    <div className="flex max-h-full flex-col">
+    <div className="flex-container flex-col">
+      <CalendarStripe />
+
       <ActionBar tabs={actionTabs} actions={actionActions} onNewTaskCreate={handleNewTaskCreate} />
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={handleTaskSelect} />

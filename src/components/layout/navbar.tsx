@@ -48,7 +48,7 @@ export default function Navbar({ groups }: NavbarProps) {
   });
 
   return (
-    <aside className="flex w-14 flex-col border-r bg-background">
+    <aside className="flex w-14 flex-col bg-background">
       {groups.map((group, index) => (
         <nav key={index} className={cn("flex flex-col items-center gap-4 px-2 py-4", index > 0 && "mt-auto")}>
           {group.map((item, index) => (
