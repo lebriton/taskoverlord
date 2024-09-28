@@ -9,12 +9,16 @@ import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon, SquarePenIcon, StickyNote } from "lucide-react";
+import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, FileTextIcon, PlusIcon, SquarePenIcon } from "lucide-react";
 import React, { PropsWithChildren } from "react";
 import Pluralize from "react-pluralize";
 
 interface BadgeListProps {
   task: Task;
+}
+
+interface AnnotationIconProps {
+  count: number;
 }
 
 interface TaskItemProps {
@@ -83,6 +87,22 @@ function CustomButton({ className, size = "default", tooltip, Icon, ...props }: 
   );
 }
 
+function AnnotationIcon({ count }: AnnotationIconProps) {
+  return (
+    <TooltipWrapper
+      content={
+        <p>
+          <Pluralize singular={"annotation"} count={count} />
+        </p>
+      }
+    >
+      <div className="flex items-center text-sm font-medium text-muted-foreground/75">
+        <FileTextIcon className="size-5" />
+      </div>
+    </TooltipWrapper>
+  );
+}
+
 function TaskItem({ task, active, onSelect }: TaskItemProps) {
   const { description, favorite, status, annotations } = task;
 
@@ -120,14 +140,16 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
             />
           </div>
 
-          <BadgeList task={task} />
+          <div className="flex items-center gap-1">
+            {annotations && (
+              <>
+                <AnnotationIcon count={annotations.length} />
+                <span className="text-muted-foreground">&bull;</span>
+              </>
+            )}
 
-          {annotations && (
-            <div className="flex items-center text-sm font-medium text-muted-foreground">
-              <StickyNote className="me-1 size-4" />
-              <Pluralize singular={"annotation"} count={annotations.length} />
-            </div>
-          )}
+            <BadgeList task={task} />
+          </div>
         </div>
 
         <div>
