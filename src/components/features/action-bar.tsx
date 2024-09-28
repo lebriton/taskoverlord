@@ -26,12 +26,7 @@ interface ActionBarProps {
   onNewTaskCreate: () => void;
 }
 
-function ActionBar({
-  className,
-  tabs,
-  actions,
-  onNewTaskCreate,
-}: ActionBarProps) {
+function ActionBar({ className, tabs, actions, onNewTaskCreate }: ActionBarProps) {
   return (
     <FlexLine
       className={cn("border-b px-3 py-1.5", className)}

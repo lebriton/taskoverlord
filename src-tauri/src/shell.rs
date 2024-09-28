@@ -32,10 +32,7 @@ pub fn check_output(command_string: &str, redirect_stderr: bool) -> anyhow::Resu
     })
 }
 
-pub fn check_output_from_parts(
-    command_parts: Vec<&str>,
-    redirect_stderr: bool,
-) -> anyhow::Result<CommandOutput> {
+pub fn check_output_from_parts(command_parts: Vec<&str>, redirect_stderr: bool) -> anyhow::Result<CommandOutput> {
     let command_string = try_join(command_parts)?;
     check_output(command_string.as_str(), redirect_stderr)
 }

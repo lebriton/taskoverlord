@@ -18,16 +18,8 @@ interface ButtonListProps extends VariantProps<typeof buttonListVariants> {
   className?: string;
 }
 
-function ButtonList({
-  className,
-  size,
-  children,
-}: PropsWithChildren<ButtonListProps>) {
-  return (
-    <div className={cn(buttonListVariants({ size, className }))}>
-      {children}
-    </div>
-  );
+function ButtonList({ className, size, children }: PropsWithChildren<ButtonListProps>) {
+  return <div className={cn(buttonListVariants({ size, className }))}>{children}</div>;
 }
 
 export { ButtonList };

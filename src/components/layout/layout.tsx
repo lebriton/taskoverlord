@@ -3,11 +3,7 @@ import CalendarStripe from "./calendar-stripe";
 import MainContent from "./main-content";
 import Workbench from "./workbench";
 import Navbar from "@/components/layout/navbar";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import {
   ArrowBigRightDash,

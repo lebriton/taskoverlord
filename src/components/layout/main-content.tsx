@@ -3,13 +3,7 @@ import { ActionBar } from "@/components/features/action-bar";
 import { getTasks } from "@/lib/ipc";
 import { Task } from "@/lib/types/task";
 import { useQuery } from "@tanstack/react-query";
-import {
-  ArrowUpDownIcon,
-  EyeIcon,
-  GroupIcon,
-  ListFilterIcon,
-  SearchIcon,
-} from "lucide-react";
+import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, SearchIcon } from "lucide-react";
 import { Columns3Icon, ListIcon } from "lucide-react";
 import * as React from "react";
 
@@ -67,17 +61,9 @@ export default function MainContent() {
 
   return (
     <div className="flex max-h-full flex-col">
-      <ActionBar
-        tabs={actionTabs}
-        actions={actionActions}
-        onNewTaskCreate={handleNewTaskCreate}
-      />
+      <ActionBar tabs={actionTabs} actions={actionActions} onNewTaskCreate={handleNewTaskCreate} />
 
-      <TaskList
-        groupedTasks={groupedTasks}
-        selectedTask={selectedTask}
-        onTaskSelect={handleTaskSelect}
-      />
+      <TaskList groupedTasks={groupedTasks} selectedTask={selectedTask} onTaskSelect={handleTaskSelect} />
     </div>
   );
 }

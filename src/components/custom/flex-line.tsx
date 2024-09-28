@@ -8,12 +8,7 @@ interface FlexLineProps {
   end?: React.ReactNode;
 }
 
-export default function FlexLine({
-  className,
-  start,
-  center,
-  end,
-}: FlexLineProps) {
+export default function FlexLine({ className, start, center, end }: FlexLineProps) {
   return (
     <div className={cn("flex items-center justify-between", className)}>
       <div className="ms-auto flex flex-1 justify-start">{start}</div>

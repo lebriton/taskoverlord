@@ -2,24 +2,14 @@ import { ButtonList } from "../utils/button-utils";
 import { TypographyH3 } from "@/components/custom/typography";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CustomBadge, TaskStatusBadge } from "@/components/utils/badge-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocalTimeago, toLocaleDateString } from "@/lib/utils";
 import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import {
-  CalendarClockIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  PlusIcon,
-  SquarePenIcon,
-} from "lucide-react";
+import { CalendarClockIcon, ChevronDownIcon, ChevronUpIcon, PlusIcon, SquarePenIcon } from "lucide-react";
 import React, { PropsWithChildren } from "react";
 
 interface BadgeListProps {
@@ -58,14 +48,8 @@ function BadgeList({ task }: BadgeListProps) {
       <TaskStatusBadge status={status} />
 
       {due && (
-        <TooltipWrapper
-          content={<p>{toLocaleDateString(due)}</p>}
-          asChild={false}
-        >
-          <CustomBadge
-            className="!bg-yellow-100 !text-yellow-800"
-            Icon={CalendarClockIcon}
-          >
+        <TooltipWrapper content={<p>{toLocaleDateString(due)}</p>} asChild={false}>
+          <CustomBadge className="!bg-yellow-100 !text-yellow-800" Icon={CalendarClockIcon}>
             {toLocalTimeago(due)}
           </CustomBadge>
         </TooltipWrapper>
@@ -86,21 +70,10 @@ function BadgeList({ task }: BadgeListProps) {
   );
 }
 
-function CustomButton({
-  className,
-  size = "default",
-  tooltip,
-  Icon,
-  ...props
-}: CustomButtonProps) {
+function CustomButton({ className, size = "default", tooltip, Icon, ...props }: CustomButtonProps) {
   return (
     <TooltipWrapper content={<p>{tooltip}</p>}>
-      <Button
-        variant="ghost"
-        size="icon_xs"
-        className={cn("text-muted-foreground/50", className)}
-        {...props}
-      >
+      <Button variant="ghost" size="icon_xs" className={cn("text-muted-foreground/50", className)} {...props}>
         <Icon className={{ default: "size-5", sm: "size-4" }[size]} />
       </Button>
     </TooltipWrapper>
@@ -118,11 +91,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
       )}
     >
       <div
-        className={cn(
-          "items-top flex gap-x-2 p-3",
-          !active && "data-[favorite=true]:bg-amber-50/50",
-          active && "dark",
-        )}
+        className={cn("items-top flex gap-x-2 p-3", !active && "data-[favorite=true]:bg-amber-50/50", active && "dark")}
         data-favorite={favorite}
         onClick={onSelect}
       >
@@ -150,9 +119,7 @@ function TaskItem({ task, active, onSelect }: TaskItemProps) {
 
           <BadgeList task={task} />
 
-          <p className="text-sm text-muted-foreground">
-            Lorem ipsum, this is an extra note
-          </p>
+          <p className="text-sm text-muted-foreground">Lorem ipsum, this is an extra note</p>
         </div>
 
         <div>
@@ -189,9 +156,7 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
         <TypographyH3>{name}</TypographyH3>
       </div>
 
-      <CollapsibleContent className="flex flex-col divide-y">
-        {children}
-      </CollapsibleContent>
+      <CollapsibleContent className="flex flex-col divide-y">{children}</CollapsibleContent>
     </Collapsible>
   );
 }
@@ -211,11 +176,7 @@ function TaskList({ groupedTasks, selectedTask, onTaskSelect }: TaskListProps) {
                   "overflow-x-clip"
                 }
               >
-                <TaskItem
-                  task={task}
-                  active={isActive}
-                  onSelect={() => onTaskSelect(isActive ? null : task)}
-                />
+                <TaskItem task={task} active={isActive} onSelect={() => onTaskSelect(isActive ? null : task)} />
               </div>
             );
           })}

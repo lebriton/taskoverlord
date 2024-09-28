@@ -21,11 +21,7 @@ export default function CalendarStripe() {
   return (
     <div className="flex items-center gap-3 px-6 pb-3 pt-1.5 shadow">
       <TooltipWrapper content={<p>Scroll left</p>}>
-        <Button
-          className="shrink-0 rounded-full"
-          variant="secondary"
-          size="icon"
-        >
+        <Button className="shrink-0 rounded-full" variant="secondary" size="icon">
           <ChevronLeftIcon className="size-6" />
         </Button>
       </TooltipWrapper>
@@ -52,9 +48,7 @@ export default function CalendarStripe() {
                   </span>
                 )}
 
-                {day.count > 0 && (
-                  <span className="text-xl font-semibold">{day.count}</span>
-                )}
+                {day.count > 0 && <span className="text-xl font-semibold">{day.count}</span>}
               </div>
             );
           })}
@@ -64,11 +58,7 @@ export default function CalendarStripe() {
       </ScrollArea>
 
       <TooltipWrapper content={<p>Scroll right</p>}>
-        <Button
-          className="shrink-0 rounded-full"
-          variant="secondary"
-          size="icon"
-        >
+        <Button className="shrink-0 rounded-full" variant="secondary" size="icon">
           <ChevronRightIcon className="size-6" />
         </Button>
       </TooltipWrapper>

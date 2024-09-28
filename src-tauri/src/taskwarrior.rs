@@ -6,10 +6,7 @@ use serde::{Deserialize, Deserializer, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Task {
     pub description: String,
-    #[serde(
-        default,
-        deserialize_with = "deserialize_optional_taskwarrior_datetime"
-    )]
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub due: Option<NaiveDateTime>,
     #[serde(deserialize_with = "deserialize_taskwarrior_datetime")]
     pub entry: NaiveDateTime,
@@ -18,19 +15,13 @@ pub struct Task {
     pub modified: NaiveDateTime,
     pub priority: Option<String>,
     pub project: Option<String>,
-    #[serde(
-        default,
-        deserialize_with = "deserialize_optional_taskwarrior_datetime"
-    )]
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub start: Option<NaiveDateTime>,
     pub status: String,
     pub tags: Option<Vec<String>>,
     pub urgency: f32,
     pub uuid: String,
-    #[serde(
-        default,
-        deserialize_with = "deserialize_optional_taskwarrior_datetime"
-    )]
+    #[serde(default, deserialize_with = "deserialize_optional_taskwarrior_datetime")]
     pub wait: Option<NaiveDateTime>,
 }
 
@@ -49,9 +40,7 @@ where
     parse_taskwarrior_datetime(&s).map_err(serde::de::Error::custom)
 }
 
-fn deserialize_optional_taskwarrior_datetime<'de, D>(
-    deserializer: D,
-) -> Result<Option<NaiveDateTime>, D::Error>
+fn deserialize_optional_taskwarrior_datetime<'de, D>(deserializer: D) -> Result<Option<NaiveDateTime>, D::Error>
 where
     D: Deserializer<'de>,
 {
@@ -69,25 +58,21 @@ pub fn add_task(description: String) -> Result<Task> {
     check_output_from_parts(command_parts, true).context("Failed to add task")?;
     let output = check_output("task +LATEST export rc.json.array=off", false)
         .context("Failed to retrieve the latest task after adding")?;
-    let new_task: Task =
-        serde_json::from_str(&output.lines).context("Failed to parse the new task from JSON")?;
+    let new_task: Task = serde_json::from_str(&output.lines).context("Failed to parse the new task from JSON")?;
 
     Ok(new_task)
 }
 
 pub fn get_projects() -> Result<Vec<String>> {
-    let output = check_output("task projects", true)
-        .context("Failed to retrieve projects from Taskwarrior")?;
+    let output = check_output("task projects", true).context("Failed to retrieve projects from Taskwarrior")?;
     let projects = output.lines.lines().map(String::from).collect();
 
     Ok(projects)
 }
 
 pub fn get_tasks() -> Result<Vec<Task>> {
-    let output =
-        check_output("task export", true).context("Failed to retrieve tasks from Taskwarrior")?;
-    let tasks: Vec<Task> =
-        serde_json::from_str(&output.lines).context("Failed to parse tasks from JSON")?;
+    let output = check_output("task export", true).context("Failed to retrieve tasks from Taskwarrior")?;
+    let tasks: Vec<Task> = serde_json::from_str(&output.lines).context("Failed to parse tasks from JSON")?;
 
     Ok(tasks)
 }
