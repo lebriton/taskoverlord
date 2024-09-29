@@ -240,7 +240,7 @@ function Group({ name, onNewTaskCreate, children }: PropsWithChildren<GroupProps
         <button className="group p-3 ps-6" type="button" onClick={onNewTaskCreate}>
           <div className="flex items-center gap-2 text-muted-foreground/50 group-hover:text-foreground">
             <PlusIcon className="-ms-[0.1875rem] size-5 shrink-0" />
-            <span className="whitespace-nowrap text-sm">Add a new task&hellip;</span>
+            <span className="whitespace-nowrap text-sm">Add a new task</span>
           </div>
         </button>
       </CollapsibleContent>
