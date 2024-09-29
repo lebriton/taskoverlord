@@ -45,7 +45,7 @@ interface GroupProps {
 }
 
 function TaskItem({ task, selected, onSelect }: TaskItemProps) {
-  const { description, favorite, status, annotations, due, scheduled, wait, until, modified } = task;
+  const { description, favorite, status, annotations, due, scheduled, wait, until, modified, urgency } = task;
   const checked = status === TaskStatus.COMPLETED;
 
   return (
@@ -129,13 +129,17 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       </div>
 
       {/* End section */}
-      <ButtonList>
-        <ButtonList size="xs">
-          <DeleteButton />
+      <div className="flex min-w-0 flex-col flex-nowrap items-end gap-0.5">
+        <ButtonList>
+          <ButtonList size="xs">
+            <DeleteButton />
+          </ButtonList>
+
+          <AddToFavoriteButton favorite={favorite} />
         </ButtonList>
 
-        <AddToFavoriteButton favorite={favorite} />
-      </ButtonList>
+        {urgency != 0 && <span className="me-1 text-[0.8rem] font-light group-hover:opacity-0">{urgency}</span>}
+      </div>
     </div>
   );
 }
