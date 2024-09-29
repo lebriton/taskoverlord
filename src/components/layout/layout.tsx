@@ -3,16 +3,8 @@ import PrimaryContent from "./primary-content";
 import Workbench from "./workbench";
 import Navbar from "@/components/layout/navbar";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import {
-  ArrowBigRightDash,
-  CircleCheckBig,
-  FoldersIcon,
-  InboxIcon,
-  SettingsIcon,
-  StarIcon,
-  TagIcon,
-} from "lucide-react";
+import { StarIcon, FolderIcon, TagIcon, InboxIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
+import { SearchIcon, ArrowBigRightDash, CircleCheckBig } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 const navItems = [
@@ -29,7 +21,7 @@ const navItems = [
     },
     {
       to: "/search",
-      Icon: MagnifyingGlassIcon,
+      Icon: SearchIcon,
       tooltip: "Search",
     },
     {
@@ -39,7 +31,7 @@ const navItems = [
     },
     {
       to: "/projects",
-      Icon: FoldersIcon,
+      Icon: FolderIcon,
       tooltip: "Projects",
     },
     {
@@ -56,7 +48,7 @@ const navItems = [
   [
     {
       to: "/settings",
-      Icon: SettingsIcon,
+      Icon: Cog8ToothIcon,
       tooltip: "Settings",
     },
   ],

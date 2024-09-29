@@ -29,14 +29,10 @@ function NavItem({ to, Icon, tooltip, active }: NavItemProps) {
     <TooltipWrapper content={<p>{tooltip}</p>} side="right">
       <Link
         to={to}
-        className={cn(
-          "flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground md:h-8 md:w-8",
-          "data-[status=active]:bg-accent data-[status=active]:text-accent-foreground",
-        )}
+        className="flex size-12 items-center justify-center text-muted-foreground hover:text-foreground data-[status=active]:text-accent-foreground"
         data-active={active}
       >
-        <Icon className="h-5 w-5" />
-        <span className="sr-only">{tooltip}</span>
+        <Icon className="size-6" />
       </Link>
     </TooltipWrapper>
   );
@@ -48,9 +44,9 @@ export default function Navbar({ groups }: NavbarProps) {
   });
 
   return (
-    <aside className="flex w-14 flex-col bg-background">
+    <aside className="flex flex-col bg-background">
       {groups.map((group, index) => (
-        <nav key={index} className={cn("flex flex-col items-center gap-4 px-2 py-4", index > 0 && "mt-auto")}>
+        <nav key={index} className={cn("flex flex-col items-center", index > 0 && "mt-auto")}>
           {group.map((item, index) => (
             <NavItem key={index} {...item} active={item.to === pathname} />
           ))}
