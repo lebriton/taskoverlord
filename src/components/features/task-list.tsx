@@ -57,7 +57,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       onClick={onSelect}
     >
       <Checkbox
-        className="mt-0.5 size-5 rounded-full"
+        className="mt-0.5 size-5 rounded-none"
         checked={checked}
         onClick={(event) => {
           event.stopPropagation();
