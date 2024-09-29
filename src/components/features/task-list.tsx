@@ -14,6 +14,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   ClockAlertIcon,
+  CopyIcon,
   HourglassIcon,
   MessageSquareIcon,
   SquarePenIcon,
@@ -132,13 +133,14 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       <div className="flex min-w-0 flex-col flex-nowrap items-end gap-0.5">
         <ButtonList>
           <ButtonList size="xs">
+            <DuplicateButton />
             <DeleteButton />
           </ButtonList>
 
           <AddToFavoriteButton favorite={favorite} />
         </ButtonList>
 
-        {urgency != 0 && <span className="me-1 text-[0.8rem] font-light group-hover:opacity-0">{urgency}</span>}
+        {urgency != 0 && <span className="me-1 text-[0.8rem] group-hover:opacity-0">{urgency}</span>}
       </div>
     </div>
   );
@@ -163,6 +165,21 @@ function EditButton() {
         onClick={(e) => e.stopPropagation()}
       >
         <SquarePenIcon className="size-4" />
+      </Button>
+    </TooltipWrapper>
+  );
+}
+
+function DuplicateButton() {
+  return (
+    <TooltipWrapper content={<p>Duplicate task</p>}>
+      <Button
+        className="shrink-0 opacity-0 group-hover:opacity-100"
+        variant="outline"
+        size="icon_xs"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CopyIcon className="size-4" />
       </Button>
     </TooltipWrapper>
   );
