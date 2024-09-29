@@ -187,7 +187,7 @@ function AddToFavoriteButton({ favorite }) {
   return (
     <TooltipWrapper content={<p>{favorite ? "Remove from favorites" : "Add to favorites"}</p>}>
       <Button
-        className="shrink-0 opacity-0 hover:text-amber-500 group-hover:opacity-100 group-data-[favorite=true]:text-amber-500 group-data-[favorite=true]:opacity-100"
+        className="shrink-0 text-muted-foreground/75 opacity-0 hover:text-amber-500 group-hover:opacity-100 group-data-[favorite=true]:text-amber-500 group-data-[favorite=true]:opacity-100"
         variant="ghost"
         size="icon_xs"
         onClick={(e) => e.stopPropagation()}
