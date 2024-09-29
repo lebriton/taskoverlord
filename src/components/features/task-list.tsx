@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocaleTimeago, toLocaleDateString } from "@/lib/utils";
-import { StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
+import { PlusIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
 import {
   AlarmClockIcon,
   CalendarClockIcon,
@@ -43,6 +43,7 @@ interface TaskListProps {
 
 interface GroupProps {
   name: string;
+  onNewTaskCreate: () => void;
 }
 
 function TaskItem({ task, selected, onSelect }: TaskItemProps) {
@@ -58,7 +59,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       onClick={onSelect}
     >
       <Checkbox
-        className="mt-0.5 size-5 rounded-none"
+        className="mt-1 rounded-full border-muted-foreground"
         checked={checked}
         onClick={(event) => {
           event.stopPropagation();
@@ -215,25 +216,32 @@ function AddToFavoriteButton({ favorite }) {
   );
 }
 
-function Group({ name, children }: PropsWithChildren<GroupProps>) {
+function Group({ name, onNewTaskCreate, children }: PropsWithChildren<GroupProps>) {
   const [open, setOpen] = React.useState(true);
 
   const Icon = open ? ChevronDownIcon : ChevronUpIcon;
 
   return (
     <Collapsible className="max-w-full" open={open} onOpenChange={setOpen}>
-      <div className="mt-6 flex items-center gap-1.5 border-b px-3 py-1.5">
+      <div className="mt-3 flex items-center gap-1 border-b px-3 py-1.5">
         <CollapsibleTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <Icon className="size-7 text-muted-foreground" />
+          <Button variant="ghost" size="icon_sm">
+            <Icon className="size-6 text-muted-foreground" />
           </Button>
         </CollapsibleTrigger>
-        <TypographyH3>
-          {name} <span className="text-xl font-medium text-muted-foreground/75">{children.length}</span>
-        </TypographyH3>
+        <TypographyH3>{name}</TypographyH3>
       </div>
 
-      <CollapsibleContent className="flex flex-col divide-y">{children}</CollapsibleContent>
+      <CollapsibleContent className="flex flex-col divide-y">
+        {children}
+
+        <button className="group p-3 ps-6" type="button" onClick={onNewTaskCreate}>
+          <div className="flex items-center gap-2 text-muted-foreground/50 group-hover:text-foreground">
+            <PlusIcon className="-ms-[0.1875rem] size-5" />
+            <span className="text-sm">Add a new task&hellip;</span>
+          </div>
+        </button>
+      </CollapsibleContent>
     </Collapsible>
   );
 }

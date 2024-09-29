@@ -50,7 +50,11 @@ const actionActions = [
 
 export default function PrimaryContent() {
   const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
-  const groupedTasks = [{ name: "Ungrouped", tasks: tasksQuery.data || [] }];
+  // TODO:
+  const groupedTasks = [
+    { name: "Ungrouped", tasks: tasksQuery.data || [] },
+    { name: "Ungrouped", tasks: tasksQuery.data || [] },
+  ];
 
   const [selectedTaskUuid, setSelectedTaskUuid] = React.useState<string | null>(null);
 
