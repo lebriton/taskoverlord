@@ -1,5 +1,5 @@
 import { TaskList } from "../features/task-list";
-import CalendarStripe from "./calendar-stripe";
+import CalendarStripe from "../features/calendar-stripe";
 import { ActionBar } from "@/components/features/action-bar";
 import { getTasks } from "@/lib/ipc";
 import { useQuery } from "@tanstack/react-query";

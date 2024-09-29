@@ -1,5 +1,4 @@
 import AuxiliaryBar from "./auxiliary-bar";
-import CalendarStripe from "./calendar-stripe";
 import PrimaryContent from "./primary-content";
 import Workbench from "./workbench";
 import Navbar from "@/components/layout/navbar";
