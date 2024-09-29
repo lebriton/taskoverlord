@@ -52,14 +52,14 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
   return (
     <div
-      className="group flex cursor-pointer items-start gap-2 py-2 pe-3 ps-6 hover:!bg-muted/50 data-[checked=true]:bg-muted/25 data-[favorite=true]:bg-amber-50/75 data-[state=selected]:!bg-muted"
+      className="group flex cursor-pointer items-center gap-2 py-2 pe-3 ps-6 hover:!bg-muted/50 data-[checked=true]:bg-muted/25 data-[favorite=true]:bg-amber-50/75 data-[state=selected]:!bg-muted"
       data-checked={checked}
       data-state={selected ? "selected" : ""}
       data-favorite={favorite}
       onClick={onSelect}
     >
       <Checkbox
-        className="mt-1 rounded-full border-muted-foreground"
+        className="rounded-full border-muted-foreground"
         checked={checked}
         onClick={(event) => {
           event.stopPropagation();
