@@ -4,19 +4,16 @@ import { ActionBar } from "@/components/features/action-bar";
 import { getTasks } from "@/lib/ipc";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, SearchIcon } from "lucide-react";
-import { Columns3Icon, ListIcon } from "lucide-react";
 import * as React from "react";
 
 const actionTabs = [
   {
     label: "Kanban",
     value: "kanban",
-    Icon: Columns3Icon,
   },
   {
     label: "List",
     value: "list",
-    Icon: ListIcon,
   },
 ];
 

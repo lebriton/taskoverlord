@@ -7,26 +7,28 @@ import { ChevronDownIcon, ChevronsRightIcon, ChevronUpIcon } from "lucide-react"
 
 export default function AuxiliaryBar() {
   return (
-    <div className="flex size-full flex-col gap-3 p-3">
-      <ButtonList size="xs">
+    <div className="flex size-full flex-col gap-1.5 px-3 py-1.5 text-muted-foreground">
+      <ButtonList>
         <TooltipWrapper content={<p>Close</p>}>
-          <Button variant="ghost" size="icon_xs">
-            <ChevronsRightIcon className="size-5" />
+          <Button variant="ghost" size="icon">
+            <ChevronsRightIcon />
           </Button>
         </TooltipWrapper>
 
         <Separator className="h-5" orientation="vertical" />
 
-        <TooltipWrapper content={<p>Previous task</p>}>
-          <Button variant="ghost" size="icon_xs">
-            <ChevronUpIcon className="size-5" />
-          </Button>
-        </TooltipWrapper>
-        <TooltipWrapper content={<p>Next task</p>}>
-          <Button variant="ghost" size="icon_xs">
-            <ChevronDownIcon className="size-5" />
-          </Button>
-        </TooltipWrapper>
+        <ButtonList size="sm">
+          <TooltipWrapper content={<p>Previous task</p>}>
+            <Button variant="ghost" size="icon">
+              <ChevronUpIcon />
+            </Button>
+          </TooltipWrapper>
+          <TooltipWrapper content={<p>Next task</p>}>
+            <Button variant="ghost" size="icon">
+              <ChevronDownIcon />
+            </Button>
+          </TooltipWrapper>
+        </ButtonList>
       </ButtonList>
 
       <EmptyState

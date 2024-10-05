@@ -19,7 +19,7 @@ const days = [
 
 export default function CalendarStripe() {
   return (
-    <div className="flex items-center gap-3 px-6 pb-3 pt-1.5 shadow">
+    <div className="flex items-center gap-3 border-b px-6 pb-3 pt-1.5">
       <TooltipWrapper content={<p>Scroll left</p>}>
         <Button className="shrink-0 rounded-full" variant="secondary" size="icon">
           <ChevronLeftIcon className="size-6" />

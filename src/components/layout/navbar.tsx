@@ -29,7 +29,7 @@ function NavItem({ to, Icon, tooltip, active }: NavItemProps) {
     <TooltipWrapper content={<p>{tooltip}</p>} side="right">
       <Link
         to={to}
-        className="flex size-12 items-center justify-center text-muted-foreground hover:text-foreground data-[status=active]:text-accent-foreground"
+        className="flex size-12 items-center justify-center text-muted-foreground/75 hover:text-foreground data-[status=active]:text-accent-foreground"
         data-active={active}
       >
         <Icon className="size-6" />

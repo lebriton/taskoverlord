@@ -4,13 +4,10 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ButtonList } from "@/components/utils/button-utils";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
 
 interface Tab {
   label: string;
   value: string;
-  // TODO: fix the type (LucideIcon?)
-  Icon: any;
 }
 
 interface Action {
@@ -30,20 +27,12 @@ interface ActionBarProps {
 function ActionBar({ className, tabs, actions, onNewTaskCreate }: ActionBarProps) {
   return (
     <FlexLine
-      className={cn("border-b px-3 py-1.5", className)}
+      className={cn("mb-3 pe-3 ps-5", className)}
       start={
         <Tabs defaultValue={tabs[0].value}>
           <TabsList>
             {tabs.map((tab, index) => (
-              <TabsTrigger
-                key={index}
-                className={cn(
-                  "relative",
-                  "after:absolute after:bottom-[-14px] after:bg-primary data-[state=active]:after:h-[2px] data-[state=active]:after:w-full",
-                )}
-                value={tab.value}
-              >
-                <tab.Icon className="me-2 size-4" />
+              <TabsTrigger key={index} value={tab.value}>
                 {tab.label}
               </TabsTrigger>
             ))}
@@ -52,17 +41,17 @@ function ActionBar({ className, tabs, actions, onNewTaskCreate }: ActionBarProps
       }
       end={
         <ButtonList>
-          <ButtonList size="xs">
+          <ButtonList size="sm">
             {actions.map((action, index) => (
               <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
-                <Button variant="ghost" size="icon_xs" onClick={action.onClick}>
-                  <action.Icon className="size-4" />
+                <Button variant="ghost" size="icon" onClick={action.onClick}>
+                  <action.Icon className="text-muted-foreground" />
                 </Button>
               </TooltipWrapper>
             ))}
           </ButtonList>
 
-          <Button size="xs" onClick={onNewTaskCreate}>
+          <Button size="sm" onClick={onNewTaskCreate}>
             New task
           </Button>
         </ButtonList>

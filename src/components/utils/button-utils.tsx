@@ -6,8 +6,7 @@ const buttonListVariants = cva("flex items-center", {
   variants: {
     size: {
       default: "gap-2",
-      xs: "gap-1",
-      sm: "gap-1",
+      sm: "gap-1.5",
     },
   },
   defaultVariants: {
