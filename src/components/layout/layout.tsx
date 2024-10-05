@@ -74,7 +74,7 @@ export default function Layout({ children }: PropsWithChildren) {
           <PrimaryContent />
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel className="shadow-2xl" defaultSize={25} minSize={25} maxSize={50} collapsible>
+        <ResizablePanel defaultSize={25} minSize={25} maxSize={50} collapsible>
           <AuxiliaryBar />
         </ResizablePanel>
       </ResizablePanelGroup>
