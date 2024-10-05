@@ -190,17 +190,17 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       </div>
 
       {/* RIGHT */}
-      <div className="flex flex-col items-end flex-nowrap min-w-0">
+      <div className="flex min-w-0 flex-col flex-nowrap items-end">
+        <div className="text-[0.8rem] text-muted-foreground">
+          {urgency != 0 && <span className="me-1 group-hover:opacity-0">{round(urgency, 2)}</span>}
+        </div>
+
         <ButtonList className="h-5">
           <EditButton />
           <DuplicateButton />
           <DeleteButton />
           <AddToFavoriteButton favorite={favorite} />
         </ButtonList>
-
-        <div className="text-[0.8rem] text-muted-foreground">
-          {urgency != 0 && <span className="me-1 group-hover:opacity-0">{round(urgency, 2)}</span>}
-        </div>
       </div>
     </div>
   );
@@ -280,9 +280,9 @@ function NewTaskComponent({ onClick }) {
 
 function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProps) {
   return (
-    <ScrollArea className={
-      cn(
-    "flex-container flex-col",
+    <ScrollArea
+      className={cn(
+        "flex-container flex-col",
 
         // The Group component utilizes shadcn's Collapsible, which is composed of nested div elements.
         // One of the parent divs has a display style of "table", which must be overidden to somehow
@@ -291,8 +291,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
         // Collapsible component, since it would only affect the innermost div.
         // That's why we use the following hack:
         "[&>div>div]:!block",
-      )
-    }
+      )}
     >
       <div className="divide-y">
         {groupedTasks.map((group, index) => (
