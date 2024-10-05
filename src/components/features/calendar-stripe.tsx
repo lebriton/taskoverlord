@@ -32,6 +32,10 @@ interface DotsProps {
   count: number;
 }
 
+interface PastDueComponentProps {
+  count: number;
+}
+
 interface DayProps {
   day: Date;
   count?: number;
@@ -48,6 +52,16 @@ function Dots({ count }: DotsProps) {
       {Array.from({ length: Math.min(count, 10) }).map((_, index) => (
         <div key={index} className="size-1 rounded-full bg-foreground group-data-[today=true]:bg-amber-600" />
       ))}
+    </div>
+  );
+}
+
+function PastDueComponent({ count }: PastDueComponentProps) {
+  return (
+    <div className="flex w-[91px] flex-col items-center justify-between py-[17px] text-muted-foreground">
+      <span className="text-center text-[0.8rem] uppercase leading-none">Past due</span>
+
+      <Dots count={count} />
     </div>
   );
 }
@@ -75,7 +89,7 @@ function Day({ day, count = 0 }: DayProps) {
 export default function CalendarStripe() {
   const today = new Date();
   const days = [];
-  for (let i = -1; i <= 14; i++) {
+  for (let i = 0; i <= 14; i++) {
     days.push(addDays(today, i));
   }
 
@@ -85,6 +99,7 @@ export default function CalendarStripe() {
 
       <ScrollArea className="border">
         <div className="flex divide-x">
+          <PastDueComponent count={10} />
           {days.map((day, index) => (
             <Day key={index} day={day} count={7} />
           ))}
