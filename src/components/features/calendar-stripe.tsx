@@ -1,67 +1,95 @@
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { TooltipWrapper } from "@/components/utils/tooltip-utils";
-import { cn } from "@/lib/utils";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ActionBar } from "../custom/action-bar";
+import { ScrollArea } from "../ui/scroll-area";
+import { addDays, format, isToday, isWeekend } from "date-fns";
+import { CalendarCheckIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
-const days = [
-  { day: 1, weekday: "Mon", count: 1 },
-  { day: 2, weekday: "Tue", count: 0 },
-  { day: 3, weekday: "Wed", count: 4 },
-  { day: 4, weekday: "Thu", count: 0 },
-  { day: 5, weekday: "Fri", count: 2 },
-  { day: 6, weekday: "Sat", count: 0 },
-  { day: 7, weekday: "Sun", count: 1 },
-  { day: 8, weekday: "Mon", count: 1 },
-  { day: 9, weekday: "Tue", count: 0 },
-  { day: 10, weekday: "Wed", count: 0 },
+const tabs = [
+  {
+    label: "October 2024",
+    value: "calendar",
+  },
 ];
 
-export default function CalendarStripe() {
+const iconButtonActions = [
+  {
+    Icon: CalendarCheckIcon,
+    tooltip: "Today",
+    onClick: () => null,
+  },
+  {
+    Icon: ChevronLeftIcon,
+    tooltip: "Scroll left",
+    onClick: () => null,
+  },
+  {
+    Icon: ChevronRightIcon,
+    tooltip: "Scroll right",
+    onClick: () => null,
+  },
+];
+
+interface DotsProps {
+  count: number;
+}
+
+interface DayProps {
+  day: Date;
+  count?: number;
+}
+
+function Dots({ count }: DotsProps) {
   return (
-    <div className="flex items-center gap-3 border-b px-6 pb-3 pt-1.5">
-      <TooltipWrapper content={<p>Scroll left</p>}>
-        <Button className="shrink-0 rounded-full" variant="secondary" size="icon">
-          <ChevronLeftIcon className="size-6" />
-        </Button>
-      </TooltipWrapper>
+    <div
+      className="grid h-[11px] place-items-end gap-px"
+      style={{
+        gridTemplateColumns: `repeat(${Math.min(count, 5)}, minmax(0, 1fr))`,
+      }}
+    >
+      {Array.from({ length: Math.min(count, 10) }).map((_, index) => (
+        <div key={index} className="size-1 rounded-full bg-foreground group-data-[today=true]:bg-amber-600" />
+      ))}
+    </div>
+  );
+}
 
-      <ScrollArea className="[mask-image:_linear-gradient(to_right,transparent_0,_black_16px,_black_calc(100%-16px),transparent_100%)]">
-        <div className="flex gap-0.5">
-          {days.map((day, index) => {
-            const isToday = day.day === 5; // TODO:
+function Day({ day, count = 0 }: DayProps) {
+  return (
+    <button
+      className="group p-1 text-muted-foreground data-[weekend=true]:bg-muted data-[weekend=true]:text-muted-foreground/50"
+      type="button"
+      data-today={isToday(day)}
+      data-weekend={isWeekend(day)}
+    >
+      <div className="flex w-16 flex-col items-center gap-1 rounded-sm border-2 border-transparent py-2 hover:!border-primary hover:bg-background hover:text-primary group-data-[today=true]:border-amber-300 group-data-[today=true]:bg-amber-50 group-data-[today=true]:text-amber-600">
+        <span className="text-[0.8rem] uppercase leading-none group-data-[today=true]:underline">
+          {format(day, "EEE")}
+        </span>
+        <span className="mb-1 text-xl font-extrabold leading-none">{format(day, "d")}</span>
 
-            return (
-              <div
-                key={index}
-                className={cn(
-                  "flex h-16 w-28 flex-col items-center justify-start border-t-8 bg-muted p-1.5 text-muted-foreground",
-                  "data-[active=true]:border-yellow-300 data-[active=true]:bg-yellow-100 data-[active=true]:text-yellow-900",
-                )}
-                data-active={isToday}
-              >
-                {isToday ? (
-                  <span className="text-sm font-medium">Today</span>
-                ) : (
-                  <span className="text-sm">
-                    {day.weekday} {day.day}
-                  </span>
-                )}
+        <Dots count={count} />
+      </div>
+    </button>
+  );
+}
 
-                {day.count > 0 && <span className="text-xl font-semibold">{day.count}</span>}
-              </div>
-            );
-          })}
+export default function CalendarStripe() {
+  const today = new Date();
+  const days = [];
+  for (let i = -1; i <= 14; i++) {
+    days.push(addDays(today, i));
+  }
+
+  return (
+    <div className="bg-muted/20">
+      <ActionBar tabs={tabs} iconButtonActions={iconButtonActions} />
+
+      <ScrollArea className="border">
+        <div className="flex divide-x">
+          {days.map((day, index) => (
+            <Day key={index} day={day} count={7} />
+          ))}
         </div>
-
-        {/* <ScrollBar orientation="horizontal" /> */}
       </ScrollArea>
-
-      <TooltipWrapper content={<p>Scroll right</p>}>
-        <Button className="shrink-0 rounded-full" variant="secondary" size="icon">
-          <ChevronRightIcon className="size-6" />
-        </Button>
-      </TooltipWrapper>
     </div>
   );
 }

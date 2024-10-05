@@ -1,12 +1,12 @@
 import CalendarStripe from "../features/calendar-stripe";
 import { TaskList } from "../features/task-list";
-import { ActionBar } from "@/components/features/action-bar";
+import { ActionBar } from "@/components/custom/action-bar";
 import { getTasks } from "@/lib/ipc";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 
-const actionTabs = [
+const tabs = [
   {
     label: "Kanban",
     value: "kanban",
@@ -17,7 +17,7 @@ const actionTabs = [
   },
 ];
 
-const actionActions = [
+const iconButtonActions = [
   {
     Icon: ListFilterIcon,
     tooltip: "Filter",
@@ -45,6 +45,13 @@ const actionActions = [
   },
 ];
 
+const textButtonActions = [
+  {
+    label: "New task",
+    onClick: () => null,
+  },
+];
+
 export default function PrimaryContent() {
   const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
   // TODO:
@@ -58,13 +65,17 @@ export default function PrimaryContent() {
   const handleTaskSelect = (uuid: string | null) => {
     setSelectedTaskUuid(uuid);
   };
-  const handleNewTaskCreate = () => {};
 
   return (
     <div className="flex-container flex-col">
       <CalendarStripe />
 
-      <ActionBar tabs={actionTabs} actions={actionActions} onNewTaskCreate={handleNewTaskCreate} />
+      <ActionBar
+        className="mb-3"
+        tabs={tabs}
+        iconButtonActions={iconButtonActions}
+        textButtonActions={textButtonActions}
+      />
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={handleTaskSelect} />
     </div>

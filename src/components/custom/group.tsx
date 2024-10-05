@@ -15,7 +15,7 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
     <Collapsible className="max-w-full" open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger asChild>
         <div
-          className="flex cursor-pointer items-center gap-0.5 pe-3 ps-0.5 text-muted-foreground hover:bg-muted/50 active:ring-1 active:ring-inset active:ring-border data-[open=true]:bg-muted/50"
+          className="flex cursor-pointer items-center gap-0.5 py-px pe-3 ps-0.5 text-muted-foreground hover:bg-muted/50 active:ring-1 active:ring-inset active:ring-border data-[open=true]:bg-muted/50"
           data-open={open}
         >
           <Icon className="size-5" />
