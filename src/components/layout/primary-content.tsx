@@ -1,3 +1,4 @@
+import { TypographyH2 } from "../custom/typography";
 import CalendarStripe from "../features/calendar-stripe";
 import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/custom/action-bar";
@@ -69,6 +70,10 @@ export default function PrimaryContent() {
   return (
     <div className="flex-container flex-col">
       <CalendarStripe />
+
+      <div className="mt-3 pe-3 ps-5">
+        <TypographyH2>Tasks</TypographyH2>
+      </div>
 
       <ActionBar
         className="mb-3"
