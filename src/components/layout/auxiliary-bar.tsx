@@ -7,7 +7,7 @@ import { ChevronDownIcon, ChevronsRightIcon, ChevronUpIcon } from "lucide-react"
 
 export default function AuxiliaryBar() {
   return (
-    <div className="flex size-full flex-col gap-1.5 bg-muted px-3 py-1.5 text-muted-foreground">
+    <div className="flex size-full flex-col gap-1.5 bg-muted/40 px-3 py-1.5 text-muted-foreground">
       <ButtonList>
         <TooltipWrapper content={<p>Close</p>}>
           <Button variant="ghost" size="icon">
