@@ -10,26 +10,20 @@ interface Tab {
   value: string;
 }
 
-interface IconButtonAction {
+interface Action {
   // TODO: fix the type (LucideIcon?)
   Icon: any;
   tooltip: string;
   onClick: (event: any) => void; // TODO: event type
 }
 
-interface TextButtonAction {
-  label: string;
-  onClick: (event: any) => void; // TODO: event type
-}
-
 interface ActionBarProps {
   className?: string;
   tabs: Tab[];
-  iconButtonActions?: IconButtonAction[];
-  textButtonActions?: TextButtonAction[];
+  actions?: Action[];
 }
 
-function ActionBar({ className, tabs, iconButtonActions = [], textButtonActions = [] }: ActionBarProps) {
+function ActionBar({ className, tabs, actions = [] }: ActionBarProps) {
   return (
     <FlexLine
       className={cn("pe-3 ps-5", className)}
@@ -49,21 +43,13 @@ function ActionBar({ className, tabs, iconButtonActions = [], textButtonActions 
         )
       }
       end={
-        <ButtonList>
-          <ButtonList size="sm">
-            {iconButtonActions.map((action, index) => (
-              <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
-                <Button variant="ghost" size="icon" onClick={action.onClick}>
-                  <action.Icon className="text-muted-foreground" />
-                </Button>
-              </TooltipWrapper>
-            ))}
-          </ButtonList>
-
-          {textButtonActions.map((action, index) => (
-            <Button key={index} size="sm" onClick={action.onClick}>
-              {action.label}
-            </Button>
+        <ButtonList size="sm">
+          {actions.map((action, index) => (
+            <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
+              <Button variant="ghost" size="icon" onClick={action.onClick}>
+                <action.Icon className="text-muted-foreground" />
+              </Button>
+            </TooltipWrapper>
           ))}
         </ButtonList>
       }

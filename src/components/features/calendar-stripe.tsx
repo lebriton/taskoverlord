@@ -10,7 +10,7 @@ const tabs = [
   },
 ];
 
-const iconButtonActions = [
+const actions = [
   {
     Icon: CalendarCheckIcon,
     tooltip: "Today",
@@ -95,7 +95,7 @@ export default function CalendarStripe() {
 
   return (
     <div className="bg-muted/20">
-      <ActionBar tabs={tabs} iconButtonActions={iconButtonActions} />
+      <ActionBar tabs={tabs} actions={actions} />
 
       <ScrollArea className="border">
         <div className="flex divide-x">
