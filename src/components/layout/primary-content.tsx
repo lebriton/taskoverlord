@@ -1,6 +1,5 @@
 import FlexLine from "../custom/flex-line";
 import { TypographyH3 } from "../custom/typography";
-import CalendarStripe from "../features/calendar-stripe";
 import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
@@ -78,8 +77,6 @@ export default function PrimaryContent() {
 
   return (
     <div className="flex-container flex-col">
-      <CalendarStripe />
-
       <Header groupedTasks={groupedTasks} />
 
       <ActionBar className="mb-3" tabs={tabs} actions={actions} />
