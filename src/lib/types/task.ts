@@ -16,7 +16,7 @@ export interface TaskGroup {
   tasks: Task[];
 }
 
-export const TaskSchema = z.object({
+export const taskSchema = z.object({
   status: z.nativeEnum(TaskStatus),
   uuid: z.string(),
   entry: z.string().datetime({ local: true }).transform(preprocessDate),
@@ -49,7 +49,7 @@ export const TaskSchema = z.object({
   urgency: z.number(),
 });
 
-export interface Task extends z.infer<typeof TaskSchema> {
+export interface Task extends z.infer<typeof taskSchema> {
   // TODO:
   favorite: boolean;
 }

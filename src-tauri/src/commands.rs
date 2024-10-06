@@ -13,6 +13,11 @@ pub fn get_projects() -> Result<Vec<String>, Error> {
 }
 
 #[tauri::command(async)]
+pub fn get_task(task_uuid: String) -> Result<Task, Error> {
+    Ok(taskwarrior::get_task(task_uuid)?)
+}
+
+#[tauri::command(async)]
 pub fn get_tasks() -> Result<Vec<Task>, Error> {
     Ok(taskwarrior::get_tasks()?)
 }

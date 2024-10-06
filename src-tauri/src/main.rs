@@ -11,6 +11,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             commands::add_task,
             commands::get_projects,
+            commands::get_task,
             commands::get_tasks,
             commands::modify_task,
             commands::modify_task_status,

@@ -10,9 +10,14 @@ const buttonListVariants = cva("flex items-center", {
       default: "gap-2",
       sm: "gap-[4px]",
     },
+    orientation: {
+      horizontal: "",
+      vertical: "flex-col items-stretch",
+    },
   },
   defaultVariants: {
     size: "default",
+    orientation: "horizontal",
   },
 });
 
@@ -45,8 +50,8 @@ function ActionButtons({ actions }: ActionButtonProps) {
   );
 }
 
-function ButtonList({ className, size, children }: PropsWithChildren<ButtonListProps>) {
-  return <div className={cn(buttonListVariants({ size, className }))}>{children}</div>;
+function ButtonList({ className, size, orientation, children }: PropsWithChildren<ButtonListProps>) {
+  return <div className={cn(buttonListVariants({ size, orientation, className }))}>{children}</div>;
 }
 
 export { type Action, ActionButtons, ButtonList };

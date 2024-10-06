@@ -111,6 +111,15 @@ pub fn get_projects() -> Result<Vec<String>> {
     Ok(projects)
 }
 
+pub fn get_task(task_uuid: String) -> Result<Task> {
+    let command_parts = vec!["task", task_uuid.as_str(), "export", "rc.json.array=off"];
+
+    let output = check_output_from_parts(command_parts, false).context("Failed to retrieve tasks from Taskwarrior")?;
+    let task: Task = serde_json::from_str(&output.lines).context("Failed to parse task from JSON")?;
+
+    Ok(task)
+}
+
 pub fn get_tasks() -> Result<Vec<Task>> {
     let output = check_output("task export", true).context("Failed to retrieve tasks from Taskwarrior")?;
     let tasks: Vec<Task> = serde_json::from_str(&output.lines).context("Failed to parse tasks from JSON")?;

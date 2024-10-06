@@ -3,7 +3,7 @@ import { TypographyH3 } from "../custom/typography";
 import CalendarStripe from "../features/calendar-stripe";
 import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/custom/action-bar";
-import { useGlobalState } from "@/contexts/global-context";
+import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, SearchIcon } from "lucide-react";
@@ -74,7 +74,7 @@ function Header({ groupedTasks }: HeaderProps) {
 }
 
 export default function PrimaryContent() {
-  const { tasksQuery, groupedTasks, selectedTaskUuid, selectTask } = useGlobalState();
+  const { groupedTasks, selectedTaskUuid, selectTask } = useGlobalState();
 
   return (
     <div className="flex-container flex-col">

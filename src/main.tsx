@@ -1,7 +1,7 @@
 import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
-import GlobalStateProvider from "@/contexts/global-context";
+import GlobalStateProvider from "@/contexts/global-state";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import React from "react";
@@ -30,12 +30,12 @@ const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStateProvider>
-          <RouterProvider router={router} />
-        </GlobalStateProvider>
-      </QueryClientProvider>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStateProvider>
+        <RouterProvider router={router} />
+      </GlobalStateProvider>
+    </QueryClientProvider>,
+    // </React.StrictMode>,
   );
 }
