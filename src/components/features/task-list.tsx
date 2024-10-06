@@ -192,7 +192,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       {/* RIGHT */}
       <div className="flex min-w-0 flex-col flex-nowrap items-end">
         <div className="text-[0.8rem] text-muted-foreground">
-          {urgency != 0 && <span className="me-1 group-hover:opacity-0">{round(urgency, 2)}</span>}
+          <span className="me-1 group-hover:opacity-0">{round(urgency, 2)}</span>
         </div>
 
         <ButtonList className="h-5">
