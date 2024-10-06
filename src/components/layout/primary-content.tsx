@@ -60,7 +60,7 @@ const actions = [
 function Header({ groupedTasks }: HeaderProps) {
   return (
     <FlexLine
-      className="items-start bg-muted/75 px-5 pb-3 pt-1.5"
+      className="items-start border-b-2 bg-muted/75 px-5 pb-3 pt-1.5"
       start={
         <div className="flex flex-col">
           <TypographyH3>Tasks</TypographyH3>
