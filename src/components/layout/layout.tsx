@@ -62,6 +62,9 @@ export default function Layout({ children }: PropsWithChildren) {
 
         <ResizablePanel
           className="border-l data-[panel-size='0.0']:border-l-0"
+          style={{
+            "--border": "204.21, 65.52%, 17.06%",
+          }}
           defaultSize={20}
           minSize={15}
           maxSize={85}

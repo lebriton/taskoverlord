@@ -29,10 +29,12 @@ function NavItem({ to, Icon, tooltip, active }: NavItemProps) {
     <TooltipWrapper content={<p>{tooltip}</p>} side="right">
       <Link
         to={to}
-        className="flex size-12 items-center justify-center text-muted-foreground/75 hover:text-foreground data-[status=active]:text-accent-foreground"
+        className="relative flex size-12 items-center justify-center text-muted-foreground hover:text-accent-foreground data-[status=active]:text-accent-foreground"
         data-active={active}
       >
         <Icon className="size-6" />
+
+        {active && <div className="pointer-events-none absolute inset-0 border-l-2 border-primary" />}
       </Link>
     </TooltipWrapper>
   );
@@ -44,7 +46,14 @@ export default function Navbar({ groups }: NavbarProps) {
   });
 
   return (
-    <aside className="flex flex-col bg-background">
+    <aside
+      className="dark flex flex-col bg-background"
+      style={{
+        "--background": "206.84, 51.35%, 14.51%",
+        "--muted-foreground": "0, 0%, 59.61%",
+        "--accent-foreground": "0, 0%, 99.61%",
+      }}
+    >
       {groups.map((group, index) => (
         <nav key={index} className={cn("flex flex-col items-center", index > 0 && "mt-auto")}>
           {group.map((item, index) => (
