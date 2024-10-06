@@ -48,7 +48,7 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       commonTabsTriggerClasses,
-      "relative after:absolute after:bottom-[-6px] after:bg-muted-foreground data-[state=active]:after:h-[1px] data-[state=active]:after:left-[-2px] data-[state=active]:after:right-[-2px]",
+      "relative after:absolute after:bottom-[-7px] after:bg-muted-foreground data-[state=active]:after:h-[1px] data-[state=active]:after:left-[-2px] data-[state=active]:after:right-[-2px]",
       className)}
     {...props}
   />
