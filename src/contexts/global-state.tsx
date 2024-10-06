@@ -13,12 +13,9 @@ interface GlobalStateType {
 export const GlobalState = React.createContext<GlobalStateType | null>(null);
 
 const GlobalStateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks, placeholderData: [] });
+  const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
   // TODO:
-  const groupedTasks = [
-    { name: "Ungrouped", tasks: tasksQuery.data },
-    { name: "Ungrouped", tasks: tasksQuery.data },
-  ];
+  const groupedTasks = [{ name: "Ungrouped", tasks: tasksQuery.data || [] }];
 
   const [selectedTaskUuid, setSelectedTaskUuid] = React.useState<string | null>(null);
 
