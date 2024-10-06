@@ -1,20 +1,11 @@
 import FlexLine from "@/components/custom/flex-line";
-import { Button } from "@/components/ui/button";
 import { FakeTabsTrigger, Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ButtonList } from "@/components/utils/button-utils";
-import { TooltipWrapper } from "@/components/utils/tooltip-utils";
+import { Action, ActionButtons } from "@/components/utils/button-utils";
 import { cn } from "@/lib/utils";
 
 interface Tab {
   label: string;
   value: string;
-}
-
-interface Action {
-  // TODO: fix the type (LucideIcon?)
-  Icon: any;
-  tooltip: string;
-  onClick: (event: any) => void; // TODO: event type
 }
 
 interface ActionBarProps {
@@ -42,17 +33,7 @@ function ActionBar({ className, tabs, actions = [] }: ActionBarProps) {
           </Tabs>
         )
       }
-      end={
-        <ButtonList size="sm">
-          {actions.map((action, index) => (
-            <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
-              <Button variant="ghost" size="icon" onClick={action.onClick}>
-                <action.Icon className="text-muted-foreground" />
-              </Button>
-            </TooltipWrapper>
-          ))}
-        </ButtonList>
-      }
+      end={actions && <ActionButtons actions={actions} />}
     />
   );
 }
