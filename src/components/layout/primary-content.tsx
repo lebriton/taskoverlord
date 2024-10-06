@@ -3,10 +3,9 @@ import { TypographyH3 } from "../custom/typography";
 import CalendarStripe from "../features/calendar-stripe";
 import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/custom/action-bar";
-import { getTasks } from "@/lib/ipc";
+import { useGlobalState } from "@/contexts/global-context";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 
@@ -75,18 +74,7 @@ function Header({ groupedTasks }: HeaderProps) {
 }
 
 export default function PrimaryContent() {
-  const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
-  // TODO:
-  const groupedTasks = [
-    { name: "Ungrouped", tasks: tasksQuery.data || [] },
-    { name: "Ungrouped", tasks: tasksQuery.data || [] },
-  ];
-
-  const [selectedTaskUuid, setSelectedTaskUuid] = React.useState<string | null>(null);
-
-  const handleTaskSelect = (uuid: string | null) => {
-    setSelectedTaskUuid(uuid);
-  };
+  const { tasksQuery, groupedTasks, selectedTaskUuid, selectTask } = useGlobalState();
 
   return (
     <div className="flex-container flex-col">
@@ -96,7 +84,7 @@ export default function PrimaryContent() {
 
       <ActionBar className="mb-3" tabs={tabs} actions={actions} />
 
-      <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={handleTaskSelect} />
+      <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
     </div>
   );
 }
