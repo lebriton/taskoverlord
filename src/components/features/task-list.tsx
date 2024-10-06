@@ -159,7 +159,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
   return (
     <div
-      className="group flex gap-2.5 py-3 data-[state=selected]:!bg-muted"
+      className="group relative flex gap-2.5 py-3 pe-3 ps-5 data-[state=selected]:bg-primary/15"
       data-checked={checked}
       data-state={selected ? "selected" : ""}
       data-favorite={favorite}
@@ -176,7 +176,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {/* CENTER */}
       <div className="flex flex-1 flex-col">
-        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[checked=true]:opacity-70">
+        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[state=selected]:font-bold group-data-[checked=true]:opacity-70">
           {description}
         </label>
 
@@ -187,9 +187,9 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {/* RIGHT */}
       <div className="flex min-w-0 flex-col flex-nowrap items-end">
-        <div className="text-[0.8rem] text-muted-foreground">
-          <span className="me-1 group-hover:opacity-0">{toLocaleTimeago(modified, true)}</span>
-        </div>
+        <span className="text-[0.8rem] text-muted-foreground group-hover:opacity-0 group-data-[state=selected]:font-semibold group-data-[state=selected]:text-foreground">
+          {toLocaleTimeago(modified, true)}
+        </span>
 
         <ButtonList className="h-5">
           <EditButton />
@@ -198,6 +198,8 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
           <AddToFavoriteButton favorite={favorite} />
         </ButtonList>
       </div>
+
+      {selected && <div className="absolute inset-y-0 left-0 w-2.5 bg-primary" />}
     </div>
   );
 }
@@ -292,7 +294,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
       <div className="divide-y">
         {groupedTasks.map((group, index) => (
           <Group key={index} name={group.name}>
-            <div className="divide-y pe-3 ps-5">
+            <div className="divide-y">
               {group.tasks.map((task, index) => {
                 const selected = task.uuid === selectedTaskUuid;
                 return (
