@@ -16,8 +16,8 @@
       "icons/icon.ico"
     ]
   },
-  "productName": "taskoverlord",
-  "mainBinaryName": "taskoverlord",
+  "productName": "TaskOverlord",
+  "mainBinaryName": "TaskOverlord",
   "version": "0.1.0",
   "identifier": "com.taskoverlord.app",
   "plugins": {},
@@ -27,7 +27,7 @@
     },
     "windows": [
       {
-        "title": "Taskoverlord",
+        "title": "TaskOverlord",
         "width": 1080,
         "height": 720
       }
