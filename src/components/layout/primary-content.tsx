@@ -5,7 +5,7 @@ import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
-import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, SearchIcon } from "lucide-react";
+import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, RotateCwIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 import Pluralize from "react-pluralize";
 
@@ -28,6 +28,11 @@ const actions = [
   {
     Icon: PlusIcon,
     tooltip: "New task",
+    onClick: () => null,
+  },
+  {
+    Icon: RotateCwIcon,
+    tooltip: "Refresh",
     onClick: () => null,
   },
   {
