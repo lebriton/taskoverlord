@@ -14,8 +14,11 @@ import {
   ClockAlertIcon,
   CopyIcon,
   Edit3Icon,
+  FlameIcon,
   HourglassIcon,
   MessageSquareIcon,
+  OctagonAlertIcon,
+  SirenIcon,
   Trash2Icon,
 } from "lucide-react";
 import React, { PropsWithChildren } from "react";
@@ -49,14 +52,14 @@ function Attribute({ className, Icon, children, bold = false }: PropsWithChildre
     <div
       className={cn("flex items-center gap-0.5 text-[0.8rem] text-muted-foreground", bold && "font-medium", className)}
     >
-      {Icon && <Icon className="size-3.5 shrink-0" />}
+      {Icon && <Icon className="mb-0.5 size-[0.8rem] shrink-0" />}
       <div className="first-letter:uppercase">{children}</div>
     </div>
   );
 }
 
 function AttributeList({ task }: AttributeListProps) {
-  const { annotations, modified, due, scheduled, wait, until } = task;
+  const { annotations, urgency, due, scheduled, wait, until } = task;
 
   return (
     <>
@@ -72,19 +75,6 @@ function AttributeList({ task }: AttributeListProps) {
           <Attribute Icon={MessageSquareIcon}>{annotations.length}</Attribute>
         </TooltipWrapper>
       )}
-
-      <TooltipWrapper
-        content={
-          <p>
-            Modified:
-            <br />
-            {toLocaleDateString(modified)}
-          </p>
-        }
-        asChild={false}
-      >
-        <Attribute>{toLocaleTimeago(modified, true)}</Attribute>
-      </TooltipWrapper>
 
       {due && (
         <TooltipWrapper
@@ -153,12 +143,18 @@ function AttributeList({ task }: AttributeListProps) {
           </Attribute>
         </TooltipWrapper>
       )}
+
+      {urgency !== 0 && (
+        <TooltipWrapper content={<p>Urgency</p>} asChild={false}>
+          <Attribute Icon={SirenIcon}>{round(urgency, 2)}</Attribute>
+        </TooltipWrapper>
+      )}
     </>
   );
 }
 
 function TaskItem({ task, selected, onSelect }: TaskItemProps) {
-  const { description, favorite, status, urgency } = task;
+  const { description, favorite, status, modified } = task;
   const checked = status === TaskStatus.COMPLETED;
 
   return (
@@ -192,7 +188,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
       {/* RIGHT */}
       <div className="flex min-w-0 flex-col flex-nowrap items-end">
         <div className="text-[0.8rem] text-muted-foreground">
-          <span className="me-1 group-hover:opacity-0">{round(urgency, 2)}</span>
+          <span className="me-1 group-hover:opacity-0">{toLocaleTimeago(modified, true)}</span>
         </div>
 
         <ButtonList className="h-5">
