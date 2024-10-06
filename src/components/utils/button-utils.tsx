@@ -8,7 +8,7 @@ const buttonListVariants = cva("flex items-center", {
   variants: {
     size: {
       default: "gap-2",
-      sm: "gap-1.5",
+      sm: "gap-[4px]",
     },
   },
   defaultVariants: {
@@ -37,7 +37,7 @@ function ActionButtons({ actions }: ActionButtonProps) {
       {actions.map((action, index) => (
         <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
           <Button variant="ghost" size="icon" onClick={action.onClick}>
-            <action.Icon className="text-muted-foreground" />
+            <action.Icon className="size-[22px] text-muted-foreground" />
           </Button>
         </TooltipWrapper>
       ))}
