@@ -7,6 +7,7 @@ import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
 import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
+import Pluralize from "react-pluralize";
 
 interface HeaderProps {
   groupedTasks: TaskGroup[];
@@ -64,7 +65,8 @@ function Header({ groupedTasks }: HeaderProps) {
         <div className="flex flex-col">
           <TypographyH3>Tasks</TypographyH3>
           <p className="text-sm text-muted-foreground">
-            {groupedTasks.length} groups, {getTotalTaskCount(groupedTasks)} tasks
+            <Pluralize singular={"group"} count={groupedTasks.length} />,{" "}
+            <Pluralize singular={"task"} count={getTotalTaskCount(groupedTasks)} />
           </p>
         </div>
       }
