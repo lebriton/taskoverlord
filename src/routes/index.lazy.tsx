@@ -6,5 +6,5 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  return <ActionBar tabs={[{ label: "Explorer", value: "inbox" }]} />;
+  return <ActionBar tabs={[{ label: "Inbox", value: "inbox" }]} />;
 }
