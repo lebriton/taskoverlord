@@ -81,7 +81,7 @@ export default function PrimaryContent() {
     <div className="flex-container flex-col">
       <Header groupedTasks={groupedTasks} />
 
-      <ActionBar className="mb-3" tabs={tabs} actions={actions} />
+      <ActionBar tabs={tabs} actions={actions} />
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
     </div>
