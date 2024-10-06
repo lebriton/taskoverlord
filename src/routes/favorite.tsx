@@ -1,3 +1,4 @@
+import { ActionBar } from "@/components/custom/action-bar";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/favorite")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/favorite")({
 });
 
 function Favorite() {
-  return "WIP - Favorite";
+  return <ActionBar tabs={[{ label: "Favorite", value: "favorite" }]} />;
 }

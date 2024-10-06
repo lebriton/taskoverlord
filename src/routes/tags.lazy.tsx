@@ -1,3 +1,4 @@
+import { ActionBar } from "@/components/custom/action-bar";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/tags")({
@@ -5,5 +6,5 @@ export const Route = createLazyFileRoute("/tags")({
 });
 
 function Tags() {
-  return "WIP - Tags";
+  return <ActionBar tabs={[{ label: "Tags", value: "tags" }]} />;
 }

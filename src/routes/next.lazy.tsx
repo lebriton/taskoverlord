@@ -1,3 +1,4 @@
+import { ActionBar } from "@/components/custom/action-bar";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/next")({
@@ -5,5 +6,5 @@ export const Route = createLazyFileRoute("/next")({
 });
 
 function Next() {
-  return "WIP - Next";
+  return <ActionBar tabs={[{ label: "Next", value: "next" }]} />;
 }

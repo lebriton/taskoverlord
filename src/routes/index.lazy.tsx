@@ -1,3 +1,4 @@
+import { ActionBar } from "@/components/custom/action-bar";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
@@ -5,5 +6,5 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-  return "WIP - Inbox";
+  return <ActionBar tabs={[{ label: "Explorer", value: "inbox" }]} />;
 }

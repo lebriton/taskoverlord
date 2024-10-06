@@ -1,3 +1,4 @@
+import { ActionBar } from "@/components/custom/action-bar";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/search")({
@@ -5,5 +6,5 @@ export const Route = createLazyFileRoute("/search")({
 });
 
 function Search() {
-  return "WIP - Search";
+  return <ActionBar tabs={[{ label: "Search", value: "search" }]} />;
 }
