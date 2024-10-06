@@ -15,7 +15,7 @@ const navItems = [
       tooltip: "Inbox",
     },
     {
-      to: "/favorite",
+      to: "/favorites",
       Icon: StarIcon,
       tooltip: "Favorites",
     },

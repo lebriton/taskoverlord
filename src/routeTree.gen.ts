@@ -13,7 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as FavoriteImport } from './routes/favorite'
+import { Route as FavoritesImport } from './routes/favorites'
 
 // Create Virtual Routes
 
@@ -51,8 +51,8 @@ const CompletedLazyRoute = CompletedLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/completed.lazy').then((d) => d.Route))
 
-const FavoriteRoute = FavoriteImport.update({
-  path: '/favorite',
+const FavoritesRoute = FavoritesImport.update({
+  path: '/favorites',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -72,11 +72,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/favorite': {
-      id: '/favorite'
-      path: '/favorite'
-      fullPath: '/favorite'
-      preLoaderRoute: typeof FavoriteImport
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesImport
       parentRoute: typeof rootRoute
     }
     '/completed': {
@@ -121,7 +121,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/favorite': typeof FavoriteRoute
+  '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
@@ -131,7 +131,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/favorite': typeof FavoriteRoute
+  '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
@@ -142,7 +142,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/favorite': typeof FavoriteRoute
+  '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
   '/projects': typeof ProjectsLazyRoute
@@ -154,7 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/favorite'
+    | '/favorites'
     | '/completed'
     | '/next'
     | '/projects'
@@ -163,7 +163,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/favorite'
+    | '/favorites'
     | '/completed'
     | '/next'
     | '/projects'
@@ -172,7 +172,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/favorite'
+    | '/favorites'
     | '/completed'
     | '/next'
     | '/projects'
@@ -183,7 +183,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  FavoriteRoute: typeof FavoriteRoute
+  FavoritesRoute: typeof FavoritesRoute
   CompletedLazyRoute: typeof CompletedLazyRoute
   NextLazyRoute: typeof NextLazyRoute
   ProjectsLazyRoute: typeof ProjectsLazyRoute
@@ -193,7 +193,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  FavoriteRoute: FavoriteRoute,
+  FavoritesRoute: FavoritesRoute,
   CompletedLazyRoute: CompletedLazyRoute,
   NextLazyRoute: NextLazyRoute,
   ProjectsLazyRoute: ProjectsLazyRoute,
@@ -214,7 +214,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/favorite",
+        "/favorites",
         "/completed",
         "/next",
         "/projects",
@@ -225,8 +225,8 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/favorite": {
-      "filePath": "favorite.tsx"
+    "/favorites": {
+      "filePath": "favorites.tsx"
     },
     "/completed": {
       "filePath": "completed.lazy.tsx"
