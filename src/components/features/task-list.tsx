@@ -14,10 +14,8 @@ import {
   ClockAlertIcon,
   CopyIcon,
   Edit3Icon,
-  FlameIcon,
   HourglassIcon,
   MessageSquareIcon,
-  OctagonAlertIcon,
   SirenIcon,
   Trash2Icon,
 } from "lucide-react";
