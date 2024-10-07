@@ -70,12 +70,7 @@ function MyForm({ task }: MyFormProps) {
 
         <ButtonList className="mx-3 mb-3" orientation="vertical">
           <Button type="submit" disabled={!form.formState.isDirty}>
-            <SaveIcon className="me-1 size-3.5" />
             Save
-          </Button>
-          <Button variant="destructive">
-            <TrashIcon className="me-1 size-3.5" />
-            Delete
           </Button>
         </ButtonList>
       </form>
