@@ -265,7 +265,7 @@ function AddToFavoriteButton({ favorite }) {
 
 function NewTaskComponent({ onClick }) {
   return (
-    <button className="group mb-3 flex w-full items-center gap-2.5 py-3" type="button" onClick={onClick}>
+    <button className="group mb-3 flex w-full items-center gap-2.5 py-3 pe-3 ps-5" type="button" onClick={onClick}>
       <PlusIcon className="size-5 shrink-0 rounded-full group-hover:bg-primary group-hover:text-primary-foreground" />
       <span className="whitespace-nowrap text-sm text-muted-foreground/50 group-hover:text-primary">
         Add a new task
