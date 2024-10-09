@@ -13,6 +13,7 @@ import {
   CalendarClockIcon,
   ClockAlertIcon,
   CopyIcon,
+  DiamondPlusIcon,
   Edit3Icon,
   HourglassIcon,
   MessageSquareIcon,
@@ -191,6 +192,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
         <ButtonList className="h-5">
           <EditButton />
+          <NewChildTaskButton />
           <DuplicateButton />
           <DeleteButton />
           <AddToFavoriteButton favorite={favorite} />
@@ -199,6 +201,21 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {selected && <div className="absolute inset-y-0 left-0 w-2.5 bg-primary" />}
     </div>
+  );
+}
+
+function NewChildTaskButton() {
+  return (
+    <TooltipWrapper content={<p>Add a child task</p>}>
+      <Button
+        className="opacity-0 group-hover:opacity-100"
+        variant="plain"
+        size="plain"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <DiamondPlusIcon />
+      </Button>
+    </TooltipWrapper>
   );
 }
 
