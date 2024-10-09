@@ -157,7 +157,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
   return (
     <div
-      className="group relative flex gap-2.5 py-3 pe-3 ps-5 data-[state=selected]:bg-primary/15"
+      className="group relative flex gap-2.5 py-3 pe-3 ps-5 hover:!bg-muted/50 data-[state=selected]:bg-muted/25 data-[state=selected]:ring-1 data-[state=selected]:ring-inset data-[state=selected]:ring-primary/50"
       data-checked={checked}
       data-state={selected ? "selected" : ""}
       data-favorite={favorite}
@@ -174,7 +174,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {/* CENTER */}
       <div className="flex flex-1 flex-col">
-        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[state=selected]:font-bold group-data-[checked=true]:opacity-70">
+        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[checked=true]:opacity-70">
           {description}
         </label>
 
@@ -185,7 +185,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {/* RIGHT */}
       <div className="flex min-w-0 flex-col flex-nowrap items-end">
-        <span className="text-[0.8rem] text-muted-foreground group-hover:opacity-0 group-data-[state=selected]:font-semibold group-data-[state=selected]:text-foreground">
+        <span className="text-[0.8rem] text-muted-foreground group-hover:opacity-0 group-data-[state=selected]:text-foreground">
           {toLocaleTimeago(modified, true)}
         </span>
 
@@ -236,7 +236,7 @@ function DeleteButton() {
   return (
     <TooltipWrapper content={<p>Delete task</p>}>
       <Button
-        className="opacity-0 hover:text-rose-600 group-hover:opacity-100"
+        className="opacity-0 hover:text-destructive group-hover:opacity-100"
         variant="plain"
         size="plain"
         onClick={(e) => e.stopPropagation()}
@@ -278,7 +278,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
   return (
     <ScrollArea
       className={cn(
-        "flex-container flex-col",
+        "flex-container flex-1 flex-col",
 
         // The Group component utilizes shadcn's Collapsible, which is composed of nested div elements.
         // One of the parent divs has a display style of "table", which must be overidden to somehow

@@ -1,6 +1,8 @@
 import FlexLine from "../custom/flex-line";
 import { TypographyH3 } from "../custom/typography";
 import { TaskList } from "../features/task-list";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
@@ -83,12 +85,17 @@ export default function PrimaryContent() {
   const { groupedTasks, selectedTaskUuid, selectTask } = useGlobalState();
 
   return (
-    <div className="flex-container flex-col">
+    <div className="flex-container h-full flex-col">
       <Header groupedTasks={groupedTasks} />
 
-      <ActionBar tabs={tabs} actions={actions} />
+      <ActionBar className="border-b" tabs={tabs} actions={actions} />
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
+
+      <form className="flex gap-1.5 border-t bg-muted/25 pb-3 pe-3 ps-5 pt-1.5">
+        <Input placeholder="Enter a new task…" />
+        <Button type="submit">Add</Button>
+      </form>
     </div>
   );
 }
