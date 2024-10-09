@@ -2,12 +2,13 @@ import FlexLine from "../custom/flex-line";
 import { TypographyH3 } from "../custom/typography";
 import { TaskList } from "../features/task-list";
 import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
-import { ArrowUpDownIcon, EyeIcon, GroupIcon, ListFilterIcon, PlusIcon, RotateCwIcon, SearchIcon } from "lucide-react";
+import { ArrowUpDownIcon, GroupIcon, ListFilterIcon, PlusIcon, RotateCwIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 import Pluralize from "react-pluralize";
 
@@ -57,11 +58,6 @@ const actions = [
     tooltip: "Group by",
     onClick: () => null,
   },
-  {
-    Icon: EyeIcon,
-    tooltip: "Modify visibility",
-    onClick: () => null,
-  },
 ];
 
 function Header({ groupedTasks }: HeaderProps) {
@@ -89,6 +85,18 @@ export default function PrimaryContent() {
       <Header groupedTasks={groupedTasks} />
 
       <ActionBar className="border-b" tabs={tabs} actions={actions} />
+
+      <div className="py-3 pe-3 ps-5">
+        <div className="flex items-center space-x-2">
+          <Checkbox id="terms" />
+          <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Show completed tasks
+          </label>
+        </div>
+      </div>
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
 
