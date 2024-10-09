@@ -58,7 +58,7 @@ function MyForm({ task }: MyFormProps) {
               <FormItem>
                 <FormLabel>Status</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter a description…" autoFocus {...field} />
+                  <Input placeholder="Enter a description…" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
