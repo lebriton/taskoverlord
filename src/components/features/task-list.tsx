@@ -1,7 +1,13 @@
-import { ActionBar } from "../custom/action-bar";
 import { ActionButtons, ButtonList } from "../utils/button-utils";
+import {
+  AnnotationsIcon,
+  DueDateIcon,
+  ScheduledDateIcon,
+  UntilDateIcon,
+  UrgencyIcon,
+  WaitDateIcon,
+} from "../utils/icon-utils";
 import { Group } from "@/components/custom/group";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
@@ -9,19 +15,8 @@ import { round } from "@/lib/math";
 import { Task, TaskGroup, TaskStatus } from "@/lib/types/task";
 import { cn, toLocaleTimeago, toLocaleDateString } from "@/lib/utils";
 import { PlusIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
-import {
-  AlarmClockIcon,
-  CalendarClockIcon,
-  ClockAlertIcon,
-  CopyIcon,
-  DiamondPlusIcon,
-  Edit3Icon,
-  HourglassIcon,
-  MessageSquareIcon,
-  SirenIcon,
-  Trash2Icon,
-} from "lucide-react";
-import React, { PropsWithChildren } from "react";
+import { CopyIcon, DiamondPlusIcon, Edit3Icon, Trash2Icon } from "lucide-react";
+import { PropsWithChildren } from "react";
 import Pluralize from "react-pluralize";
 
 interface TaskItemProps {
@@ -72,7 +67,7 @@ function AttributeList({ task }: AttributeListProps) {
           }
           asChild={false}
         >
-          <Attribute Icon={MessageSquareIcon}>{annotations.length}</Attribute>
+          <Attribute Icon={AnnotationsIcon}>{annotations.length}</Attribute>
         </TooltipWrapper>
       )}
 
@@ -87,7 +82,7 @@ function AttributeList({ task }: AttributeListProps) {
           }
           asChild={false}
         >
-          <Attribute className="text-yellow-600" Icon={CalendarClockIcon} bold>
+          <Attribute className="text-yellow-600" Icon={DueDateIcon} bold>
             {toLocaleTimeago(due)}
           </Attribute>
         </TooltipWrapper>
@@ -104,7 +99,7 @@ function AttributeList({ task }: AttributeListProps) {
           }
           asChild={false}
         >
-          <Attribute className="text-lime-600" Icon={AlarmClockIcon} bold>
+          <Attribute className="text-lime-600" Icon={ScheduledDateIcon} bold>
             {toLocaleTimeago(scheduled)}
           </Attribute>
         </TooltipWrapper>
@@ -121,7 +116,7 @@ function AttributeList({ task }: AttributeListProps) {
           }
           asChild={false}
         >
-          <Attribute className="text-violet-600" Icon={HourglassIcon} bold>
+          <Attribute className="text-violet-600" Icon={WaitDateIcon} bold>
             {toLocaleTimeago(wait)}
           </Attribute>
         </TooltipWrapper>
@@ -138,7 +133,7 @@ function AttributeList({ task }: AttributeListProps) {
           }
           asChild={false}
         >
-          <Attribute className="text-orange-600" Icon={ClockAlertIcon} bold>
+          <Attribute className="text-orange-600" Icon={UntilDateIcon} bold>
             {toLocaleTimeago(until)}
           </Attribute>
         </TooltipWrapper>
@@ -146,7 +141,7 @@ function AttributeList({ task }: AttributeListProps) {
 
       {urgency !== 0 && (
         <TooltipWrapper content={<p>Urgency</p>} asChild={false}>
-          <Attribute Icon={SirenIcon}>{round(urgency, 2)}</Attribute>
+          <Attribute Icon={UrgencyIcon}>{round(urgency, 2)}</Attribute>
         </TooltipWrapper>
       )}
     </>

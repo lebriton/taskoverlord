@@ -5,23 +5,12 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { ActionButtons, ButtonList } from "../utils/button-utils";
+import { DueDateIcon, ScheduledDateIcon, UntilDateIcon, WaitDateIcon } from "../utils/icon-utils";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
-import {
-  AlarmClockIcon,
-  ArrowUpDownIcon,
-  CalendarClockIcon,
-  ClockAlertIcon,
-  GroupIcon,
-  HourglassIcon,
-  ListFilterIcon,
-  PlusIcon,
-  RotateCwIcon,
-  SearchIcon,
-} from "lucide-react";
-import * as React from "react";
+import { ArrowUpDownIcon, GroupIcon, ListFilterIcon, PlusIcon, RotateCwIcon, SearchIcon } from "lucide-react";
 import Pluralize from "react-pluralize";
 
 interface HeaderProps {
@@ -98,7 +87,7 @@ export default function PrimaryContent() {
 
       <ActionBar className="border-b" tabs={tabs} actions={actions} />
 
-      <div className="py-2.5 pe-3 ps-5 border-b">
+      <div className="border-b py-2.5 pe-3 ps-5">
         <div className="flex items-center space-x-2">
           <Checkbox id="terms" />
           <label
@@ -120,22 +109,22 @@ export default function PrimaryContent() {
               variant="plain"
               actions={[
                 {
-                  Icon: CalendarClockIcon,
+                  Icon: DueDateIcon,
                   tooltip: "Add a due date",
                   onClick: () => null,
                 },
                 {
-                  Icon: AlarmClockIcon,
+                  Icon: ScheduledDateIcon,
                   tooltip: "Add a scheduled date",
                   onClick: () => null,
                 },
                 {
-                  Icon: HourglassIcon,
+                  Icon: WaitDateIcon,
                   tooltip: "Add a wait date",
                   onClick: () => null,
                 },
                 {
-                  Icon: ClockAlertIcon,
+                  Icon: UntilDateIcon,
                   tooltip: "Add an until date",
                   onClick: () => null,
                 },
