@@ -4,7 +4,7 @@ import Workbench from "./workbench";
 import Navbar from "@/components/layout/navbar";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { StarIcon, FolderIcon, TagIcon, InboxIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
-import { SearchIcon, ArrowBigRightDash, CircleCheckBig } from "lucide-react";
+import { SearchIcon, ArrowBigRightDash, CircleCheckBig, ListPlusIcon } from "lucide-react";
 import { PropsWithChildren } from "react";
 
 const navItems = [
@@ -13,6 +13,11 @@ const navItems = [
       to: "/",
       Icon: InboxIcon,
       tooltip: "Inbox",
+    },
+    {
+      to: "/create-tasks",
+      Icon: ListPlusIcon,
+      tooltip: "Create tasks",
     },
     {
       to: "/favorites",

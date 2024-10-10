@@ -1,11 +1,7 @@
 import FlexLine from "../custom/flex-line";
 import { TypographyH3 } from "../custom/typography";
 import { TaskList } from "../features/task-list";
-import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
-import { ActionButtons, ButtonList } from "../utils/button-utils";
-import { DueDateIcon, ScheduledDateIcon, UntilDateIcon, WaitDateIcon } from "../utils/icon-utils";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
@@ -100,48 +96,6 @@ export default function PrimaryContent() {
       </div>
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
-
-      <form className="flex flex-col gap-6 border-t bg-muted/25 pb-3 pe-3 ps-3 pt-1.5">
-        <Input className="border-none bg-transparent p-0 text-base shadow-none" placeholder="Enter a new task…" />
-        <div>
-          <div className="flex items-center justify-between">
-            <ActionButtons
-              variant="plain"
-              actions={[
-                {
-                  Icon: DueDateIcon,
-                  tooltip: "Add a due date",
-                  onClick: () => null,
-                },
-                {
-                  Icon: ScheduledDateIcon,
-                  tooltip: "Add a scheduled date",
-                  onClick: () => null,
-                },
-                {
-                  Icon: WaitDateIcon,
-                  tooltip: "Add a wait date",
-                  onClick: () => null,
-                },
-                {
-                  Icon: UntilDateIcon,
-                  tooltip: "Add an until date",
-                  onClick: () => null,
-                },
-              ]}
-            />
-
-            <ButtonList>
-              <Button variant="outline" size="sm" type="submit">
-                Cancel
-              </Button>
-              <Button size="sm" type="submit">
-                Add task
-              </Button>
-            </ButtonList>
-          </div>
-        </div>
-      </form>
     </div>
   );
 }

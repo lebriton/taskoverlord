@@ -49,7 +49,7 @@
     /* -- Rosé Pine Moon -- */
     /* -------------------- */
 
-    --background: 248 24% 20%; /* Surface */
+    --background: 248 21% 26%; /* Overlay */
     --foreground: 245 50% 91%; /* Text */
     /* --card: 224 71.4% 4.1%; */
     /* --card-foreground: 210 20% 98%; */
@@ -59,14 +59,14 @@
     /* --primary-foreground: 220.9 39.3% 11%; */
     /* --secondary: 215 27.9% 16.9%; */
     /* --secondary-foreground: 210 20% 98%; */
-    --muted: 248 21% 26%; /* Overlay */
-    --muted-foreground: 249 12% 47%; /* Muted */
+    --muted: 248 24% 20%; /* Surface */
+    --muted-foreground: 248 15% 61%; /* Subtle */
     /* --accent: 215 27.9% 16.9%; */
     --accent-foreground: 245 50% 91%; /* Text */
     /* --destructive: 0 62.8% 30.6%; */
     /* --destructive-foreground: 210 20% 98%; */
-    /* --border: 215 27.9% 16.9%; */
-    /* --input: 215 27.9% 16.9%; */
+    --border: 248 21% 26%; /* Overlay */
+    --input: 249 12% 35%; /* Muted (modified) */
     /* --ring: 216 12.2% 83.9%; */
     /* --chart-1: 220 70% 50%; */
     /* --chart-2: 160 60% 45%; */

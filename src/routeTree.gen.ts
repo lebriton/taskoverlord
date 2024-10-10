@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as FavoritesImport } from './routes/favorites'
+import { Route as CreateTasksImport } from './routes/create-tasks'
 
 // Create Virtual Routes
 
@@ -56,6 +57,11 @@ const FavoritesRoute = FavoritesImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const CreateTasksRoute = CreateTasksImport.update({
+  path: '/create-tasks',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -70,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/create-tasks': {
+      id: '/create-tasks'
+      path: '/create-tasks'
+      fullPath: '/create-tasks'
+      preLoaderRoute: typeof CreateTasksImport
       parentRoute: typeof rootRoute
     }
     '/favorites': {
@@ -121,6 +134,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/create-tasks': typeof CreateTasksRoute
   '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
@@ -131,6 +145,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/create-tasks': typeof CreateTasksRoute
   '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
@@ -142,6 +157,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/create-tasks': typeof CreateTasksRoute
   '/favorites': typeof FavoritesRoute
   '/completed': typeof CompletedLazyRoute
   '/next': typeof NextLazyRoute
@@ -154,6 +170,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/create-tasks'
     | '/favorites'
     | '/completed'
     | '/next'
@@ -163,6 +180,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/create-tasks'
     | '/favorites'
     | '/completed'
     | '/next'
@@ -172,6 +190,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/create-tasks'
     | '/favorites'
     | '/completed'
     | '/next'
@@ -183,6 +202,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  CreateTasksRoute: typeof CreateTasksRoute
   FavoritesRoute: typeof FavoritesRoute
   CompletedLazyRoute: typeof CompletedLazyRoute
   NextLazyRoute: typeof NextLazyRoute
@@ -193,6 +213,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  CreateTasksRoute: CreateTasksRoute,
   FavoritesRoute: FavoritesRoute,
   CompletedLazyRoute: CompletedLazyRoute,
   NextLazyRoute: NextLazyRoute,
@@ -214,6 +235,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/create-tasks",
         "/favorites",
         "/completed",
         "/next",
@@ -224,6 +246,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/create-tasks": {
+      "filePath": "create-tasks.tsx"
     },
     "/favorites": {
       "filePath": "favorites.tsx"

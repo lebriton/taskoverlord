@@ -38,7 +38,7 @@ function MyForm({ task }: MyFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3">
         <ScrollArea>
-          <div className="flex-container flex-col space-y-8 px-3">
+          <div className="flex-container flex-col space-y-6 px-3">
             <FormField
               control={form.control}
               name="description"
