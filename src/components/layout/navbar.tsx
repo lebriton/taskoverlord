@@ -34,7 +34,9 @@ function NavItem({ to, Icon, tooltip, active }: NavItemProps) {
       >
         <Icon className="size-6" />
 
-        {active && <div className="pointer-events-none absolute inset-0 border-l-2 border-accent-foreground" />}
+        {active && (
+          <div className="pointer-events-none absolute inset-0 w-1 rounded-ee-full rounded-se-full bg-accent-foreground" />
+        )}
       </Link>
     </TooltipWrapper>
   );
