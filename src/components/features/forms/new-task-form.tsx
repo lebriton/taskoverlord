@@ -33,7 +33,7 @@ const actions = [
 function NewTaskForm() {
   return (
     <form className="flex flex-col gap-3">
-      <Input placeholder="Enter a new task…" />
+      <Input placeholder="Enter a new task…" autoFocus />
 
       <div className="flex items-center justify-between">
         <ActionButtons variant="plain" actions={actions} />
