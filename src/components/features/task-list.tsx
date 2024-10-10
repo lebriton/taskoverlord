@@ -256,7 +256,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
     >
       <div className="divide-y">
         {groupedTasks.map((group, index) => (
-          <Group key={index} name={group.name}>
+          <Group key={index} name={group.name} badge={group.tasks.length}>
             <div className="divide-y">
               {group.tasks.map((task, index) => {
                 const selected = task.uuid === selectedTaskUuid;

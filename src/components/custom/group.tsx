@@ -4,9 +4,10 @@ import React, { PropsWithChildren } from "react";
 
 interface GroupProps {
   name: string;
+  badge?: React.ReactNode;
 }
 
-function Group({ name, children }: PropsWithChildren<GroupProps>) {
+function Group({ name, badge, children }: PropsWithChildren<GroupProps>) {
   const [open, setOpen] = React.useState(true);
 
   const Icon = open ? ChevronDownIcon : ChevronRightIcon;
@@ -19,7 +20,9 @@ function Group({ name, children }: PropsWithChildren<GroupProps>) {
           data-open={open}
         >
           <Icon className="size-5" />
-          <span className="text-xs font-semibold uppercase">{name}</span>
+          <span className="flex-1 text-xs font-semibold uppercase">{name}</span>
+
+          {badge && <span className="rounded-full bg-primary px-1.5 text-xs text-primary-foreground">{badge}</span>}
         </div>
       </CollapsibleTrigger>
 
