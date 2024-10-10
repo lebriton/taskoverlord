@@ -26,7 +26,7 @@ export function DatePicker() {
           <span className="flex-1 text-sm">
             {date && format(date, "PPP")}
           </span>
-          <CalendarIcon className="ms-2 size-4" />
+          <CalendarIcon className="ms-2 -me-1.5 size-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 bg-background">
