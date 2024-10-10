@@ -4,11 +4,23 @@ import { TaskList } from "../features/task-list";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
+import { ActionButtons, ButtonList } from "../utils/button-utils";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
-import { ArrowUpDownIcon, GroupIcon, ListFilterIcon, PlusIcon, RotateCwIcon, SearchIcon } from "lucide-react";
+import {
+  AlarmClockIcon,
+  ArrowUpDownIcon,
+  CalendarClockIcon,
+  ClockAlertIcon,
+  GroupIcon,
+  HourglassIcon,
+  ListFilterIcon,
+  PlusIcon,
+  RotateCwIcon,
+  SearchIcon,
+} from "lucide-react";
 import * as React from "react";
 import Pluralize from "react-pluralize";
 
@@ -86,7 +98,7 @@ export default function PrimaryContent() {
 
       <ActionBar className="border-b" tabs={tabs} actions={actions} />
 
-      <div className="py-3 pe-3 ps-5">
+      <div className="py-2.5 pe-3 ps-5 border-b">
         <div className="flex items-center space-x-2">
           <Checkbox id="terms" />
           <label
@@ -100,9 +112,46 @@ export default function PrimaryContent() {
 
       <TaskList groupedTasks={groupedTasks} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
 
-      <form className="flex gap-1.5 border-t bg-muted/25 pb-3 pe-3 ps-5 pt-1.5">
-        <Input placeholder="Enter a new task…" />
-        <Button type="submit">Add</Button>
+      <form className="flex flex-col gap-6 border-t bg-muted/25 pb-3 pe-3 ps-3 pt-1.5">
+        <Input className="border-none bg-transparent p-0 text-base shadow-none" placeholder="Enter a new task…" />
+        <div>
+          <div className="flex items-center justify-between">
+            <ActionButtons
+              variant="plain"
+              actions={[
+                {
+                  Icon: CalendarClockIcon,
+                  tooltip: "Add a due date",
+                  onClick: () => null,
+                },
+                {
+                  Icon: AlarmClockIcon,
+                  tooltip: "Add a scheduled date",
+                  onClick: () => null,
+                },
+                {
+                  Icon: HourglassIcon,
+                  tooltip: "Add a wait date",
+                  onClick: () => null,
+                },
+                {
+                  Icon: ClockAlertIcon,
+                  tooltip: "Add an until date",
+                  onClick: () => null,
+                },
+              ]}
+            />
+
+            <ButtonList>
+              <Button variant="outline" size="sm" type="submit">
+                Cancel
+              </Button>
+              <Button size="sm" type="submit">
+                Add task
+              </Button>
+            </ButtonList>
+          </div>
+        </div>
       </form>
     </div>
   );

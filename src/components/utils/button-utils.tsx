@@ -1,3 +1,4 @@
+import { isLucideIcon } from "./icon-utils";
 import { Button } from "@/components/ui/button";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
 import { cn } from "@/lib/utils";
@@ -26,9 +27,11 @@ interface Action {
   Icon: any;
   tooltip: string;
   onClick: (event: any) => void; // TODO: event type
+  className?: string;
 }
 
 interface ActionButtonProps {
+  variant?: "ghost" | "plain";
   actions: Action[];
 }
 
@@ -36,13 +39,23 @@ interface ButtonListProps extends VariantProps<typeof buttonListVariants> {
   className?: string;
 }
 
-function ActionButtons({ actions }: ActionButtonProps) {
+function ActionButtons({ variant = "ghost", actions }: ActionButtonProps) {
   return (
-    <ButtonList size="sm">
+    <ButtonList size={variant === "plain" ? "default" : "sm"}>
       {actions.map((action, index) => (
         <TooltipWrapper key={index} content={<p>{action.tooltip}</p>}>
-          <Button variant="ghost" size="icon" onClick={action.onClick}>
-            <action.Icon className="size-[22px] text-muted-foreground" />
+          <Button
+            className={cn(variant !== "plain" && "text-muted-foreground", action.className)}
+            variant={variant}
+            size={variant === "plain" ? "plain" : "icon"}
+            onClick={action.onClick}
+          >
+            <action.Icon
+              className={cn(
+                variant === "plain" && !isLucideIcon(action.Icon) && "size-5",
+                variant !== "plain" && "size-[22px]",
+              )}
+            />
           </Button>
         </TooltipWrapper>
       ))}

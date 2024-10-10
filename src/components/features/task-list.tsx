@@ -1,4 +1,5 @@
-import { ButtonList } from "../utils/button-utils";
+import { ActionBar } from "../custom/action-bar";
+import { ActionButtons, ButtonList } from "../utils/button-utils";
 import { Group } from "@/components/custom/group";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -156,6 +157,40 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
   const { description, favorite, status, modified } = task;
   const checked = status === TaskStatus.COMPLETED;
 
+  const actions = [
+    {
+      Icon: Edit3Icon,
+      tooltip: "Modify task",
+      onClick: () => null,
+      className: "opacity-0 group-hover:opacity-100",
+    },
+    {
+      Icon: DiamondPlusIcon,
+      tooltip: "Add a child task",
+      onClick: () => null,
+      className: "opacity-0 group-hover:opacity-100",
+    },
+    {
+      Icon: CopyIcon,
+      tooltip: "Duplicate task",
+      onClick: () => null,
+      className: "opacity-0 group-hover:opacity-100",
+    },
+    {
+      Icon: Trash2Icon,
+      tooltip: "Delete task",
+      onClick: () => null,
+      className: "opacity-0 hover:text-destructive group-hover:opacity-100",
+    },
+    {
+      Icon: favorite ? StarFilledIcon : StarIcon,
+      tooltip: favorite ? "Remove from favorites" : "Add to favorites",
+      onClick: () => null,
+      className:
+        "opacity-0 hover:text-amber-500 group-hover:opacity-100 group-data-[favorite=true]:text-amber-500 group-data-[favorite=true]:opacity-100",
+    },
+  ];
+
   return (
     <div
       className="group relative flex gap-2.5 py-3 pe-3 ps-5 hover:!bg-muted/50 data-[state=selected]:bg-muted/25 data-[state=selected]:ring-1 data-[state=selected]:ring-inset data-[state=selected]:ring-primary/50"
@@ -190,93 +225,11 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
           {toLocaleTimeago(modified, true)}
         </span>
 
-        <ButtonList className="h-5">
-          <EditButton />
-          <NewChildTaskButton />
-          <DuplicateButton />
-          <DeleteButton />
-          <AddToFavoriteButton favorite={favorite} />
-        </ButtonList>
+        <ActionButtons variant="plain" actions={actions} />
       </div>
 
       {selected && <div className="absolute inset-y-0 left-0 w-2.5 bg-primary" />}
     </div>
-  );
-}
-
-function NewChildTaskButton() {
-  return (
-    <TooltipWrapper content={<p>Add a child task</p>}>
-      <Button
-        className="opacity-0 group-hover:opacity-100"
-        variant="plain"
-        size="plain"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <DiamondPlusIcon />
-      </Button>
-    </TooltipWrapper>
-  );
-}
-
-function EditButton() {
-  return (
-    <TooltipWrapper content={<p>Modify</p>}>
-      <Button
-        className="opacity-0 group-hover:opacity-100"
-        variant="plain"
-        size="plain"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Edit3Icon />
-      </Button>
-    </TooltipWrapper>
-  );
-}
-
-function DuplicateButton() {
-  return (
-    <TooltipWrapper content={<p>Duplicate task</p>}>
-      <Button
-        className="opacity-0 group-hover:opacity-100"
-        variant="plain"
-        size="plain"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <CopyIcon />
-      </Button>
-    </TooltipWrapper>
-  );
-}
-
-function DeleteButton() {
-  return (
-    <TooltipWrapper content={<p>Delete task</p>}>
-      <Button
-        className="opacity-0 hover:text-destructive group-hover:opacity-100"
-        variant="plain"
-        size="plain"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Trash2Icon />
-      </Button>
-    </TooltipWrapper>
-  );
-}
-
-function AddToFavoriteButton({ favorite }) {
-  const Icon = favorite ? StarFilledIcon : StarIcon;
-  return (
-    <TooltipWrapper content={<p>{favorite ? "Remove from favorites" : "Add to favorites"}</p>}>
-      <Button
-        className="opacity-0 hover:text-amber-500 group-hover:opacity-100 group-data-[favorite=true]:text-amber-500 group-data-[favorite=true]:opacity-100"
-        variant="plain"
-        size="plain"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Icon className="size-5" />
-      </Button>
-    </TooltipWrapper>
   );
 }
 
