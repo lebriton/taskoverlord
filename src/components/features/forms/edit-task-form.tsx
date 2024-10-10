@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { DatePicker } from "@/components/ui/date-picker";
+import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ButtonList } from "@/components/utils/button-utils";
+import { FormGroup, FormItemWrapper } from "@/components/utils/form-utils";
 import { Task, taskSchema } from "@/lib/types/task";
+import { toLocaleDateString } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -11,6 +14,10 @@ import { z } from "zod";
 const formSchema = z.object({
   description: taskSchema.shape.description,
   status: taskSchema.shape.status,
+  due: taskSchema.shape.due,
+  scheduled: taskSchema.shape.scheduled,
+  wait: taskSchema.shape.wait,
+  until: taskSchema.shape.until,
 });
 
 interface EditTaskFormProps {
@@ -20,7 +27,7 @@ interface EditTaskFormProps {
 function EditTaskForm({ task }: EditTaskFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { description: task.description, status: task.status },
+    defaultValues: { ...task },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -29,35 +36,84 @@ function EditTaskForm({ task }: EditTaskFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3 px-3">
         <ScrollArea>
-          <div className="flex-container flex-col space-y-6 px-3">
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
+          <div className="flex-container flex-col">
+            <FormGroup name="Description">
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItemWrapper>
                     <Input placeholder="Enter a description…" autoFocus {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Status</FormLabel>
-                  <FormControl>
+                  </FormItemWrapper>
+                )}
+              />
+            </FormGroup>
+            <FormGroup name="Action">
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItemWrapper label="Status">
                     <Input placeholder="Enter a description…" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  </FormItemWrapper>
+                )}
+              />
+            </FormGroup>
+
+            <FormGroup name="Dates">
+              <FormField
+                control={form.control}
+                name="due"
+                render={({ field }) => (
+                  <FormItemWrapper label="Due">
+                    <DatePicker {...field} />
+                  </FormItemWrapper>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="scheduled"
+                render={({ field }) => (
+                  <FormItemWrapper label="Scheduled">
+                    <DatePicker {...field} />
+                  </FormItemWrapper>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="wait"
+                render={({ field }) => (
+                  <FormItemWrapper label="Wait">
+                    <DatePicker {...field} />
+                  </FormItemWrapper>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="until"
+                render={({ field }) => (
+                  <FormItemWrapper label="Until">
+                    <DatePicker {...field} />
+                  </FormItemWrapper>
+                )}
+              />
+              <FormItemWrapper label="Entry">
+                <Input
+                  className="border-none bg-transparent p-0 !opacity-100 shadow-none"
+                  value={toLocaleDateString(task.entry)}
+                  disabled
+                />
+              </FormItemWrapper>
+              <FormItemWrapper label="Modified">
+                <Input
+                  className="border-none bg-transparent p-0 !opacity-100 shadow-none"
+                  value={toLocaleDateString(task.modified)}
+                  disabled
+                />
+              </FormItemWrapper>
+            </FormGroup>
           </div>
 
           <div className="h-24" />

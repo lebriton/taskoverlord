@@ -1,13 +1,15 @@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import React, { PropsWithChildren } from "react";
 
 interface GroupProps {
+  className?: string;
   name: string;
   badge?: React.ReactNode;
 }
 
-function Group({ name, badge, children }: PropsWithChildren<GroupProps>) {
+function Group({ className, name, badge, children }: PropsWithChildren<GroupProps>) {
   const [open, setOpen] = React.useState(true);
 
   const Icon = open ? ChevronDownIcon : ChevronRightIcon;
@@ -16,11 +18,14 @@ function Group({ name, badge, children }: PropsWithChildren<GroupProps>) {
     <Collapsible className="max-w-full" open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger asChild>
         <div
-          className="flex cursor-pointer items-center gap-0.5 py-0.5 pe-3 ps-0.5 text-muted-foreground hover:bg-muted/50 active:ring-1 active:ring-inset active:ring-primary/50 data-[open=true]:bg-muted/50"
+          className={cn(
+            "flex cursor-pointer items-center gap-0.5 py-0.5 pe-3 ps-0.5 text-xs font-semibold text-muted-foreground hover:bg-muted/50 active:ring-1 active:ring-inset active:ring-primary/50 data-[open=true]:bg-muted/50",
+            className,
+          )}
           data-open={open}
         >
           <Icon className="size-5" />
-          <span className="flex-1 text-xs font-semibold uppercase">{name}</span>
+          <span className="flex-1 uppercase">{name}</span>
 
           {badge && <span className="rounded-full bg-primary px-1.5 text-xs text-primary-foreground">{badge}</span>}
         </div>

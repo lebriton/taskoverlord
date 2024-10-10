@@ -22,7 +22,7 @@ const buttonVariants = cva(
         plain: "text-foreground/75 hover:text-foreground",
       },
       size: {
-        default: "h-7 px-3 text-xs",
+        default: "h-7 px-2 text-xs",
         sm: "h-6 px-1.5 text-xs",
         lg: "h-9 px-4 py-2",
         icon: "h-6 w-6",

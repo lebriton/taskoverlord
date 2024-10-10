@@ -1,8 +1,8 @@
-import FlexLine from "../custom/flex-line";
-import { SkeletonForm } from "../custom/skeleton/form-skeleton";
-import { EditTaskForm } from "../features/forms/edit-task-form";
-import { ActionButtons } from "../utils/button-utils";
 import { EmptyState } from "@/components/custom/empty-state";
+import FlexLine from "@/components/custom/flex-line";
+import { SkeletonForm } from "@/components/custom/skeleton/form-skeleton";
+import { EditTaskForm } from "@/components/features/forms/edit-task-form";
+import { ActionButtons } from "@/components/utils/button-utils";
 import { useGlobalState } from "@/contexts/global-state";
 import { getTask } from "@/lib/ipc";
 import { Task } from "@/lib/types/task";
