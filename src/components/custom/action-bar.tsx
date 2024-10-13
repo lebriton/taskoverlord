@@ -33,7 +33,7 @@ function ActionBar({ className, tabs, actions = [] }: ActionBarProps) {
           </Tabs>
         )
       }
-      end={actions && <ActionButtons actions={actions} />}
+      end={actions.length > 0 && <ActionButtons actions={actions} />}
     />
   );
 }

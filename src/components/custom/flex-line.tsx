@@ -6,14 +6,15 @@ interface FlexLineProps {
   start?: React.ReactNode;
   center?: React.ReactNode;
   end?: React.ReactNode;
+  even?: boolean;
 }
 
-export default function FlexLine({ className, start, center, end }: FlexLineProps) {
+export default function FlexLine({ className, start, center, end, even = false }: FlexLineProps) {
   return (
     <div className={cn("flex items-center justify-between", className)}>
-      <div className="ms-auto flex flex-1 justify-start">{start}</div>
-      <div>{center}</div>
-      <div className="me-auto flex flex-1 justify-end">{end}</div>
+      {start && <div className={cn("flex justify-start", even && "flex-1")}>{start}</div>}
+      {center && <div>{center}</div>}
+      {end && <div className={cn("flex justify-end", even && "flex-1")}>{end}</div>}
     </div>
   );
 }

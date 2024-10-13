@@ -36,7 +36,7 @@ function EditTaskForm({ task }: EditTaskFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3 px-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3">
         <ScrollArea>
           <div className="flex-container flex-col">
             <FormGroup name="Description">
