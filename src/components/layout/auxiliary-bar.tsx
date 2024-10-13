@@ -74,7 +74,7 @@ export default function AuxiliaryBar() {
         <EditTaskForm key={selectedTask.uuid} task={selectedTask} />
       ) : (
         <div className="size-full p-3">
-          {isFetching ? (
+          {true || isFetching ? (
             <SkeletonForm numInputs={5} />
           ) : (
             <EmptyState title="No items selected" subtitle="Pick a task to display and modify its data." />
