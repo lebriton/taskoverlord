@@ -22,10 +22,7 @@ function FormColumn({ className, children }: PropsWithChildren<FormColumnProps>)
 
 function FormGroup({ name, children }: PropsWithChildren<FormGroupProps>) {
   return (
-    <Group
-      className="border-t !bg-transparent py-1 font-bold hover:text-foreground data-[state=open]:text-foreground"
-      name={name}
-    >
+    <Group name={name}>
       <FormColumn className="pb-6 pe-3 ps-5 pt-3">{children}</FormColumn>
     </Group>
   );

@@ -19,15 +19,17 @@ function Group({ className, name, badge, children }: PropsWithChildren<GroupProp
       <CollapsibleTrigger asChild>
         <div
           className={cn(
-            "flex cursor-pointer items-center gap-0.5 py-0.5 pe-3 ps-0.5 text-xs font-semibold text-muted-foreground hover:bg-muted/50 active:ring-1 active:ring-inset active:ring-primary/50 data-[open=true]:bg-muted/50",
+            "flex cursor-pointer items-center gap-0.5 py-0.5 pe-3 ps-0.5 text-xs text-muted-foreground hover:bg-muted/50 hover:text-foreground active:ring-1 active:ring-inset active:ring-primary/50 data-[open=true]:bg-muted/50 data-[state=open]:text-foreground",
             className,
           )}
           data-open={open}
         >
           <Icon className="size-5" />
-          <span className="flex-1 uppercase">{name}</span>
+          <span className="flex-1 font-semibold uppercase">{name}</span>
 
-          {badge && <span className="rounded-full bg-primary px-1.5 text-xs text-primary-foreground">{badge}</span>}
+          {badge && (
+            <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">{badge}</span>
+          )}
         </div>
       </CollapsibleTrigger>
 
@@ -36,4 +38,8 @@ function Group({ className, name, badge, children }: PropsWithChildren<GroupProp
   );
 }
 
-export { Group };
+function GroupList({ children }: PropsWithChildren) {
+  return <div className="flex-container flex-col divide-y">{children}</div>;
+}
+
+export { Group, GroupList };

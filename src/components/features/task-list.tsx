@@ -7,7 +7,7 @@ import {
   UrgencyIcon,
   WaitDateIcon,
 } from "../utils/icon-utils";
-import { Group } from "@/components/custom/group";
+import { Group, GroupList } from "@/components/custom/group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TooltipWrapper } from "@/components/utils/tooltip-utils";
@@ -254,7 +254,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
         "[&>div>div]:!block",
       )}
     >
-      <div className="divide-y">
+      <GroupList>
         {groupedTasks.map((group, index) => (
           <Group key={index} name={group.name} badge={group.tasks.length}>
             <div className="divide-y">
@@ -274,7 +274,7 @@ function TaskList({ groupedTasks, selectedTaskUuid, onTaskSelect }: TaskListProp
             </div>
           </Group>
         ))}
-      </div>
+      </GroupList>
 
       <div className="h-24" />
     </ScrollArea>

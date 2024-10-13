@@ -1,3 +1,4 @@
+import { GroupList } from "@/components/custom/group";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { Form, FormField } from "@/components/ui/form";
@@ -38,7 +39,7 @@ function EditTaskForm({ task }: EditTaskFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-container flex flex-1 flex-col gap-3">
         <ScrollArea>
-          <div className="flex-container flex-col">
+          <GroupList>
             <FormGroup name="Description">
               <FormField
                 control={form.control}
@@ -113,7 +114,7 @@ function EditTaskForm({ task }: EditTaskFormProps) {
                 <PlainInput value={toLocaleDateString(task.modified)} />
               </FormItemWrapper>
             </FormGroup>
-          </div>
+          </GroupList>
 
           <div className="h-24" />
         </ScrollArea>
