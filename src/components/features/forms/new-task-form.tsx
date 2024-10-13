@@ -47,7 +47,12 @@ function NewTaskForm() {
   const mutation = useMutation({
     mutationFn: addTask,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({
+        // Invalidate any queries with a queryKey that starts with ["task", ...] or ["tasks", ...]
+        predicate: ({ queryKey }) => {
+          return Array.isArray(queryKey) && ["task", "tasks"].includes(queryKey[0]);
+        },
+      });
     },
   });
   const form = useForm<z.infer<typeof formSchema>>({
