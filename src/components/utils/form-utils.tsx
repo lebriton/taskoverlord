@@ -49,7 +49,7 @@ function FormItemWrapper({ label, children }: PropsWithChildren<FormItemWrapperP
 function PlainInput({ ...props }: InputProps) {
   return (
     <Input
-      className="h-auto !cursor-text border-none bg-transparent p-0 !opacity-100 shadow-none"
+      className="h-auto !cursor-text text-ellipsis border-none bg-transparent p-0 !opacity-100 shadow-none"
       disabled
       {...props}
     />
