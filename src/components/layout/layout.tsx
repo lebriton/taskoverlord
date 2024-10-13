@@ -65,15 +65,15 @@ export default function Layout({ children }: PropsWithChildren) {
       <ResizablePanelGroup direction="horizontal">
         <Navbar groups={navItems} />
 
-        <ResizablePanel defaultSize={20} minSize={15} maxSize={85} collapsible>
+        <ResizablePanel defaultSize={25} minSize={20} maxSize={85} collapsible>
           <Workbench>{children}</Workbench>
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel>
+        <ResizablePanel defaultSize={35} minSize={35}>
           <PrimaryContent />
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel defaultSize={25} minSize={25} maxSize={50} collapsible>
+        <ResizablePanel defaultSize={40} minSize={25} maxSize={50} collapsible>
           <AuxiliaryBar />
         </ResizablePanel>
       </ResizablePanelGroup>
