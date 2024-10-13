@@ -5,6 +5,7 @@ import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
 import { TaskGroup } from "@/lib/types/task";
 import { getTotalTaskCount } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ArrowUpDownIcon,
   EyeIcon,
@@ -51,6 +52,8 @@ function Header({ groupedTasks }: HeaderProps) {
 }
 
 export default function PrimaryContent() {
+  const queryClient = useQueryClient();
+
   const { groupedTasks, selectedTaskUuid, selectTask } = useGlobalState();
   const [showCompletedTasks, setShowCompletedTasks] = React.useState<boolean>(false);
 
@@ -63,7 +66,13 @@ export default function PrimaryContent() {
     {
       Icon: RotateCwIcon,
       tooltip: "Refresh",
-      onClick: () => null,
+      onClick: () =>
+        queryClient.invalidateQueries({
+          // Invalidate any queries with a queryKey that starts with ["task", ...] or ["tasks", ...]
+          predicate: ({ queryKey }) => {
+            return Array.isArray(queryKey) && ["task", "tasks"].includes(queryKey[0]);
+          },
+        }),
     },
     {
       Icon: ListFilterIcon,

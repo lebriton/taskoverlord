@@ -43,6 +43,7 @@ const formSchema = z.object({
 
 function NewTaskForm() {
   const { selectTask } = useGlobalState();
+
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: addTask,
@@ -50,6 +51,7 @@ function NewTaskForm() {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
