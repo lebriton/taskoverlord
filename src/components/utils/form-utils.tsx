@@ -50,7 +50,13 @@ function FormItemWrapper({ label, children }: PropsWithChildren<FormItemWrapperP
 }
 
 function PlainInput({ ...props }: InputProps) {
-  return <Input className="h-auto border-none bg-transparent p-0 !opacity-100 shadow-none" disabled {...props} />;
+  return (
+    <Input
+      className="h-auto !cursor-text border-none bg-transparent p-0 !opacity-100 shadow-none"
+      disabled
+      {...props}
+    />
+  );
 }
 
 export { FormColumn, FormGroup, FormItemWrapper, PlainInput };
