@@ -4,7 +4,7 @@ import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ButtonList } from "@/components/utils/button-utils";
-import { FormGroup, FormItemWrapper } from "@/components/utils/form-utils";
+import { FormGroup, FormItemWrapper, PlainInput } from "@/components/utils/form-utils";
 import { Task, taskSchema } from "@/lib/types/task";
 import { toLocaleDateString } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,6 +50,7 @@ function EditTaskForm({ task }: EditTaskFormProps) {
                 )}
               />
             </FormGroup>
+
             <FormGroup name="Action">
               <FormField
                 control={form.control}
@@ -60,6 +61,12 @@ function EditTaskForm({ task }: EditTaskFormProps) {
                   </FormItemWrapper>
                 )}
               />
+              <FormItemWrapper label="ID">
+                <PlainInput value={task.id} />
+              </FormItemWrapper>
+              <FormItemWrapper label="UUID">
+                <PlainInput value={task.uuid} />
+              </FormItemWrapper>
             </FormGroup>
 
             <FormGroup name="Dates">
@@ -100,18 +107,10 @@ function EditTaskForm({ task }: EditTaskFormProps) {
                 )}
               />
               <FormItemWrapper label="Entry">
-                <Input
-                  className="border-none bg-transparent p-0 !opacity-100 shadow-none"
-                  value={toLocaleDateString(task.entry)}
-                  disabled
-                />
+                <PlainInput value={toLocaleDateString(task.entry)} />
               </FormItemWrapper>
               <FormItemWrapper label="Modified">
-                <Input
-                  className="border-none bg-transparent p-0 !opacity-100 shadow-none"
-                  value={toLocaleDateString(task.modified)}
-                  disabled
-                />
+                <PlainInput value={toLocaleDateString(task.modified)} />
               </FormItemWrapper>
             </FormGroup>
           </div>

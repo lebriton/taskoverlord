@@ -1,4 +1,5 @@
 import { FormControl, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input, InputProps } from "../ui/input";
 import { TooltipWrapper } from "./tooltip-utils";
 import { Group } from "@/components/custom/group";
 import { cn } from "@/lib/utils";
@@ -48,4 +49,8 @@ function FormItemWrapper({ label, children }: PropsWithChildren<FormItemWrapperP
   );
 }
 
-export { FormColumn, FormGroup, FormItemWrapper };
+function PlainInput({ ...props }: InputProps) {
+  return <Input className="h-auto border-none bg-transparent p-0 !opacity-100 shadow-none" disabled {...props} />;
+}
+
+export { FormColumn, FormGroup, FormItemWrapper, PlainInput };
