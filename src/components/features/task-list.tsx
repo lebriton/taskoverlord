@@ -188,7 +188,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
   return (
     <div
-      className="group relative flex gap-2.5 py-3 pe-3 ps-5 hover:!bg-muted/50 data-[state=selected]:bg-muted/25 data-[state=selected]:ring-1 data-[state=selected]:ring-inset data-[state=selected]:ring-primary/50"
+      className="group relative flex gap-2.5 py-3 pe-3 ps-5 hover:bg-muted/50 data-[state=selected]:bg-muted data-[state=selected]:ring-1 data-[state=selected]:ring-inset data-[state=selected]:ring-primary/50"
       data-checked={checked}
       data-state={selected ? "selected" : ""}
       data-favorite={favorite}
@@ -196,7 +196,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
     >
       {/* LEFT */}
       <Checkbox
-        className="size-5 rounded-full data-[state=unchecked]:border-muted-foreground/75"
+        className="size-5 rounded-full shadow-none data-[state=unchecked]:border-muted-foreground/75"
         checked={checked}
         onClick={(event) => {
           event.stopPropagation();
@@ -205,9 +205,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
 
       {/* CENTER */}
       <div className="flex flex-1 flex-col">
-        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium group-data-[checked=true]:opacity-70">
-          {description}
-        </label>
+        <label className="overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium">{description}</label>
 
         <div className="flex items-center gap-2 text-ellipsis whitespace-nowrap group-hover:overflow-clip">
           <AttributeList task={task} />
