@@ -1,13 +1,11 @@
 import { Task, taskSchema } from "@/lib/types/task";
 import { invoke as invokeTauri } from "@tauri-apps/api/core";
 
-async function invoke<T>(command: string, params: Record<string, unknown> = {}): Promise<T> {
-  try {
-    return await invokeTauri<T>(command, params);
-  } catch (reason) {
-    console.error(`[invokeTauri] Command '${command}' failed with parameters: ${JSON.stringify(params)}`, { reason });
+function invoke<T>(command: string, params: Record<string, unknown> = {}): Promise<T> {
+  return invokeTauri<T>(command, params).catch((reason) => {
+    console.error(`[invokeTauri] Command failed`, command, params, reason);
     throw reason;
-  }
+  });
 }
 
 function _parseTask(task: any): Task {
@@ -24,10 +22,14 @@ function _parseTask(task: any): Task {
   }
 }
 
-export async function getTask(...args: any[]): Promise<Task> {
+export function addTask(...args: any[]): Promise<Task> {
+  return invoke<Task>("add_task", ...args).then(_parseTask);
+}
+
+export function getTask(...args: any[]): Promise<Task> {
   return invoke<Task>("get_task", ...args).then(_parseTask);
 }
 
-export async function getTasks(...args: any[]): Promise<Task[]> {
+export function getTasks(...args: any[]): Promise<Task[]> {
   return invoke<Task[]>("get_tasks", ...args).then((tasks) => tasks.map(_parseTask));
 }

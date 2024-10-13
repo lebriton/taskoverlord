@@ -1,7 +1,14 @@
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-import { ActionButtons, ButtonList } from "../../utils/button-utils";
+import { ActionButtons } from "../../utils/button-utils";
 import { DueDateIcon, ScheduledDateIcon, UntilDateIcon, WaitDateIcon } from "../../utils/icon-utils";
+import { Form, FormField } from "@/components/ui/form";
+import { useGlobalState } from "@/contexts/global-state";
+import { addTask } from "@/lib/ipc";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const actions = [
   {
@@ -30,19 +37,56 @@ const actions = [
   },
 ];
 
+const formSchema = z.object({
+  raw_string: z.string().min(1),
+});
+
 function NewTaskForm() {
+  const { selectTask } = useGlobalState();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: addTask,
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      raw_string: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    mutation.mutate(
+      { description: values.raw_string },
+      {
+        onSuccess: (new_task) => {
+          form.reset();
+          selectTask(new_task.uuid);
+        },
+      },
+    );
+  }
+
   return (
-    <form className="flex flex-col gap-3">
-      <Input placeholder="Enter a new task…" autoFocus />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+        <FormField
+          control={form.control}
+          name="raw_string"
+          render={({ field }) => <Input placeholder="Enter a new task…" autoFocus {...field} />}
+        />
 
-      <div className="flex items-center justify-between">
-        <ActionButtons variant="plain" actions={actions} />
+        <div className="flex items-center justify-between">
+          <ActionButtons variant="plain" actions={actions} />
 
-        <Button size="default" type="submit">
-          Save
-        </Button>
-      </div>
-    </form>
+          <Button type="submit" disabled={mutation.isPending || !form.formState.isDirty}>
+            Save
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }
 
