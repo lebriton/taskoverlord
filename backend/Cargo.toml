@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "crates/taskoverlord-taskwarrior",
+    "crates/taskoverlord-tauri",
+]
+resolver = "2"
