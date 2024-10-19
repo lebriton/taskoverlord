@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="taskoverlord.png" alt="TaskOverlord" style="max-width: 150px; height: auto;"/>
+<img src="taskoverlord.png" alt="TaskOverlord" width=150>
 
 # TaskOverlord
 
