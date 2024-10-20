@@ -7,11 +7,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function toLocaleDateString(date: Date) {
+export function toLocaleDateString(date: Date | string) {
   return format(date, "EEEE, MMMM do, yyyy", { locale: enUS });
 }
 
-export function toLocaleTimeago(date: Date, detailed: boolean = false) {
+export function toLocaleTimeago(date: Date | string, detailed: boolean = false) {
   const locale = enUS;
 
   if (detailed) {
