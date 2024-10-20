@@ -3,9 +3,8 @@ import { TypographyH3 } from "../custom/typography";
 import { TaskList } from "../features/task-list";
 import { ActionBar } from "@/components/custom/action-bar";
 import { useGlobalState } from "@/contexts/global-state";
-import { getGroupedTasks } from "@/lib/ipc";
-import { Task, TaskGroup } from "@/lib/types/task";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { commands } from "@/lib/ipc";
+import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   ArrowUpDownIcon,
@@ -17,7 +16,7 @@ import {
   RotateCwIcon,
   SearchIcon,
 } from "lucide-react";
-import React, { useEffect } from "react";
+import React from "react";
 import Pluralize from "react-pluralize";
 
 interface HeaderProps {
@@ -56,7 +55,13 @@ export default function PrimaryContent() {
   const { selectedTaskUuid, selectTask } = useGlobalState();
 
   const queryClient = useQueryClient();
-  const tasksQuery = useQuery({ queryKey: ["tasks"], queryFn: getGroupedTasks });
+  const tasksQuery = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      const tasks = await commands.getTasks();
+      return [{ name: null, tasks }];
+    },
+  });
 
   const [showCompletedTasks, setShowCompletedTasks] = React.useState<boolean>(false);
 
@@ -106,14 +111,14 @@ export default function PrimaryContent() {
 
   return (
     <div className="flex-container h-full flex-col">
-      <Header taskCount={tasksQuery.data?.task_count || 0} groupCount={tasksQuery.data?.group_count || 0} />
+      <Header taskCount={-1} groupCount={-1} />
 
       <ActionBar className="border-b" tabs={tabs} actions={actions} />
 
       {tasksQuery.isFetching ? (
         "todo loading"
       ) : (
-        <TaskList groupedTasks={tasksQuery.data.data} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
+        <TaskList groupedTasks={tasksQuery.data} selectedTaskUuid={selectedTaskUuid} onTaskSelect={selectTask} />
       )}
     </div>
   );

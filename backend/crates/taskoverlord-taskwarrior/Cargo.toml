@@ -2,3 +2,11 @@
 name = "taskoverlord-taskwarrior"
 version = "0.1.0"
 edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+chrono = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+specta = { workspace = true }
+taskoverlord-subprocess = { path = "../taskoverlord-subprocess" }

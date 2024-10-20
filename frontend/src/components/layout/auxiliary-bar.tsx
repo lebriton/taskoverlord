@@ -3,8 +3,7 @@ import { EmptyState } from "@/components/custom/empty-state";
 import { SkeletonForm } from "@/components/custom/skeleton/form-skeleton";
 import { EditTaskForm } from "@/components/features/forms/edit-task-form";
 import { useGlobalState } from "@/contexts/global-state";
-import { getTask } from "@/lib/ipc";
-import { Task } from "@/lib/types/task";
+import { commands, Task } from "@/lib/ipc";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDownIcon, ChevronUpIcon, EllipsisIcon, XIcon } from "lucide-react";
 
@@ -27,7 +26,7 @@ export default function AuxiliaryBar() {
   const { selectedTaskUuid } = useGlobalState();
   const taskQuery = useQuery({
     queryKey: ["task", selectedTaskUuid],
-    queryFn: async () => await getTask({ taskUuid: selectedTaskUuid }),
+    queryFn: async () => await commands.getTask(selectedTaskUuid || ""),
     enabled: !!selectedTaskUuid,
     staleTime: 0,
   });

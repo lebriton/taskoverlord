@@ -4,7 +4,7 @@ import { ActionButtons } from "../../utils/button-utils";
 import { DueDateIcon, ScheduledDateIcon, UntilDateIcon, WaitDateIcon } from "../../utils/icon-utils";
 import { Form, FormField } from "@/components/ui/form";
 import { useGlobalState } from "@/contexts/global-state";
-import { addTask } from "@/lib/ipc";
+import { commands } from "@/lib/ipc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -46,7 +46,10 @@ function NewTaskForm() {
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: addTask,
+    mutationFn: commands.addTask,
+    onError: (e) => {
+      console.error(e);
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },

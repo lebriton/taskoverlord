@@ -20,7 +20,18 @@
   "mainBinaryName": "TaskOverlord",
   "version": "0.1.0",
   "identifier": "com.taskoverlord.app",
-  "plugins": {},
+  "plugins": {
+    "cli": {
+      "description": "TaskOverlord CLI plugin",
+      "args": [
+        {
+          "short": "t",
+          "name": "export-ts-types",
+          "description": "Verbosity level"
+        }
+      ]
+    }
+  },
   "app": {
     "security": {
       "csp": null

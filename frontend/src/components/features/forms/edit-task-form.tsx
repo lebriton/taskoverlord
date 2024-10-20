@@ -3,19 +3,20 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FormGroup, FormItemWrapper, PlainInput } from "@/components/utils/form-utils";
-import { Task, taskSchema } from "@/lib/types/task";
+import { Task } from "@/lib/ipc";
 import { toLocaleDateString } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+// TODO: find a way to generate this from ipc types
 const formSchema = z.object({
-  description: taskSchema.shape.description,
-  status: taskSchema.shape.status,
-  due: taskSchema.shape.due,
-  scheduled: taskSchema.shape.scheduled,
-  wait: taskSchema.shape.wait,
-  until: taskSchema.shape.until,
+  // description: taskSchema.shape.description,
+  // status: taskSchema.shape.status,
+  // due: taskSchema.shape.due,
+  // scheduled: taskSchema.shape.scheduled,
+  // wait: taskSchema.shape.wait,
+  // until: taskSchema.shape.until,
 });
 
 interface EditTaskFormProps {

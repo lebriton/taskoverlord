@@ -3,8 +3,8 @@ alias dev := develop
 build *args='':
     pnpm tauri build {{args}}
 
-develop:
-    pnpm tauri dev
+develop *args='':
+    pnpm tauri dev {{args}}
 
 pre-commit:
     cd backend && cargo clippy -- -Dwarnings

@@ -1,38 +1,25 @@
-use crate::error::Error;
-use crate::taskwarrior::Task;
-use crate::taskwarrior::{self, GetGroupedTasksResponse};
+use taskoverlord_taskwarrior::Task;
 
 #[tauri::command(async)]
-pub fn add_task(description: String) -> Result<Task, Error> {
-    Ok(taskwarrior::add_task(description)?)
+#[specta::specta]
+pub fn add_task(description: String) -> Task {
+    taskoverlord_taskwarrior::add_task(description).unwrap()
 }
 
 #[tauri::command(async)]
-pub fn get_grouped_tasks() -> Result<GetGroupedTasksResponse, Error> {
-    Ok(taskwarrior::get_grouped_tasks()?)
+#[specta::specta]
+pub fn get_projects() -> Vec<String> {
+    taskoverlord_taskwarrior::get_projects().unwrap()
 }
 
 #[tauri::command(async)]
-pub fn get_projects() -> Result<Vec<String>, Error> {
-    Ok(taskwarrior::get_projects()?)
+#[specta::specta]
+pub fn get_task(task_uuid: String) -> Task {
+    taskoverlord_taskwarrior::get_task(task_uuid).unwrap()
 }
 
 #[tauri::command(async)]
-pub fn get_task(task_uuid: String) -> Result<Task, Error> {
-    Ok(taskwarrior::get_task(task_uuid)?)
-}
-
-#[tauri::command(async)]
-pub fn get_tasks() -> Result<Vec<Task>, Error> {
-    Ok(taskwarrior::get_tasks()?)
-}
-
-#[tauri::command(async)]
-pub fn modify_task(task_uuid: String, description: Option<String>) -> Result<(), Error> {
-    Ok(taskwarrior::modify_task(task_uuid, description)?)
-}
-
-#[tauri::command(async)]
-pub fn modify_task_status(task_uuid: String, action: String) -> Result<(), Error> {
-    Ok(taskwarrior::modify_task_status(task_uuid, action)?)
+#[specta::specta]
+pub fn get_tasks() -> Vec<Task> {
+    taskoverlord_taskwarrior::get_tasks().unwrap()
 }

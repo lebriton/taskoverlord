@@ -1,6 +1,16 @@
 [workspace]
-members = [
+members = [ "crates/taskoverlord-subprocess",
     "crates/taskoverlord-taskwarrior",
     "crates/taskoverlord-tauri",
 ]
 resolver = "2"
+
+[workspace.dependencies]
+anyhow = "1.0.90"
+chrono = { version = "0.4.38", features = ["serde"] }
+tauri = { version = "2.0.0-rc.15", features = [] }
+tauri-specta = { version = "=2.0.0-rc.20", features = ["derive", "typescript"] }
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.132"
+specta = { version = "=2.0.0-rc.20", features = ["chrono"] }
+specta-typescript = "0.0.7"
