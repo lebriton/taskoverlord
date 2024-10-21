@@ -196,7 +196,7 @@ function TaskItem({ task, selected, onSelect }: TaskItemProps) {
     >
       {/* LEFT */}
       <Checkbox
-        className="size-5 rounded-full shadow-none data-[state=unchecked]:border-muted-foreground/75"
+        className="size-5 rounded-full data-[state=unchecked]:border-muted-foreground/75"
         checked={checked}
         onClick={(event) => {
           event.stopPropagation();
