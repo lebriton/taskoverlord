@@ -64,7 +64,8 @@ function NewTaskForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutation.mutate(
-      { description: values.raw_string },
+      values.raw_string,
+
       {
         onSuccess: (new_task) => {
           form.reset();
