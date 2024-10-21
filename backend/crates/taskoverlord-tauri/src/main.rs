@@ -6,27 +6,8 @@ mod commands;
 use commands::{add_task, get_projects, get_task, get_tasks};
 use specta_typescript::Typescript;
 use taskoverlord_taskwarrior::{TaskGroup, TaskStatus};
-use tauri::App;
-use tauri_plugin_cli::CliExt;
+use tauri_plugin_cli::{CliExt, Matches};
 use tauri_specta::{collect_commands, Builder};
-
-fn handle_cli_matches(builder: &Builder, app: &mut App) {
-    match app.cli().matches() {
-        Ok(matches) => {
-            if let Some(arg_data) = matches.args.get("export-ts-types") {
-                if arg_data.value == true {
-                    #[cfg(debug_assertions)] // <- Only export on non-release builds
-                    builder
-                        .export(Typescript::default(), "../../../frontend/src/lib/ipc.ts")
-                        .expect("failed to export typescript bindings");
-                }
-            }
-        }
-        Err(e) => {
-            eprintln!("{}", e);
-        }
-    }
-}
 
 fn main() {
     let builder = Builder::<tauri::Wry>::new()
@@ -43,10 +24,26 @@ fn main() {
         .invoke_handler(builder.invoke_handler())
         .plugin(tauri_plugin_cli::init())
         .setup(move |app| {
-            handle_cli_matches(&builder, app);
+            match app.cli().matches() {
+                Ok(matches) => handle_cli_matches(matches, &builder),
+                Err(e) => eprintln!("{}", e),
+            }
             builder.mount_events(app);
             Ok(())
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+fn handle_cli_matches(matches: Matches, builder: &Builder) {
+    if matches
+        .args
+        .get("export-ts-types")
+        .is_some_and(|arg_data| arg_data.value == true)
+    {
+        #[cfg(debug_assertions)] // <- Only export on non-release builds
+        builder
+            .export(Typescript::default(), "../../../frontend/src/lib/ipc.ts")
+            .expect("failed to export typescript bindings");
+    }
 }
